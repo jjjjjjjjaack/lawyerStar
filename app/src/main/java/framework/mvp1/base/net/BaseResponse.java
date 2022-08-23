@@ -22,9 +22,9 @@ public class BaseResponse extends BaseBean {
         this.orgin = content;
         try {
             JSONObject json = JSONObject.parseObject(content);
-            this.code = json.getIntValue("status");
-            this.datas = json.getString("content");
-            this.msg = json.getString("message");
+            this.code = json.getIntValue("code");
+            this.datas = json.getString("data");
+            this.msg = json.getString("msg");
         } catch (Exception e) {
             e.printStackTrace();
             this.code = NET_CODE.C_M1;// 解析异常

@@ -23,7 +23,7 @@ android {
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "API_URL", "\"\""   //正式
-            buildConfigField "String", "API_URL", "\"\""   //测试
+            buildConfigField "String", "API_URL", "\"http://vw2z33.natappfree.cc\""   //测试
         }
     }
 
@@ -99,4 +99,6 @@ dependencies {
     implementation 'com.youth.banner:banner:2.1.0'
     //
     implementation 'com.github.ronghao:AutoScrollTextView:1.0.3'
+    //
+    implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
 }

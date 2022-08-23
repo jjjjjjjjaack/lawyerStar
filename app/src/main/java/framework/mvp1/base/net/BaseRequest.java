@@ -18,7 +18,7 @@ import framework.mvp1.base.util.ToolUtils;
  */
 
 public class BaseRequest implements java.io.Serializable {
-
+    public String testJson = "";
     public boolean needEncode = true;//是否需要解密
 
     public boolean needHandleResponse = true;
@@ -59,17 +59,21 @@ public class BaseRequest implements java.io.Serializable {
         for (Field field : fields) {
             try {
 //                AnnReqPara annBReq = field.getAnnotation(AnnReqPara.class);
+                if(field.get(this)==null){
+                    continue;
+                }
                 String fldSetName = field.getName();//判断是否使用注解
                 boolean hasAnnotation = field.isAnnotationPresent(AnnReqPara.class);
-                if(hasAnnotation){
+
+                if (hasAnnotation) {
                     AnnReqPara annBReq = field.getAnnotation(AnnReqPara.class);
                     String annName = annBReq.name();
-                    if(!ToolUtils.isNull(annName)){
+                    if (!ToolUtils.isNull(annName)) {
                         map.put(annName, field.get(this));
-                    }else{
+                    } else {
                         map.put(fldSetName, field.get(this));
                     }
-                }else {
+                } else {
                     map.put(fldSetName, field.get(this));
                 }
             } catch (Exception e) {
@@ -132,7 +136,6 @@ public class BaseRequest implements java.io.Serializable {
     }
 
     /**
-     *
      * @param object
      * @return true  通过；false 不通过
      */
@@ -174,7 +177,7 @@ public class BaseRequest implements java.io.Serializable {
                             return false;
                         }
                     } else {
-                        return checkObjectNull(context,field.get(this));
+                        return checkObjectNull(context, field.get(this));
                     }
                 }
             } catch (Exception e) {
@@ -183,39 +186,39 @@ public class BaseRequest implements java.io.Serializable {
         return true;
     }
 
-        /**
-         * 拼接某属性set 方法
-         *
-         * @param fldname
-         * @return
-         */
-        private static String pareSetName (String fldname){
-            if (null == fldname || "".equals(fldname)) {
-                return null;
-            }
-            String pro = "get" + fldname.substring(0, 1).toUpperCase()
-                    + fldname.substring(1);
-            return pro;
+    /**
+     * 拼接某属性set 方法
+     *
+     * @param fldname
+     * @return
+     */
+    private static String pareSetName(String fldname) {
+        if (null == fldname || "".equals(fldname)) {
+            return null;
         }
+        String pro = "get" + fldname.substring(0, 1).toUpperCase()
+                + fldname.substring(1);
+        return pro;
+    }
 
 
-        /**
-         * 判断该方法是否存在
-         *
-         * @param methods
-         * @param met
-         * @return
-         */
-        private static boolean checkMethod (Method methods[], String met){
-            if (null != methods) {
-                for (Method method : methods) {
-                    if (met.equals(method.getName())) {
-                        return true;
-                    }
+    /**
+     * 判断该方法是否存在
+     *
+     * @param methods
+     * @param met
+     * @return
+     */
+    private static boolean checkMethod(Method methods[], String met) {
+        if (null != methods) {
+            for (Method method : methods) {
+                if (met.equals(method.getName())) {
+                    return true;
                 }
             }
-            return false;
         }
-
-
+        return false;
     }
+
+
+}

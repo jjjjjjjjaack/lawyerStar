@@ -10,19 +10,25 @@ public class GlideUtils {
 
     //设置加载中以及加载失败图片
     public static void loadImageDefult(Context mContext, Object path, ImageView mImageView) {
+        if(path!=null&&path.toString().contains("http://192.168.1.143")){
+           path = path.toString().replace("http://192.168.1.143","http://vw2z33.natappfree.cc");
+        }
         Glide.with(mContext).load(path).placeholder(R.mipmap.ic_noimage2).dontAnimate().error(R.mipmap.ic_noimage2)
                 .into(mImageView);
     }
 
     //设置加载中以及加载失败图片
-    public static void loadImageDeviceDefult(Context mContext, String path, ImageView mImageView) {
-        Glide.with(mContext).load(path).placeholder(R.mipmap.ic_transparent).dontAnimate().error(R.mipmap.ic_transparent)
+    public static void loadImageUserLogoDefult(Context mContext, String path, ImageView mImageView) {
+        if(path!=null&&path.toString().contains("http://192.168.1.143")){
+            path = path.toString().replace("http://192.168.1.143","http://vw2z33.natappfree.cc");
+        }
+        Glide.with(mContext).load(path).placeholder(R.mipmap.ic_noimage2).dontAnimate().error(R.mipmap.ic_noimage2)
                 .into(mImageView);
     }
 
     //设置加载中以及加载失败图片
     public static void loadImageRoomDefult(Context mContext, String path, ImageView mImageView) {
-//        Glide.with(mContext).load(path).placeholder(R.mipmap.bg_room_list_item).dontAnimate().error(R.mipmap.bg_room_list_item)
+//        Glide.with(mContext).load(path).placeholder(R.mipmap.ic_transparent).dontAnimate().error(R.mipmap.ic_transparent)
 //                .into(mImageView);
         Glide.with(mContext).load(path).into(mImageView);
     }

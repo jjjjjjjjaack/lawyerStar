@@ -15,12 +15,12 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name="com.qbo.lawyerstar.app.module.splash.SplashAct">
+        <activity android:name="com.qbo.lawyerstar.app.module.splash.SplashAct"></activity>
+        <activity android:name="com.qbo.lawyerstar.app.module.main.VpMainAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.qbo.lawyerstar.app.module.main.VpMainAct" />
     </application>
 </manifest>

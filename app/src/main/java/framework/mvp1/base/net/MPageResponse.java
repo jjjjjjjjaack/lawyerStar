@@ -21,9 +21,9 @@ public abstract class MPageResponse<T extends BaseBean> extends BaseResponse {
     public void fromJSON(String content) {
         super.fromJSON(content);
         try {
-            JSONObject json = JSONObject.parseObject(content);
-            this.total = json.getInteger("totalCount");
-            this.rows = (List<T>) T.fromJSONListAuto(json.getString("data"), getBeanType());
+            JSONObject json = JSONObject.parseObject(datas);
+            this.total = json.getInteger("total");
+            this.rows = (List<T>) T.fromJSONListAuto(json.getString("rows"), getBeanType());
         } catch (Exception e) {
             this.total = 0;
             this.rows = new ArrayList<>();

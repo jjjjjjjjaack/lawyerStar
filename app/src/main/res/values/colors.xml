@@ -7,8 +7,8 @@
     <color name="pressed_color">#B8F2F5</color>
     <color name="default_color">#E8FEFF</color>
     <!--背景色-->
-    <color name="main_bg">#fff5f5f5</color>
-    <color name="main_color">#fff87171</color>
+    <color name="main_bg">#fff4f4f4</color>
+    <color name="main_color">#ff02c4c3</color>
 
     <color name="ffffff">#ffffff</color>
     <color name="c_ffffff">#ffffff</color>
@@ -21,6 +21,7 @@
     <color name="c_35B430">#35B430</color>
     <color name="c_989898">#989898</color>
     <color name="c_f9d89e">#f9d89e</color>
+    <color name="c_f4f4f4">#f4f4f4</color>
     <color name="c_f4f5f6">#f4f5f6</color>
     <color name="c_454545">#454545</color>
     <color name="c_d43d3d">#d43d3d</color>

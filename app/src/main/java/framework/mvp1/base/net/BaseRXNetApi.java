@@ -1,8 +1,11 @@
 package framework.mvp1.base.net;
 
 
+import android.os.Handler;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
 
@@ -37,7 +40,7 @@ import rx.Subscriber;
  */
 
 public class BaseRXNetApi {
-
+    public static boolean isLocal = false;
     public static final String TAG = "BaseRXNetApi";
 
     public static final String ORGIN_KEY = "-SAFG-";
@@ -127,35 +130,35 @@ public class BaseRXNetApi {
         } else {
             url = API_METHOD;
         }
-        String params_str ="";
+        String params_str = "";
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder.url(url);
         FormBody.Builder builder = new FormBody.Builder();
+        String paramsfinal = "";
         if (baseRequest != null) {
             Map<String, Object> mapParams = baseRequest.bulitReqMap();
             if (mapParams != null) {
-                for (Map.Entry<String,Object> entry:mapParams.entrySet()){
-                    if(entry.getValue()!=null) {
-                        builder.add(entry.getKey(), entry.getValue().toString());
-                        params_str+=(entry.getKey()+":"+entry.getValue()+",");
-                    }
-                }
+                String value = JSONObject.toJSONString(mapParams, SerializerFeature.DisableCircularReferenceDetect);
+                paramsfinal = value;
+                Log.i(TAG, "发送请求，路径：" + API_METHOD + " ,参数: " + value);
             }
+//            paramsfinal = getMd5Value(getMd5Value(getApiStr2(mapParams)) + NETAPI);
         }
         String userToken = "";
         try {
             FToken token = FTokenUtils.getToken(MyApplication.getApp(), false);
             userToken = token.getToken();
-            builder.add("token",userToken);
-            params_str+=("token"+":"+userToken);
+            builder.add("token", userToken);
+            params_str += ("token" + ":" + userToken);
         } catch (NeedLoginException e) {
         }
-        requestBuilder.post(builder.build());
+        RequestBody body = RequestBody.create(paramsfinal, MediaType.parse(AContetType));
+        requestBuilder.post(body);
         String language = LanguageUtils.getAppLanguage(MyApplication.getApp());
         requestBuilder.addHeader("Appverion", Isapp).addHeader("Token", userToken).addHeader("Accept", "application/json").
                 addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt).addHeader("Language", language).addHeader("Nowversion", MyApplication.getApp().currentVersionName);
         Request request = requestBuilder.build();
-        Log.i(TAG,"post->"+url+":{"+params_str+"}");
+        Log.i(TAG, "post->" + url + ":{" + params_str + "}");
         return request;
     }
 
@@ -209,8 +212,13 @@ public class BaseRXNetApi {
         } catch (NeedLoginException e) {
         }
         String language = LanguageUtils.getAppLanguage(MyApplication.getApp());
-        Request request = requestBuilder.addHeader("Appverion", Isapp).addHeader("Token", userToken).addHeader("Accept", "application/json").
-                addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt).addHeader("Language", language).addHeader("Nowversion", MyApplication.getApp().currentVersionName).build();
+        Request request = requestBuilder.addHeader("Appverion", Isapp)
+                .addHeader("port", "front")
+                .addHeader("Token", userToken)
+                .addHeader("Accept", "application/json")
+                .addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt)
+                .addHeader("Language", language)
+                .addHeader("Nowversion", MyApplication.getApp().currentVersionName).build();
         return request;
     }
 
@@ -270,6 +278,59 @@ public class BaseRXNetApi {
     public static final <K extends BaseResponse> Observable<K> rx_doExecuteQuick(final String API_METHOD, final
     RXExecuteType
             type, final BaseRequest req, final Class<K> clazz) {
+
+        if (isLocal) {
+            return Observable.create(new Observable.OnSubscribe<K>() {
+                @Override
+                public void call(final Subscriber<? super K> subscriber) {
+                    if (!subscriber.isUnsubscribed()) {
+                        subscriber.onStart();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                String bodyStr = req.testJson;
+//                            bodyStr = DecipheringValue(bodyStr, key);
+//                            Log.i(TAG, API_METHOD + ":" + bodyStr);
+                                K baseResponse = null;
+                                try {
+                                    baseResponse = clazz.newInstance();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    subscriber.onError(new NetException(NET_CODE.C_M3, ToolUtils.isNull(baseResponse
+                                            .msg) ? MyApplication.getApp().getString(R.string.BaseRXNetApi_string1) : baseResponse.msg));
+                                    return;
+                                }
+                                if (!req.needHandleResponse) {
+                                    baseResponse.orgin = bodyStr;
+                                    baseResponse.code = NET_CODE.C_200;
+                                    subscriber.onNext(baseResponse);
+                                    subscriber.onCompleted();
+                                    return;
+                                }
+                                baseResponse.fromJSON(bodyStr);
+                                Log.i(TAG + "_rel", API_METHOD + ":" + bodyStr);
+                                switch (baseResponse.code) {
+                                    case NET_CODE.C_200:
+//                                case NET_CODE.C_501:
+                                        subscriber.onNext(baseResponse);
+                                        subscriber.onCompleted();
+                                        break;
+                                    case NET_CODE.C_403:
+                                        subscriber.onError(new NetException(baseResponse.code, ToolUtils.isNull(baseResponse
+                                                .msg) ? MyApplication.getApp().getString(R.string.BaseRXNetApi_string2) : baseResponse.msg, baseResponse));
+                                        break;
+                                    default:
+                                        subscriber.onError(new NetException(baseResponse.code, ToolUtils.isNull(baseResponse
+                                                .msg) ? MyApplication.getApp().getString(R.string.BaseRXNetApi_string1) : baseResponse.msg, baseResponse));
+                                        break;
+                                }
+                            }
+                        }, 3000);
+                    }
+                }
+            });
+        }
+
         return Observable.create(new Observable.OnSubscribe<K>() {
             @Override
             public void call(final Subscriber<? super K> subscriber) {
@@ -323,11 +384,11 @@ public class BaseRXNetApi {
                                     break;
                                 case NET_CODE.C_403:
                                     subscriber.onError(new NetException(baseResponse.code, ToolUtils.isNull(baseResponse
-                                            .msg) ? MyApplication.getApp().getString(R.string.BaseRXNetApi_string2) : baseResponse.msg,baseResponse));
+                                            .msg) ? MyApplication.getApp().getString(R.string.BaseRXNetApi_string2) : baseResponse.msg, baseResponse));
                                     break;
                                 default:
                                     subscriber.onError(new NetException(baseResponse.code, ToolUtils.isNull(baseResponse
-                                            .msg) ? MyApplication.getApp().getString(R.string.BaseRXNetApi_string1) : baseResponse.msg,baseResponse));
+                                            .msg) ? MyApplication.getApp().getString(R.string.BaseRXNetApi_string1) : baseResponse.msg, baseResponse));
                                     break;
                             }
                         }
@@ -422,7 +483,7 @@ public class BaseRXNetApi {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String bodyStr = response.body().string();
-                            String key = "" ;
+                            String key = "";
                             Log.i(TAG, API_METHOD + ":" + bodyStr);
                             K baseResponse = null;
                             try {
