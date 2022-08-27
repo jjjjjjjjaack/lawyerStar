@@ -21,15 +21,19 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
+import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.JnCache;
 import framework.mvp1.base.util.PermissionUtils;
+import framework.mvp1.base.util.SpanManager;
 import framework.mvp1.base.util.StatusBarUtils;
 import framework.mvp1.views.other.IndicatorView;
 
@@ -42,7 +46,6 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
     public String[] PERMISSIONS = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,
     };
 
     @BindView(R.id.splash_layout)
@@ -55,6 +58,15 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
     ViewPager2 guide_vp;
     @BindView(R.id.indicator)
     IndicatorView indicator;
+
+    @BindView(R.id.pact_tv)
+    View pact_tv;
+    @BindView(R.id.login_ll)
+    View login_ll;
+    @BindView(R.id.accountlogin_tv)
+    View accountlogin_tv;
+    @BindView(R.id.tv_pact_text)
+    TextView tv_pact_text;
 
     boolean isjump;
 
@@ -71,8 +83,8 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
             } else {
                 String first = JnCache.getCache(SplashAct.this, "first_insert");
                 if (!"1".equals(first)) {
-//                    intentMainAct();
-                    showGuidePage();
+                    intentMainAct();
+//                    showGuidePage();
                 } else {
                     intentMainAct();
                 }
@@ -104,6 +116,12 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
     @Override
     public void viewInitialization() {
+        accountlogin_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoActivity(LoginAct.class);
+            }
+        });
     }
 
 
@@ -162,27 +180,6 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
             ActivityCompat.requestPermissions(SplashAct.this, PERMISSIONS, 1);
         } else {
             SplashAct.this.doNotUpdate();
-//            CheckUpdatesVersionUtil.getInstance().doVersionCheck(SplashAct.this, splash_layout, new PopupVersionSelectView.ISelectUpdate() {
-//                @Override
-//                public void erro() {
-//                    SplashAct.this.doNotUpdate();
-//                }
-//
-//                @Override
-//                public void doNotUpdate() {
-//                    SplashAct.this.doNotUpdate();
-//                }
-//
-//                @Override
-//                public void agreeUpdate() {
-//                    CheckUpdatesVersionUtil.getInstance().readyDownload(SplashAct.this);
-//                }
-//
-//                @Override
-//                public void disagreeUpdate() {
-//                    SplashAct.this.doNotUpdate();
-//                }
-//            });
         }
     }
 
@@ -195,7 +192,61 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
      * 进入主界面
      */
     private void intentMainAct() {
-        VpMainAct.openMainAct(getMContext());
+
+        try {
+            FTokenUtils.getToken(this, false);
+            VpMainAct.openMainAct(getMContext());
+        } catch (NeedLoginException e) {
+            showLoginView();
+        }
+    }
+
+    /**
+     * @param
+     * @return
+     * @description
+     * @author jiejack
+     * @time 2022/8/27 10:21 上午
+     */
+    private void showLoginView() {
+        login_ll.setVisibility(View.VISIBLE);
+        initPactText(getMContext(),tv_pact_text);
+        pact_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pact_tv.setSelected(!pact_tv.isSelected());
+            }
+        });
+    }
+
+
+    /**
+     * 初始化协议文本颜色
+     */
+    public static void initPactText(Context context,TextView tv_pact_text) {
+        String pact0 = "《用户协议》";
+        String pact1 = "《隐私协议》";
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("我已阅读并同意");
+        int pactStart0 = buffer.length();
+        buffer.append(pact0);
+        int pactEnd0 = buffer.length();
+        buffer.append(" ");
+        int pactStart1 = buffer.length();
+        buffer.append(pact1);
+        int pactEnd1 = buffer.length();
+        SpanManager spanManager = SpanManager.getInstance(buffer.toString());
+        spanManager.setClickableSpan(pactStart0, pactEnd0, tv_pact_text, new SpanManager.OnTextClickedListener() {
+            @Override
+            public void onTextClicked(View view) {
+            }
+        }).setForegroundColorSpan(pactStart0, pactEnd0, context.getResources().getColor(R.color.c_02c4c3));
+        spanManager.setClickableSpan(pactStart1, pactEnd1, tv_pact_text, new SpanManager.OnTextClickedListener() {
+            @Override
+            public void onTextClicked(View view) {
+            }
+        }).setForegroundColorSpan(pactStart1, pactEnd1, context.getResources().getColor(R.color.c_02c4c3));
+        tv_pact_text.setText(spanManager.toBuild());
     }
 
     private void showGuidePage() {
@@ -232,7 +283,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
         @Override
         public void onBindViewHolder(@NonNull ViewPagerAdapter.ViewHolder holder, int position) {
-            holder.bindViews(titletx.get(position),position);
+            holder.bindViews(titletx.get(position), position);
         }
 
         @Override

@@ -30,6 +30,7 @@ import butterknife.BindViews;
 import framework.mvp1.base.f.BaseFrag;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.util.ActivityStackUtils;
 import framework.mvp1.base.util.CheckVersionUtils;
 import framework.mvp1.base.util.StatusBarUtils;
 import framework.mvp1.base.util.T;
@@ -41,8 +42,9 @@ import static framework.mvp1.base.constant.BROConstant.EXIT_APP_ACTION;
 public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> implements IMainView {
 
     public static void openMainAct(Context context) {
-        Intent closeIntent = new Intent(EXIT_APP_ACTION);
-        context.sendBroadcast(closeIntent);
+//        Intent closeIntent = new Intent(EXIT_APP_ACTION);
+//        context.sendBroadcast(closeIntent);
+        ActivityStackUtils.getInstance().clearAllActivity();
         context.startActivity(new Intent(context, VpMainAct.class));
     }
 

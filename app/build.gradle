@@ -23,7 +23,7 @@ android {
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "API_URL", "\"\""   //正式
-            buildConfigField "String", "API_URL", "\"http://vw2z33.natappfree.cc\""   //测试
+            buildConfigField "String", "API_URL", "\"http://eqezvb.natappfree.cc/\""   //测试
         }
     }
 

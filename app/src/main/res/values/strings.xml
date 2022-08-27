@@ -13,11 +13,12 @@
     <string name="BaseRXNetApi_string2">操作失败</string>
     <string name="no_data">暂无数据</string>
     <string name="defult_data">---</string>
-    <string name="register_send_code">发送验证码</string>
+    <string name="register_send_code">获取验证码</string>
     <string name="register_send_code_1">%s 秒</string>
     <string name="register_send_code_2">重新发送</string>
     <string name="msg_code">短信已发送,请稍后点击</string>
     <string name="msg_code_null">内容不能为空</string>
+    <string name="please_login_tx">请登录</string>
     <!-- guide.java -->
     <string name="guide_start_tx1">立即开启</string>
     <string name="guide_tx1">简单易懂,学习成本低</string>
@@ -73,6 +74,33 @@
     <string name="law_business_frag_tx3">法律咨询</string>
     <string name="law_business_frag_tx4">费用计算</string>
 
+    <string name="mine_tx1">个人信息</string>
+    <string name="mine_tx2">查看权益</string>
+    <string name="mine_tx3">法律咨询</string>
+    <string name="mine_tx4">其他功能</string>
 
+
+    <string name="mine_function_tx1">合同下载</string>
+    <string name="mine_function_tx2">代写文书</string>
+    <string name="mine_function_tx3">法律咨询</string>
+    <string name="mine_function_tx4">律师函</string>
+    <string name="mine_function_tx5">合同定制</string>
+    <string name="mine_function_tx6">合同审核</string>
+    <string name="mine_function_tx7">案件委托</string>
+    <string name="mine_function_tx8">我的订单</string>
+    <string name="mine_function_tx9">电子签章</string>
+    <string name="mine_function_tx10">投诉建议</string>
+    <string name="mine_function_tx11">设置</string>
+
+    <string name="splash_tx1">手机号登录/注册</string>
+    <string name="splash_tx2">微信登录</string>
+
+    <string name="login_tx1">手机号注册/登录</string>
+    <string name="login_tx2">未注册的手机号将自动创建律师星账号</string>
+    <string name="login_tx3">输入手机号</string>
+    <string name="login_tx4">输入验证码</string>
+    <string name="login_tx5">确认登录</string>
+    <string name="login_tx6">-其它登录方式-</string>
+    <string name="login_tx7">请先同意用户协议与隐私协议</string>
 
 </resources>

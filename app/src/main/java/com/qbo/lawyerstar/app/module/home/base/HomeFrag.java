@@ -1,5 +1,18 @@
 package com.qbo.lawyerstar.app.module.home.base;
 
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_10_WYJJS;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_11_GSPC;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_12_DZQZ;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_1_HTWK;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_2_DXWS;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_3_FLZX;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_4_LSH;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_5_HTDZ;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_6_HTSH;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_7_FSCG;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_8_ZCSS;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_9_SSFJS;
+
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
@@ -152,18 +165,18 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
         news_rcv.setAdapter(newsAdapter);
 
         List<FuntionBean> funtionBeans = new ArrayList<>();
-        funtionBeans.add(new FuntionBean(0, getString(R.string.home_frag_function_tx1), R.mipmap.ic_h_function_1));
-        funtionBeans.add(new FuntionBean(1, getString(R.string.home_frag_function_tx2), R.mipmap.ic_h_function_2));
-        funtionBeans.add(new FuntionBean(2, getString(R.string.home_frag_function_tx3), R.mipmap.ic_h_function_3));
-        funtionBeans.add(new FuntionBean(3, getString(R.string.home_frag_function_tx4), R.mipmap.ic_h_function_4));
-        funtionBeans.add(new FuntionBean(4, getString(R.string.home_frag_function_tx5), R.mipmap.ic_h_function_5));
-        funtionBeans.add(new FuntionBean(5, getString(R.string.home_frag_function_tx6), R.mipmap.ic_h_function_6));
-        funtionBeans.add(new FuntionBean(6, getString(R.string.home_frag_function_tx7), R.mipmap.ic_h_function_7));
-        funtionBeans.add(new FuntionBean(7, getString(R.string.home_frag_function_tx8), R.mipmap.ic_h_function_8));
-        funtionBeans.add(new FuntionBean(8, getString(R.string.home_frag_function_tx9), R.mipmap.ic_h_function_9));
-        funtionBeans.add(new FuntionBean(9, getString(R.string.home_frag_function_tx10), R.mipmap.ic_h_function_10));
-        funtionBeans.add(new FuntionBean(10, getString(R.string.home_frag_function_tx11), R.mipmap.ic_h_function_11));
-        funtionBeans.add(new FuntionBean(11, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
+        funtionBeans.add(new FuntionBean(FUNCTION_1_HTWK, getString(R.string.home_frag_function_tx1), R.mipmap.ic_h_function_1));
+        funtionBeans.add(new FuntionBean(FUNCTION_2_DXWS, getString(R.string.home_frag_function_tx2), R.mipmap.ic_h_function_2));
+        funtionBeans.add(new FuntionBean(FUNCTION_3_FLZX, getString(R.string.home_frag_function_tx3), R.mipmap.ic_h_function_3));
+        funtionBeans.add(new FuntionBean(FUNCTION_4_LSH, getString(R.string.home_frag_function_tx4), R.mipmap.ic_h_function_4));
+        funtionBeans.add(new FuntionBean(FUNCTION_5_HTDZ, getString(R.string.home_frag_function_tx5), R.mipmap.ic_h_function_5));
+        funtionBeans.add(new FuntionBean(FUNCTION_6_HTSH, getString(R.string.home_frag_function_tx6), R.mipmap.ic_h_function_6));
+        funtionBeans.add(new FuntionBean(FUNCTION_7_FSCG, getString(R.string.home_frag_function_tx7), R.mipmap.ic_h_function_7));
+        funtionBeans.add(new FuntionBean(FUNCTION_8_ZCSS, getString(R.string.home_frag_function_tx8), R.mipmap.ic_h_function_8));
+        funtionBeans.add(new FuntionBean(FUNCTION_9_SSFJS, getString(R.string.home_frag_function_tx9), R.mipmap.ic_h_function_9));
+        funtionBeans.add(new FuntionBean(FUNCTION_10_WYJJS, getString(R.string.home_frag_function_tx10), R.mipmap.ic_h_function_10));
+        funtionBeans.add(new FuntionBean(FUNCTION_11_GSPC, getString(R.string.home_frag_function_tx11), R.mipmap.ic_h_function_11));
+        funtionBeans.add(new FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
 
         functionAdapter.setData(funtionBeans);
 

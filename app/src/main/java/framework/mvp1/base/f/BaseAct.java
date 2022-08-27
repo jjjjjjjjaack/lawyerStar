@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import framework.mvp1.base.constant.BROConstant;
 import framework.mvp1.base.constant.IETConstant;
+import framework.mvp1.base.util.ActivityStackUtils;
 import framework.mvp1.base.util.LanguageUtils;
 import framework.mvp1.base.util.LoadingUtils;
 import framework.mvp1.base.util.ToolUtils;
@@ -125,6 +126,7 @@ public abstract class BaseAct extends AppCompatActivity {
         className = this.getClass().getSimpleName();
         baseInitialization();
         super.onCreate(savedInstanceState);
+        ActivityStackUtils.getInstance().pushActivity(this);
 //        if (styleControl) {
 //            super.setContentView(R.layout.act_compat_status_bar);
 //            mViewStatusBarPlace = findViewById(R.id.view_status_bar_place);
@@ -222,6 +224,7 @@ public abstract class BaseAct extends AppCompatActivity {
             unbinder = null;
         }
         doReleaseSomething();
+        ActivityStackUtils.getInstance().popActivity(this);
     }
 
     /**

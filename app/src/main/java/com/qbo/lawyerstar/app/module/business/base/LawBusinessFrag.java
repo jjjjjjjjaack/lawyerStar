@@ -1,5 +1,21 @@
 package com.qbo.lawyerstar.app.module.business.base;
 
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_10_WYJJS;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_11_GSPC;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_12_DZQZ;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_13_FWZX;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_14_ZXZX;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_15_AIFW;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_1_HTWK;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_2_DXWS;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_3_FLZX;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_4_LSH;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_5_HTDZ;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_6_HTSH;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_7_FSCG;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_8_ZCSS;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_9_SSFJS;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
@@ -145,27 +161,27 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
 
 
         List<HomeFrag.FuntionBean> funtion_1_Beans = new ArrayList<>();
-        funtion_1_Beans.add(new HomeFrag.FuntionBean(0, getString(R.string.home_frag_function_tx1), R.mipmap.ic_h_function_1));
-        funtion_1_Beans.add(new HomeFrag.FuntionBean(1, getString(R.string.home_frag_function_tx2), R.mipmap.ic_h_function_2));
-        funtion_1_Beans.add(new HomeFrag.FuntionBean(3, getString(R.string.home_frag_function_tx4), R.mipmap.ic_h_function_4));
-        funtion_1_Beans.add(new HomeFrag.FuntionBean(4, getString(R.string.home_frag_function_tx5), R.mipmap.ic_h_function_5));
-        funtion_1_Beans.add(new HomeFrag.FuntionBean(5, getString(R.string.home_frag_function_tx6), R.mipmap.ic_h_function_6));
-        funtion_1_Beans.add(new HomeFrag.FuntionBean(11, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
+        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_1_HTWK, getString(R.string.home_frag_function_tx1), R.mipmap.ic_h_function_1));
+        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_2_DXWS, getString(R.string.home_frag_function_tx2), R.mipmap.ic_h_function_2));
+        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_4_LSH, getString(R.string.home_frag_function_tx4), R.mipmap.ic_h_function_4));
+        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_5_HTDZ, getString(R.string.home_frag_function_tx5), R.mipmap.ic_h_function_5));
+        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_6_HTSH, getString(R.string.home_frag_function_tx6), R.mipmap.ic_h_function_6));
+        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
         function_1_Adapter.setData(funtion_1_Beans);
 
         List<HomeFrag.FuntionBean> funtion_2_Beans = new ArrayList<>();
-        funtion_2_Beans.add(new HomeFrag.FuntionBean(12, getString(R.string.home_frag_function_tx13), R.mipmap.ic_h_function_13));
-        funtion_2_Beans.add(new HomeFrag.FuntionBean(13, getString(R.string.home_frag_function_tx14), R.mipmap.ic_h_function_14));
-        funtion_2_Beans.add(new HomeFrag.FuntionBean(14, getString(R.string.home_frag_function_tx15), R.mipmap.ic_h_function_15));
-        funtion_2_Beans.add(new HomeFrag.FuntionBean(15, getString(R.string.home_frag_function_tx16), R.mipmap.ic_h_function_16));
-        funtion_2_Beans.add(new HomeFrag.FuntionBean(6, getString(R.string.home_frag_function_tx7), R.mipmap.ic_h_function_7));
-        funtion_2_Beans.add(new HomeFrag.FuntionBean(7, getString(R.string.home_frag_function_tx8), R.mipmap.ic_h_function_8));
+        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_13_FWZX, getString(R.string.home_frag_function_tx13), R.mipmap.ic_h_function_13));
+        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_14_ZXZX, getString(R.string.home_frag_function_tx14), R.mipmap.ic_h_function_14));
+        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_3_FLZX, getString(R.string.home_frag_function_tx15), R.mipmap.ic_h_function_15));
+        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_15_AIFW, getString(R.string.home_frag_function_tx16), R.mipmap.ic_h_function_16));
+        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_7_FSCG, getString(R.string.home_frag_function_tx7), R.mipmap.ic_h_function_7));
+        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_8_ZCSS, getString(R.string.home_frag_function_tx8), R.mipmap.ic_h_function_8));
         function_2_Adapter.setData(funtion_2_Beans);
 
         List<HomeFrag.FuntionBean> funtion_3_Beans = new ArrayList<>();
-        funtion_3_Beans.add(new HomeFrag.FuntionBean(8, getString(R.string.home_frag_function_tx9), R.mipmap.ic_h_function_9));
-        funtion_3_Beans.add(new HomeFrag.FuntionBean(9, getString(R.string.home_frag_function_tx10), R.mipmap.ic_h_function_10));
-        funtion_3_Beans.add(new HomeFrag.FuntionBean(10, getString(R.string.home_frag_function_tx11), R.mipmap.ic_h_function_11));
+        funtion_3_Beans.add(new HomeFrag.FuntionBean(FUNCTION_9_SSFJS, getString(R.string.home_frag_function_tx9), R.mipmap.ic_h_function_9));
+        funtion_3_Beans.add(new HomeFrag.FuntionBean(FUNCTION_10_WYJJS, getString(R.string.home_frag_function_tx10), R.mipmap.ic_h_function_10));
+        funtion_3_Beans.add(new HomeFrag.FuntionBean(FUNCTION_11_GSPC, getString(R.string.home_frag_function_tx11), R.mipmap.ic_h_function_11));
         function_3_Adapter.setData(funtion_3_Beans);
 
         refresh_layout.setEnableRefresh(false);
