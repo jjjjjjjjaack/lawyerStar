@@ -103,4 +103,11 @@
     <string name="login_tx6">-其它登录方式-</string>
     <string name="login_tx7">请先同意用户协议与隐私协议</string>
 
+    <string name="select_usertype_1">选择您的身份</string>
+    <string name="select_usertype_2">选择不同的角色将对应不同的权限，请认真选择</string>
+    <string name="select_usertype_3">个人用户</string>
+    <string name="select_usertype_4">认证律师</string>
+    <string name="select_usertype_5">企业用户</string>
+    <string name="select_usertype_6">下一步</string>
+
 </resources>

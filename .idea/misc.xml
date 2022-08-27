@@ -12,10 +12,12 @@
         <entry key="app/src/main/res/drawable/shape_ccf4f4f4_left_r180.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_eeeeee_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_f4f4f4_left_r180.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/shape_f4f4f4_r6.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_storke_02c3c4_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_storke_ffffff_r180.xml" value="0.137" />
         <entry key="app/src/main/res/layouts/act/layout/act_login.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_register.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/act/layout/act_select_usertype.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_splash.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_business.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_study.xml" value="0.2359375" />

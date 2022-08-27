@@ -1,10 +1,14 @@
 package com.qbo.lawyerstar.app.module.mine.login.base;
 
+import com.qbo.lawyerstar.app.bean.FUserInfoBean;
+import com.qbo.lawyerstar.app.utils.FCacheUtils;
+
 import framework.mvp1.base.bean.FToken;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.BasePresent;
 import framework.mvp1.base.net.BaseResponse;
 import framework.mvp1.base.util.FTokenUtils;
+import framework.mvp1.base.util.ToolUtils;
 
 public class LoginPresenter extends BasePresent<ILoginView, BaseModel> {
 
@@ -64,7 +68,48 @@ public class LoginPresenter extends BasePresent<ILoginView, BaseModel> {
             @Override
             public void onSuccess(String s) throws Exception {
                 T(s);
-                view().loginResult(true);
+                getUserInfo();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
+
+    /**
+     * @param
+     * @return
+     * @description 获取用户信息
+     * @author jiejack
+     * @time 2022/8/27 10:13 下午
+     */
+    public void getUserInfo() {
+        GET_USERINFO_REQ req = new GET_USERINFO_REQ();
+        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, FUserInfoBean>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public FUserInfoBean doMap(BaseResponse baseResponse) {
+                return FUserInfoBean.fromJSONAuto(baseResponse.datas, FUserInfoBean.class);
+            }
+
+            @Override
+            public void onSuccess(FUserInfoBean fUserInfoBean) throws Exception {
+                if (fUserInfoBean == null) {
+                    T("获取用户信息失败,请重新登录");
+                } else {
+                    FCacheUtils.saveUserInfo(context(), fUserInfoBean);
+                    if (ToolUtils.String2Boolean(fUserInfoBean.is_rz)) {
+                        view().loginResult(0);
+                    } else {
+                        view().loginResult(1);
+                    }
+                }
             }
 
             @Override

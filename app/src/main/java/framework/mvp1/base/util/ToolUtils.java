@@ -114,6 +114,24 @@ public class ToolUtils {
     }
 
 
+    /**
+     * String 转double
+     *
+     * @param o
+     * @return
+     */
+    public final static boolean String2Boolean(String o) {
+        if (o != null) {
+            try {
+                return Boolean.parseBoolean(o);
+            } catch (Exception e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     /*****
      * String 是否空
      * ******/

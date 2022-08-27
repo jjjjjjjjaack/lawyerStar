@@ -42,8 +42,10 @@ public class REQ_Factory {
         public String type;//类型 手机登录时:0；微信:1；苹果登录:2
         public String wechatCode;
     }
+    @AnnBaseReq(API_METHOD = "index/memberInfo")
+    public static class GET_USERINFO_REQ extends BaseRequest {
 
-
+    }
     @AnnBaseReq(API_METHOD = "lawyer/article/page", RESPONSE_CLASS = RES_Factory.GET_LAWSTUDY_LIST_DATA_RES.class)
     public static class GET_LAWSTUDY_LIST_DATA_REQ extends BaseRequest {
         public int pageNo = 1;

@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.main.VpMainAct;
 import com.qbo.lawyerstar.app.module.splash.SplashAct;
 
 import butterknife.BindView;
@@ -144,8 +145,10 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
     }
 
     @Override
-    public void loginResult(boolean b) {
-        if (b) {
+    public void loginResult(int type) {
+        if (type == 0) {
+            VpMainAct.openMainAct(getMContext());
+        } else if (type == 1) {//需要认证
 
         }
     }
