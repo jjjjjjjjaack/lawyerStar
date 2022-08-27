@@ -19,12 +19,14 @@
         <entry key="app/src/main/res/layouts/act/layout/act_register.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_select_usertype.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_splash.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/act/layout/act_userinfo.xml" value="0.25" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_business.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_study.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_study_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_mine.xml" value="0.25" />
         <entry key="app/src/main/res/layouts/other/layout/item_home_function_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/item_mine_function_list.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/view_title_comm_2.xml" value="0.2359375" />
       </map>
     </option>
   </component>

@@ -110,4 +110,13 @@
     <string name="select_usertype_5">企业用户</string>
     <string name="select_usertype_6">下一步</string>
 
+    <string name="user_info_tx1">个人资料</string>
+    <string name="user_info_tx2">头像</string>
+    <string name="user_info_tx3">名称</string>
+    <string name="user_info_tx4">绑定手机</string>
+    <string name="user_info_tx5">用户类别</string>
+    <string name="user_info_tx6">所在地</string>
+    <string name="user_info_tx7">公司税号</string>
+    <string name="user_info_tx8">提交更改</string>
+
 </resources>
