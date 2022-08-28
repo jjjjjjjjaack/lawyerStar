@@ -24,5 +24,6 @@
         <activity android:name="com.qbo.lawyerstar.app.module.main.VpMainAct">
 
         </activity>
+        <activity android:name=".app.module.mine.setting.SettingAct" />
     </application>
 </manifest>

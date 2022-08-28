@@ -119,4 +119,11 @@
     <string name="user_info_tx7">公司税号</string>
     <string name="user_info_tx8">提交更改</string>
 
+    <string name="user_setting_tx1">设置</string>
+    <string name="user_setting_tx2">用户协议</string>
+    <string name="user_setting_tx3">隐私协议</string>
+    <string name="user_setting_tx4">关于我们</string>
+    <string name="user_setting_tx5">注销账号</string>
+    <string name="user_setting_tx6">退出登录</string>
+
 </resources>

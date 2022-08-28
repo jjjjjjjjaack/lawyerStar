@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
@@ -125,6 +126,13 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 ImageView imageView = (ImageView) mCommVH.getView(R.id.icon_iv);
                 imageView.setImageResource(bean.iconRes);
                 mCommVH.setText(R.id.name_tv, bean.name);
+
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LawBusinessUtils.jumpAction(getMContext(), FUNCTION_20_SZ, "");
+                    }
+                });
             }
         });
         function_2_rcy.setAdapter(function_2_Adapter);
