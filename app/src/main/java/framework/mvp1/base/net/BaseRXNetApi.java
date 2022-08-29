@@ -112,8 +112,14 @@ public class BaseRXNetApi {
         } catch (NeedLoginException e) {
         }
         String language = LanguageUtils.getAppLanguage(MyApplication.getApp());
-        Request request = requestBuilder.addHeader("Appverion", Isapp).addHeader("Token", userToken).addHeader("Accept", "application/json").
-                addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt).addHeader("Language", language).addHeader("Nowversion", MyApplication.getApp().currentVersionName).build();
+        Request request = requestBuilder.addHeader("Appverion", Isapp)
+                .addHeader("Token", userToken)
+                .addHeader("port", "front")
+                .addHeader("Accept", "application/json")
+                .addHeader(SYS_INFO_KEY, SYS_INFO_VALUE)
+                .addHeader("Appt", Appt)
+                .addHeader("Language", language)
+                .addHeader("Nowversion", MyApplication.getApp().currentVersionName).build();
         return request;
     }
 
@@ -155,8 +161,14 @@ public class BaseRXNetApi {
         RequestBody body = RequestBody.create(paramsfinal, MediaType.parse(AContetType));
         requestBuilder.post(body);
         String language = LanguageUtils.getAppLanguage(MyApplication.getApp());
-        requestBuilder.addHeader("Appverion", Isapp).addHeader("Token", userToken).addHeader("Accept", "application/json").
-                addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt).addHeader("Language", language).addHeader("Nowversion", MyApplication.getApp().currentVersionName);
+        requestBuilder.addHeader("Appverion", Isapp)
+                .addHeader("port", "front")
+                .addHeader("Token", userToken)
+                .addHeader("Accept", "application/json")
+                .addHeader(SYS_INFO_KEY, SYS_INFO_VALUE)
+                .addHeader("Appt", Appt)
+                .addHeader("Language", language)
+                .addHeader("Nowversion", MyApplication.getApp().currentVersionName);
         Request request = requestBuilder.build();
         Log.i(TAG, "post->" + url + ":{" + params_str + "}");
         return request;

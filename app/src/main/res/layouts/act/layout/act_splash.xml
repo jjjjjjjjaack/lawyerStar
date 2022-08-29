@@ -69,8 +69,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginRight="@dimen/dp_12"
-        android:layout_marginBottom="@dimen/dp_141"
         android:visibility="gone"
+        android:layout_marginBottom="@dimen/dp_141"
         android:orientation="vertical">
 
         <TextView
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_44"
             android:layout_marginTop="@dimen/dp_20"
-            android:background="@color/c_07c160"
+            android:background="@drawable/shape_07c160_r2"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -98,8 +98,8 @@
                 android:src="@mipmap/ic_wechat_login" />
 
             <TextView
-                android:layout_width="70dp"
-                android:layout_height="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/splash_tx2"
                 android:textColor="#ffffffff"
                 android:textSize="16sp" />
@@ -111,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
             android:layout_marginTop="@dimen/dp_30"
             android:orientation="horizontal">
 
@@ -123,7 +124,8 @@
             <TextView
                 android:id="@+id/tv_pact_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
 

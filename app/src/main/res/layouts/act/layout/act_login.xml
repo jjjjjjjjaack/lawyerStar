@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_back"
         android:layout_width="@dimen/dp_59"
         android:layout_height="@dimen/dp_50"
         android:layout_marginTop="@dimen/dp_54">
@@ -51,7 +52,8 @@
         android:hint="@string/login_tx3"
         android:inputType="phone"
         android:singleLine="true"
-        android:textColor="#ff999999"
+        android:textColorHint="#ff999999"
+        android:textColor="@color/c_333333"
         android:textSize="16sp" />
 
     <View
@@ -81,7 +83,8 @@
             android:hint="@string/login_tx4"
             android:inputType="number"
             android:singleLine="true"
-            android:textColor="#ff999999"
+            android:textColorHint="#ff999999"
+            android:textColor="@color/c_333333"
             android:textSize="16sp" />
 
         <View
@@ -124,6 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
         android:layout_marginTop="@dimen/dp_30"
         android:orientation="horizontal">
 

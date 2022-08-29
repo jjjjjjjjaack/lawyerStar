@@ -77,7 +77,7 @@ public class CheckVersionUtils {
 
 
         BasePresent.doStaticCommRequest(mContext, new REQ_Factory
-                .POST_CHECK_APPVERSION_REQ(""), false, false, new BasePresent.DoCommRequestInterface<BaseResponse, VersionBean>() {
+                .POST_CHECK_APPVERSION_REQ("006e89a2918f337efd885e9a1ee672e9"), false, false, new BasePresent.DoCommRequestInterface<BaseResponse, VersionBean>() {
             @Override
             public void doStart() {
 
@@ -109,8 +109,9 @@ public class CheckVersionUtils {
                 if (currentVersionCode.equals(versionBean.version)) {
                     iSelectUpdate.doNotUpdate();
                 } else {
-                    popupVersionSelectView.setContentMsg(versionBean.changelog);
-                    popupVersionSelectView.setDownLoadUrl(versionBean.install_url);
+//                    popupVersionSelectView.setContentMsg(versionBean.changelog);
+//                    popupVersionSelectView.setDownLoadUrl(versionBean.install_url);
+                    popupVersionSelectView.setVersionBean(versionBean);
                     popupVersionSelectView.showPop(parentView);
                 }
             }
@@ -263,7 +264,7 @@ public class CheckVersionUtils {
     public static class VersionBean extends BaseBean {
 
         /**
-         * name : 聚多多
+         * name :
          * version : 1
          * "changelog":"1、修复部分已发现的Bug。\n2、对接资产模块绑定与解绑银行卡。\n3、对接资产模块提现功能。"
          * updated_at : 1645514805

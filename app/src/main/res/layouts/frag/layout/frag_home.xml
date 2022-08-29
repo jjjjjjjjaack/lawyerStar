@@ -30,13 +30,28 @@
                 android:paddingLeft="@dimen/dp_13"
                 android:paddingRight="@dimen/dp_13">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_52"
-                    android:text="@string/home_frag_tx1"
-                    android:textColor="#ffffffff"
-                    android:textSize="20sp" />
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_frag_tx1"
+                        android:textColor="#ffffffff"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/version_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_2"
+                        android:textColor="#ffffffff"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
@@ -222,10 +237,10 @@
                         android:id="@+id/tv1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_frag_tx3_1"
                         android:layout_centerVertical="true"
-                        android:textColor="#ff333333"
                         android:elevation="@dimen/dp_2"
+                        android:text="@string/home_frag_tx3_1"
+                        android:textColor="#ff333333"
                         android:textSize="14sp" />
 
                     <View
@@ -233,33 +248,30 @@
                         android:layout_height="3dp"
                         android:layout_alignLeft="@id/tv1"
                         android:layout_alignRight="@id/tv1"
-                        android:background="@color/main_color"
                         android:layout_alignBottom="@id/tv1"
-                        />
+                        android:background="@color/main_color" />
 
                     <ImageView
                         android:id="@+id/arrow1_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_black_right_arrow_1"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        />
+                        android:src="@mipmap/ic_black_right_arrow_1" />
 
                     <TextView
                         android:id="@+id/morelaywertx_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_frag_tx3_2"
-                        android:layout_toLeftOf="@id/arrow1_iv"
-                        android:textColor="#ff666666"
-                        android:textSize="12sp"
                         android:layout_centerVertical="true"
-                        />
+                        android:layout_toLeftOf="@id/arrow1_iv"
+                        android:text="@string/home_frag_tx3_2"
+                        android:textColor="#ff666666"
+                        android:textSize="12sp" />
 
 
                 </RelativeLayout>
-                
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lawyer_rcv"
                     android:layout_width="match_parent"
@@ -278,10 +290,10 @@
                         android:id="@+id/tv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_frag_tx4_1"
                         android:layout_centerVertical="true"
-                        android:textColor="#ff333333"
                         android:elevation="@dimen/dp_2"
+                        android:text="@string/home_frag_tx4_1"
+                        android:textColor="#ff333333"
                         android:textSize="14sp" />
 
                     <View
@@ -289,29 +301,26 @@
                         android:layout_height="3dp"
                         android:layout_alignLeft="@id/tv2"
                         android:layout_alignRight="@id/tv2"
-                        android:background="@color/main_color"
                         android:layout_alignBottom="@id/tv2"
-                        />
+                        android:background="@color/main_color" />
 
                     <ImageView
                         android:id="@+id/arrow2_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_black_right_arrow_1"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        />
+                        android:src="@mipmap/ic_black_right_arrow_1" />
 
                     <TextView
                         android:id="@+id/morenewstx_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_frag_tx4_2"
-                        android:layout_toLeftOf="@id/arrow2_iv"
-                        android:textColor="#ff666666"
-                        android:textSize="12sp"
                         android:layout_centerVertical="true"
-                        />
+                        android:layout_toLeftOf="@id/arrow2_iv"
+                        android:text="@string/home_frag_tx4_2"
+                        android:textColor="#ff666666"
+                        android:textSize="12sp" />
 
 
                 </RelativeLayout>
@@ -322,12 +331,11 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_ffffff_r8"
                     android:paddingTop="@dimen/dp_8"
-                    android:paddingBottom="@dimen/dp_8"
-                    />
+                    android:paddingBottom="@dimen/dp_8" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40"/>
+                    android:layout_height="@dimen/dp_40" />
 
             </LinearLayout>
 

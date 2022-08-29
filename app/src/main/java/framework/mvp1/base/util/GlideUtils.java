@@ -23,7 +23,7 @@ public class GlideUtils {
         if(path!=null&&path.toString().contains("http://192.168.1.143")){
             path = path.toString().replace("http://192.168.1.143",BuildConfig.API_URL);
         }
-        Glide.with(mContext).load(path).placeholder(R.mipmap.ic_noimage2).dontAnimate().error(R.mipmap.ic_noimage2)
+        Glide.with(mContext).load(path).placeholder(R.mipmap.ic_userlogo_default_1).dontAnimate().error(R.mipmap.ic_userlogo_default_1)
                 .into(mImageView);
     }
 

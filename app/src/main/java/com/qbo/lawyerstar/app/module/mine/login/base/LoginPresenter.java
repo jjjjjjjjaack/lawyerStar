@@ -51,7 +51,7 @@ public class LoginPresenter extends BasePresent<ILoginView, BaseModel> {
         req.account = mobile;
         req.type = type;
         req.code = code;
-        req.wechatCode = "";
+        req.wechatCode = null;
         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, String>() {
             @Override
             public void doStart() {

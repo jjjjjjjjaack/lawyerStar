@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.main.VpMainAct;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
@@ -42,6 +43,7 @@ public class UserSelectTypeAct extends MvpAct<IUserSelectTypeView, BaseModel, Us
                 reSetView();
                 type1_rl.setSelected(true);
                 nextstep_tv.setEnabled(true);
+                presenter.type = "0";
             }
         });
         type2_rl.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +52,7 @@ public class UserSelectTypeAct extends MvpAct<IUserSelectTypeView, BaseModel, Us
                 reSetView();
                 type2_rl.setSelected(true);
                 nextstep_tv.setEnabled(true);
+                presenter.type = "1";
             }
         });
         type3_rl.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +61,14 @@ public class UserSelectTypeAct extends MvpAct<IUserSelectTypeView, BaseModel, Us
                 reSetView();
                 type3_rl.setSelected(true);
                 nextstep_tv.setEnabled(true);
+                presenter.type = "2";
+            }
+        });
+
+        nextstep_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.changeType();
             }
         });
 
@@ -88,10 +99,14 @@ public class UserSelectTypeAct extends MvpAct<IUserSelectTypeView, BaseModel, Us
         return this;
     }
 
-    public void reSetView(){
+    public void reSetView() {
         type1_rl.setSelected(false);
         type2_rl.setSelected(false);
         type3_rl.setSelected(false);
     }
 
+    @Override
+    public void changeTypeSuccess() {
+        VpMainAct.openMainAct(getMContext());
+    }
 }

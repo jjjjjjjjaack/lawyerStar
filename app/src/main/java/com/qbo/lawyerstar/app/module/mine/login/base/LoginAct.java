@@ -5,10 +5,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
+import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.splash.SplashAct;
 
 import butterknife.BindView;
@@ -21,7 +23,7 @@ import framework.mvp1.base.util.T;
 public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> implements ILoginView {
 
     @BindView(R.id.pact_tv)
-    TextView pact_tv;
+    View pact_tv;
     @BindView(R.id.tv_pact_text)
     TextView tv_pact_text;
     @BindView(R.id.getcode_tv)
@@ -96,14 +98,20 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
                 }
             }
         });
+        pact_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pact_tv.setSelected(!pact_tv.isSelected());
+            }
+        });
         tologin_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pact_tv.isSelected()) {
+                if (!pact_tv.isSelected()) {
                     T.showShort(getMContext(), getString(R.string.login_tx7));
                     return;
                 }
-                presenter.toLogin(phone_et.getText().toString().trim(), code_et.getText().toString().trim(), "1");
+                presenter.toLogin(phone_et.getText().toString().trim(), code_et.getText().toString().trim(), "0");
             }
         });
         SplashAct.initPactText(getMContext(), tv_pact_text);
@@ -149,7 +157,7 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
         if (type == 0) {
             VpMainAct.openMainAct(getMContext());
         } else if (type == 1) {//需要认证
-
+            gotoActivity(UserSelectTypeAct.class);
         }
     }
 }

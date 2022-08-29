@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.qbo.lawyerstar.R;
 
+import framework.mvp1.base.util.CheckVersionUtils;
 import framework.mvp1.base.util.JnCache;
 import framework.mvp1.base.util.ToolUtils;
 
@@ -42,8 +43,10 @@ public class PopupVersionSelectView {
 
     public String downLoadUrl = "";
     public int width, height;
+    private CheckVersionUtils.VersionBean versionBean;
+    private TextView disagreeUpdate, msg, version_tv, time_tv, request_tv;
+    private View line_1;
 
-    private TextView disagreeUpdate, msg;
 
     /**
      * 选择是否更新
@@ -100,6 +103,10 @@ public class PopupVersionSelectView {
                 R.layout.popup_selectversion, null);
         popupWindow = new PopupWindow(popView, width, LayoutParams.MATCH_PARENT);
         msg = (TextView) popView.findViewById(R.id.msg);
+        version_tv = (TextView) popView.findViewById(R.id.version_tv);
+        time_tv = (TextView) popView.findViewById(R.id.time_tv);
+        request_tv = (TextView) popView.findViewById(R.id.request_tv);
+        line_1 = popView.findViewById(R.id.line_1);
         disagreeUpdate = (TextView) popView.findViewById(R.id.disagreeUpdate);
 
         popView.findViewById(R.id.agreeUpdate).setOnClickListener(
@@ -159,6 +166,28 @@ public class PopupVersionSelectView {
             }
         });
     }
+
+    public void setVersionBean(CheckVersionUtils.VersionBean versionBean) {
+        this.versionBean = versionBean;
+        if (versionBean != null) {
+            this.msg.setText(versionBean.changelog);
+            this.version_tv.setText("V" + versionBean.version);
+            this.downLoadUrl = versionBean.install_url;
+//            this.time_tv.setText(versionBean.updateTime);
+//            if ("1".equals(versionBean.isForcedUpdate)) {//强制更新
+//                request_tv.setTextColor(0xffea4748);
+//                request_tv.setText("*当前版本不可用，请更新为最新版本");
+//                disagreeUpdate.setVisibility(View.GONE);
+//                line_1.setVisibility(View.GONE);
+//            } else {
+//                request_tv.setTextColor(0xff18a7ef);
+//                request_tv.setText(context.getString(R.string.versionupdate));
+//                disagreeUpdate.setVisibility(View.VISIBLE);
+//                line_1.setVisibility(View.VISIBLE);
+//            }
+        }
+    }
+
 
     /**
      * 控制界面只展示强制更新

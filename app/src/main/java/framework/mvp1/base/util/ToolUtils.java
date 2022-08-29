@@ -25,6 +25,9 @@ import android.widget.PopupWindow;
 import com.alibaba.fastjson.JSONObject;
 import com.qbo.lawyerstar.R;
 import com.pedaily.yc.ycdialoglib.selectDialog.CustomSelectDialog;
+import com.qbo.lawyerstar.app.MyApplication;
+import com.qbo.lawyerstar.app.module.main.VpMainAct;
+import com.qbo.lawyerstar.app.module.splash.SplashAct;
 
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -687,11 +690,18 @@ public class ToolUtils {
      * @time 2022/2/7 15:10
      */
     public static void reStartApp(Context context) {
-        Intent closeIntent = new Intent(EXIT_APP_ACTION);
-        context.sendBroadcast(closeIntent);
-        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        ActivityStackUtils.getInstance().clearAllActivity();
+        Intent intent = new Intent();
+        intent.setClass(context, VpMainAct.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);//设置不要刷新将要跳到的界面
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//它可以关掉所要到的界面中间的activity
         context.startActivity(intent);
+
+//        Intent closeIntent = new Intent(EXIT_APP_ACTION);
+//        context.sendBroadcast(closeIntent);
+//        final Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(intent);
 //        Intent intent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
 //        Intent intent = new Intent(context, SplashAct.class);
 //        intent.putExtra("REBOOT", "reboot");

@@ -13,6 +13,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_back"
         android:layout_width="@dimen/dp_59"
         android:layout_height="@dimen/dp_50"
         android:layout_marginTop="@dimen/dp_54">

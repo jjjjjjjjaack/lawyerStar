@@ -15,13 +15,18 @@ import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_6
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
+import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
+import com.qbo.lawyerstar.app.utils.FCacheUtils;
+import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -35,6 +40,7 @@ import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpFrag;
 import framework.mvp1.base.util.FTokenUtils;
+import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
 
 public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> implements IMineView {
@@ -55,6 +61,13 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     @BindView(R.id.function_2_rcy)
     RecyclerView function_2_rcy;
     private MCommAdapter function_2_Adapter;
+
+    @BindView(R.id.username_tv)
+    TextView username_tv;
+    @BindView(R.id.usertype_tv)
+    TextView usertype_tv;
+    @BindView(R.id.userlogo_civ)
+    ChangeGasStationImageView2 userlogo_civ;
 
     @Override
     public MinePresenter initPresenter() {
@@ -180,6 +193,22 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     private void setLoginView() {
         login_rl.setVisibility(View.VISIBLE);
         tologin_tv.setVisibility(View.GONE);
+
+        FCacheUtils.getUserInfo(getMContext(), true, new FCacheUtils.GetUserInfoInterface() {
+            @Override
+            public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
+                username_tv.setText(userInfoBean.nick_name);
+                usertype_tv.setText(userInfoBean.user_type_tx);
+                GlideUtils.loadImageUserLogoDefult(getMContext(),userInfoBean.avatar,userlogo_civ);
+            }
+
+            @Override
+            public void fail() {
+
+            }
+        });
+
+
     }
 
     /**
@@ -192,6 +221,13 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     private void setUnLoginView() {
         login_rl.setVisibility(View.GONE);
         tologin_tv.setVisibility(View.VISIBLE);
+
+        tologin_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(LoginAct.class);
+            }
+        });
     }
 
     @Override

@@ -4,4 +4,5 @@ import framework.mvp1.base.f.BaseView;
 import framework.mvp1.base.f.MvpAct;
 
 public interface IUserSelectTypeView extends BaseView {
+    void changeTypeSuccess();
 }

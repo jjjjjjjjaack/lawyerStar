@@ -8,10 +8,19 @@ android {
         applicationId "com.qbo.lawyerstar"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("lawkeysign.jks")
+            storePassword 'keysign'
+            keyAlias 'key0'
+            keyPassword 'keysign'
+        }
     }
 
     buildTypes {
@@ -23,7 +32,7 @@ android {
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "API_URL", "\"\""   //正式
-            buildConfigField "String", "API_URL", "\"http://eqezvb.natappfree.cc/\""   //测试
+            buildConfigField "String", "API_URL", "\"http://zd6ws6.natappfree.cc/\""   //测试
         }
     }
 

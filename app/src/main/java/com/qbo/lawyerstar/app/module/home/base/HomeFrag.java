@@ -17,6 +17,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +28,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.MyApplication;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
 import com.qbo.lawyerstar.app.view.scrolltextview.MAutoScrollTextView;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -70,6 +72,9 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
     RecyclerView news_rcv;
     private MCommAdapter newsAdapter;
 
+    @BindView(R.id.version_tv)
+    TextView version_tv;
+
     @Override
     public HomePresenter initPresenter() {
         return new HomePresenter();
@@ -87,6 +92,8 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
 
     @Override
     public void viewInitialization() {
+
+        version_tv.setText("v" + MyApplication.getApp().currentVersionName);
         function_rcy.setLayoutManager(new GridLayoutManager(getMContext(), 4));
         functionAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<FuntionBean>() {
             @Override
@@ -240,7 +247,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
 //                            .error(R.mipmap.ic_noimage2)
 //                            .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
 //                            .into(holder.imageView);
-                    GlideUtils.loadImageDefult(getMContext(),data.getUrl(),holder.imageView);
+                    GlideUtils.loadImageDefult(getMContext(), data.getUrl(), holder.imageView);
                 }
             }).addBannerLifecycleObserver(this)//添加生命周期观察者
                     .setIndicator(new CircleIndicator(getMContext()));

@@ -65,14 +65,16 @@
                         android:id="@+id/login_rl"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_52"
-                        android:visibility="gone"
                         >
 
                         <LinearLayout
                             android:id="@+id/name_ll"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/right_ll"
+                            android:layout_alignParentLeft="true"
                             android:layout_marginLeft="@dimen/dp_12"
+                            android:layout_marginRight="@dimen/dp_12"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -82,8 +84,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
-                                android:maxWidth="@dimen/dp_100"
-                                android:text="邱毓"
+                                android:singleLine="true"
                                 android:textColor="#ffffffff"
                                 android:textSize="18sp" />
 
@@ -98,6 +99,7 @@
 
 
                         <TextView
+                            android:id="@+id/usertype_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_20"
                             android:layout_below="@id/name_ll"
@@ -107,12 +109,12 @@
                             android:gravity="center"
                             android:paddingLeft="@dimen/dp_8"
                             android:paddingRight="@dimen/dp_8"
-                            android:text="个人用户"
                             android:textColor="#ffffffff"
                             android:textSize="14sp" />
 
 
                         <LinearLayout
+                            android:id="@+id/right_ll"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/dp_28"
                             android:layout_alignParentRight="true"

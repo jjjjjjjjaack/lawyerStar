@@ -17,23 +17,29 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.base.LawBusinessFrag;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.mine.base.MineFrag;
+import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.study.base.LawStudyFrag;
+import com.qbo.lawyerstar.app.utils.FCacheUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
+import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseFrag;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.ActivityStackUtils;
 import framework.mvp1.base.util.CheckVersionUtils;
+import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.StatusBarUtils;
 import framework.mvp1.base.util.T;
+import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.views.pop.PopupVersionSelectView;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -124,7 +130,19 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
 
                     }
                 }, true);
+        FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
+            @Override
+            public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
+                if (!ToolUtils.String2Boolean(userInfoBean.is_rz)) {
+                    gotoActivity(UserSelectTypeAct.class);
+                }
+            }
 
+            @Override
+            public void fail() {
+
+            }
+        });
         if (tempFragment != null) {
             if (tempFragment instanceof HomeFrag) {
             }
@@ -177,6 +195,9 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
         tabs.get(3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!checkLogin()){
+                    return;
+                }
                 clickBootomTabView(view);
                 onFragmentChangeSelected(R.id.tab4);
             }
@@ -190,6 +211,15 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
 //            }
 //        });
 //
+    }
+
+    private boolean checkLogin() {
+        try {
+            FTokenUtils.getToken(this,true);
+            return true;
+        } catch (NeedLoginException e) {
+            return false;
+        }
     }
 
     @Override

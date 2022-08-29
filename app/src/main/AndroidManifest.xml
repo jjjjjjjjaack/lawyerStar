@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application
         android:name="com.qbo.lawyerstar.app.MyApplication"
         android:allowBackup="true"
@@ -16,14 +18,16 @@
 
 
         <activity android:name="com.qbo.lawyerstar.app.module.splash.SplashAct">
+
+        </activity>
+        <activity android:name="com.qbo.lawyerstar.app.module.main.VpMainAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.qbo.lawyerstar.app.module.main.VpMainAct">
-
-        </activity>
         <activity android:name=".app.module.mine.setting.SettingAct" />
+        <activity android:name=".app.module.mine.login.base.LoginAct" />
+        <activity android:name=".app.module.mine.login.selecttype.UserSelectTypeAct" />
     </application>
 </manifest>
