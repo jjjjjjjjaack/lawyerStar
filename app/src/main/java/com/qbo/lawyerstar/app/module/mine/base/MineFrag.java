@@ -143,7 +143,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        LawBusinessUtils.jumpAction(getMContext(), FUNCTION_20_SZ, "");
+                        LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
                     }
                 });
             }

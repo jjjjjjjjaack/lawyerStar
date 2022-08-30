@@ -126,4 +126,11 @@
     <string name="user_setting_tx5">注销账号</string>
     <string name="user_setting_tx6">退出登录</string>
 
+
+    <string name="suggest_upload_tx1">投诉建议</string>
+    <string name="suggest_upload_tx2">分类标签</string>
+    <string name="suggest_upload_tx3">问题描述</string>
+    <string name="suggest_upload_tx3_1">请描述您遇到的问题</string>
+    <string name="suggest_upload_tx4">添加图片</string>
+
 </resources>

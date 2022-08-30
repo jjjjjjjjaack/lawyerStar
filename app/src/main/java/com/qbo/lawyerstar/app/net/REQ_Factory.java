@@ -24,6 +24,22 @@ public class REQ_Factory {
     /**
      * @param
      * @author jieja
+     * @description 获取数据字典
+     * @return
+     * @time 2022/8/29 10:52
+     */
+    @AnnBaseReq(API_METHOD = "index/dictionary",RESPONSE_CLASS = RES_Factory.GET_INDEX_DICTIONARY_RES.class)
+    public static class GET_INDEX_DICTIONARY_REQ extends BaseRequest {
+       public String key;
+
+
+        public GET_INDEX_DICTIONARY_REQ(String key) {
+            this.key = key;
+        }
+    }
+    /**
+     * @param
+     * @author jieja
      * @description 获取首页数据
      * @return
      * @time 2022/8/29 10:52
