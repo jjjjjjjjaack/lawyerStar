@@ -24,6 +24,7 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
+import com.qbo.lawyerstar.app.module.mine.info.base.UserInfoBaseAct;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
@@ -53,6 +54,8 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     View tologin_tv;
     @BindView(R.id.login_rl)
     View login_rl;
+    @BindView(R.id.right_ll)
+    View right_ll;
 
     @BindView(R.id.function_1_rcy)
     RecyclerView function_1_rcy;
@@ -193,13 +196,21 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     private void setLoginView() {
         login_rl.setVisibility(View.VISIBLE);
         tologin_tv.setVisibility(View.GONE);
+        right_ll.setVisibility(View.VISIBLE);
 
-        FCacheUtils.getUserInfo(getMContext(), true, new FCacheUtils.GetUserInfoInterface() {
+        FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
             @Override
             public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
                 username_tv.setText(userInfoBean.nick_name);
                 usertype_tv.setText(userInfoBean.user_type_tx);
-                GlideUtils.loadImageUserLogoDefult(getMContext(),userInfoBean.avatar,userlogo_civ);
+                GlideUtils.loadImageUserLogoDefult(getMContext(), userInfoBean.avatar, userlogo_civ);
+
+                right_ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoActivity(UserInfoBaseAct.class);
+                    }
+                });
             }
 
             @Override
@@ -220,6 +231,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
      */
     private void setUnLoginView() {
         login_rl.setVisibility(View.GONE);
+        right_ll.setVisibility(View.GONE);
         tologin_tv.setVisibility(View.VISIBLE);
 
         tologin_tv.setOnClickListener(new View.OnClickListener() {

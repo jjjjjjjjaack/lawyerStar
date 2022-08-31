@@ -16,6 +16,7 @@ public class NET_URL {
         return u;
     }
     public final String API = "/20220822dgl/PHP/public/index.php?s=front/";
+//    public final String API = "/front";
 
     /**
      * @param

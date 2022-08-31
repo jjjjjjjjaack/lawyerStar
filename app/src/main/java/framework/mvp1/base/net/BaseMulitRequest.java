@@ -15,11 +15,15 @@ public class BaseMulitRequest {
      * key
      */
     public String key;
+    public String theme;// "image 图片 audio 音频 video 视频 files 文件"
+    public String path;
     public File file;
 
-    public BaseMulitRequest(String key, File file, String contentType) {
+    public BaseMulitRequest(String key, File file, String contentType, String theme, String path) {
         this.contentType = contentType;
         this.key = key;
         this.file = file;
+        this.theme = theme;
+        this.path = path;
     }
 }

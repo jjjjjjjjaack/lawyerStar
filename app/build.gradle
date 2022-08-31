@@ -27,11 +27,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "API_URL", "\"http://zd6ws6.natappfree.cc/\""   //正式
+            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
+//            buildConfigField "String", "API_URL", "\"http://zd6ws6.natappfree.cc/\""   //正式
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            buildConfigField "String", "API_URL", "\"\""   //正式
+//            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
             buildConfigField "String", "API_URL", "\"http://zd6ws6.natappfree.cc/\""   //测试
         }
     }

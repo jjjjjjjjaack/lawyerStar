@@ -14,7 +14,7 @@
         android:textColor="#ffffffff"
         android:textSize="8sp"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <RelativeLayout
         android:id="@+id/loadingTop_ly"

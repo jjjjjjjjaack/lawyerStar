@@ -3,8 +3,10 @@ package com.qbo.lawyerstar.app.module.mine.suggest;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -31,6 +33,11 @@ import framework.mvp1.base.util.ResourceUtils;
 import framework.mvp1.pics.GlideEngine;
 
 public class SuggestUploadAct extends MvpAct<ISuggestUploadView, BaseModel, SuggestUploadPresenter> implements ISuggestUploadView {
+
+    @BindView(R.id.content_et)
+    EditText content_et;
+    @BindView(R.id.commit_tv)
+    TextView commit_tv;
 
     @BindView(R.id.category_rcv)
     RecyclerView category_rcv;
@@ -155,6 +162,14 @@ public class SuggestUploadAct extends MvpAct<ISuggestUploadView, BaseModel, Sugg
         });
         image_rcv.setAdapter(imageAdapter);
         imageAdapter.addOneData(null);
+
+        commit_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.content = content_et.getText().toString();
+                presenter.commitClick();
+            }
+        });
     }
 
     @Override
@@ -167,7 +182,7 @@ public class SuggestUploadAct extends MvpAct<ISuggestUploadView, BaseModel, Sugg
                 }
                 try {
                     categoryAdapter.setData(beanList);
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
         });
@@ -198,5 +213,12 @@ public class SuggestUploadAct extends MvpAct<ISuggestUploadView, BaseModel, Sugg
     @Override
     public Context getMContext() {
         return this;
+    }
+
+    @Override
+    public void uploadResult(boolean b) {
+        if (b) {
+            finish();
+        }
     }
 }

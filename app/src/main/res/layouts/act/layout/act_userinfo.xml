@@ -59,6 +59,7 @@
 
 
             <TextView
+                android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/user_info_tx3"
@@ -75,8 +76,22 @@
                 android:layout_height="wrap_content"
                 android:textColor="#ff333333"
                 android:textSize="14sp"
-                android:layout_alignParentRight="true"
+                android:singleLine="true"
+                android:layout_toRightOf="@id/tv1"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_toLeftOf="@id/arrow1_1_iv"
                 android:layout_marginRight="@dimen/dp_7"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                />
+
+            <ImageView
+                android:id="@+id/arrow1_1_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_black_right_arrow_1"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_12"
                 android:layout_centerVertical="true"
                 />
 
@@ -88,6 +103,7 @@
             >
 
             <TextView
+                android:id="@+id/tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/user_info_tx4"
@@ -104,8 +120,11 @@
                 android:layout_height="wrap_content"
                 android:textColor="#ff333333"
                 android:textSize="14sp"
+                android:layout_toRightOf="@id/tv2"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/dp_7"
+                android:gravity="right"
                 android:layout_centerVertical="true"
                 />
 
@@ -136,7 +155,6 @@
                 android:layout_toLeftOf="@id/arrow1_iv"
                 android:layout_marginRight="@dimen/dp_2"
                 android:layout_centerVertical="true"
-                android:text="aaaa"
                 />
 
             <ImageView
@@ -205,7 +223,6 @@
                 android:layout_toLeftOf="@id/arrow2_iv"
                 android:layout_marginRight="@dimen/dp_2"
                 android:layout_centerVertical="true"
-                android:text="aaaa"
                 />
 
             <ImageView

@@ -2,6 +2,9 @@ package com.qbo.lawyerstar.app.net;
 
 import com.qbo.lawyerstar.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import framework.mvp1.base.annotation.AnnBaseReq;
 import framework.mvp1.base.annotation.AnnReqPara;
 import framework.mvp1.base.net.BaseRXNetApi;
@@ -28,15 +31,29 @@ public class REQ_Factory {
      * @return
      * @time 2022/8/29 10:52
      */
-    @AnnBaseReq(API_METHOD = "index/dictionary",RESPONSE_CLASS = RES_Factory.GET_INDEX_DICTIONARY_RES.class)
+    @AnnBaseReq(API_METHOD = "index/dictionary", RESPONSE_CLASS = RES_Factory.GET_INDEX_DICTIONARY_RES.class)
     public static class GET_INDEX_DICTIONARY_REQ extends BaseRequest {
-       public String key;
+        public String key;
 
 
         public GET_INDEX_DICTIONARY_REQ(String key) {
             this.key = key;
         }
     }
+
+    /**
+     * @param
+     * @author jieja
+     * @description 获取首页数据
+     * @return
+     * @time 2022/8/29 10:52
+     */
+    @AnnBaseReq(API_METHOD = "upload/index", RXExecuteType = BaseRXNetApi.RXExecuteType.MUTLI_POST)
+    public static class POST_UPLOAD_FILE_REQ extends BaseRequest {
+        public String path;
+        public String theme;
+    }
+
     /**
      * @param
      * @author jieja
@@ -90,25 +107,25 @@ public class REQ_Factory {
     public static class GET_USERINFO_REQ extends BaseRequest {
 
     }
-    
+
     /**
-     * @description 切换身份
-     * @param 
-     * @return 
+     * @param
      * @author jieja
+     * @description 切换身份
+     * @return
      * @time 2022/8/29 10:53
      */
     @AnnBaseReq(API_METHOD = "user/changeUserType")
     public static class POST_CHANGEUSER_TYPE_REQ extends BaseRequest {
-       public String type;//"type": "0 个人 1 企业 2 律师"
+        public String type;//"type": "0 个人 1 企业 2 律师"
     }
 
-    
+
     /**
-     * @description 获取文章
-     * @param 
-     * @return 
+     * @param
      * @author jieja
+     * @description 获取文章
+     * @return
      * @time 2022/8/29 10:52
      */
     @AnnBaseReq(API_METHOD = "lawyer/article/page", RESPONSE_CLASS = RES_Factory.GET_LAWSTUDY_LIST_DATA_RES.class)
@@ -120,6 +137,24 @@ public class REQ_Factory {
         public static class Filter {
             public String is_rec;// "推荐 1",
             public String article_clazz;//"文章分类 5:法律头条    6:经典案例    7:法律释疑"
+        }
+    }
+
+
+    @AnnBaseReq(API_METHOD = "suggestions/create")
+    public static class POST_CREATE_SUGGEST_REQ extends BaseRequest {
+        public String category_labels;
+        public String content;
+        public List<ImagePath> image = new ArrayList<>();
+
+        public static class ImagePath{
+            public String path;
+            public String url;
+
+            public ImagePath(String path, String url) {
+                this.path = path;
+                this.url = url;
+            }
         }
     }
 

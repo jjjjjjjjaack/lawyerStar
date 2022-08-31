@@ -19,6 +19,7 @@
     <string name="msg_code">短信已发送,请稍后点击</string>
     <string name="msg_code_null">内容不能为空</string>
     <string name="please_login_tx">请登录</string>
+    <string name="commit_tx">提交</string>
     <!-- guide.java -->
     <string name="guide_start_tx1">立即开启</string>
     <string name="guide_tx1">简单易懂,学习成本低</string>
@@ -129,6 +130,7 @@
 
     <string name="suggest_upload_tx1">投诉建议</string>
     <string name="suggest_upload_tx2">分类标签</string>
+    <string name="suggest_upload_tx2_1">请选择分类标签</string>
     <string name="suggest_upload_tx3">问题描述</string>
     <string name="suggest_upload_tx3_1">请描述您遇到的问题</string>
     <string name="suggest_upload_tx4">添加图片</string>
