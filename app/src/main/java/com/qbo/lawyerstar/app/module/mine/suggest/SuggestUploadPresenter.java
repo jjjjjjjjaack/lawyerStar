@@ -105,7 +105,7 @@ public class SuggestUploadPresenter extends BasePresent<ISuggestUploadView, Base
         }
         req.content = content;
         for (SPathBean bean : pathBeans) {
-            req.image.add(new POST_CREATE_SUGGEST_REQ.ImagePath(bean.path, bean.url));
+            req.image.add(new ImagePath(bean.path, bean.url));
         }
         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
             @Override

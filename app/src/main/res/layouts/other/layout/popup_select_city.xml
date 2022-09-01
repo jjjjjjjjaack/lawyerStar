@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_ffffff_top_r8"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_cancel"
+            android:textColor="@color/c_333333"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginLeft="@dimen/dp_12"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sure_tx"
+            android:textColor="@color/main_color"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginRight="@dimen/dp_12"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <com.github.gzuliyujiang.wheelview.widget.WheelView
+            android:id="@+id/rotate_1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_200"
+            app:wheel_itemTextColor="@color/c_333333"
+            app:wheel_itemTextColorSelected="@color/c_333333"
+            app:wheel_itemTextSize="@dimen/sp_14" />
+
+        <com.github.gzuliyujiang.wheelview.widget.WheelView
+            android:id="@+id/rotate_2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_200"
+            app:wheel_itemTextColor="@color/c_333333"
+            app:wheel_itemTextColorSelected="@color/c_333333"
+            app:wheel_itemTextSize="@dimen/sp_14" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"/>
+
+</LinearLayout>

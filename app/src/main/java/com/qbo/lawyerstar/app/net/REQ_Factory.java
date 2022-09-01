@@ -147,15 +147,32 @@ public class REQ_Factory {
         public String content;
         public List<ImagePath> image = new ArrayList<>();
 
-        public static class ImagePath{
-            public String path;
-            public String url;
 
-            public ImagePath(String path, String url) {
-                this.path = path;
-                this.url = url;
-            }
+    }
+
+    @AnnBaseReq(API_METHOD = "user/auth/create")
+    public static class POST_AUTH_PERSONAL_REQ extends BaseRequest{
+        public String sex;
+        public String real_name;
+        public ImagePath avatar;
+        public List<String> address_info;
+    }
+
+    @AnnBaseReq(API_METHOD = "city/page")
+    public static class GET_CITY_DATA_REQ extends  BaseRequest{
+
+    }
+
+
+    public static class ImagePath{
+        public String path;
+        public String url;
+
+        public ImagePath(String path, String url) {
+            this.path = path;
+            this.url = url;
         }
     }
+
 
 }

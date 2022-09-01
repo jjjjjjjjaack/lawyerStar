@@ -28,12 +28,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
-//            buildConfigField "String", "API_URL", "\"http://zd6ws6.natappfree.cc/\""   //正式
+//            buildConfigField "String", "API_URL", "\"http://9kz99p.natappfree.cc/\""   //正式
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
-            buildConfigField "String", "API_URL", "\"http://zd6ws6.natappfree.cc/\""   //测试
+            buildConfigField "String", "API_URL", "\"http://9kz99p.natappfree.cc/\""   //测试
         }
     }
 
@@ -111,4 +111,7 @@ dependencies {
     implementation 'com.github.ronghao:AutoScrollTextView:1.0.3'
     //
     implementation 'io.github.h07000223:flycoTabLayout:3.0.0'
+    //滚轮选择器
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:4.1.7'
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:CalendarPicker:4.1.7'
 }

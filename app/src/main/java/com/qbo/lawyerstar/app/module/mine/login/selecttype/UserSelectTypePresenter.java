@@ -29,7 +29,7 @@ public class UserSelectTypePresenter extends BasePresent<IUserSelectTypeView, Ba
             @Override
             public void onSuccess(BaseResponse baseResponse) throws Exception {
                 T(baseResponse.msg);
-         view().changeTypeSuccess();
+                view().changeTypeSuccess();
             }
 
             @Override

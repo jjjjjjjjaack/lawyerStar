@@ -5,6 +5,10 @@ import android.view.View;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
+import com.qbo.lawyerstar.app.module.mine.auth.company.CompanyAuthAct;
+import com.qbo.lawyerstar.app.module.mine.auth.lawyer.LawyerAuthAct;
+import com.qbo.lawyerstar.app.module.mine.auth.personal.PersonsalAuthAct;
+import com.qbo.lawyerstar.app.module.mine.auth.personal.PersonsalAuthPresenter;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
@@ -68,7 +72,18 @@ public class UserSelectTypeAct extends MvpAct<IUserSelectTypeView, BaseModel, Us
         nextstep_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.changeType();
+//                presenter.changeType();
+                switch (presenter.type) {
+                    case "0"://个人用户
+                        gotoActivity(PersonsalAuthAct.class);
+                        break;
+                    case "1"://认证律师
+                        gotoActivity(LawyerAuthAct.class);
+                        break;
+                    case "2"://企业用户
+                        gotoActivity(CompanyAuthAct.class);
+                        break;
+                }
             }
         });
 

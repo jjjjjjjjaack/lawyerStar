@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-atuo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_comm_2" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_74"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/user_info_tx2"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <com.qbo.lawyerstar.app.view.ChangeGasStationImageView2
+            android:id="@+id/userlogo_civ"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_52"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/arrow1_iv"
+            android:src="@mipmap/ic_userlogo_default_1"
+            app:lbottom="@dimen/dp_2"
+            app:ltop="@dimen/dp_2"
+            app:rbottom="@dimen/dp_2"
+            app:rtop="@dimen/dp_2" />
+
+        <ImageView
+            android:id="@+id/arrow1_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_right_arrow_black_3" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_f4f4f4" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_72"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12">
+
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/user_info_tx3"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_toRightOf="@id/tv2"
+            android:background="@null"
+            android:hint="@string/user_auth_personal_tx3_1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="#ff666666"
+            android:textSize="14sp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_f4f4f4" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_72"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12">
+
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/user_auth_personal_tx4"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/man_ll"
+            android:layout_toLeftOf="@id/woman_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_16"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:src="@drawable/selector_checkbox_style_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/man_tx"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:textColor="#ff333333"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/woman_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:src="@drawable/selector_checkbox_style_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/woman_tx"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:textColor="#ff333333"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_f4f4f4" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/address_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_72"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12">
+
+
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/user_auth_personal_tx5"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_toRightOf="@id/tv4"
+            android:background="@null"
+            android:hint="@string/user_auth_personal_tx5_1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="#ff666666"
+            android:textSize="14sp"
+            android:layout_toLeftOf="@id/arrow4_iv"
+            />
+
+
+        <ImageView
+            android:id="@+id/arrow4_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_right_arrow_black_3" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_f4f4f4" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/commit_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/selector_comm_btn"
+            android:gravity="center"
+            android:text="@string/commit_tx"
+            android:textColor="@color/c_ffffff"
+            android:textSize="@dimen/sp_16" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

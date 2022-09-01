@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-atuo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_comm_2" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/c_ffffff"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_27"
+                android:text="@string/user_auth_company_tx2"
+                android:textColor="#ff333333"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_190"
+                android:layout_marginLeft="@dimen/dp_34"
+                android:layout_marginTop="@dimen/dp_27"
+                android:layout_marginRight="@dimen/dp_34"
+                android:background="@drawable/shape_storke_666666_r8"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_select_yyzz_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/user_auth_lawyer_tx7"
+                    android:textColor="#ff333333"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_74"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_info_tx2"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+                <com.qbo.lawyerstar.app.view.ChangeGasStationImageView2
+                    android:id="@+id/userlogo_civ"
+                    android:layout_width="@dimen/dp_52"
+                    android:layout_height="@dimen/dp_52"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/arrow1_iv"
+                    android:src="@mipmap/ic_userlogo_default_1"
+                    app:lbottom="@dimen/dp_2"
+                    app:ltop="@dimen/dp_2"
+                    app:rbottom="@dimen/dp_2"
+                    app:rtop="@dimen/dp_2" />
+
+                <ImageView
+                    android:id="@+id/arrow1_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_right_arrow_black_3" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx3"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv2"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/user_auth_company_tx3_1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx4"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv3"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="@string/user_auth_company_tx4_1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx5"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toLeftOf="@id/arrow4_iv"
+                    android:layout_toRightOf="@id/tv4"
+                    android:background="@null"
+                    android:hint="@string/user_auth_company_tx5_1"
+                    android:maxLines="1"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/arrow4_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_right_arrow_black_3" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx6"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv5"
+                    android:background="@null"
+                    android:hint="@string/user_auth_company_tx6_1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:gravity="right"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx7"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv6"
+                    android:background="@null"
+                    android:hint="@string/user_auth_company_tx7_1"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx8"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv7"
+                    android:background="@null"
+                    android:hint="@string/user_auth_company_tx8_1"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx9"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv8"
+                    android:background="@null"
+                    android:hint="@string/user_auth_company_tx9_1"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx10"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv9"
+                    android:background="@null"
+                    android:layout_toLeftOf="@id/arrow5_iv"
+                    android:hint="@string/user_auth_company_tx10_1"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/arrow5_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_right_arrow_black_3" />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_72"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12">
+
+
+                <TextView
+                    android:id="@+id/tv10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/user_auth_company_tx11"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toRightOf="@id/tv10"
+                    android:background="@null"
+                    android:hint="@string/user_auth_company_tx11_1"
+                    android:layout_toLeftOf="@id/arrow6_iv"
+                    android:gravity="right"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:id="@+id/arrow6_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_right_arrow_black_3" />
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/c_f4f4f4" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/commit_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_37"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:background="@drawable/selector_comm_btn"
+                android:gravity="center"
+                android:text="@string/commit_tx"
+                android:textColor="@color/c_ffffff"
+                android:textSize="@dimen/sp_16" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

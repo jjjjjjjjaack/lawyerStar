@@ -12,6 +12,7 @@ public class FToken extends BaseBean {
     private String user_name;
     private String mobile;
     private String key;
+    private boolean is_rz;
 
 
     public String getToken() {
@@ -52,5 +53,13 @@ public class FToken extends BaseBean {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public boolean isIs_rz() {
+        return is_rz;
+    }
+
+    public void setIs_rz(boolean is_rz) {
+        this.is_rz = is_rz;
     }
 }
