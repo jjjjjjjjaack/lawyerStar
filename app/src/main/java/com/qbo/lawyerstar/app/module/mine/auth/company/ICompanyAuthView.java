@@ -4,4 +4,5 @@ import framework.mvp1.base.f.BaseView;
 import framework.mvp1.base.f.MvpAct;
 
 public interface ICompanyAuthView extends BaseView {
+    void authResult(boolean b);
 }

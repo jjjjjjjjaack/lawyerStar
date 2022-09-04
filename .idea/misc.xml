@@ -16,6 +16,9 @@
         <entry key="app/src/main/res/drawable/shape_f83131_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_storke_02c3c4_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_storke_ffffff_r180.xml" value="0.137" />
+        <entry key="app/src/main/res/layouts/act/layout/act_auth_company.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/act/layout/act_auth_lawyer.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/act/layout/act_auth_personal.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_login.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_register.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_select_usertype.xml" value="0.2359375" />
@@ -28,6 +31,9 @@
         <entry key="app/src/main/res/layouts/frag/layout/frag_mine.xml" value="0.25" />
         <entry key="app/src/main/res/layouts/other/layout/item_home_function_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/item_mine_function_list.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/mine_pickerview_time.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/popup_one_wheel_view.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/popup_select_city.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/view_title_comm_2.xml" value="0.2359375" />
       </map>
     </option>

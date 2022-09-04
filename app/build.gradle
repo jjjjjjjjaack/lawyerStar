@@ -15,12 +15,12 @@ android {
     }
 
     signingConfigs {
-        debug {
-            storeFile file("lawkeysign.jks")
-            storePassword 'keysign'
-            keyAlias 'key0'
-            keyPassword 'keysign'
-        }
+//        debug {
+//            storeFile file("lawkeysign.jks")
+//            storePassword 'keysign'
+//            keyAlias 'key0'
+//            keyPassword 'keysign'
+//        }
     }
 
     buildTypes {
@@ -33,7 +33,7 @@ android {
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
-            buildConfigField "String", "API_URL", "\"http://9kz99p.natappfree.cc/\""   //测试
+            buildConfigField "String", "API_URL", "\"http://hy3di2.natappfree.cc/\""   //测试
         }
     }
 
@@ -114,4 +114,6 @@ dependencies {
     //滚轮选择器
     implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:4.1.7'
     implementation 'com.github.gzu-liyujiang.AndroidPicker:CalendarPicker:4.1.7'
+    //Android-PickerView
+    implementation 'com.contrarywind:Android-PickerView:4.1.9'
 }

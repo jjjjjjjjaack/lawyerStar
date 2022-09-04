@@ -52,24 +52,6 @@
             app:wheel_itemTextColorSelected="@color/c_333333"
             app:wheel_itemTextSize="@dimen/sp_14" />
 
-        <com.github.gzuliyujiang.wheelview.widget.WheelView
-            android:id="@+id/rotate_2"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/dp_200"
-            app:wheel_itemTextColor="@color/c_333333"
-            app:wheel_itemTextColorSelected="@color/c_333333"
-            app:wheel_itemTextSize="@dimen/sp_14" />
-
-        <com.github.gzuliyujiang.wheelview.widget.WheelView
-            android:id="@+id/rotate_3"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/dp_200"
-            app:wheel_itemTextColor="@color/c_333333"
-            app:wheel_itemTextColorSelected="@color/c_333333"
-            app:wheel_itemTextSize="@dimen/sp_14" />
-
     </LinearLayout>
 
     <View

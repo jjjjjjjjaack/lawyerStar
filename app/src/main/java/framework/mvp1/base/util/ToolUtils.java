@@ -28,10 +28,13 @@ import com.pedaily.yc.ycdialoglib.selectDialog.CustomSelectDialog;
 import com.qbo.lawyerstar.app.MyApplication;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
 import com.qbo.lawyerstar.app.module.splash.SplashAct;
+import com.qbo.lawyerstar.app.net.REQ_Factory;
 
+import java.io.File;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -40,6 +43,11 @@ import java.util.regex.Pattern;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static framework.mvp1.base.constant.BROConstant.EXIT_APP_ACTION;
+
+import framework.mvp1.base.bean.SPathBean;
+import framework.mvp1.base.f.BasePresent;
+import framework.mvp1.base.net.BaseMulitRequest;
+import framework.mvp1.base.net.BaseResponse;
 
 public class ToolUtils {
 
@@ -857,6 +865,70 @@ public class ToolUtils {
             bytes[i] ^= 3;
         }
         return bytes;
+    }
+
+    public interface UploadFileInterface{
+        void uploadSuccess( List<SPathBean> sPathBeans);
+        void uploadFails();
+    }
+
+    /**
+     * @param
+     * @return
+     * @description 
+     * @author jiejack
+     * @time 2022/9/4 2:15 下午
+     */
+    public static void uploadImages(Context context,File file,UploadFileInterface uploadFileInterface){
+        uploadImages(context, Arrays.asList(file),uploadFileInterface);
+    }
+
+    public static void uploadImages(Context context,List<File> selectionData,UploadFileInterface uploadFileInterface) {
+        REQ_Factory.POST_UPLOAD_FILE_REQ fileReq = new REQ_Factory.POST_UPLOAD_FILE_REQ();
+        fileReq.theme = "image";
+        fileReq.path = "law";
+        fileReq.baseMulitRequests = new ArrayList<>();
+        for (int i = 0; i < selectionData.size(); i++) {
+            if (selectionData.get(i) == null) {
+
+            } else {
+                File file = selectionData.get(i);
+                if (file.exists()) {
+                    fileReq.baseMulitRequests.add(new BaseMulitRequest(("file[]"),
+                            file, "image/jpeg", "image", "law"));
+                } else {
+                    selectionData.remove(i);
+                    i--;
+                }
+            }
+        }
+        BasePresent.doStaticCommRequest(context,fileReq, true, false, new BasePresent.DoCommRequestInterface<BaseResponse, List<SPathBean>>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public List<SPathBean> doMap(BaseResponse baseResponse) {
+                List<SPathBean> sPathBeans
+                        = (List<SPathBean>) SPathBean.fromJSONListAuto(baseResponse.datas, SPathBean.class);
+                return sPathBeans;
+            }
+
+            @Override
+            public void onSuccess(List<SPathBean> s) throws Exception {
+                if(uploadFileInterface!=null){
+                    uploadFileInterface.uploadSuccess(s);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if(uploadFileInterface!=null){
+                    uploadFileInterface.uploadFails();
+                }
+            }
+        });
     }
 
 }

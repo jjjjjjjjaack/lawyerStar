@@ -29,7 +29,8 @@
                 android:textColor="#ff333333"
                 android:textSize="16sp" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/select_zz_ll"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_190"
                 android:layout_marginLeft="@dimen/dp_34"
@@ -39,23 +40,39 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <LinearLayout
+                    android:id="@+id/select_tipview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_select_yyzz_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:text="@string/user_auth_lawyer_tx7"
+                        android:textColor="#ff333333"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_select_yyzz_1" />
+                    android:id="@+id/zz_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:text="@string/user_auth_lawyer_tx7"
-                    android:textColor="#ff333333"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+            </RelativeLayout>
 
 
             <RelativeLayout
+                android:id="@+id/logo_rl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_74"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -116,6 +133,7 @@
 
 
                 <EditText
+                    android:id="@+id/name_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -155,6 +173,7 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/xxcode_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -179,6 +198,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/address_rl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_72"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -196,6 +216,7 @@
 
 
                 <TextView
+                    android:id="@+id/addressinfo_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -203,9 +224,9 @@
                     android:layout_toLeftOf="@id/arrow4_iv"
                     android:layout_toRightOf="@id/tv4"
                     android:background="@null"
+                    android:gravity="right"
                     android:hint="@string/user_auth_company_tx5_1"
                     android:maxLines="1"
-                    android:gravity="right"
                     android:singleLine="true"
                     android:textColor="#ff666666"
                     android:textSize="14sp" />
@@ -246,16 +267,17 @@
 
 
                 <EditText
+                    android:id="@+id/addressinfo_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_30"
                     android:layout_toRightOf="@id/tv5"
                     android:background="@null"
+                    android:gravity="right"
                     android:hint="@string/user_auth_company_tx6_1"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:gravity="right"
                     android:textColor="#ff666666"
                     android:textSize="14sp" />
 
@@ -286,14 +308,15 @@
 
 
                 <EditText
+                    android:id="@+id/leagal_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_30"
                     android:layout_toRightOf="@id/tv6"
                     android:background="@null"
-                    android:hint="@string/user_auth_company_tx7_1"
                     android:gravity="right"
+                    android:hint="@string/user_auth_company_tx7_1"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="#ff666666"
@@ -326,14 +349,16 @@
 
 
                 <EditText
+                    android:id="@+id/phone_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_30"
                     android:layout_toRightOf="@id/tv7"
                     android:background="@null"
-                    android:hint="@string/user_auth_company_tx8_1"
                     android:gravity="right"
+                    android:inputType="phone"
+                    android:hint="@string/user_auth_company_tx8_1"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="#ff666666"
@@ -350,6 +375,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/industry_rl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_72"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -366,15 +392,16 @@
                     android:textSize="14sp" />
 
 
-                <EditText
+                <TextView
+                    android:id="@+id/industry_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_30"
                     android:layout_toRightOf="@id/tv8"
                     android:background="@null"
-                    android:hint="@string/user_auth_company_tx9_1"
                     android:gravity="right"
+                    android:hint="@string/user_auth_company_tx9_1"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="#ff666666"
@@ -390,6 +417,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/enterpricesize_rl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_72"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -406,16 +434,17 @@
                     android:textSize="14sp" />
 
 
-                <EditText
+                <TextView
+                    android:id="@+id/enterpricesize_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toLeftOf="@id/arrow5_iv"
                     android:layout_toRightOf="@id/tv9"
                     android:background="@null"
-                    android:layout_toLeftOf="@id/arrow5_iv"
-                    android:hint="@string/user_auth_company_tx10_1"
                     android:gravity="right"
+                    android:hint="@string/user_auth_company_tx10_1"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="#ff666666"
@@ -439,6 +468,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/bulidtime_rl"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_72"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -455,16 +485,17 @@
                     android:textSize="14sp" />
 
 
-                <EditText
+                <TextView
+                    android:id="@+id/bulidtime_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_30"
+                    android:layout_toLeftOf="@id/arrow6_iv"
                     android:layout_toRightOf="@id/tv10"
                     android:background="@null"
-                    android:hint="@string/user_auth_company_tx11_1"
-                    android:layout_toLeftOf="@id/arrow6_iv"
                     android:gravity="right"
+                    android:hint="@string/user_auth_company_tx11_1"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textColor="#ff666666"
@@ -478,7 +509,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/ic_right_arrow_black_3" />
-
 
 
                 <View

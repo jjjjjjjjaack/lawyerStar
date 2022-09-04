@@ -150,11 +150,60 @@ public class REQ_Factory {
 
     }
 
+    /**
+     * @param
+     * @return
+     * @description 创建个人认证
+     * @author jiejack
+     * @time 2022/9/4 3:21 下午
+     */
     @AnnBaseReq(API_METHOD = "user/auth/create")
     public static class POST_AUTH_PERSONAL_REQ extends BaseRequest{
         public String sex;
         public String real_name;
         public ImagePath avatar;
+        public List<String> address_info;
+    }
+
+    /**
+     * @param
+     * @return
+     * @description 创建律师认证
+     * @author jiejack
+     * @time 2022/9/4 3:22 下午
+     */
+    @AnnBaseReq(API_METHOD = "user/attorney/auth/create")
+    public static class POST_AUTH_LAWYER_REQ extends BaseRequest{
+        public String sex;
+        public String real_name;
+        public String expertise;//擅长领域
+        public String employment_year;//从年年数
+        public String intro;//个人介绍
+        public ImagePath avatar;
+        public ImagePath lawyer_license;
+        public List<String> address_info;
+    }
+
+
+    /**
+     * @param
+     * @return
+     * @description
+     * @author jiejack
+     * @time 2022/9/4 9:08 下午
+     */
+    @AnnBaseReq(API_METHOD = "user/company/auth/create")
+    public static class POST_AUTH_COMPANY_REQ extends BaseRequest{
+        public String company_name;
+        public String address;
+        public String unified_code;
+        public String legal_person;
+        public String responsible_mobile;
+        public String industry;
+        public String enterprise_size;
+        public String established_date;
+        public ImagePath avatar;
+        public ImagePath business_license;
         public List<String> address_info;
     }
 

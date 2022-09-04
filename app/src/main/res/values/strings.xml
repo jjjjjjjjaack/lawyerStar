@@ -116,10 +116,13 @@
 
     <string name="user_info_tx1">个人资料</string>
     <string name="user_info_tx2">头像</string>
-    <string name="user_info_tx3">名称</string>
+    <string name="user_info_tx2_1">请选择头像</string>
+    <string name="user_info_tx3">名称&#8194;&#8194;&#8194;&#8194;</string>
+    <string name="user_info_tx3_1">请输入名称</string>
     <string name="user_info_tx4">绑定手机</string>
     <string name="user_info_tx5">用户类别</string>
     <string name="user_info_tx6">所在地</string>
+    <string name="user_info_tx6_1">请选择所在地</string>
     <string name="user_info_tx7">公司税号</string>
     <string name="user_info_tx8">提交更改</string>
 
@@ -148,27 +151,29 @@
 
     <string name="user_auth_lawyer_tx1">律师认证</string>
     <string name="user_auth_lawyer_tx2">擅长领域</string>
-    <string name="user_auth_lawyer_tx2_1">点击输入擅长领域</string>
+    <string name="user_auth_lawyer_tx2_1">请输入擅长领域</string>
     <string name="user_auth_lawyer_tx3">从业年数</string>
-    <string name="user_auth_lawyer_tx3_1">请输入企业名称</string>
+    <string name="user_auth_lawyer_tx3_1">请输入从业年数</string>
     <string name="user_auth_lawyer_tx4">个人介绍</string>
-    <string name="user_auth_lawyer_tx4_1">请输入负责人手机</string>
+    <string name="user_auth_lawyer_tx4_1">请输入个人介绍</string>
     <string name="user_auth_lawyer_tx5">上传律师执照</string>
+    <string name="user_auth_lawyer_tx5_1">请上传律师执照</string>
     <string name="user_auth_lawyer_tx6">法务平台入驻律师管理办法</string>
     <string name="user_auth_lawyer_tx7">点击上传</string>
 
     <string name="user_auth_company_tx1">企业认证</string>
     <string name="user_auth_company_tx2">上传营业执照</string>
+    <string name="user_auth_company_tx2_1">请上传营业执照</string>
     <string name="user_auth_company_tx3">企业名称</string>
     <string name="user_auth_company_tx3_1">请输入企业名称</string>
     <string name="user_auth_company_tx4">统一社会信用代码</string>
-    <string name="user_auth_company_tx4_1">请输入</string>
+    <string name="user_auth_company_tx4_1">请输入统一社会信用代码</string>
     <string name="user_auth_company_tx5">企业所在地</string>
     <string name="user_auth_company_tx5_1">选择企业所在地</string>
     <string name="user_auth_company_tx6">详细地址</string>
     <string name="user_auth_company_tx6_1">请输入详细地址</string>
     <string name="user_auth_company_tx7">法人</string>
-    <string name="user_auth_company_tx7_1">请输入企业名称</string>
+    <string name="user_auth_company_tx7_1">请输入法人名称</string>
     <string name="user_auth_company_tx8">负责人手机</string>
     <string name="user_auth_company_tx8_1">请输入负责人手机</string>
     <string name="user_auth_company_tx9">所属行业</string>
@@ -176,6 +181,6 @@
     <string name="user_auth_company_tx10">企业规模</string>
     <string name="user_auth_company_tx10_1">点击选择企业规模（人）</string>
     <string name="user_auth_company_tx11">成立时间</string>
-    <string name="user_auth_company_tx11_1">点击选择公司的成立时期</string>
+    <string name="user_auth_company_tx11_1">点击选择公司的成立时间</string>
 
 </resources>

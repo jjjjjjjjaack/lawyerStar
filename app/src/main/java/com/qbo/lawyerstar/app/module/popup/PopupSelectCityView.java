@@ -1,6 +1,8 @@
 package com.qbo.lawyerstar.app.module.popup;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
 
 import com.github.gzuliyujiang.wheelview.contract.OnWheelChangedListener;
 import com.github.gzuliyujiang.wheelview.widget.WheelView;
@@ -18,11 +20,18 @@ import framework.mvp1.views.pop.PopupBaseView;
 
 public class PopupSelectCityView extends PopupBaseView {
 
-    private WheelView rotate_1, rotate_2;
+    private WheelView rotate_1, rotate_2, rotate_3;
+    private boolean showArea;
+    private View sure_tv, close_tv;
+    private SelectCityInterface selectCityInterface;
 
+    public interface SelectCityInterface {
+        void onSelect(FCityBean prvoince, FCityBean city,FCityBean areaBean);
+    }
 
-    public PopupSelectCityView(Context context) {
+    public PopupSelectCityView(Context context, boolean showArea, SelectCityInterface selectCityInterface) {
         super(context, 0, ResourceUtils.getScreenHeight(context) / 3);
+        this.selectCityInterface = selectCityInterface;
     }
 
     @Override
@@ -32,9 +41,13 @@ public class PopupSelectCityView extends PopupBaseView {
 
     @Override
     public void initPopupView() {
+        sure_tv = popView.findViewById(R.id.sure_tv);
+        close_tv = popView.findViewById(R.id.close_tv);
         rotate_1 = popView.findViewById(R.id.rotate_1);
         rotate_2 = popView.findViewById(R.id.rotate_2);
+        rotate_3 = popView.findViewById(R.id.rotate_3);
 
+        rotate_3.setVisibility(showArea?View.VISIBLE:View.GONE);
         rotate_1.setOnWheelChangedListener(new OnWheelChangedListener() {
             @Override
             public void onWheelScrolled(WheelView view, int offset) {
@@ -59,6 +72,54 @@ public class PopupSelectCityView extends PopupBaseView {
             @Override
             public void onWheelLoopFinished(WheelView view) {
 
+            }
+        });
+        rotate_2.setOnWheelChangedListener(new OnWheelChangedListener() {
+            @Override
+            public void onWheelScrolled(WheelView view, int offset) {
+
+            }
+
+            @Override
+            public void onWheelSelected(WheelView view, int position) {
+                try {
+                    FCityBean cityBean = (FCityBean) rotate_2.getData().get(position);
+                    rotate_3.setData(cityBean.getChildren());
+                } catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void onWheelScrollStateChanged(WheelView view, int state) {
+
+            }
+
+            @Override
+            public void onWheelLoopFinished(WheelView view) {
+
+            }
+        });
+
+
+        sure_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(rotate_1.getData()==null||rotate_1.getData().size()==0){
+                    T.showShort(context,"数据获取中,请稍后");
+                    return;
+                }
+                if (selectCityInterface != null) {
+                    selectCityInterface.onSelect(rotate_1.getCurrentItem(), rotate_2.getCurrentItem()
+                            ,rotate_3.getCurrentItem());
+                }
+                dismiss();
+            }
+        });
+        close_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
             }
         });
 
@@ -86,6 +147,9 @@ public class PopupSelectCityView extends PopupBaseView {
                     rotate_1.setDefaultPosition(0);
                     if (cityBeans.get(0).getChildren().size() > 0) {
                         rotate_2.setData(cityBeans.get(0).getChildren());
+                        if (cityBeans.get(0).getChildren().get(0).getChildren().size() > 0) {
+                            rotate_3.setData(cityBeans.get(0).getChildren().get(0).getChildren());
+                        }
                     }
                 }
             }

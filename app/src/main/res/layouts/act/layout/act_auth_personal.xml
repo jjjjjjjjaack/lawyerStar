@@ -10,6 +10,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/logo_rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_74"
         android:layout_marginLeft="@dimen/dp_12"
@@ -30,6 +31,7 @@
             android:layout_height="@dimen/dp_52"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/arrow1_iv"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_userlogo_default_1"
             app:lbottom="@dimen/dp_2"
             app:ltop="@dimen/dp_2"
@@ -70,6 +72,7 @@
 
 
         <EditText
+            android:id="@+id/name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -188,19 +191,19 @@
 
 
         <TextView
+            android:id="@+id/addressinfo_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_30"
+            android:layout_toLeftOf="@id/arrow4_iv"
             android:layout_toRightOf="@id/tv4"
             android:background="@null"
             android:hint="@string/user_auth_personal_tx5_1"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="#ff666666"
-            android:textSize="14sp"
-            android:layout_toLeftOf="@id/arrow4_iv"
-            />
+            android:textSize="14sp" />
 
 
         <ImageView
@@ -230,10 +233,10 @@
             android:id="@+id/commit_tv"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_44"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginRight="@dimen/dp_12"
             android:layout_marginBottom="@dimen/dp_5"
-            android:layout_alignParentBottom="true"
             android:background="@drawable/selector_comm_btn"
             android:gravity="center"
             android:text="@string/commit_tx"
