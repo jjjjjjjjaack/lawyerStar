@@ -57,8 +57,8 @@ public class LawyerAuthPresenter extends BasePresent<ILawyerAuthView, BaseModel>
                     if (sPathBeans != null && sPathBeans.size() == 2) {
                         POST_AUTH_LAWYER_REQ req = new POST_AUTH_LAWYER_REQ();
                         req.real_name = name;
-                        req.avatar = new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url);
-                        req.lawyer_license = new ImagePath(sPathBeans.get(1).path, sPathBeans.get(1).url);
+                        req.avatar = Arrays.asList(new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url));
+                        req.lawyer_license =  Arrays.asList(new ImagePath(sPathBeans.get(1).path, sPathBeans.get(1).url));
                         req.address_info = Arrays.asList(selectPrvoince.getId(), selectCity.getId(), selectArea.getId());
                         req.sex = sex;
                         req.expertise = expertise;

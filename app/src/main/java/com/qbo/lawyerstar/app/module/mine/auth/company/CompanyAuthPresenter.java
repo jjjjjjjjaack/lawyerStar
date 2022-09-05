@@ -85,8 +85,8 @@ public class CompanyAuthPresenter extends BasePresent<ICompanyAuthView, BaseMode
                         req.industry = industryBean.value;
                         req.enterprise_size = enterpricesizeBean.value;
                         req.established_date = established_date;
-                        req.avatar = new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url);
-                        req.business_license = new ImagePath(sPathBeans.get(1).path, sPathBeans.get(1).url);
+                        req.avatar = Arrays.asList(new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url));
+                        req.business_license =  Arrays.asList(new ImagePath(sPathBeans.get(1).path, sPathBeans.get(1).url));
                         req.address_info = Arrays.asList(selectPrvoince.getId(), selectCity.getId(), selectArea.getId());
                         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
                             @Override

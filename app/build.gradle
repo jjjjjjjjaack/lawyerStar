@@ -15,12 +15,12 @@ android {
     }
 
     signingConfigs {
-//        debug {
-//            storeFile file("lawkeysign.jks")
-//            storePassword 'keysign'
-//            keyAlias 'key0'
-//            keyPassword 'keysign'
-//        }
+        debug {
+            storeFile file("lawkeysign.jks")
+            storePassword 'keysign'
+            keyAlias 'key0'
+            keyPassword 'keysign'
+        }
     }
 
     buildTypes {
@@ -28,12 +28,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
-//            buildConfigField "String", "API_URL", "\"http://9kz99p.natappfree.cc/\""   //正式
+//            buildConfigField "String", "API_URL", "\"http://hkukru.natappfree.cc\""   //正式
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
-            buildConfigField "String", "API_URL", "\"http://hy3di2.natappfree.cc/\""   //测试
+            buildConfigField "String", "API_URL", "\"http://hkukru.natappfree.cc/\""   //测试
         }
     }
 

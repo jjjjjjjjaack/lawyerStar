@@ -99,7 +99,7 @@ public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuth
                 if (prvoince != null && city != null && area != null) {
                     addressinfo_tv.setText(prvoince.getLabel() + " "
                             + city.getLabel() + " " +
-                            area == null ? "" : area.getLabel());
+                            (area == null ? "" : area.getLabel()));
                 }
             }
         });

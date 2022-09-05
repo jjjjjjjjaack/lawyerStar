@@ -157,7 +157,8 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
         if (type == 0) {
             VpMainAct.openMainAct(getMContext());
         } else if (type == 1) {//需要认证
-            gotoActivity(UserSelectTypeAct.class);
+            VpMainAct.openMainAct(getMContext());
+//            gotoActivity(UserSelectTypeAct.class);
         }
     }
 }

@@ -50,7 +50,7 @@ public class PersonsalAuthPresenter extends BasePresent<IPersonsalAuthView, Base
                     if (sPathBeans != null && sPathBeans.size() > 0) {
                         POST_AUTH_PERSONAL_REQ req = new POST_AUTH_PERSONAL_REQ();
                         req.real_name = name;
-                        req.avatar = new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url);
+                        req.avatar = Arrays.asList(new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url));
                         req.address_info = Arrays.asList(selectPrvoince.getId(), selectCity.getId());
                         req.sex = sex;
                         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {

@@ -75,6 +75,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
 
     private List<BaseFrag> fragMap = new ArrayList();
     private Long exitTime = 0L;
+    private boolean isJumpRz;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -133,8 +134,9 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
         FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
             @Override
             public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
-                if (!ToolUtils.String2Boolean(userInfoBean.is_rz)) {
+                if (!ToolUtils.String2Boolean(userInfoBean.is_rz) && !isJumpRz) {
                     gotoActivity(UserSelectTypeAct.class);
+                    isJumpRz = true;
                 }
             }
 
@@ -215,7 +217,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
 
     private boolean checkLogin() {
         try {
-            FTokenUtils.getToken(this,true);
+            FTokenUtils.getToken(this, true);
             return true;
         } catch (NeedLoginException e) {
             return false;

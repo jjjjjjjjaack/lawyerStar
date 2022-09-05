@@ -32,6 +32,7 @@ public class PopupSelectCityView extends PopupBaseView {
     public PopupSelectCityView(Context context, boolean showArea, SelectCityInterface selectCityInterface) {
         super(context, 0, ResourceUtils.getScreenHeight(context) / 3);
         this.selectCityInterface = selectCityInterface;
+        rotate_3.setVisibility(showArea?View.VISIBLE:View.GONE);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class PopupSelectCityView extends PopupBaseView {
         rotate_2 = popView.findViewById(R.id.rotate_2);
         rotate_3 = popView.findViewById(R.id.rotate_3);
 
-        rotate_3.setVisibility(showArea?View.VISIBLE:View.GONE);
+
         rotate_1.setOnWheelChangedListener(new OnWheelChangedListener() {
             @Override
             public void onWheelScrolled(WheelView view, int offset) {

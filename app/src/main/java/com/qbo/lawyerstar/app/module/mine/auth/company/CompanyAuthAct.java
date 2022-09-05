@@ -123,7 +123,7 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
                 if (prvoince != null && city != null && area != null) {
                     addressinfo_tv.setText(prvoince.getLabel() + " "
                             + city.getLabel() + " " +
-                            area == null ? "" : area.getLabel());
+                            (area == null ? "" : area.getLabel()));
                 }
             }
         });
@@ -230,11 +230,11 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
         ptimeView = new MineTimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                bulidtime_tv.setText(ToolUtils.timestamp2String(date.getTime(), "yyyy-MM"));
+                bulidtime_tv.setText(ToolUtils.timestamp2String(date.getTime(), "yyyy-MM-dd"));
                 presenter.established_date = bulidtime_tv.getText().toString().trim();
                 ptimeView.dismiss();
             }
-        }).setType(new boolean[]{true, true, false, false, false, false})// 默认全部显示
+        }).setType(new boolean[]{true, true, true, false, false, false})// 默认全部显示
 //                .setCancelText(getString(R.string.back_cancel))//取消按钮文字
 //                .setSubmitText(getString(R.string.comfirm_step))//确认按钮文字
                 .setContentTextSize(16)//滚轮文字大小
