@@ -26,6 +26,7 @@ import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.mine.info.base.UserInfoBaseAct;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
+import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -43,6 +44,7 @@ import framework.mvp1.base.f.MvpFrag;
 import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
+import framework.mvp1.base.util.ToolUtils;
 
 public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> implements IMineView {
 
@@ -202,9 +204,8 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
             @Override
             public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
                 username_tv.setText(userInfoBean.nick_name);
-                usertype_tv.setText(userInfoBean.user_type_tx);
+                usertype_tv.setText(userInfoBean.userinfo_type_tx);
                 GlideUtils.loadImageUserLogoDefult(getMContext(), userInfoBean.avatar, userlogo_civ);
-
                 right_ll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

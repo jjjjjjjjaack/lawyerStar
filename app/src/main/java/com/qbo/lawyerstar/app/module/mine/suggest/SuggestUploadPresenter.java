@@ -2,6 +2,7 @@ package com.qbo.lawyerstar.app.module.mine.suggest;
 
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.ImagePathBean;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 
 import java.io.File;
@@ -105,7 +106,7 @@ public class SuggestUploadPresenter extends BasePresent<ISuggestUploadView, Base
         }
         req.content = content;
         for (SPathBean bean : pathBeans) {
-            req.image.add(new ImagePath(bean.path, bean.url));
+            req.image.add(new ImagePathBean(bean.path, bean.url));
         }
         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
             @Override

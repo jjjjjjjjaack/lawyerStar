@@ -2,6 +2,9 @@ package com.qbo.lawyerstar.app.module.mine.auth.company;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FCityBean;
+import com.qbo.lawyerstar.app.bean.ImagePathBean;
+import com.qbo.lawyerstar.app.module.mine.auth.company.bean.CompanyAuthBean;
+import com.qbo.lawyerstar.app.module.mine.auth.lawyer.bean.LawyerAuthBean;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 
 import java.io.File;
@@ -24,6 +27,33 @@ public class CompanyAuthPresenter extends BasePresent<ICompanyAuthView, BaseMode
     IndexDictionaryUtils.ValueBean industryBean;
     IndexDictionaryUtils.ValueBean enterpricesizeBean;
     public String established_date;
+
+
+    public void getInfoDetail() {
+        GET_AUTH_COMPANY_DETAILINFO_REQ req = new GET_AUTH_COMPANY_DETAILINFO_REQ();
+        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, CompanyAuthBean>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public CompanyAuthBean doMap(BaseResponse baseResponse) {
+                CompanyAuthBean bean = LawyerAuthBean.fromJSONAuto(baseResponse.datas, CompanyAuthBean.class);
+                return bean;
+            }
+
+            @Override
+            public void onSuccess(CompanyAuthBean bean) throws Exception {
+                view().showInfo(bean);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
 
     public void doCompanyAuth(String company_name,String address,String unified_code
     ,String legal_person,String responsible_mobile) {
@@ -85,8 +115,8 @@ public class CompanyAuthPresenter extends BasePresent<ICompanyAuthView, BaseMode
                         req.industry = industryBean.value;
                         req.enterprise_size = enterpricesizeBean.value;
                         req.established_date = established_date;
-                        req.avatar = Arrays.asList(new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url));
-                        req.business_license =  Arrays.asList(new ImagePath(sPathBeans.get(1).path, sPathBeans.get(1).url));
+                        req.avatar = Arrays.asList(new ImagePathBean(sPathBeans.get(0).path, sPathBeans.get(0).url));
+                        req.business_license =  Arrays.asList(new ImagePathBean(sPathBeans.get(1).path, sPathBeans.get(1).url));
                         req.address_info = Arrays.asList(selectPrvoince.getId(), selectCity.getId(), selectArea.getId());
                         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
                             @Override

@@ -18,6 +18,9 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FCityBean;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
+import com.qbo.lawyerstar.app.module.mine.auth.lawyer.LawyerAuthAct;
+import com.qbo.lawyerstar.app.module.mine.auth.lawyer.bean.LawyerAuthBean;
+import com.qbo.lawyerstar.app.module.mine.auth.personal.bean.PersonalAuthBean;
 import com.qbo.lawyerstar.app.module.mine.suggest.SuggestUploadAct;
 import com.qbo.lawyerstar.app.module.popup.PopupSelectCityView;
 
@@ -32,6 +35,20 @@ import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.pics.GlideEngine;
 
 public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, PersonsalAuthPresenter> implements IPersonsalAuthView {
+
+    /**
+     * @param
+     * @return
+     * @description 0创建 1编辑
+     * @author jieja
+     * @time 2022/9/7 15:07
+     */
+    public static void openAct(Context context, int type, boolean onlyRead) {
+        Intent intent = new Intent(context, PersonsalAuthAct.class);
+        intent.putExtra("type", type);
+        intent.putExtra("onlyRead", onlyRead);
+        context.startActivity(intent);
+    }
 
 
     @BindView(R.id.logo_rl)
@@ -52,6 +69,10 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
     View commit_tv;
 
     PopupSelectCityView popupSelectCityView;
+
+    int type;//0创建 1编辑
+    boolean onlyRead;
+
 
     @Override
     public PersonsalAuthPresenter initPresenter() {
@@ -127,7 +148,35 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
 
     @Override
     public void doBusiness() {
+        type = getIntent().getIntExtra("type", 0);
+        onlyRead = getIntent().getBooleanExtra("onlyRead", false);
+        if (type == 1) {
+            presenter.getInfoDetail();
+        }
+        if (onlyRead) {
+            logo_rl.setEnabled(false);
+            name_et.setEnabled(false);
+            man_ll.setEnabled(false);
+            woman_ll.setEnabled(false);
+            address_rl.setEnabled(false);
+            commit_tv.setVisibility(View.GONE);
+        }
+    }
 
+    @Override
+    public void showInfo(PersonalAuthBean bean) {
+        if (bean == null) {
+            return;
+        }
+        name_et.setText(bean.getReal_name());
+        if ("女".equals(bean.getSex_text())) {
+            woman_ll.setSelected(true);
+            man_ll.setSelected(false);
+        } else {
+            woman_ll.setSelected(false);
+            man_ll.setSelected(true);
+        }
+        addressinfo_tv.setText(bean.getAddress_info_text());
     }
 
     @Override

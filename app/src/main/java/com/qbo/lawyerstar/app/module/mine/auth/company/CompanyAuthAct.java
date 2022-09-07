@@ -23,6 +23,9 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FCityBean;
+import com.qbo.lawyerstar.app.module.mine.auth.company.bean.CompanyAuthBean;
+import com.qbo.lawyerstar.app.module.mine.auth.lawyer.LawyerAuthAct;
+import com.qbo.lawyerstar.app.module.popup.PopupCommitSuccessView;
 import com.qbo.lawyerstar.app.module.popup.PopupIndexDictionaryView;
 import com.qbo.lawyerstar.app.module.popup.PopupSelectCityView;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
@@ -43,6 +46,21 @@ import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.pics.GlideEngine;
 
 public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyAuthPresenter> implements ICompanyAuthView {
+
+    /**
+     * @param
+     * @return
+     * @description 0创建 1编辑
+     * @author jieja
+     * @time 2022/9/7 15:07
+     */
+    public static void openAct(Context context, int type, boolean onlyRead) {
+        Intent intent = new Intent(context, CompanyAuthAct.class);
+        intent.putExtra("type", type);
+        intent.putExtra("onlyRead", onlyRead);
+        context.startActivity(intent);
+    }
+
 
     public final static int CHOOSE_IMAGE_USERLOGO_REQUEST = 2188;
     public final static int CHOOSE_IMAGE_YYZZ_REQUEST = 2189;
@@ -91,9 +109,21 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
     @BindView(R.id.commit_tv)
     View commit_tv;
 
+    @BindView(R.id.status_ll)
+    View status_ll;
+    @BindView(R.id.status_iv)
+    ImageView status_iv;
+    @BindView(R.id.status_reason_tv)
+    TextView status_reason_tv;
+
+
     PopupSelectCityView popupSelectCityView;
+    PopupCommitSuccessView commitSuccessView;
     PopupIndexDictionaryView industryPopView;//所属行业弹框
     PopupIndexDictionaryView enterpriceSizePopView;//所属行业弹框
+
+    int type;//0创建 1编辑
+    boolean onlyRead;
 
     @Override
     public CompanyAuthPresenter initPresenter() {
@@ -114,6 +144,18 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
     public void viewInitialization() {
         setBackPress();
         setMTitle(R.string.user_auth_company_tx1);
+
+        commitSuccessView = new PopupCommitSuccessView(getMContext());
+        commitSuccessView.setOnDismissInterface(new PopupCommitSuccessView.OnDismissInterface() {
+            @Override
+            public void onDismiss() {
+                Intent intent = new Intent(CLOSE_TRAGETACT_ACTION);
+                intent.putExtra(IETConstant.CLOSE_TRAGETACT_KEY, "UserSelectTypeAct");
+                sendBroadcast(intent);
+                finish();
+            }
+        });
+
         popupSelectCityView = new PopupSelectCityView(this, true, new PopupSelectCityView.SelectCityInterface() {
             @Override
             public void onSelect(FCityBean prvoince, FCityBean city, FCityBean area) {
@@ -192,7 +234,7 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
             @Override
             public void onClick(View view) {
 //                bulidPickTime();
-                if(ptimeView==null){
+                if (ptimeView == null) {
                     bulidPickTime();
                 }
                 ptimeView.show();
@@ -213,7 +255,72 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
 
     @Override
     public void doBusiness() {
+        type = getIntent().getIntExtra("type", 0);
+        onlyRead = getIntent().getBooleanExtra("onlyRead", false);
+        if (type == 1) {
+            presenter.getInfoDetail();
+        }
+        if (onlyRead) {
+            setOnlyRead();
+        }
+    }
 
+    public void setOnlyRead() {
+        onlyRead = true;
+        select_zz_ll.setEnabled(false);
+        logo_rl.setEnabled(false);
+        name_et.setEnabled(false);
+        xxcode_et.setEnabled(false);
+        address_rl.setEnabled(false);
+        addressdetail_et.setEnabled(false);
+        leagal_et.setEnabled(false);
+        phone_et.setEnabled(false);
+        industry_rl.setEnabled(false);
+        enterpricesize_rl.setEnabled(false);
+        bulidtime_rl.setEnabled(false);
+        commit_tv.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showInfo(CompanyAuthBean bean) {
+        if (bean == null) {
+            return;
+        }
+
+        if (bean.getBusiness_license() != null && bean.getBusiness_license().size() > 0) {
+            zz_iv.setVisibility(View.VISIBLE);
+            GlideUtils.loadImageDefult(getMContext(), bean.getBusiness_license().get(0).url, zz_iv);
+        }
+        if (bean.getAvatar() != null && bean.getAvatar().size() > 0) {
+            GlideUtils.loadImageUserLogoDefult(getMContext(), bean.getAvatar().get(0).url, userlogo_civ);
+        }
+        name_et.setText(bean.getCompany_name());
+        xxcode_et.setText(bean.getUnified_code());
+        addressinfo_tv.setText(bean.getAddress_info_text());
+        addressdetail_et.setText(bean.getAddress());
+        leagal_et.setText(bean.getLegal_person());
+        phone_et.setText(bean.getResponsible_mobile());
+        industry_tv.setText(bean.getIndustry_text());
+        enterpricesize_tv.setText(bean.getEnterprise_size_text());
+        bulidtime_tv.setText(bean.getEstablished_date());
+
+
+        if ("pending".equals(bean.getStatus())) {
+            status_ll.setVisibility(View.VISIBLE);
+            status_ll.setBackgroundResource(R.drawable.shape_1af3a239_r4);
+            status_iv.setImageResource(R.mipmap.ic_auth_shenhe_top_iv_1);
+            status_reason_tv.setText(bean.getCheck_text());
+            status_reason_tv.setTextColor(0xffF3A239);
+            setOnlyRead();
+        } else if ("refuse".equals(bean.getStatus())) {
+            status_ll.setVisibility(View.VISIBLE);
+            status_ll.setBackgroundResource(R.drawable.shape_1adf686b_r4);
+            status_iv.setImageResource(R.mipmap.ic_auth_refues_top_iv_1);
+            status_reason_tv.setText(bean.getCheck_text());
+            status_reason_tv.setTextColor(0xffDF686B);
+        } else {
+            status_ll.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -307,10 +414,10 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
     @Override
     public void authResult(boolean b) {
         if (b) {
-            Intent intent = new Intent(CLOSE_TRAGETACT_ACTION);
-            intent.putExtra(IETConstant.CLOSE_TRAGETACT_KEY, "UserSelectTypeAct");
-            sendBroadcast(intent);
-            finish();
+            presenter.getInfoDetail();
+            commitSuccessView.showCenter(userlogo_civ);
         }
     }
+
+
 }

@@ -17,7 +17,9 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FCityBean;
+import com.qbo.lawyerstar.app.module.mine.auth.lawyer.bean.LawyerAuthBean;
 import com.qbo.lawyerstar.app.module.mine.auth.personal.PersonsalAuthAct;
+import com.qbo.lawyerstar.app.module.popup.PopupCommitSuccessView;
 import com.qbo.lawyerstar.app.module.popup.PopupSelectCityView;
 
 import java.io.File;
@@ -34,8 +36,23 @@ import framework.mvp1.pics.GlideEngine;
 public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuthPresenter> implements ILawyerAuthView {
 
 
+    /**
+     * @param
+     * @return
+     * @description 0创建 1编辑
+     * @author jieja
+     * @time 2022/9/7 15:07
+     */
+    public static void openAct(Context context, int type, boolean onlyRead) {
+        Intent intent = new Intent(context, LawyerAuthAct.class);
+        intent.putExtra("type", type);
+        intent.putExtra("onlyRead", onlyRead);
+        context.startActivity(intent);
+    }
+
     public final static int CHOOSE_IMAGE_USERLOGO_REQUEST = 2188;
     public final static int CHOOSE_IMAGE_LSZZ_REQUEST = 2189;
+
 
     @BindView(R.id.logo_rl)
     View logo_rl;
@@ -68,7 +85,18 @@ public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuth
     @BindView(R.id.commit_tv)
     View commit_tv;
 
+    @BindView(R.id.status_ll)
+    View status_ll;
+    @BindView(R.id.status_iv)
+    ImageView status_iv;
+    @BindView(R.id.status_reason_tv)
+    TextView status_reason_tv;
+
     PopupSelectCityView popupSelectCityView;
+    PopupCommitSuccessView commitSuccessView;
+
+    int type;//0创建 1编辑
+    boolean onlyRead;
 
     @Override
     public LawyerAuthPresenter initPresenter() {
@@ -89,6 +117,17 @@ public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuth
     public void viewInitialization() {
         setBackPress();
         setMTitle(R.string.user_auth_lawyer_tx1);
+
+        commitSuccessView = new PopupCommitSuccessView(getMContext());
+        commitSuccessView.setOnDismissInterface(new PopupCommitSuccessView.OnDismissInterface() {
+            @Override
+            public void onDismiss() {
+                Intent intent = new Intent(CLOSE_TRAGETACT_ACTION);
+                intent.putExtra(IETConstant.CLOSE_TRAGETACT_KEY, "UserSelectTypeAct");
+                sendBroadcast(intent);
+                finish();
+            }
+        });
 
         popupSelectCityView = new PopupSelectCityView(this, true, new PopupSelectCityView.SelectCityInterface() {
             @Override
@@ -160,27 +199,98 @@ public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuth
         commit_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!pliocy_iv.isSelected()){
-                    T.showShort(getMContext(),"请先仔细阅读管理办法并勾选同意");
+                if (!pliocy_iv.isSelected()) {
+                    T.showShort(getMContext(), "请先仔细阅读管理办法并勾选同意");
                     return;
                 }
-                presenter.doLawyerAuth(name_et.getText().toString(),
-                        scly_et.getText().toString().trim(),
-                        cyns_et.getText().toString().trim(),
-                        gejx_et.getText().toString().trim(),
-                        woman_ll.isSelected() ? "女" : "男");
+                if (type == 1) {
+                    presenter.editLawyerAuth();
+                } else {
+                    presenter.doLawyerAuth(name_et.getText().toString(),
+                            scly_et.getText().toString().trim(),
+                            cyns_et.getText().toString().trim(),
+                            gejx_et.getText().toString().trim(),
+                            woman_ll.isSelected() ? "女" : "男");
+                }
             }
         });
     }
 
     @Override
     public void doBusiness() {
+        type = getIntent().getIntExtra("type", 0);
+        onlyRead = getIntent().getBooleanExtra("onlyRead", false);
+        if (type == 1) {
+            presenter.getInfoDetail();
+        }
+        if (onlyRead) {
+            setOnlyRead();
+        }
+    }
 
+    public void setOnlyRead() {
+        onlyRead = true;
+        logo_rl.setEnabled(false);
+        name_et.setEnabled(false);
+        man_ll.setEnabled(false);
+        woman_ll.setEnabled(false);
+        address_rl.setEnabled(false);
+        scly_et.setEnabled(false);
+        cyns_et.setEnabled(false);
+        gejx_et.setEnabled(false);
+        select_zz_ll.setEnabled(false);
+        pliocy_iv.setEnabled(false);
+        commit_tv.setVisibility(View.GONE);
     }
 
     @Override
     public void doWakeUpBusiness() {
 
+    }
+
+    @Override
+    public void showInfo(LawyerAuthBean bean) {
+        if (bean == null) {
+            return;
+        }
+        name_et.setText(bean.getReal_name());
+        if ("女".equals(bean.getSex_text())) {
+            woman_ll.setSelected(true);
+            man_ll.setSelected(false);
+        } else {
+            woman_ll.setSelected(false);
+            man_ll.setSelected(true);
+        }
+        if (bean.getAvatar() != null && bean.getAvatar().size() > 0) {
+            GlideUtils.loadImageUserLogoDefult(getMContext(), bean.getAvatar().get(0).url, userlogo_civ);
+        }
+        if (bean.getLawyer_license() != null && bean.getLawyer_license().size() > 0) {
+            zz_iv.setVisibility(View.VISIBLE);
+            GlideUtils.loadImageDefult(getMContext(), bean.getLawyer_license().get(0).url, zz_iv);
+        }
+
+
+        addressinfo_tv.setText(bean.getAddress_info_text());
+        scly_et.setText(bean.getExpertise());
+        cyns_et.setText(bean.getEmployment_year());
+        gejx_et.setText(bean.getIntro());
+
+        if ("pending".equals(bean.getStatus())) {
+            status_ll.setVisibility(View.VISIBLE);
+            status_ll.setBackgroundResource(R.drawable.shape_1af3a239_r4);
+            status_iv.setImageResource(R.mipmap.ic_auth_shenhe_top_iv_1);
+            status_reason_tv.setText(bean.getCheck_text());
+            status_reason_tv.setTextColor(0xffF3A239);
+            setOnlyRead();
+        } else if ("refuse".equals(bean.getStatus())) {
+            status_ll.setVisibility(View.VISIBLE);
+            status_ll.setBackgroundResource(R.drawable.shape_1adf686b_r4);
+            status_iv.setImageResource(R.mipmap.ic_auth_refues_top_iv_1);
+            status_reason_tv.setText(bean.getCheck_text());
+            status_reason_tv.setTextColor(0xffDF686B);
+        } else {
+            status_ll.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -218,10 +328,15 @@ public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuth
     @Override
     public void authResult(boolean b) {
         if (b) {
-            Intent intent = new Intent(CLOSE_TRAGETACT_ACTION);
-            intent.putExtra(IETConstant.CLOSE_TRAGETACT_KEY, "UserSelectTypeAct");
-            sendBroadcast(intent);
-            finish();
+            presenter.getInfoDetail();
+            commitSuccessView.showCenter(userlogo_civ);
+
+//            Intent intent = new Intent(CLOSE_TRAGETACT_ACTION);
+//            intent.putExtra(IETConstant.CLOSE_TRAGETACT_KEY, "UserSelectTypeAct");
+//            sendBroadcast(intent);
+//            finish();
         }
     }
+
+
 }

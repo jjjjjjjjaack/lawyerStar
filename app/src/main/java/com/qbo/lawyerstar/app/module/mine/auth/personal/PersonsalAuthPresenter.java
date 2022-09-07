@@ -3,6 +3,9 @@ package com.qbo.lawyerstar.app.module.mine.auth.personal;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FCityBean;
+import com.qbo.lawyerstar.app.bean.ImagePathBean;
+import com.qbo.lawyerstar.app.module.mine.auth.lawyer.bean.LawyerAuthBean;
+import com.qbo.lawyerstar.app.module.mine.auth.personal.bean.PersonalAuthBean;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,6 +24,33 @@ public class PersonsalAuthPresenter extends BasePresent<IPersonsalAuthView, Base
 
     File logoFile;
     FCityBean selectPrvoince, selectCity;
+
+
+    public void getInfoDetail() {
+        GET_AUTH_PERSONAL_DETAILINFO_REQ req = new GET_AUTH_PERSONAL_DETAILINFO_REQ();
+        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, PersonalAuthBean>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public PersonalAuthBean doMap(BaseResponse baseResponse) {
+                PersonalAuthBean bean = LawyerAuthBean.fromJSONAuto(baseResponse.datas, PersonalAuthBean.class);
+                return bean;
+            }
+
+            @Override
+            public void onSuccess(PersonalAuthBean bean) throws Exception {
+                view().showInfo(bean);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
 
     /**
      * @param
@@ -50,7 +80,7 @@ public class PersonsalAuthPresenter extends BasePresent<IPersonsalAuthView, Base
                     if (sPathBeans != null && sPathBeans.size() > 0) {
                         POST_AUTH_PERSONAL_REQ req = new POST_AUTH_PERSONAL_REQ();
                         req.real_name = name;
-                        req.avatar = Arrays.asList(new ImagePath(sPathBeans.get(0).path, sPathBeans.get(0).url));
+                        req.avatar = Arrays.asList(new ImagePathBean(sPathBeans.get(0).path, sPathBeans.get(0).url));
                         req.address_info = Arrays.asList(selectPrvoince.getId(), selectCity.getId());
                         req.sex = sex;
                         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {

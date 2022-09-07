@@ -23,6 +23,7 @@
     <string name="sure_tx">确定</string>
     <string name="man_tx">男</string>
     <string name="woman_tx">女</string>
+    <string name="commit_success_tx">提交成功</string>
     <!-- guide.java -->
     <string name="guide_start_tx1">立即开启</string>
     <string name="guide_tx1">简单易懂,学习成本低</string>

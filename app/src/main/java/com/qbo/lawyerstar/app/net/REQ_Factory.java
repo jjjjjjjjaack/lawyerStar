@@ -1,12 +1,14 @@
 package com.qbo.lawyerstar.app.net;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.ImagePathBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import framework.mvp1.base.annotation.AnnBaseReq;
 import framework.mvp1.base.annotation.AnnReqPara;
+import framework.mvp1.base.bean.BaseBean;
 import framework.mvp1.base.net.BaseRXNetApi;
 import framework.mvp1.base.net.BaseRequest;
 
@@ -145,7 +147,7 @@ public class REQ_Factory {
     public static class POST_CREATE_SUGGEST_REQ extends BaseRequest {
         public String category_labels;
         public String content;
-        public List<ImagePath> image = new ArrayList<>();
+        public List<ImagePathBean> image = new ArrayList<>();
 
 
     }
@@ -161,9 +163,23 @@ public class REQ_Factory {
     public static class POST_AUTH_PERSONAL_REQ extends BaseRequest {
         public String sex;
         public String real_name;
-        public List<ImagePath> avatar = new ArrayList<>();
+        public List<ImagePathBean> avatar = new ArrayList<>();
         public List<String> address_info;
     }
+
+    
+    /**
+     * @description 个人认证详情
+     * @param 
+     * @return 
+     * @author jieja
+     * @time 2022/9/7 16:10
+     */
+    @AnnBaseReq(API_METHOD = "user/auth/info")
+    public static class GET_AUTH_PERSONAL_DETAILINFO_REQ extends BaseRequest {
+
+    }
+
 
     /**
      * @param
@@ -179,9 +195,33 @@ public class REQ_Factory {
         public String expertise;//擅长领域
         public String employment_year;//从年年数
         public String intro;//个人介绍
-        public List<ImagePath> avatar = new ArrayList<>();
-        public List<ImagePath> lawyer_license = new ArrayList<>();
+        public List<ImagePathBean> avatar = new ArrayList<>();
+        public List<ImagePathBean> lawyer_license = new ArrayList<>();
         public List<String> address_info;
+    }
+    
+    /**
+     * @description 律师认证详情
+     * @param 
+     * @return 
+     * @author jieja
+     * @time 2022/9/7 15:11
+     */
+    @AnnBaseReq(API_METHOD = "user/attorney/auth/info")
+    public static class GET_AUTH_LAWYER_DETAILINFO_REQ extends BaseRequest {
+
+    }
+
+    /**
+     * @description 律师认证编辑
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/7 15:38
+     */
+    @AnnBaseReq(API_METHOD = "user/attorney/auth/edit")
+    public static class POST_AUTH_LAWYER_EDIT_REQ extends BaseRequest {
+
     }
 
 
@@ -202,9 +242,22 @@ public class REQ_Factory {
         public String industry;
         public String enterprise_size;
         public String established_date;
-        public List<ImagePath> avatar = new ArrayList<>();
-        public List<ImagePath> business_license = new ArrayList<>();
+        public List<ImagePathBean> avatar = new ArrayList<>();
+        public List<ImagePathBean> business_license = new ArrayList<>();
         public List<String> address_info;
+    }
+
+
+    /**
+     * @description 企业认证详情
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/7 15:11
+     */
+    @AnnBaseReq(API_METHOD = "user/company/auth/info")
+    public static class GET_AUTH_COMPANY_DETAILINFO_REQ extends BaseRequest {
+
     }
 
     @AnnBaseReq(API_METHOD = "city/page")
@@ -213,15 +266,15 @@ public class REQ_Factory {
     }
 
 
-    public static class ImagePath {
-        public String path;
-        public String url;
-
-        public ImagePath(String path, String url) {
-            this.path = path;
-            this.url = url;
-        }
-    }
+//    public static class ImagePath extends BaseBean {
+//        public String path;
+//        public String url;
+//
+//        public ImagePath(String path, String url) {
+//            this.path = path;
+//            this.url = url;
+//        }
+//    }
 
 
 }

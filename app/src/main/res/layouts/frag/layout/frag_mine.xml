@@ -55,6 +55,7 @@
                         android:id="@+id/userlogo_civ"
                         android:layout_width="@dimen/dp_52"
                         android:layout_height="@dimen/dp_52"
+                        android:scaleType="centerCrop"
                         android:src="@mipmap/ic_userlogo_default_1"
                         app:lbottom="@dimen/dp_2"
                         app:ltop="@dimen/dp_2"
@@ -64,17 +65,16 @@
                     <RelativeLayout
                         android:id="@+id/login_rl"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_52"
-                        >
+                        android:layout_height="@dimen/dp_52">
 
                         <LinearLayout
                             android:id="@+id/name_ll"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toLeftOf="@id/right_ll"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="@dimen/dp_12"
                             android:layout_marginRight="@dimen/dp_12"
+                            android:layout_toLeftOf="@id/right_ll"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -139,13 +139,12 @@
                         android:id="@+id/tologin_tv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/please_login_tx"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/c_ffffff"
-                        android:textSize="@dimen/sp_18"
-                        android:layout_marginLeft="@dimen/dp_10"
                         android:layout_gravity="center_vertical"
-                        />
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:gravity="center_vertical"
+                        android:text="@string/please_login_tx"
+                        android:textColor="@color/c_ffffff"
+                        android:textSize="@dimen/sp_18" />
 
                 </LinearLayout>
 
@@ -156,64 +155,116 @@
                     android:layout_marginLeft="@dimen/dp_11"
                     android:layout_marginTop="@dimen/dp_21"
                     android:layout_marginRight="@dimen/dp_12"
-                    android:background="@mipmap/bg_userlevel_1"
-                    android:visibility="gone">
+                    android:background="@mipmap/bg_userlevel_1">
 
-                    <LinearLayout
-                        android:id="@+id/level_tx_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_24"
-                        android:layout_marginTop="@dimen/dp_18"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                    <RelativeLayout
+                        android:id="@+id/user_not_vip_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_24"
-                            android:layout_height="@dimen/dp_24"
-                            android:src="@mipmap/ic_userlevel_1" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_24"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:src="@mipmap/ic_userlevel_1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="开通会员，享受更多权益"
+                                android:textColor="#ffffffff"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="至尊版VIP"
-                            android:textColor="#ffffffff"
-                            android:textSize="14sp" />
+                            android:text="去开通"
+                            android:background="@drawable/shape_ffffff_r180"
+                            android:gravity="center"
+                            android:textColor="#ffF3A239"
+                            android:textSize="@dimen/sp_12"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/dp_24"
+                            android:paddingLeft="@dimen/dp_8"
+                            android:paddingRight="@dimen/dp_8"
+                            android:paddingTop="@dimen/dp_2"
+                            android:paddingBottom="@dimen/dp_2"
+                            />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/level_tx_ll"
-                        android:layout_alignLeft="@id/level_tx_ll"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        android:text="有效期至2022-07-21"
-                        android:textColor="#ccffffff"
-                        android:textSize="10sp" />
+                    <RelativeLayout
+                        android:id="@+id/user_is_vip_rl"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone">
 
+                        <LinearLayout
+                            android:id="@+id/level_tx_ll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_24"
+                            android:layout_marginTop="@dimen/dp_18"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/dp_23"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="@dimen/dp_24"
+                                android:layout_height="@dimen/dp_24"
+                                android:src="@mipmap/ic_userlevel_1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="至尊版VIP"
+                                android:textColor="#ffffffff"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/mine_tx2"
-                            android:textColor="#ffffffff"
-                            android:textSize="12sp" />
+                            android:layout_below="@id/level_tx_ll"
+                            android:layout_alignLeft="@id/level_tx_ll"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:text="有效期至2022-07-21"
+                            android:textColor="#ccffffff"
+                            android:textSize="10sp" />
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_12"
-                            android:layout_height="@dimen/dp_12"
-                            android:src="@mipmap/ic_white_arrow_1" />
-                    </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/dp_23"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/mine_tx2"
+                                android:textColor="#ffffffff"
+                                android:textSize="12sp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_12"
+                                android:layout_height="@dimen/dp_12"
+                                android:src="@mipmap/ic_white_arrow_1" />
+                        </LinearLayout>
+                    </RelativeLayout>
                 </RelativeLayout>
 
 
