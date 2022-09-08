@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import com.qbo.lawyerstar.app.MyApplication;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
+import com.qbo.lawyerstar.app.utils.FCacheUtils;
 
 import framework.mvp1.base.bean.FToken;
 import framework.mvp1.base.constant.ACEConstant;
@@ -67,9 +68,7 @@ public class FTokenUtils {
      */
     public static void doLogout(Context context) {
         clearToken(context);
-//        FCacheUtils.clearUserInfo(context);
-//        FCacheUtils.clearDefaultFamilyID(context);
-//        FCacheUtils.clearDefaultHostDeviceSN(context);
+        FCacheUtils.clearUserInfo(context);
     }
 
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_ffffff"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_comm_2" />
+
+    <FrameLayout
+        android:id="@+id/webview_fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_rl"
+        android:layout_above="@id/bottom_rl"
+        android:layout_marginBottom="@dimen/dp_5"
+        />
+
+    <TextView
+        android:id="@+id/bottom_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:background="@drawable/shape_f83131_r2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_36"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginRight="@dimen/dp_12"
+        android:text="@string/account_delete_tx2"
+        android:gravity="center"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        />
+</RelativeLayout>

@@ -129,7 +129,7 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
 
     @Override
     public void doReleaseSomething() {
-
+        countDownMsgUtils.doRelease();
     }
 
     @Override

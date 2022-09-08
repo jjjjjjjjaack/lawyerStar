@@ -19,6 +19,7 @@
         >
 
         <RelativeLayout
+            android:id="@+id/userprocotol_rl"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_46"
             >
@@ -55,6 +56,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/privateprocotol_rl"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_46"
             >
@@ -89,6 +91,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/setting_rl"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_46"
             >
@@ -98,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_12"
-                android:text="@string/user_setting_tx3"
+                android:text="@string/user_setting_tx4"
                 android:textColor="#ff333333"
                 android:textSize="14sp" />
 
@@ -123,6 +126,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/deleteaccount_rl"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_46"
             >

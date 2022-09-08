@@ -34,6 +34,9 @@ public class CountDownMsgUtils {
             if (isRelease) {
                 return true;
             }
+            if (requestBtn == null) {
+                return true;
+            }
             long nowTime = System.currentTimeMillis();
             long cacheTime = ToolUtils.String2Long(JnCache.getCache(MyApplication.getApp(), ACacheKey));
             final long c = (nowTime - cacheTime) / 1000;
@@ -98,7 +101,7 @@ public class CountDownMsgUtils {
         mcodeCountHandler.sendEmptyMessage(0);
     }
 
-    public void clearTimeCache(){
+    public void clearTimeCache() {
         JnCache.saveCache(MyApplication.getApp(), ACacheKey, "");
     }
 

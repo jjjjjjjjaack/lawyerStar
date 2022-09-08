@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_ffffff_r8"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/account_delete_tx3"
+        android:textColor="#ff333333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account_delete_tx4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_14"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/code_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_toLeftOf="@id/getcode_tv"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:hint="@string/login_tx4"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textColorHint="#ff999999"
+            android:textColor="@color/c_333333"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_below="@id/code_et"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_toLeftOf="@id/getcode_tv"
+            android:background="@color/c_f7f7f7" />
+
+        <TextView
+            android:id="@+id/getcode_tv"
+            android:layout_width="@dimen/dp_77"
+            android:layout_height="@dimen/dp_32"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_storke_02c4c3_r2"
+            android:gravity="center"
+            android:text="@string/register_send_code"
+            android:textColor="#ff02c4c3"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        >
+
+        <TextView
+            android:id="@+id/dismiss_tv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_40"
+            android:text="@string/back_cancel"
+            android:textColor="#ff999999"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@drawable/shape_storke_cccccc_r4"
+            />
+
+        <View
+            android:layout_width="@dimen/dp_11"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/confirm_tv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/dp_40"
+            android:text="@string/sure_tx"
+            android:textColor="#ffffffff"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@drawable/shape_02c4c3_r4"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_24"/>
+
+
+</LinearLayout>

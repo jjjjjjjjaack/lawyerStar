@@ -387,17 +387,23 @@ public class CompanyAuthAct extends MvpAct<ICompanyAuthView, BaseModel, CompanyA
         }
 
         if (requestCode == CHOOSE_IMAGE_USERLOGO_REQUEST) {
-            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-            presenter.logoFile = new File(selectList.get(0).getRealPath());
-            GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.logoFile.getPath(), userlogo_civ);
+            try {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                presenter.logoFile = new File(selectList.get(0).getRealPath());
+                GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.logoFile.getPath(), userlogo_civ);
+            }catch (Exception e){
+            }
         }
 
         if (requestCode == CHOOSE_IMAGE_YYZZ_REQUEST) {
-            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-            presenter.yyzzFile = new File(selectList.get(0).getRealPath());
-            zz_iv.setVisibility(View.VISIBLE);
-            select_tipview.setVisibility(View.GONE);
-            GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.yyzzFile.getPath(), zz_iv);
+            try {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                presenter.yyzzFile = new File(selectList.get(0).getRealPath());
+                zz_iv.setVisibility(View.VISIBLE);
+                select_tipview.setVisibility(View.GONE);
+                GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.yyzzFile.getPath(), zz_iv);
+            }catch (Exception e){
+            }
         }
     }
 

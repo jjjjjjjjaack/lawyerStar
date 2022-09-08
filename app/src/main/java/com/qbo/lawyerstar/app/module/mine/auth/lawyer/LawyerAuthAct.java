@@ -301,17 +301,23 @@ public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuth
         }
 
         if (requestCode == CHOOSE_IMAGE_USERLOGO_REQUEST) {
-            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-            presenter.logoFile = new File(selectList.get(0).getRealPath());
-            GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.logoFile.getPath(), userlogo_civ);
+            try {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                presenter.logoFile = new File(selectList.get(0).getRealPath());
+                GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.logoFile.getPath(), userlogo_civ);
+            }catch (Exception e){
+            }
         }
 
         if (requestCode == CHOOSE_IMAGE_LSZZ_REQUEST) {
-            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-            presenter.lszzFile = new File(selectList.get(0).getRealPath());
-            select_tipview.setVisibility(View.GONE);
-            zz_iv.setVisibility(View.VISIBLE);
-            GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.lszzFile.getPath(), zz_iv);
+            try {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                presenter.lszzFile = new File(selectList.get(0).getRealPath());
+                select_tipview.setVisibility(View.GONE);
+                zz_iv.setVisibility(View.VISIBLE);
+                GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.lszzFile.getPath(), zz_iv);
+            }catch (Exception e){
+            }
         }
     }
 

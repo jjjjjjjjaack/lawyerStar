@@ -78,7 +78,7 @@ public class REQ_Factory {
     @AnnBaseReq(API_METHOD = "index/sendCode")
     public static class POST_SEND_CODE_REQ extends BaseRequest {
         public String type;//"grant:发放 reg:注册\/登录 bind: 绑定"
-        @AnnReqPara(isCheckNull = true, nullRTip = R.string.login_tx3)
+//        @AnnReqPara(isCheckNull = true, nullRTip = R.string.login_tx3)
         public String mobile;//
     }
 
@@ -120,6 +120,30 @@ public class REQ_Factory {
     @AnnBaseReq(API_METHOD = "user/changeUserType")
     public static class POST_CHANGEUSER_TYPE_REQ extends BaseRequest {
         public String type;//"type": "0 个人 1 企业 2 律师"
+    }
+
+    /**
+     * @description 编辑用户信息
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/8 16:13
+     */
+    @AnnBaseReq(API_METHOD = "user/edit")
+    public static class POST_EDIT_USERINFO_REQ extends BaseRequest {
+        public String nick_name;//
+    }
+    
+    
+    /**
+     * @description 更换头像
+     * @param 
+     * @return 
+     * @author jieja
+     * @time 2022/9/8 16:33
+     */
+    @AnnBaseReq(API_METHOD = "user/setAvatar",RXExecuteType = BaseRXNetApi.RXExecuteType.MUTLI_POST)
+    public static class POST_CHANGE_USERAVATAR_REQ extends BaseRequest {
     }
 
 
@@ -167,12 +191,12 @@ public class REQ_Factory {
         public List<String> address_info;
     }
 
-    
+
     /**
-     * @description 个人认证详情
-     * @param 
-     * @return 
+     * @param
      * @author jieja
+     * @description 个人认证详情
+     * @return
      * @time 2022/9/7 16:10
      */
     @AnnBaseReq(API_METHOD = "user/auth/info")
@@ -199,12 +223,12 @@ public class REQ_Factory {
         public List<ImagePathBean> lawyer_license = new ArrayList<>();
         public List<String> address_info;
     }
-    
+
     /**
-     * @description 律师认证详情
-     * @param 
-     * @return 
+     * @param
      * @author jieja
+     * @description 律师认证详情
+     * @return
      * @time 2022/9/7 15:11
      */
     @AnnBaseReq(API_METHOD = "user/attorney/auth/info")
@@ -213,10 +237,10 @@ public class REQ_Factory {
     }
 
     /**
-     * @description 律师认证编辑
      * @param
-     * @return
      * @author jieja
+     * @description 律师认证编辑
+     * @return
      * @time 2022/9/7 15:38
      */
     @AnnBaseReq(API_METHOD = "user/attorney/auth/edit")
@@ -249,10 +273,10 @@ public class REQ_Factory {
 
 
     /**
-     * @description 企业认证详情
      * @param
-     * @return
      * @author jieja
+     * @description 企业认证详情
+     * @return
      * @time 2022/9/7 15:11
      */
     @AnnBaseReq(API_METHOD = "user/company/auth/info")
@@ -260,9 +284,42 @@ public class REQ_Factory {
 
     }
 
+    /**
+     * @description
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/8 14:48
+     */
+    @AnnBaseReq(API_METHOD = "user/cancel/create")
+    public static class POST_DO_CACNEL_ACCOUNT_REQ extends BaseRequest {
+        public String code;
+
+    }
+
+    /**
+     * @param
+     * @author jieja
+     * @description 省市区数据
+     * @return
+     * @time 2022/9/8 10:41
+     */
     @AnnBaseReq(API_METHOD = "city/page")
     public static class GET_CITY_DATA_REQ extends BaseRequest {
 
+    }
+
+
+    /**
+     * @param
+     * @author jieja
+     * @description 协议文本
+     * @return
+     * @time 2022/9/8 10:41
+     */
+    @AnnBaseReq(API_METHOD = "lawyer/article/protocol")
+    public static class GET_PROTOCOL_INFO_REQ extends BaseRequest {
+        public String type;//类型 privacy 隐私协议 user 用户协议 cancel 注销协议 lawyer 律师协议
     }
 
 

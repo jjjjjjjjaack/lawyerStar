@@ -355,7 +355,9 @@ public abstract class BasePresent<V extends BaseView, M> extends REQ_Factory {
                     @Override
                     public void onError(Throwable e) {
                         if (erroControl) {
-                            framework.mvp1.base.util.T.showShort(context, e.getMessage());
+                            if (!ToolUtils.isNull(e.getMessage())) {
+                                framework.mvp1.base.util.T.showShort(context, e.getMessage());
+                            }
                         }
                         doCommRequestInterface.onError(e);
                         if (showLoading) {
@@ -406,7 +408,6 @@ public abstract class BasePresent<V extends BaseView, M> extends REQ_Factory {
             return "";
         }
     }
-
 
 
 }

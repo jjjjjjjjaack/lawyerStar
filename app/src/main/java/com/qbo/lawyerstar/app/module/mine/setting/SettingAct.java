@@ -4,17 +4,27 @@ import android.content.Context;
 import android.view.View;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.mine.about.AboutUsAct;
+import com.qbo.lawyerstar.app.module.mine.account.cancle.CancelAccountAct;
+import com.qbo.lawyerstar.app.module.mine.protocol.ProtocolAct;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.LoginoutUtis;
-import framework.mvp1.base.util.ToolUtils;
 
 public class SettingAct extends MvpAct<ISettingView, BaseModel, SettingPresenter> implements ISettingView {
 
     @BindView(R.id.logout_tv)
     View logout_tv;
+    @BindView(R.id.setting_rl)
+    View setting_rl;
+    @BindView(R.id.deleteaccount_rl)
+    View deleteaccount_rl;
+    @BindView(R.id.userprocotol_rl)
+    View userprocotol_rl;
+    @BindView(R.id.privateprocotol_rl)
+    View privateprocotol_rl;
 
     @Override
     public void baseInitialization() {
@@ -35,6 +45,30 @@ public class SettingAct extends MvpAct<ISettingView, BaseModel, SettingPresenter
             @Override
             public void onClick(View v) {
                 LoginoutUtis.getInstance().doLogOut(getMContext());
+            }
+        });
+        setting_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(AboutUsAct.class);
+            }
+        });
+        deleteaccount_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(CancelAccountAct.class);
+            }
+        });
+        userprocotol_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProtocolAct.openAct(getMContext(),"user");
+            }
+        });
+        privateprocotol_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProtocolAct.openAct(getMContext(),"privacy");
             }
         });
     }

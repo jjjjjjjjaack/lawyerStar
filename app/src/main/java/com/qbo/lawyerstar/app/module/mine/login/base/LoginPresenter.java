@@ -1,5 +1,6 @@
 package com.qbo.lawyerstar.app.module.mine.login.base;
 
+import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 
@@ -16,6 +17,10 @@ public class LoginPresenter extends BasePresent<ILoginView, BaseModel> {
         POST_SEND_CODE_REQ req = new POST_SEND_CODE_REQ();
         req.type = "reg";
         req.mobile = mobile;
+        if(ToolUtils.isNull(mobile)){
+            T(R.string.login_tx3);
+            return;
+        }
         doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
             @Override
             public void doStart() {

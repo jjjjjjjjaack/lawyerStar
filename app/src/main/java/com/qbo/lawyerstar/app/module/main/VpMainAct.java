@@ -149,6 +149,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
             if (tempFragment instanceof HomeFrag) {
             }
             if (tempFragment instanceof MineFrag) {
+                ((MineFrag)tempFragment).refresh();
             }
         }
     }

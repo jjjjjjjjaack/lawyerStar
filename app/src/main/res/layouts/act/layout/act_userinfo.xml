@@ -48,6 +48,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rename_rl"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_46"
             android:layout_marginTop="@dimen/dp_30">
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginRight="@dimen/dp_7"
+                android:layout_marginRight="@dimen/dp_2"
                 android:layout_toLeftOf="@id/arrow1_1_iv"
                 android:layout_toRightOf="@id/tv1"
                 android:gravity="right"
@@ -138,8 +139,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:gravity="center_vertical"
-                android:layout_marginRight="@dimen/dp_12">
+                android:layout_marginRight="@dimen/dp_12"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/usertype_tv"
@@ -153,9 +154,7 @@
                     android:id="@+id/arrow1_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_black_right_arrow_1"
-
-                    />
+                    android:src="@mipmap/ic_black_right_arrow_1" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -172,17 +171,30 @@
                 android:textColor="#ff333333"
                 android:textSize="14sp" />
 
-
-            <TextView
-                android:id="@+id/addredd_tv"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_7"
-                android:textColor="#ff333333"
-                android:textSize="14sp" />
+                android:layout_marginRight="@dimen/dp_12"
+                android:gravity="center_vertical">
 
+                <TextView
+                    android:id="@+id/addredd_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_2"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:src="@mipmap/ic_black_right_arrow_1" />
+
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -225,6 +237,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_weight="1">
 
         <TextView

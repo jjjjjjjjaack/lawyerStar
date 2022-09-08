@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_comm_2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/c_ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:text="@string/user_rename_tx1"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_12"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="@string/user_rename_tx2"
+            android:textColor="@color/c_333333"
+            android:textColorHint="#ffcccccc"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_54"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_ffffff">
+
+            <TextView
+                android:id="@+id/commit_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@drawable/selector_comm_btn"
+                android:gravity="center"
+                android:text="@string/user_info_tx9"
+                android:textColor="@color/c_ffffff"
+                android:textSize="@dimen/sp_16" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.qbo.lawyerstar.app.utils;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
@@ -91,6 +92,9 @@ public class FCacheUtils {
                         getUserInfoInterface.fail();
                     }
                 } else {
+                    if (mCxt instanceof Activity && ((Activity) mCxt).isDestroyed()) {
+                        return;
+                    }
                     FCacheUtils.saveUserInfo(mCxt, fUserInfoBean);
                     if (getUserInfoInterface != null) {
                         getUserInfoInterface.reslut(true, fUserInfoBean);

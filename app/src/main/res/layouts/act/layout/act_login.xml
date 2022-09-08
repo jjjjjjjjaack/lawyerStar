@@ -81,6 +81,7 @@
             android:layout_toLeftOf="@id/getcode_tv"
             android:background="@null"
             android:hint="@string/login_tx4"
+            android:layout_centerVertical="true"
             android:inputType="number"
             android:singleLine="true"
             android:textColorHint="#ff999999"

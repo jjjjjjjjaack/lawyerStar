@@ -175,17 +175,22 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
         function_2_Adapter.setData(funtion_2_Beans);
 
         refresh_layout.setEnableLoadMore(false);
+        refresh_layout.setEnableRefresh(false);
     }
 
     @Override
     public void doBusiness() {
+        showData();
+
+    }
+
+    public void showData() {
         try {
             FTokenUtils.getToken(getContext(), false);
             setLoginView();
         } catch (NeedLoginException e) {
             setUnLoginView();
         }
-
     }
 
     /**
@@ -259,6 +264,10 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
             this.iconRes = iconRes;
         }
 
+    }
+
+    public void refresh() {
+        showData();
     }
 
     @Override

@@ -37,6 +37,10 @@
         <activity android:name=".app.module.mine.auth.company.CompanyAuthAct" />
         <activity android:name=".app.module.mine.auth.personal.PersonsalAuthAct" />
         <activity android:name=".app.module.mine.auth.lawyer.LawyerAuthAct" />
+        <activity android:name=".app.module.mine.about.AboutUsAct" />
+        <activity android:name=".app.module.mine.account.cancle.CancelAccountAct" />
+        <activity android:name=".app.module.mine.protocol.ProtocolAct" />
+        <activity android:name=".app.module.mine.info.rename.UserReNameAct" />
 
         <!--************************************************************************-->
         <provider

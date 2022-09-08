@@ -189,9 +189,12 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PictureConfig.CHOOSE_REQUEST) {
             if (resultCode == RESULT_OK) {
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                presenter.logoFile = new File(selectList.get(0).getRealPath());
-                GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.logoFile.getPath(), userlogo_civ);
+                try {
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    presenter.logoFile = new File(selectList.get(0).getRealPath());
+                    GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.logoFile.getPath(), userlogo_civ);
+                }catch (Exception e){
+                }
             }
         }
     }

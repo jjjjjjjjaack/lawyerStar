@@ -92,6 +92,7 @@
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_marginLeft="@dimen/dp_2"
+                                android:visibility="gone"
                                 android:layout_toRightOf="@id/username_tv"
                                 android:src="@mipmap/ic_user_viplevel_1" />
 

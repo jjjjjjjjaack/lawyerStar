@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_bg"
+    android:gravity="center_horizontal"
+    >
+
+    <include layout="@layout/view_title_comm_2"/>
+
+
+    <ImageView
+        android:layout_width="@dimen/dp_128"
+        android:layout_height="@dimen/dp_128"
+        android:layout_marginTop="@dimen/dp_46"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        />
+
+    <TextView
+        android:id="@+id/name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        android:layout_marginTop="@dimen/dp_20"
+        />
+
+    <TextView
+        android:id="@+id/version_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="#ff333333"
+        android:textSize="16sp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:text="@string/about_us_tx2"
+        android:gravity="center"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        android:layout_marginTop="@dimen/dp_10"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:background="@color/c_ffffff"
+        android:layout_marginTop="@dimen/dp_22"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_us_tx3"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_11"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_black_right_arrow_1"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_13"
+            />
+
+    </RelativeLayout>
+
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_marginTop="@dimen/dp_37"
+        android:layout_marginLeft="@dimen/dp_11"
+        android:layout_marginRight="@dimen/dp_11"
+        android:background="@drawable/selector_comm_btn"
+        android:text="@string/about_us_tx4"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+        android:gravity="center"
+        />
+
+</LinearLayout>

@@ -115,7 +115,7 @@
     <string name="select_usertype_5">企业用户</string>
     <string name="select_usertype_6">下一步</string>
 
-    <string name="user_info_tx1">个人资料</string>
+    <string name="user_info_tx1">个人信息</string>
     <string name="user_info_tx2">头像</string>
     <string name="user_info_tx2_1">请选择头像</string>
     <string name="user_info_tx3">名称&#8194;&#8194;&#8194;&#8194;</string>
@@ -126,6 +126,7 @@
     <string name="user_info_tx6_1">请选择所在地</string>
     <string name="user_info_tx7">公司税号</string>
     <string name="user_info_tx8">提交更改</string>
+    <string name="user_info_tx9">保存修改</string>
 
     <string name="user_setting_tx1">设置</string>
     <string name="user_setting_tx2">用户协议</string>
@@ -183,5 +184,19 @@
     <string name="user_auth_company_tx10_1">点击选择企业规模（人）</string>
     <string name="user_auth_company_tx11">成立时间</string>
     <string name="user_auth_company_tx11_1">点击选择公司的成立时间</string>
+
+    <string name="about_us_tx1">关于我们</string>
+    <string name="about_us_tx2">法务平台APP是一款以法律服务为核心的工具类应用软件，为用户提供快速专业的在线法律服务。</string>
+    <string name="about_us_tx3">版本更新</string>
+    <string name="about_us_tx4">联系客服</string>
+
+    <string name="account_delete_tx1">申请注销</string>
+    <string name="account_delete_tx2">注销</string>
+    <string name="account_delete_tx3">验证码</string>
+    <string name="account_delete_tx4">注销账号需输入验证码</string>
+
+    <string name="user_rename_tx1">名称</string>
+    <string name="user_rename_tx2">请输入您的姓名</string>
+
 
 </resources>
