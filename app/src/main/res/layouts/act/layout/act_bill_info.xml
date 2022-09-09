@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_bg"
+    >
+
+    <include layout="@layout/view_title_comm_2"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/c_ffffff"
+        >
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:text="@string/billinfo_tx2"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            />
+
+        <EditText
+            android:id="@+id/companyname_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="right"
+            android:textColorHint="#ffcccccc"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:layout_toRightOf="@id/tv1"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:hint="@string/billinfo_tx2_1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_12"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/c_ffffff"
+        >
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:text="@string/billinfo_tx3"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            />
+
+        <EditText
+            android:id="@+id/companynum_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="right"
+            android:textColorHint="#ffcccccc"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:layout_toRightOf="@id/tv2"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:hint="@string/billinfo_tx3_1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_12"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_54"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_ffffff">
+
+            <TextView
+                android:id="@+id/commit_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:background="@drawable/selector_comm_btn"
+                android:gravity="center"
+                android:text="@string/user_info_tx9"
+                android:textColor="@color/c_ffffff"
+                android:textSize="@dimen/sp_16" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

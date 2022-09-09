@@ -33,7 +33,7 @@ android {
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010/\""   //正式
-            buildConfigField "String", "API_URL", "\"http://h5dcv8.natappfree.cc/\""   //测试
+            buildConfigField "String", "API_URL", "\"http://3fxprf.natappfree.cc/\""   //测试
         }
     }
 
@@ -116,4 +116,6 @@ dependencies {
     implementation 'com.github.gzu-liyujiang.AndroidPicker:CalendarPicker:4.1.7'
     //Android-PickerView
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
+    //角标
+    implementation 'q.rorbin:badgeview:1.1.3'
 }

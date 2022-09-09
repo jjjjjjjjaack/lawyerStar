@@ -78,7 +78,7 @@ public class REQ_Factory {
     @AnnBaseReq(API_METHOD = "index/sendCode")
     public static class POST_SEND_CODE_REQ extends BaseRequest {
         public String type;//"grant:发放 reg:注册\/登录 bind: 绑定"
-//        @AnnReqPara(isCheckNull = true, nullRTip = R.string.login_tx3)
+        //        @AnnReqPara(isCheckNull = true, nullRTip = R.string.login_tx3)
         public String mobile;//
     }
 
@@ -123,27 +123,43 @@ public class REQ_Factory {
     }
 
     /**
-     * @description 编辑用户信息
      * @param
-     * @return
      * @author jieja
+     * @description 编辑用户信息
+     * @return
      * @time 2022/9/8 16:13
      */
     @AnnBaseReq(API_METHOD = "user/edit")
     public static class POST_EDIT_USERINFO_REQ extends BaseRequest {
         public String nick_name;//
     }
-    
-    
+
+
     /**
-     * @description 更换头像
-     * @param 
-     * @return 
+     * @param
      * @author jieja
+     * @description 更换头像
+     * @return
      * @time 2022/9/8 16:33
      */
-    @AnnBaseReq(API_METHOD = "user/setAvatar",RXExecuteType = BaseRXNetApi.RXExecuteType.MUTLI_POST)
+    @AnnBaseReq(API_METHOD = "user/setAvatar", RXExecuteType = BaseRXNetApi.RXExecuteType.MUTLI_POST)
     public static class POST_CHANGE_USERAVATAR_REQ extends BaseRequest {
+        public String path = "avatar";
+    }
+
+    /**
+     * @description 修改开票信息
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/9 11:42
+     */
+    @AnnBaseReq(API_METHOD = "user/modifyBillInfo")
+    public static class POST_CHANGE_USER_BILLINFO_REQ extends BaseRequest {
+        @AnnReqPara(isCheckNull = true,nullRTip = R.string.billinfo_tx2_1)
+        public String name;
+        @AnnReqPara(isCheckNull = true,nullRTip = R.string.billinfo_tx3_1)
+        public String tax_num;
     }
 
 
@@ -285,10 +301,10 @@ public class REQ_Factory {
     }
 
     /**
-     * @description
      * @param
-     * @return
      * @author jieja
+     * @description
+     * @return
      * @time 2022/9/8 14:48
      */
     @AnnBaseReq(API_METHOD = "user/cancel/create")
@@ -320,6 +336,32 @@ public class REQ_Factory {
     @AnnBaseReq(API_METHOD = "lawyer/article/protocol")
     public static class GET_PROTOCOL_INFO_REQ extends BaseRequest {
         public String type;//类型 privacy 隐私协议 user 用户协议 cancel 注销协议 lawyer 律师协议
+    }
+    
+    
+    /**
+     * @description 消息列表
+     * @param 
+     * @return 
+     * @author jieja
+     * @time 2022/9/9 13:49
+     */
+    @AnnBaseReq(API_METHOD = "message/user/page",RESPONSE_CLASS = RES_Factory.GET_NOTICE_LIST_RES.class)
+    public static class GET_NOTICE_LIST_REQ extends BaseRequest {
+        public int pageNo = 1;
+        public int pageSize = 10;
+        public String type;//"消息类型 委托消息 1 系统消息 0"
+    }
+
+    /**
+     * @description 消息数量
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/9 14:20
+     */
+    @AnnBaseReq(API_METHOD = "message/user/messageCount")
+    public static class GET_NOTICE_MSGCOUNT_REQ extends BaseRequest {
     }
 
 

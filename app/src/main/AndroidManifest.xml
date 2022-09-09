@@ -41,6 +41,9 @@
         <activity android:name=".app.module.mine.account.cancle.CancelAccountAct" />
         <activity android:name=".app.module.mine.protocol.ProtocolAct" />
         <activity android:name=".app.module.mine.info.rename.UserReNameAct" />
+        <activity android:name=".app.module.mine.info.billinfo.BillInfoAct" />
+        <activity android:name=".app.module.mine.notice.type.NoticeTypeAct" />
+        <activity android:name=".app.module.mine.notice.list.NoticeListAct" />
 
         <!--************************************************************************-->
         <provider

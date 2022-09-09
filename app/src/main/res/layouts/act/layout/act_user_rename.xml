@@ -56,6 +56,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_marginRight="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_2"
                 android:background="@drawable/selector_comm_btn"
                 android:gravity="center"
                 android:text="@string/user_info_tx9"

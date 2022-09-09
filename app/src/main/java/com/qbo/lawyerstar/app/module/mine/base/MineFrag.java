@@ -27,6 +27,7 @@ import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.mine.info.base.UserInfoBaseAct;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
+import com.qbo.lawyerstar.app.module.mine.notice.type.NoticeTypeAct;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -38,6 +39,7 @@ import butterknife.BindView;
 import framework.mvp1.base.adapter.MCommAdapter;
 import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.bean.BaseBean;
+import framework.mvp1.base.bean.FToken;
 import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpFrag;
@@ -58,6 +60,8 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     View login_rl;
     @BindView(R.id.right_ll)
     View right_ll;
+    @BindView(R.id.message_iv)
+    View message_iv;
 
     @BindView(R.id.function_1_rcy)
     RecyclerView function_1_rcy;
@@ -176,6 +180,17 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
         refresh_layout.setEnableLoadMore(false);
         refresh_layout.setEnableRefresh(false);
+
+        message_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    FTokenUtils.getToken(getMContext(),false);
+                    gotoActivity(NoticeTypeAct.class);
+                } catch (NeedLoginException e) {
+                }
+            }
+        });
     }
 
     @Override

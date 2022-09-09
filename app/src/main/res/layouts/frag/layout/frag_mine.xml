@@ -36,6 +36,7 @@
                     android:layout_marginTop="@dimen/dp_54">
 
                     <ImageView
+                        android:id="@+id/message_iv"
                         android:layout_width="@dimen/dp_24"
                         android:layout_height="@dimen/dp_24"
                         android:layout_alignParentRight="true"
@@ -130,7 +131,12 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/mine_tx1"
                                 android:textColor="#ff02c4c3"
+                                android:layout_marginRight="@dimen/dp_10"
                                 android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_20"
+                                android:layout_height="@dimen/dp_20"/>
 
                         </LinearLayout>
 

@@ -198,5 +198,14 @@
     <string name="user_rename_tx1">名称</string>
     <string name="user_rename_tx2">请输入您的姓名</string>
 
+    <string name="billinfo_tx1">开票信息</string>
+    <string name="billinfo_tx2">公司全称</string>
+    <string name="billinfo_tx2_1">请输入公司全称</string>
+    <string name="billinfo_tx3">公司税号</string>
+    <string name="billinfo_tx3_1">请输入公司税号</string>
+
+    <string name="notice_list_tx1">消息中心</string>
+    <string name="notice_list_tx2">系统通知</string>
+    <string name="notice_list_tx3">委托消息</string>
 
 </resources>

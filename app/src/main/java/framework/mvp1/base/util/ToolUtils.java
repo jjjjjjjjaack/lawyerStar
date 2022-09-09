@@ -895,7 +895,7 @@ public class ToolUtils {
                 File file = selectionData.get(i);
                 if (file.exists()) {
                     fileReq.baseMulitRequests.add(new BaseMulitRequest(("file[]"),
-                            file, "image/jpeg", "image", "law"));
+                            file, "image/*", "image", "law"));
                 } else {
                     selectionData.remove(i);
                     i--;

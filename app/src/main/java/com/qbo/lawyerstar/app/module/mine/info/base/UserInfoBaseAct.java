@@ -16,6 +16,7 @@ import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.mine.auth.company.CompanyAuthAct;
 import com.qbo.lawyerstar.app.module.mine.auth.lawyer.LawyerAuthAct;
 import com.qbo.lawyerstar.app.module.mine.auth.personal.PersonsalAuthAct;
+import com.qbo.lawyerstar.app.module.mine.info.billinfo.BillInfoAct;
 import com.qbo.lawyerstar.app.module.mine.info.rename.UserReNameAct;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
@@ -51,6 +52,8 @@ public class UserInfoBaseAct extends MvpAct<IUserInfoBaseView, BaseModel, UserIn
     View auth_rl;
     @BindView(R.id.rename_rl)
     View rename_rl;
+    @BindView(R.id.taxrl)
+    View taxrl;
 
     @Override
     public UserInfoBasePresenter initPresenter() {
@@ -88,6 +91,12 @@ public class UserInfoBaseAct extends MvpAct<IUserInfoBaseView, BaseModel, UserIn
                         .isCamera(true)// 是否显示拍照按钮
                         .loadImageEngine(GlideEngine.createGlideEngine()) // Please refer to the Demo GlideEngine.java
                         .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+        });
+        taxrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(BillInfoAct.class);
             }
         });
     }

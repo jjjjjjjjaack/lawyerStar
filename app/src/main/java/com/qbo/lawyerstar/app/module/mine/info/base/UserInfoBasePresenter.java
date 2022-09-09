@@ -27,10 +27,29 @@ public class UserInfoBasePresenter extends BasePresent<IUserInfoBaseView, BaseMo
         }
         REQ_Factory.POST_CHANGE_USERAVATAR_REQ fileReq = new REQ_Factory.POST_CHANGE_USERAVATAR_REQ();
         fileReq.baseMulitRequests = new ArrayList<>();
-        fileReq.baseMulitRequests.add(new BaseMulitRequest(("file[]"),
+        fileReq.baseMulitRequests.add(new BaseMulitRequest(("file"),
                 logoFile, "image/*", "image", "law"));
         
-//        doCommRequest(fileReq, true, true, new DoCommRequestInterface<Object, Object>() {
-//        });
+        doCommRequest(fileReq, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public BaseResponse doMap(BaseResponse baseResponse) {
+                return baseResponse;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse baseResponse) throws Exception {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 }
