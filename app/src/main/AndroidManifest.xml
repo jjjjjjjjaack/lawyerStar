@@ -32,7 +32,6 @@
         <activity android:name=".app.module.mine.login.base.LoginAct" />
         <activity android:name=".app.module.mine.login.selecttype.UserSelectTypeAct" />
         <activity android:name=".app.module.mine.suggest.SuggestUploadAct" />
-        <activity android:name=".app.module.mine.info.base.UserInfoBasePresenter" />
         <activity android:name=".app.module.mine.info.base.UserInfoBaseAct" />
         <activity android:name=".app.module.mine.auth.company.CompanyAuthAct" />
         <activity android:name=".app.module.mine.auth.personal.PersonsalAuthAct" />

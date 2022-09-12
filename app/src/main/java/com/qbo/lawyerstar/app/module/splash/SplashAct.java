@@ -22,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
+import com.qbo.lawyerstar.app.module.mine.protocol.ProtocolAct;
 
 import java.util.Arrays;
 import java.util.List;
@@ -239,11 +240,13 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
         spanManager.setClickableSpan(pactStart0, pactEnd0, tv_pact_text, new SpanManager.OnTextClickedListener() {
             @Override
             public void onTextClicked(View view) {
+                ProtocolAct.openAct(context,"user");
             }
         }).setForegroundColorSpan(pactStart0, pactEnd0, context.getResources().getColor(R.color.c_02c4c3));
         spanManager.setClickableSpan(pactStart1, pactEnd1, tv_pact_text, new SpanManager.OnTextClickedListener() {
             @Override
             public void onTextClicked(View view) {
+                ProtocolAct.openAct(context,"privacy");
             }
         }).setForegroundColorSpan(pactStart1, pactEnd1, context.getResources().getColor(R.color.c_02c4c3));
         tv_pact_text.setText(spanManager.toBuild());
