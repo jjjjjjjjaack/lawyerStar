@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_comm_2" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/c_ffffff">
+
+        <com.qbo.lawyerstar.app.view.ChangeGasStationImageView2
+            android:id="@+id/userlogo_civ"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_10"
+            app:lbottom="@dimen/dp_2"
+            app:ltop="@dimen/dp_2"
+            app:rbottom="@dimen/dp_2"
+            app:rtop="@dimen/dp_2" />
+
+        <LinearLayout
+            android:id="@+id/name_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/userlogo_civ"
+            android:layout_toRightOf="@id/userlogo_civ"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxEms="10"
+                android:textColor="#ff333333"
+                android:textSize="14sp"
+                tools:text="李好律师" />
+
+
+            <TextView
+                android:id="@+id/years_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:background="@drawable/shape_storke_02c4c3_r2"
+                android:paddingLeft="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingRight="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_2"
+                android:textColor="#ff02c4c3"
+                android:textSize="10sp"
+                tools:text="执业5年" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name_ll"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_toRightOf="@id/userlogo_civ"
+            android:textColor="#ff666666"
+            android:textSize="14sp"
+            tools:text="广东省 东莞市" />
+
+        <com.qbo.lawyerstar.app.view.WarpLinearLayout
+            android:id="@+id/tags_wll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address_tv"
+            android:layout_toRightOf="@id/userlogo_civ"
+            app:grivate="left"
+            android:layout_marginTop="@dimen/dp_1"
+            app:horizontal_Space="2dp"
+            />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tags_wll"
+            android:layout_marginTop="@dimen/dp_17"
+            android:background="@color/main_bg" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@color/c_ffffff"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/personal_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/lawyer_list_tx5"
+                android:textColor="@drawable/selector_tab_text_color_2"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="@dimen/dp_26"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/selector_line_bg_1" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/dp_33"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:id="@+id/anjian_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/lawyer_list_tx6"
+                android:textColor="@drawable/selector_tab_text_color_2"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="@dimen/dp_26"
+                android:layout_height="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/selector_line_bg_1" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:background="@color/c_f4f4f4"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_2"
+        />
+
+    <LinearLayout
+        android:id="@+id/personl_detail_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/person_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_28"
+            android:layout_marginRight="@dimen/dp_7"
+            android:layout_marginLeft="@dimen/dp_12"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/anjian_detail_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/anjian_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_28"
+            android:layout_marginRight="@dimen/dp_7"
+            android:layout_marginLeft="@dimen/dp_12"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

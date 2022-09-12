@@ -115,7 +115,9 @@ public class CancelAccountAct extends MvpAct<ICancelAccountView, BaseModel, Canc
     @Override
     public void showProtocol(ProtocolBean protocolBean) {
         if (protocolBean != null) {
-            webView.loadDataWithBaseURL("", WebViewUtil.setWebViewContent(protocolBean.content),"text/html", "UTF-8", "");
+            webView.loadDataWithBaseURL("",
+                    WebViewUtil.setWebViewContent(protocolBean.content),
+                    "text/html", "UTF-8", "");
         }
     }
 }

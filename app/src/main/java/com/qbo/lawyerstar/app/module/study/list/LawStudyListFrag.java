@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.article.detail.ArticleDetailAct;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
 import com.qbo.lawyerstar.app.module.study.bean.ArticleBean;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -78,6 +79,13 @@ public class LawStudyListFrag extends MvpFrag<ILawStudyListView, BaseModel, LawS
                 mCommVH.setText(R.id.newsname_tv, bean.getTitle());
                 mCommVH.setText(R.id.newsreadnum_tv, getMContext().getString(R.string.home_frag_tx4_3, bean.getReading()));
                 mCommVH.setText(R.id.newsdate_tv, bean.getCreate_time());
+
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ArticleDetailAct.openAct(context,bean.id);
+                    }
+                });
             }
         });
         mCommAdapter.setShowEmptyView(true);

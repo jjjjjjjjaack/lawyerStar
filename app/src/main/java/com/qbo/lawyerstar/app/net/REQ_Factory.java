@@ -148,17 +148,17 @@ public class REQ_Factory {
     }
 
     /**
-     * @description 修改开票信息
      * @param
-     * @return
      * @author jieja
+     * @description 修改开票信息
+     * @return
      * @time 2022/9/9 11:42
      */
     @AnnBaseReq(API_METHOD = "user/modifyBillInfo")
     public static class POST_CHANGE_USER_BILLINFO_REQ extends BaseRequest {
-        @AnnReqPara(isCheckNull = true,nullRTip = R.string.billinfo_tx2_1)
+        @AnnReqPara(isCheckNull = true, nullRTip = R.string.billinfo_tx2_1)
         public String name;
-        @AnnReqPara(isCheckNull = true,nullRTip = R.string.billinfo_tx3_1)
+        @AnnReqPara(isCheckNull = true, nullRTip = R.string.billinfo_tx3_1)
         public String tax_num;
     }
 
@@ -180,6 +180,19 @@ public class REQ_Factory {
             public String is_rec;// "推荐 1",
             public String article_clazz;//"文章分类 5:法律头条    6:经典案例    7:法律释疑"
         }
+    }
+
+
+    /**
+     * @param
+     * @return
+     * @description 
+     * @author jiejack
+     * @time 2022/9/11 8:38 下午
+     */
+    @AnnBaseReq(API_METHOD = "lawyer/article/info")
+    public static class GET_LAWSTUDY_ARTICLE_DETAIL_REQ extends BaseRequest {
+        public String id;
     }
 
 
@@ -337,16 +350,16 @@ public class REQ_Factory {
     public static class GET_PROTOCOL_INFO_REQ extends BaseRequest {
         public String type;//类型 privacy 隐私协议 user 用户协议 cancel 注销协议 lawyer 律师协议
     }
-    
-    
+
+
     /**
-     * @description 消息列表
-     * @param 
-     * @return 
+     * @param
      * @author jieja
+     * @description 消息列表
+     * @return
      * @time 2022/9/9 13:49
      */
-    @AnnBaseReq(API_METHOD = "message/user/page",RESPONSE_CLASS = RES_Factory.GET_NOTICE_LIST_RES.class)
+    @AnnBaseReq(API_METHOD = "message/user/page", RESPONSE_CLASS = RES_Factory.GET_NOTICE_LIST_RES.class)
     public static class GET_NOTICE_LIST_REQ extends BaseRequest {
         public int pageNo = 1;
         public int pageSize = 10;
@@ -354,16 +367,50 @@ public class REQ_Factory {
     }
 
     /**
-     * @description 消息数量
      * @param
-     * @return
      * @author jieja
+     * @description 消息数量
+     * @return
      * @time 2022/9/9 14:20
      */
     @AnnBaseReq(API_METHOD = "message/user/messageCount")
     public static class GET_NOTICE_MSGCOUNT_REQ extends BaseRequest {
     }
 
+
+    /**
+     * @param
+     * @author jiejack
+     * @return
+     * @description 获取律师列表
+     * @time 2022/9/10 11:04 下午
+     */
+    @AnnBaseReq(API_METHOD = "lawyer/manage/page", RESPONSE_CLASS = RES_Factory.GET_LAWYER_LIST_RES.class)
+    public static class GET_LAWYER_LIST_REQ extends BaseRequest {
+        public int pageNo = 1;
+        public int pageSize = 10;
+        public String search = "";
+        public Filter filter;
+
+        public static class Filter {
+            public List<Integer> address_info = new ArrayList<>();
+            public String employment_year;//"执业年限 字典--LawyerYears"
+        }
+    }
+
+
+    @AnnBaseReq(API_METHOD = "contract/library/page",RESPONSE_CLASS = RES_Factory.GET_CONTRACT_LIBRARY_LIST_RES.class)
+    public static class GET_CONTRACT_LIBRARY_LIST_REQ extends BaseRequest {
+        public int pageNo = 1;
+        public int pageSize = 10;
+        public String search = "";
+        public Filter filter;
+
+        public static class Filter{
+            public String type;//合同类别 字典--ContractLibraryType",
+            public String industry;//"行业 字典--Industry"
+        }
+    }
 
 //    public static class ImagePath extends BaseBean {
 //        public String path;

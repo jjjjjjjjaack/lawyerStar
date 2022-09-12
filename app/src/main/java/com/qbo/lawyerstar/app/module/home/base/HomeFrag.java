@@ -29,7 +29,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
+import com.qbo.lawyerstar.app.module.lawyer.list.LawyerListAct;
 import com.qbo.lawyerstar.app.view.scrolltextview.MAutoScrollTextView;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -74,6 +76,8 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
 
     @BindView(R.id.version_tv)
     TextView version_tv;
+    @BindView(R.id.find_lawyer_rl)
+    View find_lawyer_rl;
 
     @Override
     public HomePresenter initPresenter() {
@@ -123,6 +127,12 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                 ImageView imageView = (ImageView) mCommVH.getView(R.id.icon_iv);
                 imageView.setImageResource(bean.iconRes);
                 mCommVH.setText(R.id.name_tv, bean.name);
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LawBusinessUtils.jumpAction(context,bean.functionid,bean.extraJSON);
+                    }
+                });
             }
         });
         function_rcy.setAdapter(functionAdapter);
@@ -194,6 +204,13 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
             }
         });
         refresh_layout.setEnableLoadMore(false);
+
+        find_lawyer_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoActivity(LawyerListAct.class);
+            }
+        });
     }
 
     @Override
@@ -263,6 +280,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
         public String name;
         public int functionid;
         public int iconRes;
+        public String extraJSON="";
 
         public FuntionBean(int functionid, String name, int iconRes) {
             this.name = name;

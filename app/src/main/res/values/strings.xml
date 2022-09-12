@@ -73,6 +73,7 @@
     <string name="law_study_frag_tx2">法律头条</string>
     <string name="law_study_frag_tx3">经典案例</string>
     <string name="law_study_frag_tx4">法律释疑</string>
+    <string name="law_study_frag_tx5">文章详情</string>
 
     <string name="law_business_frag_tx1">我的法务部</string>
     <string name="law_business_frag_tx2">文书服务</string>
@@ -207,5 +208,22 @@
     <string name="notice_list_tx1">消息中心</string>
     <string name="notice_list_tx2">系统通知</string>
     <string name="notice_list_tx3">委托消息</string>
+
+    <string name="lawyer_list_tx1">找律师</string>
+    <string name="lawyer_list_tx2">省市</string>
+    <string name="lawyer_list_tx3">执业年限</string>
+    <string name="lawyer_list_tx4">输入律师的姓名</string>
+    <string name="lawyer_list_tx5">个人介绍</string>
+    <string name="lawyer_list_tx6">案件介绍</string>
+    <string name="lawyer_list_tx7">律师介绍</string>
+
+    <string name="contract_lib_list_tx1">输入合同关键词</string>
+    <string name="contract_lib_list_tx2">类别</string>
+    <string name="contract_lib_list_tx3">行业</string>
+    <string name="contract_lib_list_tx4">立即购买</string>
+    <string name="contract_lib_list_tx5">会员免费</string>
+    <string name="contract_lib_list_tx6">查看更多</string>
+    <string name="contract_lib_list_tx7">合同详情</string>
+    <string name="contract_lib_list_tx8">%1$s下载过</string>
 
 </resources>

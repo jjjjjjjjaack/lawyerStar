@@ -20,6 +20,7 @@ public class ArticleBean extends BaseBean {
     public String is_rec;
     public String content;
     public String reading;
+    public String id;
 
     public String getCreate_time() {
         return create_time;
@@ -75,5 +76,13 @@ public class ArticleBean extends BaseBean {
 
     public void setReading(String reading) {
         this.reading = reading;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

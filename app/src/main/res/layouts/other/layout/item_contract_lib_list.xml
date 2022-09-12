@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_104"
+        android:background="@drawable/shape_e0e0e0_top_r8"
+        >
+
+        <ImageView
+            android:id="@+id/logo_iv"
+            android:layout_width="@dimen/dp_106"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_13" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_ffffff_bottom_r8"
+        >
+
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="欠款协议书,欠款,欠条"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/desc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_tv"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_10"
+            android:textColor="#ff666666"
+            android:textSize="12sp"
+            tools:text="欠款协议合同" />
+
+        <TextView
+            android:id="@+id/price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="90元"
+            android:textColor="#fff83131"
+            android:textSize="14sp"
+            android:layout_below="@id/desc_tv"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            />
+
+        <TextView
+            android:id="@+id/free_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="会员免费"
+            android:textColor="#ff02c4c3"
+            android:textSize="10sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/price_tv"
+            android:background="@drawable/shape_storke_02c4c3_r2"
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingBottom="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_10"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_6"
+            android:layout_below="@id/price_tv" />
+
+    </RelativeLayout>
+    
+</LinearLayout>

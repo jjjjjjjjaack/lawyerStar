@@ -44,6 +44,11 @@
         <activity android:name=".app.module.mine.info.billinfo.BillInfoAct" />
         <activity android:name=".app.module.mine.notice.type.NoticeTypeAct" />
         <activity android:name=".app.module.mine.notice.list.NoticeListAct" />
+        <activity android:name=".app.module.lawyer.list.LawyerListAct" />
+        <activity android:name=".app.module.lawyer.detail.LawyerDetailAct" />
+        <activity android:name=".app.module.contract.library.list.ContractLibListAct" />
+        <activity android:name=".app.module.contract.library.detail.ContractLibDetailAct" />
+        <activity android:name=".app.module.article.detail.ArticleDetailAct" />
 
         <!--************************************************************************-->
         <provider

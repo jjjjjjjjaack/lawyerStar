@@ -3,12 +3,13 @@ package com.qbo.lawyerstar.app.module.business;
 import android.content.Context;
 import android.content.Intent;
 
+import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
 import com.qbo.lawyerstar.app.module.mine.setting.SettingAct;
 import com.qbo.lawyerstar.app.module.mine.suggest.SuggestUploadAct;
 
 public class LawBusinessUtils {
     //合同文库
-    public static int FUNCTION_1_HTWK = 0;
+    public final static int FUNCTION_1_HTWK = 0;
     //代写文书
     public static int FUNCTION_2_DXWS = 1;
     //法律咨询
@@ -48,11 +49,15 @@ public class LawBusinessUtils {
     //设置
     public final static int FUNCTION_20_SZ = 19;
 
-    public static void jumpAction(Context context,int functionType,String extraJson){
+    public static void jumpAction(Context context, int functionType, String extraJson) {
         Intent intent = null;
-        switch (functionType){
+        switch (functionType) {
+            case FUNCTION_1_HTWK:
+                intent = new Intent(context, ContractLibListAct.class);
+                context.startActivity(intent);
+                break;
             case FUNCTION_20_SZ:
-                intent = new Intent(context,SettingAct.class);
+                intent = new Intent(context, SettingAct.class);
                 context.startActivity(intent);
                 break;
             case FUNCTION_19_TSJY:

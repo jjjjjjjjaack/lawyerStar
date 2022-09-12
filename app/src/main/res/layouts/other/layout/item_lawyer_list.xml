@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.qbo.lawyerstar.app.view.ChangeGasStationImageView2
+        android:id="@+id/userlogo_civ"
+        android:layout_width="@dimen/dp_48"
+        android:layout_height="@dimen/dp_48"
+        android:layout_marginRight="@dimen/dp_10"
+        app:lbottom="@dimen/dp_2"
+        app:ltop="@dimen/dp_2"
+        app:rbottom="@dimen/dp_2"
+        app:rtop="@dimen/dp_2"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="@dimen/dp_20"
+        />
+
+    <LinearLayout
+        android:id="@+id/name_ll"
+        android:layout_toRightOf="@id/userlogo_civ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@id/userlogo_civ"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_tv"
+            tools:text="李好律师"
+            android:textColor="#ff333333"
+            android:textSize="14sp"
+            android:maxEms="10"
+            />
+
+
+        <TextView
+            android:id="@+id/years_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="执业5年"
+            android:textColor="#ff02c4c3"
+            android:textSize="10sp"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingBottom="@dimen/dp_2"
+            android:background="@drawable/shape_storke_02c4c3_r2"
+            android:layout_marginLeft="@dimen/dp_6"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_ll"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_toRightOf="@id/userlogo_civ"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        tools:text="广东省 东莞市" />
+
+    <com.qbo.lawyerstar.app.view.WarpLinearLayout
+        android:id="@+id/tags_wll"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@id/userlogo_civ"
+        android:layout_below="@id/address"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_1"
+        app:grivate="left"
+        app:horizontal_Space="2dp"
+        />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tags_wll"
+        android:background="@color/main_bg"
+        android:layout_marginTop="@dimen/dp_17"
+        />
+</RelativeLayout>

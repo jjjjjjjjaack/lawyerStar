@@ -1,5 +1,7 @@
 package com.qbo.lawyerstar.app.net;
 
+import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
+import com.qbo.lawyerstar.app.module.lawyer.bean.LawyerBean;
 import com.qbo.lawyerstar.app.module.mine.notice.bean.NoticeBean;
 import com.qbo.lawyerstar.app.module.study.bean.ArticleBean;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
@@ -31,6 +33,35 @@ public class RES_Factory {
         @Override
         public Class<NoticeBean> getBeanType() {
             return NoticeBean.class;
+        }
+    }
+
+
+    /**
+     * @param
+     * @return
+     * @description 获取律师列表
+     * @author jiejack
+     * @time 2022/9/10 11:05 下午
+     */
+    public static class GET_LAWYER_LIST_RES extends MPageResponse<LawyerBean> {
+        @Override
+        public Class<LawyerBean> getBeanType() {
+            return LawyerBean.class;
+        }
+    }
+
+    /**
+     * @param
+     * @return
+     * @description 合同文库
+     * @author jiejack
+     * @time 2022/9/11 2:20 下午
+     */
+    public static class GET_CONTRACT_LIBRARY_LIST_RES extends MPageResponse<ContractLibBean> {
+        @Override
+        public Class<ContractLibBean> getBeanType() {
+            return ContractLibBean.class;
         }
     }
 
