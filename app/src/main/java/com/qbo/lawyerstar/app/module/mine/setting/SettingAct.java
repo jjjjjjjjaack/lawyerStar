@@ -9,8 +9,10 @@ import com.qbo.lawyerstar.app.module.mine.account.cancle.CancelAccountAct;
 import com.qbo.lawyerstar.app.module.mine.protocol.ProtocolAct;
 
 import butterknife.BindView;
+import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.LoginoutUtis;
 
 public class SettingAct extends MvpAct<ISettingView, BaseModel, SettingPresenter> implements ISettingView {
@@ -75,7 +77,22 @@ public class SettingAct extends MvpAct<ISettingView, BaseModel, SettingPresenter
 
     @Override
     public void doBusiness() {
+        try {
+            FTokenUtils.getToken(this,false);
+            showLoginView();
+        } catch (NeedLoginException e) {
+            showUnLoginView();
+        }
+    }
 
+    private void showUnLoginView() {
+        deleteaccount_rl.setVisibility(View.GONE);
+        logout_tv.setVisibility(View.GONE);
+    }
+
+    private void showLoginView() {
+        deleteaccount_rl.setVisibility(View.VISIBLE);
+        logout_tv.setVisibility(View.VISIBLE);
     }
 
     @Override

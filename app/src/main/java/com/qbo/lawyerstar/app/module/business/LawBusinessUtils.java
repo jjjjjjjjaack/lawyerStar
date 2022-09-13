@@ -7,6 +7,9 @@ import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
 import com.qbo.lawyerstar.app.module.mine.setting.SettingAct;
 import com.qbo.lawyerstar.app.module.mine.suggest.SuggestUploadAct;
 
+import framework.mvp1.base.exception.NeedLoginException;
+import framework.mvp1.base.util.FTokenUtils;
+
 public class LawBusinessUtils {
     //合同文库
     public final static int FUNCTION_1_HTWK = 0;
@@ -53,6 +56,11 @@ public class LawBusinessUtils {
         Intent intent = null;
         switch (functionType) {
             case FUNCTION_1_HTWK:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
                 intent = new Intent(context, ContractLibListAct.class);
                 context.startActivity(intent);
                 break;
@@ -61,11 +69,15 @@ public class LawBusinessUtils {
                 context.startActivity(intent);
                 break;
             case FUNCTION_19_TSJY:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
                 intent = new Intent(context, SuggestUploadAct.class);
                 context.startActivity(intent);
                 break;
         }
-
     }
 
 }

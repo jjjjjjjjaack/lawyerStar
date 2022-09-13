@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.InputFilter;
@@ -248,6 +249,18 @@ public class ToolUtils {
             dialog.show();
         }
         return dialog;
+    }
+
+    //拨打电话
+    public static void callPhone(Context context,String phone) {
+        try {
+            //拨号
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:"+phone));
+            context.startActivity(intent);
+        }catch (Exception e){
+
+        }
     }
 
     public interface OnDissmis {

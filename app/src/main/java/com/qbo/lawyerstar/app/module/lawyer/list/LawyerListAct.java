@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Editable;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.inpopview.InPopBaseView;
+import com.qbo.lawyerstar.app.module.inpopview.InPopSelectCityView;
 import com.qbo.lawyerstar.app.module.lawyer.bean.LawyerBean;
 import com.qbo.lawyerstar.app.module.lawyer.detail.LawyerDetailAct;
 import com.qbo.lawyerstar.app.view.WarpLinearLayout;
@@ -59,6 +62,9 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
     EditText search_et;
 
     private int modeType = 0;//0普通 1搜索
+
+
+    private InPopSelectCityView inPopSelectCityView;
 
     @Override
     public void baseInitialization() {
@@ -109,15 +115,15 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
 
                 WarpLinearLayout tags_wll = (WarpLinearLayout) mCommVH.getView(R.id.tags_wll);
                 tags_wll.removeAllViews();
-                for (String str:bean.expertise){
+                for (String str : bean.expertise) {
                     TextView tv = new TextView(context);
                     tv.setBackgroundResource(R.drawable.shape_storke_cccccc_r2);
                     tv.setTextColor(0xff666666);
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-                    tv.setPadding(ResourceUtils.dip2px2(context,6)
-                            ,ResourceUtils.dip2px2(context,3)
-                            ,ResourceUtils.dip2px2(context,6)
-                            ,ResourceUtils.dip2px2(context,3));
+                    tv.setPadding(ResourceUtils.dip2px2(context, 6)
+                            , ResourceUtils.dip2px2(context, 3)
+                            , ResourceUtils.dip2px2(context, 6)
+                            , ResourceUtils.dip2px2(context, 3));
                     tv.setText(str);
                     tags_wll.addView(tv);
                 }
@@ -158,6 +164,24 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
                     return true;
                 }
                 return false;
+            }
+        });
+        inPopSelectCityView = new InPopSelectCityView(getMContext(), new InPopBaseView.PopFilterBaseInterface() {
+            @Override
+            public void isShow() {
+
+            }
+
+            @Override
+            public void isDismiss() {
+
+            }
+        });
+
+        city_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inPopSelectCityView.showPopView(view, true);
             }
         });
     }
@@ -221,5 +245,13 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
                 mCommAdapter.addData(lawyerBeans);
             }
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (inPopSelectCityView != null) {
+            inPopSelectCityView.isTouchClose((int) event.getX(), (int) event.getY());
+        }
+        return super.onTouchEvent(event);
     }
 }

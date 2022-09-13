@@ -11,6 +11,7 @@
 
 
     <ImageView
+        android:id="@+id/logo_iv"
         android:layout_width="@dimen/dp_128"
         android:layout_height="@dimen/dp_128"
         android:layout_marginTop="@dimen/dp_46"
@@ -39,6 +40,7 @@
 
 
     <TextView
+        android:id="@+id/intro_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_12"
@@ -80,6 +82,7 @@
 
     
     <TextView
+        android:id="@+id/contact_tv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44"
         android:layout_marginTop="@dimen/dp_37"

@@ -185,9 +185,9 @@ public class REQ_Factory {
 
     /**
      * @param
-     * @return
-     * @description 
      * @author jiejack
+     * @return
+     * @description
      * @time 2022/9/11 8:38 下午
      */
     @AnnBaseReq(API_METHOD = "lawyer/article/info")
@@ -399,17 +399,28 @@ public class REQ_Factory {
     }
 
 
-    @AnnBaseReq(API_METHOD = "contract/library/page",RESPONSE_CLASS = RES_Factory.GET_CONTRACT_LIBRARY_LIST_RES.class)
+    @AnnBaseReq(API_METHOD = "contract/library/page", RESPONSE_CLASS = RES_Factory.GET_CONTRACT_LIBRARY_LIST_RES.class)
     public static class GET_CONTRACT_LIBRARY_LIST_REQ extends BaseRequest {
         public int pageNo = 1;
         public int pageSize = 10;
         public String search = "";
         public Filter filter;
 
-        public static class Filter{
+        public static class Filter {
             public String type;//合同类别 字典--ContractLibraryType",
             public String industry;//"行业 字典--Industry"
         }
+    }
+
+    /**
+     * @param
+     * @author jiejack
+     * @return
+     * @description 关于我们
+     * @time 2022/9/13 7:58 下午
+     */
+    @AnnBaseReq(API_METHOD = "index/getAppInfo")
+    public static class GET_ABOUT_US_INFO_REQ extends BaseRequest {
     }
 
 //    public static class ImagePath extends BaseBean {

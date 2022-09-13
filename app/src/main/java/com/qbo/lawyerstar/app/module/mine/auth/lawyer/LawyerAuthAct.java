@@ -4,7 +4,10 @@ import static framework.mvp1.base.constant.BROConstant.CLOSE_TRAGETACT_ACTION;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -344,5 +347,28 @@ public class LawyerAuthAct extends MvpAct<ILawyerAuthView, BaseModel, LawyerAuth
         }
     }
 
+    /**
+     * @description 设置点击其他地方隐藏输入框
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/13 10:25
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event);
+    }
 
 }

@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/selector_comm_btn.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/selector_line_bg_1.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/selector_tab_main_1.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/selector_tab_text_color.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/selector_tab_text_color_2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_02c4c3_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_02c4c3_r4.xml" value="0.137" />
@@ -22,10 +23,12 @@
         <entry key="app/src/main/res/drawable/shape_f7f7f7_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_f83131_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_ffffff.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/shape_ffffff_bottom_r16.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_storke_02c3c4_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_storke_cccccc_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_storke_ffffff_r180.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_transparent.xml" value="0.137" />
+        <entry key="app/src/main/res/layouts/act/layout/act_about_us.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_article_detial.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_auth_company.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_auth_lawyer.xml" value="0.2359375" />
@@ -45,8 +48,12 @@
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_study.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_study_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_mine.xml" value="0.25" />
+        <entry key="app/src/main/res/layouts/other/layout/catloading_main.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/inpopup_select_city.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/item_contract_lib_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/item_home_function_list.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/item_inpopup_select_city.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/item_inpopup_select_province.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/item_lawyer_list.xml" value="0.34328358208955223" />
         <entry key="app/src/main/res/layouts/other/layout/item_mine_function_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/mine_pickerview_time.xml" value="0.2359375" />
