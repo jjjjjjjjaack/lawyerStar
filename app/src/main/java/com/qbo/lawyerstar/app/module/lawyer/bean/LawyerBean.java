@@ -13,6 +13,7 @@ public class LawyerBean extends BaseBean {
     public String employment_year;
     public String intro;
     public String case_intro;
+    public String id;
 
     public String getCreate_time() {
         return create_time;
@@ -76,5 +77,13 @@ public class LawyerBean extends BaseBean {
 
     public void setCase_intro(String case_intro) {
         this.case_intro = case_intro;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

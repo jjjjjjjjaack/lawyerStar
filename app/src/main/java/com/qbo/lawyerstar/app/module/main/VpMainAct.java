@@ -23,6 +23,7 @@ import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.mine.base.MineFrag;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.study.base.LawStudyFrag;
+import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 
 import java.util.ArrayList;
@@ -44,6 +45,10 @@ import framework.mvp1.views.pop.PopupVersionSelectView;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static framework.mvp1.base.constant.BROConstant.EXIT_APP_ACTION;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> implements IMainView {
 
@@ -104,7 +109,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
     @Override
     public void baseInitialization() {
         StatusBarUtils.setImmersiveStatusBar(true, Color.BLACK, this);
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -363,8 +368,26 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         Runtime.getRuntime().gc();
         Process.killProcess(Process.myPid());
+    }
+
+    /**
+     * @param
+     * @return
+     * @description
+     * @author jiejack
+     * @time 2022/9/14 9:12 下午
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainTabChangePositionEvent(CEventUtils.MainTabChangePositionEvent event){
+        try {
+            if (event.pos >= 0 && event.pos < 4) {
+                tabs.get(event.pos).performClick();
+            }
+        }catch (Exception e){
+        }
     }
 
     @Override

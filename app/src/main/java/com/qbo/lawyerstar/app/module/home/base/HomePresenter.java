@@ -32,4 +32,5 @@ public class HomePresenter extends BasePresent<IHomeView, BaseModel> {
             }
         });
     }
+
 }

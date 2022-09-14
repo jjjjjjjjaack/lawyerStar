@@ -31,7 +31,9 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
+import com.qbo.lawyerstar.app.module.lawyer.detail.LawyerDetailAct;
 import com.qbo.lawyerstar.app.module.lawyer.list.LawyerListAct;
+import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.qbo.lawyerstar.app.view.scrolltextview.MAutoScrollTextView;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -40,6 +42,8 @@ import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
 import com.youth.banner.indicator.CircleIndicator;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +82,10 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
     TextView version_tv;
     @BindView(R.id.find_lawyer_rl)
     View find_lawyer_rl;
+    @BindView(R.id.lawyer_more_rl)
+    View lawyer_more_rl;
+    @BindView(R.id.article_rl)
+    View article_rl;
 
     @Override
     public HomePresenter initPresenter() {
@@ -155,6 +163,13 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                 mCommVH.setText(R.id.lawyer_name_tv, bean.getReal_name());
                 mCommVH.setText(R.id.lawyer_year_tv, getMContext().getString(R.string.home_frag_tx3_3, bean.getEmployment_year()));
                 mCommVH.setText(R.id.desc_tv, bean.expertiseString);
+
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LawyerDetailAct.openAct(getMContext(),bean.getId());
+                    }
+                });
             }
         });
         lawyer_rcv.setAdapter(laywerAdapter);
@@ -209,6 +224,18 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
             @Override
             public void onClick(View view) {
                 gotoActivity(LawyerListAct.class);
+            }
+        });
+        lawyer_more_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoActivity(LawyerListAct.class);
+            }
+        });
+        article_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventBus.getDefault().post(new CEventUtils.MainTabChangePositionEvent(1));
             }
         });
     }

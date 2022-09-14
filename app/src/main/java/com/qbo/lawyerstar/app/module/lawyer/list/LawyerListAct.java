@@ -141,7 +141,7 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        LawyerDetailAct.openAct(getMContext(), bean);
+                        LawyerDetailAct.openAct(getMContext(), bean.getId());
                     }
                 });
             }

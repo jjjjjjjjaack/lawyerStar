@@ -70,6 +70,18 @@ public class REQ_Factory {
 
     /**
      * @param
+     * @return
+     * @description
+     * @author jiejack
+     * @time 2022/9/14 9:25 下午
+     */
+    @AnnBaseReq(API_METHOD = "index/wapPage")
+    public static class GET_WAPPAGE_URL_REQ extends BaseRequest {
+
+    }
+
+    /**
+     * @param
      * @author jieja
      * @description 发送验证码
      * @return
@@ -398,6 +410,18 @@ public class REQ_Factory {
         }
     }
 
+    /**
+     * @param
+     * @author jiejack
+     * @return
+     * @description 获取律师详情
+     * @time 2022/9/14 8:46 下午
+     */
+    @AnnBaseReq(API_METHOD = "lawyer/manage/info")
+    public static class GET_LAWYER_DETAIL_INFO_REQ extends BaseRequest {
+        public String id;
+    }
+
 
     @AnnBaseReq(API_METHOD = "contract/library/page", RESPONSE_CLASS = RES_Factory.GET_CONTRACT_LIBRARY_LIST_RES.class)
     public static class GET_CONTRACT_LIBRARY_LIST_REQ extends BaseRequest {
@@ -422,6 +446,7 @@ public class REQ_Factory {
     @AnnBaseReq(API_METHOD = "index/getAppInfo")
     public static class GET_ABOUT_US_INFO_REQ extends BaseRequest {
     }
+
 
 //    public static class ImagePath extends BaseBean {
 //        public String path;
