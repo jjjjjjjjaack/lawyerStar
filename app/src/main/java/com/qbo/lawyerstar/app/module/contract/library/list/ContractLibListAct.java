@@ -1,7 +1,12 @@
 package com.qbo.lawyerstar.app.module.contract.library.list;
 
 import android.content.Context;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.detail.ContractLibDetailAct;
+import com.qbo.lawyerstar.app.module.inpopview.InPopSelectIndexDictionaryView;
+import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -35,6 +42,19 @@ public class ContractLibListAct extends MvpAct<IContractLibListView, BaseModel,
     RecyclerView rcy;
     MCommAdapter mCommAdapter;
 
+    @BindView(R.id.search_et)
+    EditText search_et;
+    @BindView(R.id.category_tv)
+    TextView category_tv;
+    @BindView(R.id.business_tv)
+    TextView business_tv;
+
+    @BindView(R.id.category_ll)
+    View category_ll;
+    @BindView(R.id.business_ll)
+    View business_ll;
+    InPopSelectIndexDictionaryView categoryInPopView;
+    InPopSelectIndexDictionaryView businessInPopView;
 
     @Override
     public void baseInitialization() {
@@ -50,17 +70,27 @@ public class ContractLibListAct extends MvpAct<IContractLibListView, BaseModel,
     public void viewInitialization() {
         setBackPress();
 
+        search_et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    presenter.getData(true, search_et.getText().toString().trim());
+                    return true;
+                }
+                return false;
+            }
+        });
 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                presenter.getData(true);
+                presenter.getData(true, search_et.getText().toString().trim());
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                presenter.getData(false);
+                presenter.getData(false, "");
             }
         });
 
@@ -95,17 +125,87 @@ public class ContractLibListAct extends MvpAct<IContractLibListView, BaseModel,
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ContractLibDetailAct.openAct(context,bean);
+                        ContractLibDetailAct.openAct(context, bean);
                     }
                 });
             }
         });
+        mCommAdapter.setShowEmptyView(true, rcy);
         rcy.setAdapter(mCommAdapter);
+
+        categoryInPopView = new InPopSelectIndexDictionaryView(getMContext(), "ContractLibraryType", new InPopSelectIndexDictionaryView.SelectIndexDictionaryInterface() {
+            @Override
+            public void onConfirm(IndexDictionaryUtils.ValueBean valueBean) {
+                categoryInPopView.dismiss(true);
+                presenter.req.filter.type = (valueBean == null ? null : valueBean.value);
+                category_tv.setText(valueBean == null ? getString(R.string.contract_lib_list_tx2) : valueBean.label);
+                presenter.getData(true, search_et.getText().toString().trim());
+            }
+
+            @Override
+            public void isShow() {
+                if (category_ll != null) {
+                    category_ll.setSelected(true);
+                }
+            }
+
+            @Override
+            public void isDismiss() {
+                if (category_ll != null) {
+                    category_ll.setSelected(false);
+                }
+            }
+        });
+
+        category_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (businessInPopView != null && businessInPopView.isShowing()) {
+                    businessInPopView.dismiss(false);
+                }
+                categoryInPopView.showPopView(view, true);
+            }
+        });
+
+        businessInPopView = new InPopSelectIndexDictionaryView(getMContext(), "Industry", new InPopSelectIndexDictionaryView.SelectIndexDictionaryInterface() {
+            @Override
+            public void onConfirm(IndexDictionaryUtils.ValueBean valueBean) {
+                businessInPopView.dismiss(true);
+                presenter.req.filter.industry = (valueBean == null ? null : valueBean.value);
+                business_tv.setText(valueBean == null ? getString(R.string.contract_lib_list_tx3) : valueBean.label);
+                presenter.getData(true, search_et.getText().toString().trim());
+            }
+
+            @Override
+            public void isShow() {
+                if (business_ll != null) {
+                    business_ll.setSelected(true);
+                }
+            }
+
+            @Override
+            public void isDismiss() {
+                if (business_ll != null) {
+                    business_ll.setSelected(false);
+                }
+            }
+        });
+
+        business_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (categoryInPopView != null && categoryInPopView.isShowing()) {
+                    categoryInPopView.dismiss(false);
+                }
+                businessInPopView.showPopView(view, true);
+            }
+        });
+
     }
 
     @Override
     public void doBusiness() {
-        presenter.getData(true);
+        presenter.getData(true, search_et.getText().toString().trim());
     }
 
     @Override
@@ -143,5 +243,16 @@ public class ContractLibListAct extends MvpAct<IContractLibListView, BaseModel,
                 mCommAdapter.addData(contractLibBeans);
             }
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (categoryInPopView != null) {
+            categoryInPopView.isTouchClose((int) event.getX(), (int) event.getY());
+        }
+        if (businessInPopView != null) {
+            businessInPopView.isTouchClose((int) event.getX(), (int) event.getY());
+        }
+        return super.onTouchEvent(event);
     }
 }

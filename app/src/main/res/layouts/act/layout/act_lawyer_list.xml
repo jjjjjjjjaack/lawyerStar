@@ -103,6 +103,7 @@
             android:background="@color/main_bg" />
 
         <LinearLayout
+            android:id="@+id/option_ll"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_44"
             android:orientation="horizontal">
@@ -115,6 +116,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/city_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lawyer_list_tx2"
@@ -144,6 +146,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/years_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lawyer_list_tx3"

@@ -32,14 +32,23 @@ public class InPopSelectCityView extends InPopBaseView {
     MCommAdapter cityAdapter;
     MCommAdapter regionAdapter;
 
+    FCityBean cacheProvinceBean;
+    FCityBean cacheCityBean;
+    FCityBean cacheRegionBean;
+
     FCityBean provinceBean;
     FCityBean cityBean;
     FCityBean regionBean;
 
+    public interface SelectCityInterface extends PopFilterBaseInterface {
+//        void onReset();
+
+        void onConfirm(FCityBean provinceBean, FCityBean cityBean, FCityBean regionBean);
+    }
 
 
-    public InPopSelectCityView(Context mContext, PopFilterBaseInterface popFilterBaseInterface) {
-        super(mContext, popFilterBaseInterface);
+    public InPopSelectCityView(Context mContext, SelectCityInterface selectCityInterface) {
+        super(mContext, selectCityInterface);
     }
 
     @Override
@@ -98,6 +107,7 @@ public class InPopSelectCityView extends InPopBaseView {
                 });
             }
         });
+        provinceAdapter.setShowEmptyView(true);
         province_rcv.setAdapter(provinceAdapter);
         city_rcv.setLayoutManager(new LinearLayoutManager(mContext));
         cityAdapter = new MCommAdapter(mContext, new MCommVH.MCommVHInterface<FCityBean>() {
@@ -131,6 +141,7 @@ public class InPopSelectCityView extends InPopBaseView {
                 });
             }
         });
+        cityAdapter.setShowEmptyView(true);
         city_rcv.setAdapter(cityAdapter);
         region_rcv.setLayoutManager(new LinearLayoutManager(mContext));
         regionAdapter = new MCommAdapter(mContext, new MCommVH.MCommVHInterface<FCityBean>() {
@@ -162,9 +173,52 @@ public class InPopSelectCityView extends InPopBaseView {
                 });
             }
         });
+        regionAdapter.setShowEmptyView(true);
         region_rcv.setAdapter(regionAdapter);
+
+        reset_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                provinceBean = null;
+                cityBean = null;
+                regionBean = null;
+                provinceAdapter.notifyDataSetChanged();
+                cityAdapter.setData(new ArrayList());
+                regionAdapter.setData(new ArrayList());
+            }
+        });
+
+        commit_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cacheProvinceBean = provinceBean;
+                cacheCityBean = cityBean;
+                cacheRegionBean = regionBean;
+                if (popFilterBaseInterface != null) {
+                    ((SelectCityInterface) popFilterBaseInterface).onConfirm(provinceBean, cityBean, regionBean);
+                }
+            }
+        });
     }
 
+    @Override
+    public void showPopView(View clickView, boolean noanim) {
+        super.showPopView(clickView, noanim);
+        if (cacheProvinceBean != null) {
+            provinceBean = cacheProvinceBean;
+            provinceAdapter.notifyDataSetChanged();
+            cityAdapter.setData(provinceBean.getChildren());
+            if (cacheCityBean != null) {
+                cityBean = cacheCityBean;
+                cityAdapter.notifyDataSetChanged();
+                regionAdapter.setData(cityBean.getChildren());
+                if (cacheRegionBean != null) {
+                    regionBean = cacheRegionBean;
+                    regionAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
 
     public void getDataList() {
         REQ_Factory.GET_CITY_DATA_REQ req = new REQ_Factory.GET_CITY_DATA_REQ();
@@ -184,12 +238,12 @@ public class InPopSelectCityView extends InPopBaseView {
             public void onSuccess(List<FCityBean> cityBeans) throws Exception {
                 if (cityBeans.size() > 0) {
                     provinceAdapter.setData(cityBeans);
-                    if (cityBeans.get(0).getChildren().size() > 0) {
-                        cityAdapter.setData(cityBeans.get(0).getChildren());
-                        if (cityBeans.get(0).getChildren().get(0).getChildren().size() > 0) {
-                            regionAdapter.setData(cityBeans.get(0).getChildren().get(0).getChildren());
-                        }
-                    }
+//                    if (cityBeans.get(0).getChildren().size() > 0) {
+//                        cityAdapter.setData(cityBeans.get(0).getChildren());
+//                        if (cityBeans.get(0).getChildren().get(0).getChildren().size() > 0) {
+//                            regionAdapter.setData(cityBeans.get(0).getChildren().get(0).getChildren());
+//                        }
+//                    }
                 }
             }
 

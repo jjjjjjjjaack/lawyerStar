@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class CachePathUtil {
 
 
-    public static final String doMainName = "BluetoothCurtain";
+    public static final String doMainName = "lawyer";
     public static final String smvideo_url = File.separator + "oosmvideo" + File.separator + "sv" + File.separator;
     public static final String smvideop_url = File.separator + "oosmvideo" + File.separator + "svp" + File.separator;
 

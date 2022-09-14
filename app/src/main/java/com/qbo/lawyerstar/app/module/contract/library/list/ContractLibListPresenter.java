@@ -12,12 +12,15 @@ import framework.mvp1.base.f.BasePresent;
 public class ContractLibListPresenter extends BasePresent<IContractLibListView, BaseModel> {
 
     GET_CONTRACT_LIBRARY_LIST_REQ req = new GET_CONTRACT_LIBRARY_LIST_REQ();
-    public void getData(boolean isRefresh){
+    public void getData(boolean isRefresh,String searchKey){
         if (isRefresh) {
             req.pageNo = 1;
             req.pageSize = 10;
         } else {
             req.pageNo++;
+        }
+        if(isRefresh) {
+            req.search = searchKey;
         }
         doCommRequest(req, false, true,
                 new DoCommRequestInterface<RES_Factory.GET_CONTRACT_LIBRARY_LIST_RES,

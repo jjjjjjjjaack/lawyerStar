@@ -101,7 +101,7 @@ public class MyApplication extends MultiDexApplication {
         //1、可以通过关闭全局的默认循环引用检测
 //        JSON.DEFAULT_PARSER_FEATURE = Feature.DisableCircularReferenceDetect.getMask();
         Thread.setDefaultUncaughtExceptionHandler(CrashExpection.getInstance(this, CachePathUtil.getCachePathFile(File.separator + "crash").getAbsolutePath()));
-//        initBudly();
+        initBudly();
         initZxing();
     }
 
@@ -115,7 +115,7 @@ public class MyApplication extends MultiDexApplication {
         // 设置是否为上报进程
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
-        CrashReport.initCrashReport(getApplicationContext(), "", true, strategy);
+        CrashReport.initCrashReport(getApplicationContext(), "7c66f0a3b3", true, strategy);
     }
 
     /**

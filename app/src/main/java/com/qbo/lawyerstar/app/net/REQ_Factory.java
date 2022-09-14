@@ -390,7 +390,7 @@ public class REQ_Factory {
         public int pageNo = 1;
         public int pageSize = 10;
         public String search = "";
-        public Filter filter;
+        public Filter filter = new Filter();
 
         public static class Filter {
             public List<Integer> address_info = new ArrayList<>();
@@ -404,7 +404,7 @@ public class REQ_Factory {
         public int pageNo = 1;
         public int pageSize = 10;
         public String search = "";
-        public Filter filter;
+        public Filter filter = new Filter();
 
         public static class Filter {
             public String type;//合同类别 字典--ContractLibraryType",

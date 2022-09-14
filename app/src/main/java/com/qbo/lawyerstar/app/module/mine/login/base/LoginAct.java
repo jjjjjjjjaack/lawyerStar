@@ -12,6 +12,7 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.splash.SplashAct;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
@@ -107,6 +108,7 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
         tologin_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                CrashReport.testJavaCrash();
                 if (!pact_tv.isSelected()) {
                     T.showShort(getMContext(), getString(R.string.login_tx7));
                     return;

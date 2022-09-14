@@ -16,10 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FCityBean;
 import com.qbo.lawyerstar.app.module.inpopview.InPopBaseView;
 import com.qbo.lawyerstar.app.module.inpopview.InPopSelectCityView;
+import com.qbo.lawyerstar.app.module.inpopview.InPopSelectEmploymentYearView;
 import com.qbo.lawyerstar.app.module.lawyer.bean.LawyerBean;
 import com.qbo.lawyerstar.app.module.lawyer.detail.LawyerDetailAct;
+import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 import com.qbo.lawyerstar.app.view.WarpLinearLayout;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -36,6 +39,7 @@ import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
+import framework.mvp1.base.util.ToolUtils;
 
 public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerListPresenter> implements ILawyerListView {
 
@@ -49,6 +53,10 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
     ImageView tv_back_right;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.city_tv)
+    TextView city_tv;
+    @BindView(R.id.years_tv)
+    TextView years_tv;
     @BindView(R.id.city_ll)
     View city_ll;
     @BindView(R.id.years_ll)
@@ -56,6 +64,8 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
 
     @BindView(R.id.rl_back)
     View rl_back;
+    @BindView(R.id.option_ll)
+    View option_ll;
     @BindView(R.id.input_ll)
     View input_ll;
     @BindView(R.id.search_et)
@@ -65,6 +75,7 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
 
 
     private InPopSelectCityView inPopSelectCityView;
+    private InPopSelectEmploymentYearView inPopSelectEmploymentYearView;
 
     @Override
     public void baseInitialization() {
@@ -166,22 +177,80 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
                 return false;
             }
         });
-        inPopSelectCityView = new InPopSelectCityView(getMContext(), new InPopBaseView.PopFilterBaseInterface() {
+        inPopSelectCityView = new InPopSelectCityView(getMContext(), new InPopSelectCityView.SelectCityInterface() {
+            @Override
+            public void onConfirm(FCityBean provinceBean, FCityBean cityBean, FCityBean regionBean) {
+                inPopSelectCityView.dismiss(true);
+                presenter.req.filter.address_info = new ArrayList<>();
+                if (provinceBean == null) {
+                    city_tv.setText(getString(R.string.lawyer_list_tx2));
+                } else {
+                    presenter.req.filter.address_info = new ArrayList<>();
+                    presenter.req.filter.address_info.add(0, ToolUtils.String2Int(provinceBean.getId()));
+                    city_tv.setText(provinceBean.getLabel());
+                    if (cityBean != null) {
+                        presenter.req.filter.address_info.add(1, ToolUtils.String2Int(cityBean.getId()));
+                        city_tv.setText(provinceBean.getLabel() + " " + cityBean.getLabel());
+                    }
+                }
+                presenter.getData(true);
+            }
+
             @Override
             public void isShow() {
-
+                if (city_ll != null) {
+                    city_ll.setSelected(true);
+                }
             }
 
             @Override
             public void isDismiss() {
-
+                if (city_ll != null) {
+                    city_ll.setSelected(false);
+                }
             }
         });
 
         city_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (inPopSelectEmploymentYearView != null && inPopSelectEmploymentYearView.isShowing()) {
+                    inPopSelectEmploymentYearView.dismiss(false);
+                }
                 inPopSelectCityView.showPopView(view, true);
+            }
+        });
+
+        inPopSelectEmploymentYearView = new InPopSelectEmploymentYearView(getMContext(), new InPopSelectEmploymentYearView.SelectEmploymentYearInterface() {
+            @Override
+            public void onConfirm(IndexDictionaryUtils.ValueBean valueBean) {
+                inPopSelectEmploymentYearView.dismiss(true);
+                presenter.req.filter.employment_year = (valueBean == null ? null : valueBean.value);
+                years_tv.setText(valueBean == null ? getString(R.string.lawyer_list_tx3) : valueBean.label);
+                presenter.getData(true);
+            }
+
+            @Override
+            public void isShow() {
+                if (years_ll != null) {
+                    years_ll.setSelected(true);
+                }
+            }
+
+            @Override
+            public void isDismiss() {
+                if (years_ll != null) {
+                    years_ll.setSelected(false);
+                }
+            }
+        });
+        years_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (inPopSelectCityView != null && inPopSelectCityView.isShowing()) {
+                    inPopSelectCityView.dismiss(false);
+                }
+                inPopSelectEmploymentYearView.showPopView(v, true);
             }
         });
     }
@@ -192,16 +261,24 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
             input_ll.setVisibility(View.VISIBLE);
             tv_title.setVisibility(View.GONE);
             tv_back_right.setVisibility(View.GONE);
+            option_ll.setVisibility(View.GONE);
             search_et.setText("");
             presenter.req.search = "";
+            presenter.req.filter.address_info = new ArrayList<>();
+            presenter.req.filter.employment_year = "";
+            city_tv.setText(getString(R.string.lawyer_list_tx2));
+            years_tv.setText(getString(R.string.lawyer_list_tx3));
             search_et.requestFocus();
+            presenter.getData(true);
         } else {
             modeType = 0;
             search_et.setText("");
             presenter.req.search = "";
             input_ll.setVisibility(View.GONE);
             tv_title.setVisibility(View.VISIBLE);
+            option_ll.setVisibility(View.VISIBLE);
             tv_back_right.setVisibility(View.VISIBLE);
+            presenter.getData(true);
         }
     }
 
@@ -251,6 +328,9 @@ public class LawyerListAct extends MvpAct<ILawyerListView, BaseModel, LawyerList
     public boolean onTouchEvent(MotionEvent event) {
         if (inPopSelectCityView != null) {
             inPopSelectCityView.isTouchClose((int) event.getX(), (int) event.getY());
+        }
+        if (inPopSelectEmploymentYearView != null) {
+            inPopSelectEmploymentYearView.isTouchClose((int) event.getX(), (int) event.getY());
         }
         return super.onTouchEvent(event);
     }
