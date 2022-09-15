@@ -3,6 +3,7 @@ package com.qbo.lawyerstar.app.net;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.lawyer.bean.LawyerBean;
 import com.qbo.lawyerstar.app.module.mine.notice.bean.NoticeBean;
+import com.qbo.lawyerstar.app.module.mine.order.bean.OrderListBean;
 import com.qbo.lawyerstar.app.module.study.bean.ArticleBean;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 
@@ -62,6 +63,20 @@ public class RES_Factory {
         @Override
         public Class<ContractLibBean> getBeanType() {
             return ContractLibBean.class;
+        }
+    }
+    
+    /**
+     * @description
+     * @param 
+     * @return 
+     * @author jieja
+     * @time 2022/9/15 17:04
+     */
+    public static class GET_ORDER_LIST_RES extends MPageResponse<OrderListBean> {
+        @Override
+        public Class<OrderListBean> getBeanType() {
+            return OrderListBean.class;
         }
     }
 

@@ -70,9 +70,9 @@ public class REQ_Factory {
 
     /**
      * @param
+     * @author jiejack
      * @return
      * @description
-     * @author jiejack
      * @time 2022/9/14 9:25 下午
      */
     @AnnBaseReq(API_METHOD = "index/wapPage")
@@ -445,6 +445,23 @@ public class REQ_Factory {
      */
     @AnnBaseReq(API_METHOD = "index/getAppInfo")
     public static class GET_ABOUT_US_INFO_REQ extends BaseRequest {
+    }
+
+
+    /**
+     * @param
+     * @author jieja
+     * @description 订单列表
+     * @return
+     * @time 2022/9/15 16:55
+     */
+    @AnnBaseReq(API_METHOD = "order/page")
+    public static class GET_ORDER_LIST_REQ extends BaseRequest {
+        public int pageNo = 1;
+        public int pageSize = 10;
+        public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
+        public String status;//"咨询中1  已完成2 空即为
+        public String is_pay;// "订单列表类型 true就是需要支付的，false就是全部"
     }
 
 

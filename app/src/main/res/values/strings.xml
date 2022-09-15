@@ -227,4 +227,7 @@
     <string name="contract_lib_list_tx7">合同详情</string>
     <string name="contract_lib_list_tx8">%1$s下载过</string>
 
+    <string name="law_ask_comm_tx1">咨询中</string>
+    <string name="law_ask_comm_tx2">已完成</string>
+
 </resources>

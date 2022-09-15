@@ -52,6 +52,7 @@
         <activity android:name=".app.module.contract.library.detail.ContractLibDetailAct" />
         <activity android:name=".app.module.article.detail.ArticleDetailAct" />
         <activity android:name=".app.module.business.wap.BusinessWapAct" />
+        <activity android:name=".app.module.mine.order.list.comm.base.OrderListCommAct" />
 
         <!--************************************************************************-->
         <provider

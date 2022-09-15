@@ -25,7 +25,7 @@ public class FileProviderUtil {
     public static Uri getUri(Context context, File file) {
         Uri fileUri = null;
         if (Build.VERSION.SDK_INT >= 24) {
-            fileUri = FileProvider.getUriForFile(context,  "com.jjjjjjjjaack.jmvp.fileprovider", file);
+            fileUri = FileProvider.getUriForFile(context,  "com.qbo.lawyerstar.fileprovider", file);
         } else {
             fileUri = Uri.fromFile(file);
         }
