@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_title_comm_2" />
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c_ffffff"
+                android:paddingBottom="@dimen/dp_10">
+
+                <com.qbo.lawyerstar.app.view.ChangeGasStationImageView2
+                    android:id="@+id/userlogo_civ"
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_userlogo_default_1"
+                    app:lbottom="@dimen/dp_2"
+                    app:ltop="@dimen/dp_2"
+                    app:rbottom="@dimen/dp_2"
+                    app:rtop="@dimen/dp_2" />
+
+                <LinearLayout
+                    android:id="@+id/nameinfo_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/userlogo_civ"
+                    android:layout_toRightOf="@id/userlogo_civ"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:textColor="#ff333333"
+                        android:textSize="18sp"
+                        tools:text="李好" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/simpleRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        app:srb_drawableEmpty="@mipmap/ic_shop_stars_nor"
+                        app:srb_drawableFilled="@mipmap/ic_shop_stars_sel"
+                        app:srb_isIndicator="true"
+                        app:srb_minimumStars="0"
+                        app:srb_numStars="5"
+                        app:srb_scrollable="true"
+                        app:srb_starHeight="10dp"
+                        app:srb_starPadding="1.5dp"
+                        app:srb_starWidth="10dp"
+                        app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tag_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/nameinfo_ll"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_toLeftOf="@id/status_tv"
+                    android:layout_toRightOf="@id/userlogo_civ"
+                    android:textColor="#ff666666"
+                    android:textSize="12sp"
+                    tools:text="一般民事、交通事故、婚姻家庭" />
+
+                <TextView
+                    android:id="@+id/status_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:text="已处理"
+                    android:textColor="#ff666666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:background="@color/c_ffffff"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:layout_marginRight="@dimen/dp_12">
+
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/order_detail_tx2"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/content_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_toRightOf="@id/tv1"
+                        android:textColor="#ff333333"
+                        android:textSize="14sp"
+                        tools:text="婚姻家庭" />
+
+                    <TextView
+                        android:id="@+id/price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#fff83131"
+                        android:textSize="22sp"
+                        tools:text="¥120" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/content_detail_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:textColor="#ff333333"
+                    android:textSize="14sp"
+                    tools:text="我想知道微信截屏的聊天记录和转账记录是否可以作为证明他婚内出轨的证据，如果要离婚需要搜集哪些资料信息，可以分的财产和一定的家产和孩子抚养权。" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_28" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reply_rcy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</LinearLayout>

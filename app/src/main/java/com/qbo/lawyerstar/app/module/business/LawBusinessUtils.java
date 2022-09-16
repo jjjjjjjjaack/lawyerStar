@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.qbo.lawyerstar.app.module.business.wap.BusinessWapAct;
 import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
+import com.qbo.lawyerstar.app.module.mine.order.list.comm.base.OrderListCommAct;
 import com.qbo.lawyerstar.app.module.mine.setting.SettingAct;
 import com.qbo.lawyerstar.app.module.mine.suggest.SuggestUploadAct;
 
@@ -16,8 +17,10 @@ public class LawBusinessUtils {
     public final static int FUNCTION_1_HTWK = 0;
     //代写文书
     public final static int FUNCTION_2_DXWS = 1;
+
     //法律咨询
     public final static int FUNCTION_3_FLZX = 2;
+
     //律师函
     public final static int FUNCTION_4_LSH = 3;
     //合同定制
@@ -53,6 +56,13 @@ public class LawBusinessUtils {
     //设置
     public final static int FUNCTION_20_SZ = 19;
 
+    public final static int FUNCTION_20_DXWS_ORDER = 20;
+    public final static int FUNCTION_21_FLZX_ORDER = 21;
+    public final static int FUNCTION_22_LSH_ORDER = 22;
+    public final static int FUNCTION_23_HTDZ_ORDER = 23;
+    public final static int FUNCTION_24_HTSH_ORDER = 24;
+    public final static int FUNCTION_25_FSCG_ORDER = 25;
+    public final static int FUNCTION_26_ZCSS_ORDER = 26;
     public static void jumpAction(Context context, int functionType, String extraJson) {
         Intent intent = null;
         switch (functionType) {
@@ -156,6 +166,62 @@ public class LawBusinessUtils {
                 }
                 intent = new Intent(context, SuggestUploadAct.class);
                 context.startActivity(intent);
+                break;
+            case FUNCTION_20_DXWS_ORDER:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                OrderListCommAct.openAct(context,"ghostwriting");
+                break;
+            case FUNCTION_21_FLZX_ORDER:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                OrderListCommAct.openAct(context,"legal_advice");
+                break;
+            case FUNCTION_22_LSH_ORDER:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                OrderListCommAct.openAct(context,"lawyer_letter");
+                break;
+            case FUNCTION_23_HTDZ_ORDER:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                OrderListCommAct.openAct(context,"contract_customization");
+                break;
+            case FUNCTION_24_HTSH_ORDER:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                OrderListCommAct.openAct(context,"contract_review");
+                break;
+            case FUNCTION_25_FSCG_ORDER:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                OrderListCommAct.openAct(context,"non_appeal");
+                break;
+            case FUNCTION_26_ZCSS_ORDER:
+                try {
+                    FTokenUtils.getToken(context,true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                OrderListCommAct.openAct(context,"arbitrate_litigate");
                 break;
         }
     }

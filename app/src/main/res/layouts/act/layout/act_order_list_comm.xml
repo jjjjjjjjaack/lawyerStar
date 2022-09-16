@@ -36,8 +36,12 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_40"
             android:layout_marginRight="@dimen/dp_40"
+            app:tl_tab_space_equal="true"
             app:tl_textSelectColor="@color/c_333333"
             app:tl_textUnselectColor="#66333333"
+            app:tl_indicator_width="@dimen/dp_26"
+            app:tl_indicator_corner_radius="@dimen/dp_180"
+            app:tl_indicator_height="@dimen/dp_3"
             app:tl_indicator_color="@color/main_color"
             app:tl_textsize="@dimen/sp_16"
             />

@@ -5,7 +5,14 @@ import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_1
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_17_AJWT;
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_18_WDDD;
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_19_TSJY;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_20_DXWS_ORDER;
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_20_SZ;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_21_FLZX_ORDER;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_22_LSH_ORDER;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_23_HTDZ_ORDER;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_24_HTSH_ORDER;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_25_FSCG_ORDER;
+import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_26_ZCSS_ORDER;
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_2_DXWS;
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_3_FLZX;
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_4_LSH;
@@ -121,6 +128,12 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 ImageView imageView = (ImageView) mCommVH.getView(R.id.icon_iv);
                 imageView.setImageResource(bean.iconRes);
                 mCommVH.setText(R.id.name_tv, bean.name);
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
+                    }
+                });
             }
         });
         function_1_rcy.setAdapter(function_1_Adapter);
@@ -162,12 +175,13 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
         List<MineFrag.FuntionBean> funtion_1_Beans = new ArrayList<>();
         funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_16_HTXZ, getString(R.string.mine_function_tx1), R.mipmap.ic_mine_function_1));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_2_DXWS, getString(R.string.mine_function_tx2), R.mipmap.ic_mine_function_2));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_3_FLZX, getString(R.string.mine_function_tx3), R.mipmap.ic_mine_function_3));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_4_LSH, getString(R.string.mine_function_tx4), R.mipmap.ic_mine_function_4));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_5_HTDZ, getString(R.string.mine_function_tx5), R.mipmap.ic_mine_function_5));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_6_HTSH, getString(R.string.mine_function_tx6), R.mipmap.ic_mine_function_6));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_17_AJWT, getString(R.string.mine_function_tx7), R.mipmap.ic_mine_function_7));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_20_DXWS_ORDER, getString(R.string.mine_function_tx2), R.mipmap.ic_mine_function_2));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_21_FLZX_ORDER, getString(R.string.mine_function_tx3), R.mipmap.ic_mine_function_3));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_22_LSH_ORDER, getString(R.string.mine_function_tx4), R.mipmap.ic_mine_function_4));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_23_HTDZ_ORDER, getString(R.string.mine_function_tx5), R.mipmap.ic_mine_function_5));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_24_HTSH_ORDER, getString(R.string.mine_function_tx6), R.mipmap.ic_mine_function_6));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_25_FSCG_ORDER, getString(R.string.mine_function_tx7_1), R.mipmap.ic_mine_function_7));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_26_ZCSS_ORDER, getString(R.string.mine_function_tx7_2), R.mipmap.ic_mine_function_7_2));
         function_1_Adapter.setData(funtion_1_Beans);
 
 

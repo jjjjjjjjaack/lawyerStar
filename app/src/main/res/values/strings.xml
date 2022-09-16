@@ -94,6 +94,8 @@
     <string name="mine_function_tx5">合同定制</string>
     <string name="mine_function_tx6">合同审核</string>
     <string name="mine_function_tx7">案件委托</string>
+    <string name="mine_function_tx7_1">非诉/催告</string>
+    <string name="mine_function_tx7_2">仲裁/诉讼</string>
     <string name="mine_function_tx8">我的订单</string>
     <string name="mine_function_tx9">电子签章</string>
     <string name="mine_function_tx10">投诉建议</string>
@@ -229,5 +231,11 @@
 
     <string name="law_ask_comm_tx1">咨询中</string>
     <string name="law_ask_comm_tx2">已完成</string>
+    <string name="law_ask_comm_tx3">服务律师: %1$s</string>
+    <string name="law_ask_comm_tx4">%1$s元</string>
+    <string name="law_ask_comm_tx5">下单时间:%1$s</string>
+
+    <string name="order_detail_tx1">订单详情</string>
+    <string name="order_detail_tx2">内容详情:</string>
 
 </resources>

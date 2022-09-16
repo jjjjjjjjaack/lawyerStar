@@ -15,6 +15,7 @@ import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
 import framework.mvp1.base.util.GlideUtils;
+import framework.mvp1.base.util.ToolUtils;
 
 public class MCommVH<Bx extends Object> extends RecyclerView.ViewHolder {
 
@@ -97,6 +98,20 @@ public class MCommVH<Bx extends Object> extends RecyclerView.ViewHolder {
         try {
             TextView view = getView(viewId);
             view.setText(value);
+        } catch (Exception e) {
+        }
+        return this;
+    }
+
+    public MCommVH setTextCheckEmpty(@IdRes int viewId, CharSequence value) {
+        try {
+            TextView view = getView(viewId);
+            if(value==null||value.length()==0){
+                view.setVisibility(View.GONE);
+            }else {
+                view.setVisibility(View.VISIBLE);
+                view.setText(value);
+            }
         } catch (Exception e) {
         }
         return this;

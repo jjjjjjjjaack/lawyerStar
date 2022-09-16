@@ -455,13 +455,38 @@ public class REQ_Factory {
      * @return
      * @time 2022/9/15 16:55
      */
-    @AnnBaseReq(API_METHOD = "order/page")
+    @AnnBaseReq(API_METHOD = "order/page", RESPONSE_CLASS = RES_Factory.GET_ORDER_LIST_RES.class)
     public static class GET_ORDER_LIST_REQ extends BaseRequest {
         public int pageNo = 1;
         public int pageSize = 10;
-        public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
+        /**
+         * @description 合同文库 contract_documents
+         * 代写文书 ghostwriting
+         * 律师函 lawyer_letter
+         * 法律咨询 legal_advice
+         * 合同定制 contract_customization
+         * 合同审核 contract_review
+         * 非诉/催告 non_appeal
+         * 仲裁/诉讼 arbitrate_litigate
+         * @author jieja
+         * @time 2022/9/16 16:46
+         */
+        public String type;
         public String status;//"咨询中1  已完成2 空即为
         public String is_pay;// "订单列表类型 true就是需要支付的，false就是全部"
+    }
+
+    /**
+     * @param
+     * @author jieja
+     * @description 订单详情
+     * @return
+     * @time 2022/9/16 16:38
+     */
+    @AnnBaseReq(API_METHOD = "order/info")
+    public static class GET_ORDER_DETAIL_REQ extends BaseRequest {
+        public String id;
+        public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
     }
 
 

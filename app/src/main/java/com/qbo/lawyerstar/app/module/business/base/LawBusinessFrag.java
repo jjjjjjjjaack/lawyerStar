@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.study.base.ILawStudyView;
 import com.qbo.lawyerstar.app.module.study.base.LawStudyPresenter;
@@ -99,6 +100,12 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                 ImageView imageView = (ImageView) mCommVH.getView(R.id.icon_iv);
                 imageView.setImageResource(bean.iconRes);
                 mCommVH.setText(R.id.name_tv, bean.name);
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
+                    }
+                });
             }
         });
         function_1_rcy.setAdapter(function_1_Adapter);
@@ -129,6 +136,12 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                 ImageView imageView = (ImageView) mCommVH.getView(R.id.icon_iv);
                 imageView.setImageResource(bean.iconRes);
                 mCommVH.setText(R.id.name_tv, bean.name);
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
+                    }
+                });
             }
         });
         function_2_rcy.setAdapter(function_2_Adapter);
@@ -155,6 +168,12 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                 ImageView imageView = (ImageView) mCommVH.getView(R.id.icon_iv);
                 imageView.setImageResource(bean.iconRes);
                 mCommVH.setText(R.id.name_tv, bean.name);
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
+                    }
+                });
             }
         });
         function_3_rcy.setAdapter(function_3_Adapter);

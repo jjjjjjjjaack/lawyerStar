@@ -4,12 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.mine.order.bean.OrderListBean;
+import com.qbo.lawyerstar.app.module.mine.order.detail.OrderDetailAct;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,11 +74,37 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
 
             @Override
             public void bindData(Context context, MCommVH mCommVH, int position, OrderListBean bean) {
+                mCommVH.setText(R.id.name_tv, bean.getTitle());
+                mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
+                mCommVH.setText(R.id.status_tv, bean.getStatus_text());
+                mCommVH.setText(R.id.content_tv, bean.getContent());
+                mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
+                mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
+                mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
 
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        OrderDetailAct.openAct(context, bean.getId(), bean.getType());
+                    }
+                });
             }
         });
         rcy.setAdapter(mCommAdapter);
         mCommAdapter.setShowEmptyView(true);
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                presenter.getData(true);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                presenter.getData(false);
+            }
+        });
     }
 
     @Override

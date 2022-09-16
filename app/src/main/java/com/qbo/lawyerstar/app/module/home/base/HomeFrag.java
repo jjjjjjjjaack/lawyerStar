@@ -29,6 +29,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
+import com.qbo.lawyerstar.app.module.article.detail.ArticleDetailAct;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
 import com.qbo.lawyerstar.app.module.lawyer.detail.LawyerDetailAct;
@@ -192,6 +193,12 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                 mCommVH.setText(R.id.newsname_tv, bean.getTitle());
                 mCommVH.setText(R.id.newsreadnum_tv, getMContext().getString(R.string.home_frag_tx4_3, bean.getReading()));
                 mCommVH.setText(R.id.newsdate_tv, bean.getCreate_time());
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ArticleDetailAct.openAct(context,bean.getId());
+                    }
+                });
             }
         });
         news_rcv.setAdapter(newsAdapter);

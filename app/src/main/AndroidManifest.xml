@@ -53,6 +53,7 @@
         <activity android:name=".app.module.article.detail.ArticleDetailAct" />
         <activity android:name=".app.module.business.wap.BusinessWapAct" />
         <activity android:name=".app.module.mine.order.list.comm.base.OrderListCommAct" />
+        <activity android:name=".app.module.mine.order.detail.OrderDetailAct" />
 
         <!--************************************************************************-->
         <provider

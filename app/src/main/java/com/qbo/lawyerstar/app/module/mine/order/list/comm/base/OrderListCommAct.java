@@ -24,6 +24,22 @@ import framework.mvp1.base.util.ToolUtils;
 
 public class OrderListCommAct extends MvpAct<IOrderListCommView, BaseModel, OrderListCommPresenter> implements IOrderListCommView {
 
+
+    /**
+     * @description
+     * @param orderType
+     * 合同文库 contract_documents
+     * 代写文书 ghostwriting
+     * 律师函 lawyer_letter
+     * 法律咨询 legal_advice
+     * 合同定制 contract_customization
+     * 合同审核 contract_review
+     * 非诉/催告 non_appeal
+     * 仲裁/诉讼 arbitrate_litigate
+     * @return
+     * @author jieja
+     * @time 2022/9/16 16:34
+     */
     public static void openAct(Context context, String orderType) {
         Intent intent = new Intent(context, OrderListCommAct.class);
         intent.putExtra("orderType", orderType);
@@ -50,7 +66,7 @@ public class OrderListCommAct extends MvpAct<IOrderListCommView, BaseModel, Orde
 
     @Override
     public int setR_Layout() {
-        return R.layout.act_law_ask_comm;
+        return R.layout.act_order_list_comm;
     }
 
     @Override
