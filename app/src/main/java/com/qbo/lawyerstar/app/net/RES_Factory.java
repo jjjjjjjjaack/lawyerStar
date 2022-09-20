@@ -1,5 +1,6 @@
 package com.qbo.lawyerstar.app.net;
 
+import com.qbo.lawyerstar.app.bean.FPayTypeBean;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.lawyer.bean.LawyerBean;
 import com.qbo.lawyerstar.app.module.mine.notice.bean.NoticeBean;
@@ -80,6 +81,20 @@ public class RES_Factory {
         }
     }
 
+
+    /**
+     * @description
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/15 17:04
+     */
+    public static class GET_PAYTYPE_LIST_RES extends MPageResponse<FPayTypeBean> {
+        @Override
+        public Class<FPayTypeBean> getBeanType() {
+            return FPayTypeBean.class;
+        }
+    }
     
     /**
      * @description 数据字典

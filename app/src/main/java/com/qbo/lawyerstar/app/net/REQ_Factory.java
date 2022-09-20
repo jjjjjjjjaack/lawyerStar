@@ -490,6 +490,18 @@ public class REQ_Factory {
     }
 
 
+    /**
+     * @description 获取支付方式
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/20 15:07
+     */
+    @AnnBaseReq(API_METHOD = "order/payType")
+    public static class GET_PAYTYPE_LIST_REQ extends BaseRequest {
+    }
+
+
 //    public static class ImagePath extends BaseBean {
 //        public String path;
 //        public String url;

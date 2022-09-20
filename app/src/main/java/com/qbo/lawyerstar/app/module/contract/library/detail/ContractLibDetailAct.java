@@ -15,6 +15,7 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
 import com.qbo.lawyerstar.app.module.contract.library.list.IContractLibListView;
+import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
 
 import java.util.List;
 
@@ -49,6 +50,10 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
     View zz_view;
     @BindView(R.id.more_tv)
     View more_tv;
+    @BindView(R.id.topay_tv)
+    View topay_tv;
+
+    PopupToPayView popupToPayView ;
 
     @Override
     public void baseInitialization() {
@@ -72,6 +77,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
 
             }
         });
+        popupToPayView = new PopupToPayView(this);
     }
 
     private void initWebView() {
@@ -144,6 +150,18 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
             presenter.bean.template_html = presenter.bean.template_html.replace("http://192.168.1.143", BuildConfig.API_URL);
         }
         webView.loadUrl(presenter.bean.template_html);
+
+        topay_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupToPayView.show(v, presenter.bean.price, new PopupToPayView.ToPayInterface() {
+                    @Override
+                    public void toPay() {
+
+                    }
+                });
+            }
+        });
     }
 
     @Override

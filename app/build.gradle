@@ -127,5 +127,5 @@ dependencies {
     /*****/
     implementation 'com.github.ome450901:SimpleRatingBar:1.5.1'
     // 支付宝 SDK AAR 包所需的配置
-    api 'com.alipay.sdk:alipaysdk-android:+@aar'
+    implementation 'com.alipay.sdk:alipaysdk-android:+@aar'
 }

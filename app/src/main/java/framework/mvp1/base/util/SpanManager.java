@@ -62,10 +62,10 @@ public class SpanManager {
         if (TextUtils.isEmpty(text)) {
             return;
         }
-        if (null == builder || (null != builder
-                && !builder.spannable.equals(text))) {
+//        if (null == builder || (null != builder
+//                && !builder.spannable.equals(text))) {
             builder = new Builder(text);
-        }
+//        }
     }
 
     /**

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_44">
+
+    <ImageView
+        android:id="@+id/icon_iv"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_12"
+        />
+
+    <TextView
+        android:id="@+id/typename_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="支付宝支付"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/icon_iv"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
+
+    <ImageView
+        android:id="@+id/cb_iv"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_30"
+        android:src="@drawable/selector_checkbox_style_1"
+        />
+
+</RelativeLayout>

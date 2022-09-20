@@ -164,7 +164,7 @@
                 android:id="@+id/bottomprice_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="90"
+                tools:text="90"
                 android:textColor="#fff83131"
                 android:textSize="22sp" />
 
@@ -180,6 +180,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/topay_tv"
             android:layout_width="@dimen/dp_140"
             android:layout_height="@dimen/dp_44"
             android:layout_alignParentRight="true"

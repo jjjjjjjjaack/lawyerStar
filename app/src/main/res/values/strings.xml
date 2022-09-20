@@ -24,6 +24,7 @@
     <string name="reset_tx">重置</string>
     <string name="man_tx">男</string>
     <string name="woman_tx">女</string>
+    <string name="order_erro_tip">女</string>
     <string name="commit_success_tx">提交成功</string>
     <!-- guide.java -->
     <string name="guide_start_tx1">立即开启</string>
@@ -237,5 +238,11 @@
 
     <string name="order_detail_tx1">订单详情</string>
     <string name="order_detail_tx2">内容详情:</string>
+
+    <string name="popup_to_pay_tx1">订单金额</string>
+    <string name="popup_to_pay_tx2">选择支付方式</string>
+    <string name="popup_to_pay_tx3">支付%1$s元</string>
+    <string name="popup_to_pay_tx4">暂无支付方式</string>
+    <string name="popup_to_pay_tx5">支付方式获取中</string>
 
 </resources>
