@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/c_ffffff"
+    >
+
+    <include layout="@layout/view_title_comm_2"/>
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_below="@id/title_rl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_155"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        app:banner_auto_loop="true"
+        app:banner_indicator_normal_color="#99FFFFFF"
+        app:banner_indicator_selected_color="#99FFFFFF"
+        app:banner_radius="@dimen/dp_8" />
+
+    <FrameLayout
+        android:id="@+id/webview_fl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/banner"
+        android:layout_above="@id/commit_tv"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        ></FrameLayout>
+
+
+    <TextView
+        android:id="@+id/commit_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@drawable/shape_1b140c_r2"
+        android:gravity="center"
+        android:textColor="#fff4c88d"
+        android:textSize="16sp"
+        tools:text="4890元/年 联系客服开通" />
+
+</RelativeLayout>

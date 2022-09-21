@@ -542,6 +542,18 @@ public class REQ_Factory {
     }
 
 
+    /**
+     * @param
+     * @return
+     * @description
+     * @author jiejack
+     * @time 2022/9/21 9:08 下午
+     */
+    @AnnBaseReq(API_METHOD = "user/member/benefits/page")
+    public static class GET_VIP_INTRO_REQ extends BaseRequest {
+    }
+
+
 //    public static class ImagePath extends BaseBean {
 //        public String path;
 //        public String url;

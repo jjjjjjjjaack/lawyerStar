@@ -35,6 +35,7 @@ import com.qbo.lawyerstar.app.module.mine.info.base.UserInfoBaseAct;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.mine.notice.type.NoticeTypeAct;
+import com.qbo.lawyerstar.app.module.mine.vip.intro.VipIntroAct;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -69,6 +70,10 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     View right_ll;
     @BindView(R.id.message_iv)
     View message_iv;
+    @BindView(R.id.user_not_vip_rl)
+    View user_not_vip_rl;
+    @BindView(R.id.user_is_vip_rl)
+    View user_is_vip_rl;
 
     @BindView(R.id.function_1_rcy)
     RecyclerView function_1_rcy;
@@ -233,6 +238,12 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
         login_rl.setVisibility(View.VISIBLE);
         tologin_tv.setVisibility(View.GONE);
         right_ll.setVisibility(View.VISIBLE);
+        user_not_vip_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoActivity(VipIntroAct.class);
+            }
+        });
 
         FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
             @Override
@@ -246,6 +257,14 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                         gotoActivity(UserInfoBaseAct.class);
                     }
                 });
+
+                if(userInfoBean.isVip()){
+                    user_not_vip_rl.setVisibility(View.GONE);
+                    user_is_vip_rl.setVisibility(View.VISIBLE);
+                }else{
+                    user_not_vip_rl.setVisibility(View.VISIBLE);
+                    user_is_vip_rl.setVisibility(View.GONE);
+                }
             }
 
             @Override

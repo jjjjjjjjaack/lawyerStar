@@ -1,8 +1,12 @@
 package com.qbo.lawyerstar.app.module.contract.library.detail;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
+import android.provider.DocumentsContract;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
@@ -19,12 +23,17 @@ import com.qbo.lawyerstar.app.module.contract.library.list.IContractLibListView;
 import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
 import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.util.CachePathUtil;
+import framework.mvp1.base.util.DownloadUtil;
+import framework.mvp1.base.util.FileProviderUtil;
 import framework.mvp1.base.util.ResourceUtils;
+import framework.mvp1.base.util.T;
 
 public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseModel
         , ContractLibDetailPresenter> implements IContractLibDetailView {
@@ -54,7 +63,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
     @BindView(R.id.more_tv)
     View more_tv;
     @BindView(R.id.topay_tv)
-    View topay_tv;
+    TextView topay_tv;
 
     PopupToPayView popupToPayView;
 
@@ -180,12 +189,89 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
         }
         webView.loadUrl(presenter.bean.template_html);
 
-        topay_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.createOrder();
-            }
-        });
+        if (presenter.bean.is_pay) {
+            topay_tv.setText(getString(R.string.contract_lib_list_tx4_1));
+            topay_tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    downloadContract();
+                }
+            });
+        } else {
+            topay_tv.setText(getString(R.string.contract_lib_list_tx4));
+            topay_tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenter.createOrder();
+                }
+            });
+        }
+    }
+
+    /**
+     * 根据网址用浏览器打开
+     */
+    public void downloadContract() {
+        if (presenter.bean == null) {
+            return;
+        }
+        final ProgressDialog dialog = new ProgressDialog(getMContext());
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setMessage("文件下载中");
+        dialog.setMax(100);
+        dialog.show();
+        DownloadUtil downloadUtil = DownloadUtil.get();
+        downloadUtil.download(presenter.bean.template, presenter.bean.file_name,
+                "pdfdownload", new DownloadUtil.OnDownloadListener() {
+                    @Override
+                    public void onDownloadSuccess(File file) {
+                        if (isDestroyed()) {
+                            return;
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+                                String path = CachePathUtil.getCachePathFile("pdfdownload").getPath();
+                                T.showShort(getMContext(), "下载成功，文件保存在" + path);
+                                File file = new File(path);
+                                if (null == file || !file.exists()) {
+                                    return;
+                                }
+//                                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+//                                //intent.putExtra("android.content.extra.SHOW_ADVANCED", true);
+//                                intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, FileProviderUtil.getUri(getMContext(),file));
+//                               startActivity(intent);
+
+                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setDataAndType(FileProviderUtil.getUri(getMContext(),file), "file/*");
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onDownloading(int progress) {
+                        dialog.setProgress(progress);
+                    }
+
+                    @Override
+                    public void onDownloadFailed() {
+                        if (isDestroyed()) {
+                            return;
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dialog.dismiss();
+                                T.showShort(getMContext(), "下载失败，请联系客服");
+                            }
+                        });
+                    }
+                });
     }
 
     @Override

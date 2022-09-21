@@ -51,7 +51,7 @@ public class LawBusinessUtils {
     //AI法务
     public static int FUNCTION_15_AIFW = 14;
     //合同下载
-    public static int FUNCTION_16_HTXZ = 15;
+    public final static int FUNCTION_16_HTXZ = 15;
     //案件委托
     public static int FUNCTION_17_AJWT = 16;
     //我的订单
@@ -181,6 +181,17 @@ public class LawBusinessUtils {
                     return;
                 }
                 BusinessWapAct.openAct(context, "industry_payfor");
+                break;
+            case FUNCTION_16_HTXZ:
+                try {
+                    FTokenUtils.getToken(context, true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                if (!checkIsRz(context, true)) {
+                    return;
+                }
+                OrderListCommAct.openAct(context, "contract_documents");
                 break;
             case FUNCTION_18_WDDD:
                 try {

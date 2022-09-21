@@ -18,10 +18,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            tools:text="法律咨询"
             android:maxEms="8"
             android:textColor="#ff333333"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="法律咨询" />
 
 
 
@@ -51,12 +51,11 @@
             android:id="@+id/lawyer_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="下载单号: 李好"
-            android:textColor="#ff666666"
-            android:textSize="12sp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            />
+            android:textColor="#ff666666"
+            android:textSize="12sp"
+            tools:text="下载单号: 李好" />
 
         <TextView
             android:id="@+id/price_tv"

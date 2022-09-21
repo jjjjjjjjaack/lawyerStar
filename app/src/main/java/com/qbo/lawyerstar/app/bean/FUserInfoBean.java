@@ -18,6 +18,7 @@ public class FUserInfoBean extends BaseBean {
     public String company_tax;
     public String check_user_type; // 1企业 2律师
     public String audis_status;
+    public String rank_id;
 
     @Override
     public void fromJSONAuto(JSONObject json) {
@@ -127,5 +128,17 @@ public class FUserInfoBean extends BaseBean {
 
     public void setAudis_status(String audis_status) {
         this.audis_status = audis_status;
+    }
+
+    public String getUserinfo_type_tx() {
+        return userinfo_type_tx;
+    }
+
+    public void setUserinfo_type_tx(String userinfo_type_tx) {
+        this.userinfo_type_tx = userinfo_type_tx;
+    }
+
+    public boolean isVip(){
+        return !ToolUtils.isNull(rank_id);
     }
 }

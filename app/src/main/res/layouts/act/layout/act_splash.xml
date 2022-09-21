@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/iv_logo1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_100"
-        android:src="@mipmap/ic_launcher_round" />
+        android:src="@mipmap/app_logo_11" />
 
     <TextView
         android:layout_width="wrap_content"

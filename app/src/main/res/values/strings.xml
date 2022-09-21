@@ -1,6 +1,6 @@
+<!DOCTYPE resources [<!ENTITY appname "法天平">]>
 <resources>
-    <string name="app_name">律师星</string>
-
+    <string name="app_name">&appname;</string>
     <!--Tips-->
     <string name="yes">是</string>
     <string name="no">否</string>
@@ -42,7 +42,7 @@
     <string name="three_tab">法务</string>
     <string name="four_tab">我的</string>
 
-    <string name="home_frag_tx1">欢迎来到律师星</string>
+    <string name="home_frag_tx1">欢迎来到&appname;</string>
     <string name="home_frag_tx2">AI智能咨询</string>
     <string name="home_frag_tx2_2">智能客服为您答疑</string>
     <string name="home_frag_tx2_3">去使用</string>
@@ -106,7 +106,7 @@
     <string name="splash_tx2">微信登录</string>
 
     <string name="login_tx1">手机号注册/登录</string>
-    <string name="login_tx2">未注册的手机号将自动创建律师星账号</string>
+    <string name="login_tx2">未注册的手机号将自动创建&appname;账号</string>
     <string name="login_tx3">输入手机号</string>
     <string name="login_tx4">输入验证码</string>
     <string name="login_tx5">确认登录</string>
@@ -225,6 +225,7 @@
     <string name="contract_lib_list_tx2">类别</string>
     <string name="contract_lib_list_tx3">行业</string>
     <string name="contract_lib_list_tx4">立即购买</string>
+    <string name="contract_lib_list_tx4_1">立即下载</string>
     <string name="contract_lib_list_tx5">会员免费</string>
     <string name="contract_lib_list_tx6">查看更多</string>
     <string name="contract_lib_list_tx7">合同详情</string>
@@ -244,5 +245,8 @@
     <string name="popup_to_pay_tx3">支付%1$s元</string>
     <string name="popup_to_pay_tx4">暂无支付方式</string>
     <string name="popup_to_pay_tx5">支付方式获取中</string>
+
+
+    <string name="vip_intro_tx1">会员中心</string>
 
 </resources>

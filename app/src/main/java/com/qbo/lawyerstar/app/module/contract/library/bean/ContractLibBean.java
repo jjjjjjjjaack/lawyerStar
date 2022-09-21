@@ -10,10 +10,12 @@ public class ContractLibBean extends BaseBean {
     public String type;
     public String industry;
     public String template;
+    public String file_name;
     public String template_html;
     public String download_num;
     public String cover_img;
     public String id;
+    public boolean is_pay;
 
     public String getCreate_time() {
         return create_time;
@@ -102,4 +104,22 @@ public class ContractLibBean extends BaseBean {
     public void setId(String id) {
         this.id = id;
     }
+
+    public boolean isIs_pay() {
+        return is_pay;
+    }
+
+    public String getFile_name() {
+        return file_name;
+    }
+
+    public void setFile_name(String file_name) {
+        this.file_name = file_name;
+    }
+
+    public void setIs_pay(boolean is_pay) {
+        this.is_pay = is_pay;
+    }
+
+
 }

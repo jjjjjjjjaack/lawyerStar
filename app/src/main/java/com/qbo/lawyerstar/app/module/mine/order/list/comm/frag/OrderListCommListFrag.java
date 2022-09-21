@@ -82,7 +82,7 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
         presenter.req.type = orderType;
         presenter.req.status = orderStatus;
 
-        if("contract_documents".equals(orderType)){
+        if ("contract_documents".equals(orderType)) {
             mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<OrderListBean>() {
                 @Override
                 public int setLayout() {
@@ -96,14 +96,27 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
 
                 @Override
                 public void bindData(Context context, MCommVH mCommVH, int position, OrderListBean bean) {
-                    mCommVH.setText(R.id.name_tv, bean.getTitle());
-                    mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
-                    mCommVH.setText(R.id.status_tv, bean.getStatus_text());
-                    mCommVH.setText(R.id.content_tv, bean.getContent());
-                    mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
-                    mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
-                    mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
-
+                    if (bean.contractDetail != null) {
+                        mCommVH.setText(R.id.name_tv, bean.contractDetail.title);
+                        mCommVH.setText(R.id.status_tv, bean.getStatus_text());
+                        mCommVH.setText(R.id.lawyer_name_tv,"下载单号:"+bean.contractDetail.sn);
+                        mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
+                        mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.contractDetail.create_time));
+                    }else{
+                        mCommVH.setText(R.id.name_tv, bean.getTitle());
+                        mCommVH.setText(R.id.status_tv, bean.getStatus_text());
+                        mCommVH.setText(R.id.lawyer_name_tv,"下载单号:"+bean.getSn());
+                        mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
+                        mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
+                    }
+//                    mCommVH.setText(R.id.name_tv, bean.getTitle());
+//                    mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
+//                    mCommVH.setText(R.id.status_tv, bean.getStatus_text());
+//                    mCommVH.setText(R.id.content_tv, bean.getContent());
+//                    mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
+//                    mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
+//                    mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
+//
                     mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -114,7 +127,7 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
             });
             rcy.setAdapter(mCommAdapter);
             mCommAdapter.setShowEmptyView(true);
-        }else{
+        } else {
             mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<OrderListBean>() {
                 @Override
                 public int setLayout() {
@@ -134,7 +147,7 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
                     mCommVH.setText(R.id.content_tv, bean.getContent());
                     mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
                     mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
-                    mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
+                    mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5, bean.getCreate_time()));
 
                     mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
