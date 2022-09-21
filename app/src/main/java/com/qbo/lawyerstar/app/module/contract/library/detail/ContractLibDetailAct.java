@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import com.qbo.lawyerstar.BuildConfig;
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
 import com.qbo.lawyerstar.app.module.contract.library.list.IContractLibListView;
+import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
 import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.util.ResourceUtils;
 
 public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseModel
         , ContractLibDetailPresenter> implements IContractLibDetailView {
@@ -53,7 +56,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
     @BindView(R.id.topay_tv)
     View topay_tv;
 
-    PopupToPayView popupToPayView ;
+    PopupToPayView popupToPayView;
 
     @Override
     public void baseInitialization() {
@@ -77,20 +80,46 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
 
             }
         });
-        popupToPayView = new PopupToPayView(this);
+        popupToPayView = new PopupToPayView(this, "contract_documents");
+
+        more_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                more_tv.setVisibility(View.GONE);
+                zz_view.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void initWebView() {
         webView = new WebView(this);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDisplayZoomControls(false); //隐藏webview缩放按钮
-        webView.getSettings().setJavaScriptEnabled(true);//
         webView.getSettings().setSupportZoom(false);
         webView.getSettings().setDomStorageEnabled(true);
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setEnabled(false);
-
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                String javascript = "javascript:function ResizeImages() {" +
+                        "var myimg,oldwidth;" +
+                        "var maxwidth = document.body.clientWidth;" +
+                        "for(i=0;i <document.images.length;i++){" +
+                        "myimg = document.images[i];" +
+                        "if(myimg.width > maxwidth){" +
+                        "oldwidth = myimg.width;" +
+                        "myimg.width = maxwidth;" +
+                        "}" +
+                        "}" +
+                        "}";
+                String width = String.valueOf(ResourceUtils.getWindowsWidth(ContractLibDetailAct.this));
+                view.loadUrl(javascript);
+                view.loadUrl("javascript:ResizeImages();");
+            }
+        });
 //        webView.setWebViewClient(new WebViewClient() {
 //            @Override
 //            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
@@ -154,12 +183,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
         topay_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupToPayView.show(v, presenter.bean.price, new PopupToPayView.ToPayInterface() {
-                    @Override
-                    public void toPay() {
-
-                    }
-                });
+                presenter.createOrder();
             }
         });
     }
@@ -186,5 +210,24 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
     @Override
     public ContractLibDetailPresenter initPresenter() {
         return new ContractLibDetailPresenter();
+    }
+
+    @Override
+    public void createSuccess(FOrderPayBean bean) {
+        if (bean != null) {
+            popupToPayView.show(topay_tv, bean, new PopupToPayView.ToPayInterface() {
+                @Override
+                public void alipayRequest() {
+
+                }
+
+                @Override
+                public void paySuccess() {
+                    gotoActivity(PaySuccessAct.class);
+                }
+
+            });
+//            gotoActivity(PaySuccessAct.class);
+        }
     }
 }

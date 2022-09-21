@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.bean.FPayTypeBean;
 import com.qbo.lawyerstar.app.module.alipay.PayResult;
 import com.qbo.lawyerstar.app.net.REQ_Factory;
 import com.qbo.lawyerstar.app.net.RES_Factory;
 import com.alipay.sdk.app.PayTask;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,13 +43,19 @@ public class PopupToPayView extends PopupBaseView {
     private FPayTypeBean selectBean;
 
     private int status = -1;
+    private FOrderPayBean payBean;
+    private String orderType;
 
     public interface ToPayInterface {
         void alipayRequest();
+
+        void paySuccess();
     }
 
-    public PopupToPayView(Context context) {
+    // "type": "订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice"
+    public PopupToPayView(Context context, String orderType) {
         super(context);
+        this.orderType = orderType;
     }
 
     @Override
@@ -92,12 +100,29 @@ public class PopupToPayView extends PopupBaseView {
             }
         });
         rcy.setAdapter(mCommAdapter);
+
+        commit_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (selectBean == null) {
+                    T.showShort(context, "请选择支付方式");
+                    return;
+                }
+                if ("alipay".equals(selectBean.id)) {
+                    toPayInterface.alipayRequest();
+                } else if ("balance".equals(selectBean.id)) {
+                    payByBalance();
+//                    toPayInterface.balanceRequest();
+                }
+            }
+        });
         getData();
     }
 
 
     public void getData() {
         REQ_Factory.GET_PAYTYPE_LIST_REQ req = new REQ_Factory.GET_PAYTYPE_LIST_REQ();
+        req.type = orderType;
         BasePresent.doStaticCommRequest(context, req, true, true,
                 new BasePresent.DoCommRequestInterface<BaseResponse,
                         List<FPayTypeBean>>() {
@@ -113,6 +138,9 @@ public class PopupToPayView extends PopupBaseView {
                         if (!ToolUtils.isNull(baseResponse.datas)) {
                             if (baseResponse.datas.contains("alipay")) {
                                 payTypeBeans.add(new FPayTypeBean("alipay", R.mipmap.ic_alipay_1, "支付宝支付"));
+                            }
+                            if (baseResponse.datas.contains("balance")) {
+                                payTypeBeans.add(new FPayTypeBean("balance", R.mipmap.ic_balance_1, "余额支付"));
                             }
                         }
 
@@ -138,7 +166,7 @@ public class PopupToPayView extends PopupBaseView {
                 });
     }
 
-    public void show(View parent, String price, ToPayInterface toPayInterface) {
+    public void show(View parent, FOrderPayBean bean, ToPayInterface toPayInterface) {
         if (status == -1) {
             T.showShort(context, context.getString(R.string.popup_to_pay_tx5));
             return;
@@ -147,16 +175,61 @@ public class PopupToPayView extends PopupBaseView {
             T.showShort(context, context.getString(R.string.popup_to_pay_tx4));
             return;
         }
-        price_tv.setText(context.getString(R.string.law_ask_comm_tx4, price));
-        commit_tv.setText(context.getString(R.string.popup_to_pay_tx3, price));
+        if (bean == null) {
+            return;
+        }
+        if (toPayInterface == null) {
+            return;
+        }
+        this.payBean = bean;
+        price_tv.setText(context.getString(R.string.law_ask_comm_tx4, bean.price));
+        commit_tv.setText(context.getString(R.string.popup_to_pay_tx3, bean.price));
         this.toPayInterface = toPayInterface;
         super.showBottom(parent);
     }
 
+    /**
+     * @param
+     * @return
+     * @description 余额支付
+     * @author jieja
+     * @time 2022/9/21 16:15
+     */
+    public void payByBalance() {
+        REQ_Factory.POST_PAY_ORDER_REQ req = new REQ_Factory.POST_PAY_ORDER_REQ();
+        req.pay_type = "balance";
+        req.sn = payBean.sn;
+        req.type = orderType;
+        BasePresent.doStaticCommRequest(context, req, true,
+                true, new BasePresent.DoCommRequestInterface<BaseResponse, BaseResponse>() {
+                    @Override
+                    public void doStart() {
+
+                    }
+
+                    @Override
+                    public BaseResponse doMap(BaseResponse baseResponse) {
+                        return baseResponse;
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) throws Exception {
+                        toPayInterface.paySuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+
     private static final int ALIPAY_SDK_PAY_FLAG = 1;
-    public void payForAliay(Activity activity,String orderStr){
-        if(ToolUtils.isNull(orderStr)){
-            T.showShort(context,"");
+
+    public void payForAliay(Activity activity, String orderStr) {
+        if (ToolUtils.isNull(orderStr)) {
+            T.showShort(context, "");
             return;
         }
         final String orderInfo = orderStr;   // 订单信息
@@ -164,7 +237,7 @@ public class PopupToPayView extends PopupBaseView {
             @Override
             public void run() {
                 PayTask alipay = new PayTask(activity);
-                Map <String,String> result = alipay.payV2(orderInfo,true);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
                 Message msg = new Message();
                 msg.what = ALIPAY_SDK_PAY_FLAG;
                 msg.obj = result;
@@ -175,6 +248,7 @@ public class PopupToPayView extends PopupBaseView {
         Thread payThread = new Thread(payRunnable);
         payThread.start();
     }
+
     @SuppressLint("HandlerLeak")
     private Handler mAlipayHandler = new Handler() {
         @SuppressWarnings("unused")

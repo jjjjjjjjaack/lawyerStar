@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/c_ffffff"
+    >
+
+    <include layout="@layout/view_title_comm_2"/>
+
+    <ImageView
+        android:layout_width="@dimen/dp_72"
+        android:layout_height="@dimen/dp_72"
+        android:layout_marginTop="@dimen/dp_46"
+        android:src="@mipmap/ic_commit_success_3"
+        />
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff333333"
+        android:textSize="20sp"
+        android:layout_marginTop="@dimen/dp_24"
+        android:text="支付成功"
+        />
+
+
+    <TextView
+        android:id="@+id/content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ff666666"
+        android:layout_marginTop="@dimen/dp_8"
+        android:textSize="14sp"
+        android:text="支付成功，感谢你的购买"
+        />
+
+    <TextView
+        android:id="@+id/backhome_tv"
+        android:layout_width="@dimen/dp_140"
+        android:layout_height="@dimen/dp_44"
+        android:text="返回首页"
+        android:textColor="#ff02c4c3"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:background="@drawable/shape_storke_02c4c3_r2"
+        android:layout_marginTop="@dimen/dp_72"
+        />
+    
+</LinearLayout>

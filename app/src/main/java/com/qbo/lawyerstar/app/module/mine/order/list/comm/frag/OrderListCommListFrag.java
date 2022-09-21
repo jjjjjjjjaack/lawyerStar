@@ -61,38 +61,6 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
     @Override
     public void viewInitialization() {
         rcy.setLayoutManager(new LinearLayoutManager(getMContext()));
-        mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<OrderListBean>() {
-            @Override
-            public int setLayout() {
-                return R.layout.item_order_list;
-            }
-
-            @Override
-            public void initViews(Context context, MCommVH mCommVH, View itemView) {
-
-            }
-
-            @Override
-            public void bindData(Context context, MCommVH mCommVH, int position, OrderListBean bean) {
-                mCommVH.setText(R.id.name_tv, bean.getTitle());
-                mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
-                mCommVH.setText(R.id.status_tv, bean.getStatus_text());
-                mCommVH.setText(R.id.content_tv, bean.getContent());
-                mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
-                mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
-                mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
-
-                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        OrderDetailAct.openAct(context, bean.getId(), bean.getType());
-                    }
-                });
-            }
-        });
-        rcy.setAdapter(mCommAdapter);
-        mCommAdapter.setShowEmptyView(true);
-
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -113,6 +81,73 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
         String orderStatus = getArguments().getString("orderStatus");
         presenter.req.type = orderType;
         presenter.req.status = orderStatus;
+
+        if("contract_documents".equals(orderType)){
+            mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<OrderListBean>() {
+                @Override
+                public int setLayout() {
+                    return R.layout.item_order_contract_list;
+                }
+
+                @Override
+                public void initViews(Context context, MCommVH mCommVH, View itemView) {
+
+                }
+
+                @Override
+                public void bindData(Context context, MCommVH mCommVH, int position, OrderListBean bean) {
+                    mCommVH.setText(R.id.name_tv, bean.getTitle());
+                    mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
+                    mCommVH.setText(R.id.status_tv, bean.getStatus_text());
+                    mCommVH.setText(R.id.content_tv, bean.getContent());
+                    mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
+                    mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
+                    mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
+
+                    mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            OrderDetailAct.openAct(context, bean.getId(), bean.getType());
+                        }
+                    });
+                }
+            });
+            rcy.setAdapter(mCommAdapter);
+            mCommAdapter.setShowEmptyView(true);
+        }else{
+            mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<OrderListBean>() {
+                @Override
+                public int setLayout() {
+                    return R.layout.item_order_list;
+                }
+
+                @Override
+                public void initViews(Context context, MCommVH mCommVH, View itemView) {
+
+                }
+
+                @Override
+                public void bindData(Context context, MCommVH mCommVH, int position, OrderListBean bean) {
+                    mCommVH.setText(R.id.name_tv, bean.getTitle());
+                    mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
+                    mCommVH.setText(R.id.status_tv, bean.getStatus_text());
+                    mCommVH.setText(R.id.content_tv, bean.getContent());
+                    mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
+                    mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
+                    mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
+
+                    mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            OrderDetailAct.openAct(context, bean.getId(), bean.getType());
+                        }
+                    });
+                }
+            });
+            rcy.setAdapter(mCommAdapter);
+            mCommAdapter.setShowEmptyView(true);
+        }
+
         presenter.getData(true);
     }
 

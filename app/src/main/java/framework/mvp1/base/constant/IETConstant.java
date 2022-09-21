@@ -16,4 +16,5 @@ public class IETConstant {
     public static final int CHOOSE_COUNTRY_CODE = 50002;
 
     public static final String CLOSE_TRAGETACT_KEY = "CLOSE_TRAGETACT_KEY";
+    public static final String CLOSE_EXARTACT_KEY = "CLOSE_EXARTACT_KEY";
 }

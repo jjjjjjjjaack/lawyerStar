@@ -26,6 +26,7 @@ import framework.mvp1.base.util.LanguageUtils;
 import framework.mvp1.base.util.LoadingUtils;
 import framework.mvp1.base.util.ToolUtils;
 
+import static framework.mvp1.base.constant.BROConstant.CLOSE_EXTRAACT_ACTION;
 import static framework.mvp1.base.constant.BROConstant.CLOSE_TRAGETACT_ACTION;
 
 public abstract class BaseAct extends AppCompatActivity {
@@ -73,6 +74,22 @@ public abstract class BaseAct extends AppCompatActivity {
                     } catch (Exception e) {
                     }
                     break;
+                case CLOSE_EXTRAACT_ACTION:
+                    try {
+                        String act_name = intent.getStringExtra(IETConstant.CLOSE_EXARTACT_KEY);
+                        if (ToolUtils.isNull(className)) {
+                            return;
+                        }
+                        if (ToolUtils.isNull(act_name)) {
+                            return;
+                        }
+                        if (!act_name.contains(className)) {
+                            finish();
+                        }
+                    } catch (Exception e) {
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -161,6 +178,7 @@ public abstract class BaseAct extends AppCompatActivity {
             IntentFilter filter = new IntentFilter();
             filter.addAction(BROConstant.EXIT_APP_ACTION);
             filter.addAction(CLOSE_TRAGETACT_ACTION);
+            filter.addAction(CLOSE_EXTRAACT_ACTION);
             registerReceiver(exitReceiver, filter);
         }
     }

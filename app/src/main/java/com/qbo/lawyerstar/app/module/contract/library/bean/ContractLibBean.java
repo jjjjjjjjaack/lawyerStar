@@ -13,6 +13,7 @@ public class ContractLibBean extends BaseBean {
     public String template_html;
     public String download_num;
     public String cover_img;
+    public String id;
 
     public String getCreate_time() {
         return create_time;
@@ -92,5 +93,13 @@ public class ContractLibBean extends BaseBean {
 
     public void setCover_img(String cover_img) {
         this.cover_img = cover_img;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

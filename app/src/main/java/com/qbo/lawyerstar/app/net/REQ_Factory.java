@@ -491,14 +491,54 @@ public class REQ_Factory {
 
 
     /**
-     * @description 获取支付方式
      * @param
-     * @return
      * @author jieja
+     * @description 获取支付方式
+     * @return
      * @time 2022/9/20 15:07
      */
     @AnnBaseReq(API_METHOD = "order/payType")
     public static class GET_PAYTYPE_LIST_REQ extends BaseRequest {
+        public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
+    }
+
+    /**
+     * @param
+     * @author jieja
+     * @description 支付订单
+     * @return
+     * @time 2022/9/21 16:11
+     */
+    @AnnBaseReq(API_METHOD = "order/pay")
+    public static class POST_PAY_ORDER_REQ extends BaseRequest {
+        public String sn;//
+        public String pay_type;//"支付方式 wechat alipay",
+        public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
+    }
+
+
+    /**
+     * @param
+     * @author jieja
+     * @description 获取订单全部类型
+     * @return
+     * @time 2022/9/21 16:39
+     */
+    @AnnBaseReq(API_METHOD = "order/orderType")
+    public static class GET_ORDER_ALL_TYPE_REQ extends BaseRequest {
+    }
+
+
+    /**
+     * @param
+     * @author jieja
+     * @description 创建订单（合同文库）
+     * @return
+     * @time 2022/9/21 16:21
+     */
+    @AnnBaseReq(API_METHOD = "order/contract/documents/create")
+    public static class POST_ORDER_CONTRACT_DOC_CREATE_REQ extends BaseRequest {
+        public String contract_id;
     }
 
 

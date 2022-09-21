@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.business.base.LawBusinessFrag;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.mine.base.MineFrag;
@@ -154,7 +155,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
             if (tempFragment instanceof HomeFrag) {
             }
             if (tempFragment instanceof MineFrag) {
-                ((MineFrag)tempFragment).refresh();
+                ((MineFrag) tempFragment).refresh();
             }
         }
     }
@@ -196,7 +197,10 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
         tabs.get(2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!checkLogin()){
+                if (!checkLogin()) {
+                    return;
+                }
+                if (!LawBusinessUtils.checkIsRz(getMContext(), true)) {
                     return;
                 }
                 clickBootomTabView(view);
@@ -381,12 +385,12 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
      * @time 2022/9/14 9:12 下午
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainTabChangePositionEvent(CEventUtils.MainTabChangePositionEvent event){
+    public void onMainTabChangePositionEvent(CEventUtils.MainTabChangePositionEvent event) {
         try {
             if (event.pos >= 0 && event.pos < 4) {
                 tabs.get(event.pos).performClick();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
         }
     }
 

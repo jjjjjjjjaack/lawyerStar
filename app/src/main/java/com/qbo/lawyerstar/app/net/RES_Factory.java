@@ -1,10 +1,12 @@
 package com.qbo.lawyerstar.app.net;
 
+import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.bean.FPayTypeBean;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.lawyer.bean.LawyerBean;
 import com.qbo.lawyerstar.app.module.mine.notice.bean.NoticeBean;
 import com.qbo.lawyerstar.app.module.mine.order.bean.OrderListBean;
+import com.qbo.lawyerstar.app.module.mine.order.bean.OrderTypeBean;
 import com.qbo.lawyerstar.app.module.study.bean.ArticleBean;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 
@@ -89,13 +91,26 @@ public class RES_Factory {
      * @author jieja
      * @time 2022/9/15 17:04
      */
+    public static class GET_ORDER_ALL_TYPE_RES extends MPageResponse<OrderTypeBean> {
+        @Override
+        public Class<OrderTypeBean> getBeanType() {
+            return OrderTypeBean.class;
+        }
+    }
+    /**
+     * @description
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/9/15 17:04
+     */
     public static class GET_PAYTYPE_LIST_RES extends MPageResponse<FPayTypeBean> {
         @Override
         public Class<FPayTypeBean> getBeanType() {
             return FPayTypeBean.class;
         }
     }
-    
+
     /**
      * @description 数据字典
      * @param 
