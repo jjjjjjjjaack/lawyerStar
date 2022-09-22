@@ -45,7 +45,7 @@ public class LawBusinessUtils {
     //电子签章
     public static int FUNCTION_12_DZQZ = 11;
     //法务中心
-    public static int FUNCTION_13_FWZX = 12;
+    public final static int FUNCTION_13_FWZX = 12;
     //在线咨询
     public static int FUNCTION_14_ZXZX = 13;
     //AI法务
@@ -181,6 +181,14 @@ public class LawBusinessUtils {
                     return;
                 }
                 BusinessWapAct.openAct(context, "industry_payfor");
+                break;
+            case FUNCTION_13_FWZX:
+                try {
+                    FTokenUtils.getToken(context, true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                BusinessWapAct.openAct(context, "legal_friends");
                 break;
             case FUNCTION_16_HTXZ:
                 try {

@@ -231,13 +231,13 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                         FazH5WebViewUtils.mUploadCallbackAboveL = null;
                         isSelect = false;
                     }
-                } else {
-                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
-                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
-                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
-                        isSelect = false;
-                    }
+                    return;
                 }
+            }
+            if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
+                FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                isSelect = false;
             }
         }
         if (requestCode == 8768 && resultCode == RESULT_OK) {
@@ -260,6 +260,11 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         EventBus.getDefault().register(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FazH5WebViewUtils.finish();
+    }
 
     @Override
     protected void onPause() {

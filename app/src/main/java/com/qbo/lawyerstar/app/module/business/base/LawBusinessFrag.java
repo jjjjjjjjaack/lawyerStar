@@ -19,15 +19,19 @@ import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_9
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
+import com.qbo.lawyerstar.app.module.mine.info.base.UserInfoBaseAct;
 import com.qbo.lawyerstar.app.module.study.base.ILawStudyView;
 import com.qbo.lawyerstar.app.module.study.base.LawStudyPresenter;
+import com.qbo.lawyerstar.app.utils.FCacheUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -38,6 +42,7 @@ import framework.mvp1.base.adapter.MCommAdapter;
 import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpFrag;
+import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
 
 public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBusinessPresenter> implements ILawBusinessView {
@@ -56,6 +61,11 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
     @BindView(R.id.function_3_rcy)
     RecyclerView function_3_rcy;
     private MCommAdapter function_3_Adapter;
+
+    @BindView(R.id.vipname_tv)
+    TextView vipname_tv;
+    @BindView(R.id.vipdate_tv)
+    TextView vipdate_tv;
 
     @Override
     public LawBusinessPresenter initPresenter() {
@@ -209,7 +219,31 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
 
     @Override
     public void doBusiness() {
+        showData();
+    }
 
+    public void showData() {
+        FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
+            @Override
+            public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
+                if (userInfoBean.isVip()) {
+                    vipdate_tv.setText("有效期至" + userInfoBean.getRank_date());
+                    if (userInfoBean.rank != null) {
+                        vipname_tv.setText(userInfoBean.rank.getName());
+                    }
+                }
+            }
+
+            @Override
+            public void fail() {
+
+            }
+        });
+
+    }
+
+    public void refresh(){
+        showData();
     }
 
     @Override

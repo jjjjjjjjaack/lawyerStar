@@ -154,6 +154,9 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
         if (tempFragment != null) {
             if (tempFragment instanceof HomeFrag) {
             }
+            if (tempFragment instanceof LawBusinessFrag) {
+                ((LawBusinessFrag) tempFragment).refresh();
+            }
             if (tempFragment instanceof MineFrag) {
                 ((MineFrag) tempFragment).refresh();
             }
@@ -204,7 +207,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                     return;
                 }
                 if (!LawBusinessUtils.checkIsVip(getMContext())) {
-                    T.showShort(getMContext(),"请先开通VIP");
+                    T.showShort(getMContext(), "请先开通VIP");
                     return;
                 }
                 clickBootomTabView(view);
@@ -313,6 +316,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                 if (businessFrag == null) {
                     businessFrag = new LawBusinessFrag();
                 } else {
+                    businessFrag.refresh();
                 }
                 doFragmentChange(businessFrag);
                 break;

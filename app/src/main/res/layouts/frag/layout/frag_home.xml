@@ -50,6 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_2"
                         android:textColor="#ffffffff"
+                        android:visibility="gone"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -90,6 +91,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
+                        android:id="@+id/ask_ai_ll"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.97"
@@ -153,6 +155,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
+                            android:id="@+id/onlineserver_rl"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"

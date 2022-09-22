@@ -17,11 +17,13 @@ import android.widget.TextView;
 import com.qbo.lawyerstar.BuildConfig;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
+import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
 import com.qbo.lawyerstar.app.module.contract.library.list.IContractLibListView;
 import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
 import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
+import com.qbo.lawyerstar.app.utils.FCacheUtils;
 
 import java.io.File;
 import java.util.List;
@@ -94,8 +96,26 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
         more_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                more_tv.setVisibility(View.GONE);
-                zz_view.setVisibility(View.GONE);
+                FCacheUtils.getUserInfo(getMContext(), true, new FCacheUtils.GetUserInfoInterface() {
+                    @Override
+                    public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
+                        if (userInfoBean.isVip()) {
+                            more_tv.setVisibility(View.GONE);
+                            zz_view.setVisibility(View.GONE);
+                        } else {
+                            T.showShort(getMContext(), "请先开通vip");
+                        }
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+                });
+
+
+//                more_tv.setVisibility(View.GONE);
+//                zz_view.setVisibility(View.GONE);
             }
         });
     }
@@ -247,7 +267,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
                                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                                 intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.setDataAndType(FileProviderUtil.getUri(getMContext(),file), "file/*");
+                                intent.setDataAndType(FileProviderUtil.getUri(getMContext(), file), "file/*");
                                 startActivity(intent);
                             }
                         });

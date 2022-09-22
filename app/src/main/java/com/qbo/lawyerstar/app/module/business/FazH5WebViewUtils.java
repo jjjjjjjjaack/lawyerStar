@@ -469,6 +469,20 @@ public class FazH5WebViewUtils {
         }
     }
 
+    public static void finish(){
+        if(fazWebView!=null){
+            try {
+//                fazWebView.stopLoading();
+//                fazWebView.removeAllViews();
+                fazWebView.loadUrl("");
+                if (fazWebView.getParent() != null) {
+                    ((ViewGroup) fazWebView.getParent()).removeAllViews();
+                }
+            }catch (Exception e){
+            }
+        }
+    }
+
 
     /**
      * 跳转界面

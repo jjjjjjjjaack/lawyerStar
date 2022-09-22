@@ -31,9 +31,11 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
 import com.qbo.lawyerstar.app.module.article.detail.ArticleDetailAct;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
+import com.qbo.lawyerstar.app.module.business.wap.BusinessWapAct;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
 import com.qbo.lawyerstar.app.module.lawyer.detail.LawyerDetailAct;
 import com.qbo.lawyerstar.app.module.lawyer.list.LawyerListAct;
+import com.qbo.lawyerstar.app.module.mine.order.list.comm.base.OrderListCommAct;
 import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.qbo.lawyerstar.app.view.scrolltextview.MAutoScrollTextView;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -54,8 +56,10 @@ import butterknife.BindView;
 import framework.mvp1.base.adapter.MCommAdapter;
 import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.bean.BaseBean;
+import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpFrag;
+import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
 
@@ -87,6 +91,10 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
     View lawyer_more_rl;
     @BindView(R.id.article_rl)
     View article_rl;
+    @BindView(R.id.ask_ai_ll)
+    View ask_ai_ll;
+    @BindView(R.id.onlineserver_rl)
+    View onlineserver_rl;
 
     @Override
     public HomePresenter initPresenter() {
@@ -139,7 +147,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        LawBusinessUtils.jumpAction(context,bean.functionid,bean.extraJSON);
+                        LawBusinessUtils.jumpAction(context, bean.functionid, bean.extraJSON);
                     }
                 });
             }
@@ -168,7 +176,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        LawyerDetailAct.openAct(getMContext(),bean.getId());
+                        LawyerDetailAct.openAct(getMContext(), bean.getId());
                     }
                 });
             }
@@ -196,7 +204,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        ArticleDetailAct.openAct(context,bean.getId());
+                        ArticleDetailAct.openAct(context, bean.getId());
                     }
                 });
             }
@@ -243,6 +251,28 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
             @Override
             public void onClick(View view) {
                 EventBus.getDefault().post(new CEventUtils.MainTabChangePositionEvent(1));
+            }
+        });
+        ask_ai_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    FTokenUtils.getToken(getMContext(), true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                BusinessWapAct.openAct(getMContext(), "ar_service");
+            }
+        });
+        onlineserver_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    FTokenUtils.getToken(getMContext(), true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                BusinessWapAct.openAct(getMContext(), "service");
             }
         });
     }
@@ -314,7 +344,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
         public String name;
         public int functionid;
         public int iconRes;
-        public String extraJSON="";
+        public String extraJSON = "";
 
         public FuntionBean(int functionid, String name, int iconRes) {
             this.name = name;

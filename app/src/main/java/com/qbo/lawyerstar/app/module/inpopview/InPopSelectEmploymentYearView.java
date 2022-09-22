@@ -121,7 +121,7 @@ public class InPopSelectEmploymentYearView extends InPopBaseView {
     }
 
     public void getDataList() {
-        IndexDictionaryUtils.getIndexDictionary(mContext, "EnterpriceSize", new IndexDictionaryUtils.GetDictionaryResult() {
+        IndexDictionaryUtils.getIndexDictionary(mContext, "LawyerYears", new IndexDictionaryUtils.GetDictionaryResult() {
             @Override
             public void reslut(List<IndexDictionaryUtils.ValueBean> beanList) {
                 if (beanList != null) {

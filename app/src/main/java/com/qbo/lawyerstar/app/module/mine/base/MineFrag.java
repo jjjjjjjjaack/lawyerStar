@@ -20,6 +20,7 @@ import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_5
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_6_HTSH;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
 import framework.mvp1.base.util.ToolUtils;
+import q.rorbin.badgeview.QBadgeView;
 
 public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> implements IMineView {
 
@@ -68,6 +70,8 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     View login_rl;
     @BindView(R.id.right_ll)
     View right_ll;
+    @BindView(R.id.message_rl)
+    View message_rl;
     @BindView(R.id.message_iv)
     View message_iv;
     @BindView(R.id.user_not_vip_rl)
@@ -89,6 +93,13 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     TextView usertype_tv;
     @BindView(R.id.userlogo_civ)
     ChangeGasStationImageView2 userlogo_civ;
+
+    @BindView(R.id.vipname_tv)
+    TextView vipname_tv;
+    @BindView(R.id.vipdate_tv)
+    TextView vipdate_tv;
+
+    QBadgeView allNumQv;
 
     @Override
     public MinePresenter initPresenter() {
@@ -222,12 +233,25 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 gotoActivity(VipIntroAct.class);
             }
         });
+
+        user_is_vip_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    FTokenUtils.getToken(getContext(), true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                gotoActivity(VipIntroAct.class);
+            }
+        });
+
     }
 
     @Override
     public void doBusiness() {
         showData();
-
+        presenter.getCount();
     }
 
     public void showData() {
@@ -267,6 +291,10 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 if (userInfoBean.isVip()) {
                     user_not_vip_rl.setVisibility(View.GONE);
                     user_is_vip_rl.setVisibility(View.VISIBLE);
+                    vipdate_tv.setText("有效期至" + userInfoBean.getRank_date());
+                    if (userInfoBean.rank != null) {
+                        vipname_tv.setText(userInfoBean.rank.getName());
+                    }
                 } else {
                     user_not_vip_rl.setVisibility(View.VISIBLE);
                     user_is_vip_rl.setVisibility(View.GONE);
@@ -307,6 +335,18 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
     }
 
+    @Override
+    public void getMsgNumResult(boolean b) {
+         if(presenter.typeBean!=null){
+//             allNumQv.setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num));
+             new QBadgeView(getMContext())
+                     .bindTarget(message_rl)
+                     .setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num))
+                     .setBadgeGravity(Gravity.END | Gravity.BOTTOM)
+                     .setGravityOffset(20,10,true);
+         }
+    }
+
     public static class FuntionBean extends BaseBean {
         public String name;
         public int functionid;
@@ -322,6 +362,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
     public void refresh() {
         showData();
+        presenter.getCount();
     }
 
     @Override
