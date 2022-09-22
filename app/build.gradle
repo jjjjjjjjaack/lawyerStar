@@ -6,6 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.qbo.lawyerstar"
+
+        11
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 2
