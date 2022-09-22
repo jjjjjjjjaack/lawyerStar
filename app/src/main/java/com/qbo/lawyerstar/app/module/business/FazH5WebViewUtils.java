@@ -1,6 +1,7 @@
 package com.qbo.lawyerstar.app.module.business;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -159,7 +160,20 @@ public class FazH5WebViewUtils {
             EventBus.getDefault().post(new CEventUtils.H5Event(-5, o));
         }
 
+        @JavascriptInterface
+        public void Back(String o) {
+            EventBus.getDefault().post(new CEventUtils.H5Event(-2, o));
+        }
 
+        @JavascriptInterface
+        public void Pay(String o) {
+            EventBus.getDefault().post(new CEventUtils.H5Event(11, o));
+        }
+
+        @JavascriptInterface
+        public void IsVip(String o) {
+            EventBus.getDefault().post(new CEventUtils.H5Event(12, o));
+        }
         //页面加载完成
 //        @JavascriptInterface
 //        public void receiveAppMessages(String method, String params) {
@@ -257,7 +271,7 @@ public class FazH5WebViewUtils {
     /**
      * @param context
      */
-    public static void initFAZH5Web(Context context,String url, boolean needInit) {
+    public static void initFAZH5Web(Context context, String url, boolean needInit) {
 //        String url = NET_URL.getInstance().getWapBaseUrl("?t=" + System.currentTimeMillis());
         List<CookieStr> cookieStrs = new ArrayList<>();
         try {
@@ -267,7 +281,7 @@ public class FazH5WebViewUtils {
         } catch (Exception e) {
 //            return;
         }
-        cookieStrs.add(new CookieStr("url", NET_URL.getInstance().getBaseUrl()));
+        cookieStrs.add(new CookieStr("url", NET_URL.getInstance().getUrl("")));
         cookieStrs.add(new CookieStr("App", "android"));
 
         syncCookie(context, url, cookieStrs);
@@ -302,9 +316,13 @@ public class FazH5WebViewUtils {
                     mUploadCallbackAboveL = null;
                 }
                 mUploadCallbackAboveL = valueCallback;
-                EventBus.getDefault().post(new CEventUtils.H5Event(-7, ""));
+                String acceptTypes = "*/*";
+                if (fileChooserParams != null && fileChooserParams.getAcceptTypes() != null
+                        && fileChooserParams.getAcceptTypes().length > 0) {
+                    acceptTypes = (fileChooserParams.getAcceptTypes()[0]);
+                }
+                EventBus.getDefault().post(new CEventUtils.H5Event(-7, acceptTypes));
                 return true;
-
             }
 
             public void openFileChooser(ValueCallback<Uri> uploadMsg) {
@@ -407,13 +425,13 @@ public class FazH5WebViewUtils {
      *
      * @param params
      */
-    public static void loadPage(Context context,String url, String params) {
+    public static void loadPage(Context context, String url, String params) {
         if (fazWebView == null || !isReady) {
-            initFAZH5Web(context, url,false);
+            initFAZH5Web(context, url, false);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    loadPage(context, url,params);
+                    loadPage(context, url, params);
                 }
             }, 3000);
             return;

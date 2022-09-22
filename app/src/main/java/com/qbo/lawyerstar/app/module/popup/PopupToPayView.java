@@ -46,6 +46,8 @@ public class PopupToPayView extends PopupBaseView {
     private FOrderPayBean payBean;
     private String orderType;
 
+    private boolean autoShow = false;
+
     public interface ToPayInterface {
         void alipayRequest();
 
@@ -56,6 +58,14 @@ public class PopupToPayView extends PopupBaseView {
     public PopupToPayView(Context context, String orderType) {
         super(context);
         this.orderType = orderType;
+        getData();
+    }
+
+    public PopupToPayView(Context context, String orderType, View parent, FOrderPayBean bean, ToPayInterface toPayInterface) {
+        super(context);
+        this.orderType = orderType;
+        setAutoShow(parent, bean, toPayInterface);
+        getData();
     }
 
     @Override
@@ -116,7 +126,6 @@ public class PopupToPayView extends PopupBaseView {
                 }
             }
         });
-        getData();
     }
 
 
@@ -157,13 +166,28 @@ public class PopupToPayView extends PopupBaseView {
                         if (mCommAdapter != null) {
                             mCommAdapter.setData(fPayTypeBeans);
                         }
+                        if (autoShow && parent != null && payBean != null && toPayInterface != null) {
+                            show(parent, payBean, toPayInterface);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         status = 0;
+                        if(autoShow){
+                            T.showShort(context, context.getString(R.string.popup_to_pay_tx4));
+                        }
                     }
                 });
+    }
+
+    private View parent;
+
+    private void setAutoShow(View parent, FOrderPayBean bean, ToPayInterface toPayInterface) {
+        this.autoShow = true;
+        this.parent = parent;
+        this.payBean = bean;
+        this.toPayInterface = toPayInterface;
     }
 
     public void show(View parent, FOrderPayBean bean, ToPayInterface toPayInterface) {

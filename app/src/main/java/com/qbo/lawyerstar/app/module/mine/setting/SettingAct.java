@@ -7,6 +7,7 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.mine.about.AboutUsAct;
 import com.qbo.lawyerstar.app.module.mine.account.cancle.CancelAccountAct;
 import com.qbo.lawyerstar.app.module.mine.protocol.ProtocolAct;
+import com.qbo.lawyerstar.app.module.popup.PopupTipWithBtnView;
 
 import butterknife.BindView;
 import framework.mvp1.base.exception.NeedLoginException;
@@ -46,7 +47,25 @@ public class SettingAct extends MvpAct<ISettingView, BaseModel, SettingPresenter
         logout_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginoutUtis.getInstance().doLogOut(getMContext());
+                PopupTipWithBtnView.showPopTipView(getMContext(), "退出账号", "确定退出账号吗？",
+                        new PopupTipWithBtnView.PopupTipWithBtnInterface() {
+                    @Override
+                    public void okClick() {
+                        LoginoutUtis.getInstance().doLogOut(getMContext());
+                    }
+
+                    @Override
+                    public void cancleClick() {
+
+                    }
+
+                    @Override
+                    public void onDisimss() {
+
+                    }
+                }, v);
+
+
             }
         });
         setting_rl.setOnClickListener(new View.OnClickListener() {
@@ -64,13 +83,13 @@ public class SettingAct extends MvpAct<ISettingView, BaseModel, SettingPresenter
         userprocotol_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProtocolAct.openAct(getMContext(),"user");
+                ProtocolAct.openAct(getMContext(), "user");
             }
         });
         privateprocotol_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProtocolAct.openAct(getMContext(),"privacy");
+                ProtocolAct.openAct(getMContext(), "privacy");
             }
         });
     }
@@ -78,7 +97,7 @@ public class SettingAct extends MvpAct<ISettingView, BaseModel, SettingPresenter
     @Override
     public void doBusiness() {
         try {
-            FTokenUtils.getToken(this,false);
+            FTokenUtils.getToken(this, false);
             showLoginView();
         } catch (NeedLoginException e) {
             showUnLoginView();

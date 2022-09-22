@@ -171,7 +171,7 @@ public class PopupVersionSelectView {
         this.versionBean = versionBean;
         if (versionBean != null) {
             this.msg.setText(versionBean.changelog);
-            this.version_tv.setText("V" + versionBean.version);
+            this.version_tv.setText("V" + versionBean.versionShort);
             this.downLoadUrl = versionBean.install_url;
 //            this.time_tv.setText(versionBean.updateTime);
 //            if ("1".equals(versionBean.isForcedUpdate)) {//强制更新

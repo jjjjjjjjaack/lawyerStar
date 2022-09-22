@@ -203,6 +203,10 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                 if (!LawBusinessUtils.checkIsRz(getMContext(), true)) {
                     return;
                 }
+                if (!LawBusinessUtils.checkIsVip(getMContext())) {
+                    T.showShort(getMContext(),"请先开通VIP");
+                    return;
+                }
                 clickBootomTabView(view);
                 onFragmentChangeSelected(R.id.tab3);
             }

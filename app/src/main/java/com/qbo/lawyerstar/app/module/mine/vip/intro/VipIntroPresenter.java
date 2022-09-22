@@ -1,5 +1,6 @@
 package com.qbo.lawyerstar.app.module.mine.vip.intro;
 
+import com.qbo.lawyerstar.app.module.mine.about.bean.AboutUsBean;
 import com.qbo.lawyerstar.app.module.mine.vip.bean.VipIntroBean;
 
 import java.util.ArrayList;
@@ -30,6 +31,32 @@ public class VipIntroPresenter extends BasePresent<IVipIntroView, BaseModel> {
             @Override
             public void onSuccess(List<VipIntroBean> beanList) throws Exception {
                 view().showInfo(beanList);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
+
+    public void getAppInfo() {
+        GET_ABOUT_US_INFO_REQ req = new GET_ABOUT_US_INFO_REQ();
+        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, AboutUsBean>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public AboutUsBean doMap(BaseResponse baseResponse) {
+                AboutUsBean usBean = AboutUsBean.fromJSONAuto(baseResponse.datas, AboutUsBean.class);
+                return usBean;
+            }
+
+            @Override
+            public void onSuccess(AboutUsBean bean) throws Exception {
+                view().getAppInfoResult(bean);
             }
 
             @Override

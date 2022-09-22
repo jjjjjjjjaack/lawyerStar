@@ -15,6 +15,7 @@
         app:ltop="@dimen/dp_2"
         app:rbottom="@dimen/dp_2"
         app:rtop="@dimen/dp_2"
+        android:scaleType="centerCrop"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="@dimen/dp_20"
         />

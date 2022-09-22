@@ -29,9 +29,13 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.module.business.FazH5WebViewUtils;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
+import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
+import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
 import com.qbo.lawyerstar.app.utils.CEventUtils;
+import com.yalantis.ucrop.util.FileUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -66,6 +70,8 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 
     @BindView(R.id.webview_fl)
     FrameLayout webview_fl;
+
+    PopupToPayView popupToPayView;
 
     @Override
     public void baseInitialization() {
@@ -120,7 +126,6 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 //        webview_fl.addView(fazWebView,
 //                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 //    }
-
     @Override
     public void doBusiness() {
         String urlkey = getIntent().getStringExtra("urlkey");
@@ -156,12 +161,13 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         if (bean != null) {
             setMTitle(bean.label);
 //            fazWebView.loadUrl(bean.page);
-            FazH5WebViewUtils.initFAZH5Web(this, bean.page,false);
+            FazH5WebViewUtils.initFAZH5Web(this, bean.page, false);
             FazH5WebViewUtils.addWebView(this, webview_fl);
         }
     }
 
     private boolean isSelect = false;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -197,6 +203,43 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                 }
             }
         }
+        if (requestCode == FILECHOOSER_RESULTCODE) {
+            if (resultCode == RESULT_OK) {
+                Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
+                if (result == null) {
+                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
+                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                        isSelect = false;
+                    }
+                    return;
+                }
+                String path = FileUtils.getPath(this, result);
+                if (TextUtils.isEmpty(path)) {
+                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
+                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                        isSelect = false;
+                    }
+                    return;
+                }
+                Uri uri = FileProviderUtil.getUri(this, new File(path));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Uri[] imgTaskUris = {uri};
+                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
+                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(imgTaskUris);
+                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                        isSelect = false;
+                    }
+                } else {
+                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
+                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                        isSelect = false;
+                    }
+                }
+            }
+        }
         if (requestCode == 8768 && resultCode == RESULT_OK) {
             try {
                 String params = data.getStringExtra("params");
@@ -205,7 +248,9 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             }
         }
     }
+
     private boolean isFront = false;
+
     @Override
     protected void onResume() {
 //        if (preAgentWeb != null)
@@ -223,24 +268,31 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         EventBus.getDefault().unregister(this);
     }
 
+    public final static int FILECHOOSER_RESULTCODE = 1124;
 
-    public void choosePhoto() {
+    public void choosePhoto(String acceptTypes) {
         isSelect = true;
-        PictureSelector.create((Activity) getMContext())
-                .openGallery(PictureMimeType.ofImage())
-                .selectionMode(PictureConfig.SINGLE)// 多选 or 单选
-                .isCamera(true)// 是否显示拍照按钮
-                .isGif(false)// 是否显示gif图片
-                .isPreviewImage(true)// 是否可预览图片
-                .loadImageEngine(GlideEngine.createGlideEngine()) // Please refer to the Demo GlideEngine.java
-                .isEnableCrop(false)// 是否裁剪
-                .isCompress(true)// 是否压缩
-                .freeStyleCropEnabled(false)// 裁剪框是否可拖拽
-                .circleDimmedLayer(false)// 是否圆形裁剪
-                .withAspectRatio(1, 1)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-                .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
-                .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
-                .forResult(CHOOSE_REQUEST);
+//        PictureSelector.create((Activity) getMContext())
+//                .openGallery(PictureMimeType.ofImage())
+//                .selectionMode(PictureConfig.SINGLE)// 多选 or 单选
+//                .isCamera(true)// 是否显示拍照按钮
+//                .isGif(false)// 是否显示gif图片
+//                .isPreviewImage(true)// 是否可预览图片
+//                .loadImageEngine(GlideEngine.createGlideEngine()) // Please refer to the Demo GlideEngine.java
+//                .isEnableCrop(false)// 是否裁剪
+//                .isCompress(true)// 是否压缩
+//                .freeStyleCropEnabled(false)// 裁剪框是否可拖拽
+//                .circleDimmedLayer(false)// 是否圆形裁剪
+//                .withAspectRatio(1, 1)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
+//                .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
+//                .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
+//                .forResult(CHOOSE_REQUEST);
+
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType(acceptTypes);
+        startActivityForResult(Intent.createChooser(i, "选择文件"), FILECHOOSER_RESULTCODE);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -252,7 +304,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             case -8://编辑文章，选择房源
                 break;
             case -7:
-                choosePhoto();
+                choosePhoto(event.object);
                 break;
             case -5:
                 break;
@@ -283,6 +335,35 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             case 1:
                 break;
             case 2:
+                break;
+            case 11://支付 {"amount":120,"sn":"OL220922614443","type":"legal_advice"}
+                try {
+                    JSONObject json = JSONObject.parseObject(event.object);
+                    if (popupToPayView != null) {
+                        popupToPayView.dismiss();
+                        popupToPayView = null;
+                    }
+                    FOrderPayBean payBean = new FOrderPayBean();
+                    payBean.sn = json.getString("sn");
+                    payBean.price = json.getString("amount");
+                    popupToPayView = new PopupToPayView(getMContext(), json.getString("type"), webview_fl, payBean,
+                            new PopupToPayView.ToPayInterface() {
+                                @Override
+                                public void alipayRequest() {
+                                }
+
+                                @Override
+                                public void paySuccess() {
+                                    gotoActivity(PaySuccessAct.class);
+                                }
+                            });
+
+                } catch (Exception e) {
+                    T.showShort(getMContext(), "暂无法发起支付");
+                }
+                break;
+            case 12:
+                T.showShort(getMContext(), "请先开通vip");
                 break;
         }
 

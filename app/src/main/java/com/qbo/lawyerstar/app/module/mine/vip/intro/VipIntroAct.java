@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
+import com.qbo.lawyerstar.app.module.mine.about.bean.AboutUsBean;
 import com.qbo.lawyerstar.app.module.mine.vip.bean.VipIntroBean;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
@@ -106,7 +107,7 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
                 public void onPageSelected(int position) {
                     try {
                         showItemInfo(presenter.vipIntroBeans.get(position));
-                    }catch (Exception e){
+                    } catch (Exception e) {
                     }
                 }
 
@@ -120,15 +121,23 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
         }
     }
 
+    @Override
+    public void getAppInfoResult(AboutUsBean bean) {
+        if (bean != null) {
+            ToolUtils.callPhone(getMContext(), bean.getConsumer_hotline());
+        }
+    }
+
     public void showItemInfo(VipIntroBean vipIntroBean) {
         webView.loadDataWithBaseURL("",
                 WebViewUtil.setWebViewContent(vipIntroBean.intro),
                 "text/html", "UTF-8", "");
-        commit_tv.setText(vipIntroBean.getPrice()+"/年 联系客服开通");
+        commit_tv.setText(vipIntroBean.getPrice() + "/年 联系客服开通");
         commit_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                ToolUtils.callPhone(getMContext(),);
+                presenter.getAppInfo();
             }
         });
     }

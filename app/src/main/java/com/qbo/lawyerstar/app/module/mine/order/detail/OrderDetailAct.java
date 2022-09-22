@@ -2,18 +2,26 @@ package com.qbo.lawyerstar.app.module.mine.order.detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.module.mine.order.bean.OrderListBean;
+import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
+import com.qbo.lawyerstar.app.module.popup.PopupTipWithBtnView;
+import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
+import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import com.willy.ratingbar.ScaleRatingBar;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
@@ -52,6 +60,15 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
     @BindView(R.id.simpleRatingBar)
     ScaleRatingBar simpleRatingBar;
 
+    @BindView(R.id.bottom_ll)
+    View bottom_ll;
+    @BindView(R.id.tocancle_tv)
+    View tocancle_tv;
+    @BindView(R.id.topay_tv)
+    View topay_tv;
+
+    PopupToPayView popupToPayView;
+
     @Override
     public OrderDetailPresenter initPresenter() {
         return new OrderDetailPresenter();
@@ -79,6 +96,7 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
                 presenter.getInfo();
             }
         });
+
     }
 
     @Override
@@ -120,8 +138,65 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
                 status_tv.setText(orderDetailBean.getStatus_text());
                 content_title_tv.setText(orderDetailBean.getTitle());
                 content_detail_tv.setText(orderDetailBean.getContent());
+                if ("0".equals(orderDetailBean.getStatus())) {
+                    bottom_ll.setVisibility(View.VISIBLE);
+                } else {
+                    bottom_ll.setVisibility(View.GONE);
+                }
+                popupToPayView = new PopupToPayView(getMContext(),presenter.orderDetailBean.getType());
+
+                tocancle_tv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PopupTipWithBtnView.showPopTipView(getMContext(), "取消订单", "确定取消该订单吗？",
+                                new PopupTipWithBtnView.PopupTipWithBtnInterface() {
+                                    @Override
+                                    public void okClick() {
+                                        presenter.doCancleOrder();
+                                    }
+
+                                    @Override
+                                    public void cancleClick() {
+
+                                    }
+
+                                    @Override
+                                    public void onDisimss() {
+
+                                    }
+                                }, v);
+                    }
+                });
+                topay_tv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FOrderPayBean payBean = new FOrderPayBean();
+                        payBean.sn = presenter.orderDetailBean.getSn();
+                        payBean.price = presenter.orderDetailBean.getPrice();
+                        popupToPayView.show(v, payBean, new PopupToPayView.ToPayInterface() {
+                            @Override
+                            public void alipayRequest() {
+
+                            }
+
+                            @Override
+                            public void paySuccess() {
+                                gotoActivity(PaySuccessAct.class);
+                            }
+                        });
+                    }
+                });
+
             } catch (Exception e) {
             }
+        }
+    }
+
+    @Override
+    public void cancleResult(boolean b) {
+        if (b) {
+            EventBus.getDefault().post(new CEventUtils.CancleOrderEvent(presenter.orderDetailBean.getId(), presenter.orderDetailBean.getType()));
+            finish();
         }
     }
 }

@@ -488,6 +488,19 @@ public class REQ_Factory {
         public String id;
         public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
     }
+    
+    /**
+     * @description 取消订单
+     * @param 
+     * @return 
+     * @author jieja
+     * @time 2022/9/22 8:56
+     */
+    @AnnBaseReq(API_METHOD = "order/cancel")
+    public static class POST_CANCLE_ORDER_REQ extends BaseRequest {
+        public String sn;
+        public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
+    }
 
 
     /**

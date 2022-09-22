@@ -36,4 +36,34 @@ public class OrderDetailPresenter extends BasePresent<IOrderDetailView, BaseMode
             }
         });
     }
+
+    public void doCancleOrder() {
+        POST_CANCLE_ORDER_REQ req = new POST_CANCLE_ORDER_REQ();
+        req.sn =   orderDetailBean.getSn();
+        req.type = orderDetailBean.getType();
+        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
+            @Override
+            public void doStart() {
+
+
+            }
+
+            @Override
+            public BaseResponse doMap(BaseResponse baseResponse) {
+                return baseResponse;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse baseResponse) throws Exception {
+                T(baseResponse.msg);
+                view().cancleResult(true);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
+
 }

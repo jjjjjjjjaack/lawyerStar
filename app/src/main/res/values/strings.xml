@@ -18,7 +18,8 @@
     <string name="register_send_code_2">重新发送</string>
     <string name="msg_code">短信已发送,请稍后点击</string>
     <string name="msg_code_null">内容不能为空</string>
-    <string name="please_login_tx">游客</string>
+    <string name="please_login_tx">登录/注册</string>
+    <string name="please_login_tx1">立即登录享更多服务</string>
     <string name="commit_tx">提交</string>
     <string name="sure_tx">确定</string>
     <string name="reset_tx">重置</string>

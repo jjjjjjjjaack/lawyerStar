@@ -15,6 +15,7 @@ public class ContractLibBean extends BaseBean {
     public String download_num;
     public String cover_img;
     public String id;
+    public String sn;
     public boolean is_pay;
 
     public String getCreate_time() {

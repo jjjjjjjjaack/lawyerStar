@@ -54,8 +54,6 @@ public class NoticeListAct extends MvpAct<INoticeListView, BaseModel, NoticeList
     @Override
     public void viewInitialization() {
         setBackPress();
-        setMTitle(R.string.notice_list_tx1);
-
         rcy.setLayoutManager(new LinearLayoutManager(getMContext()));
         mCommAdapter = new MCommAdapter(this, new MCommVH.MCommVHInterface<NoticeBean>() {
             @Override
@@ -70,9 +68,12 @@ public class NoticeListAct extends MvpAct<INoticeListView, BaseModel, NoticeList
 
             @Override
             public void bindData(Context context, MCommVH mCommVH, int position, NoticeBean bean) {
-
+                mCommVH.setText(R.id.title_tv, bean.getTitle());
+                mCommVH.setText(R.id.content_tv, bean.getBody());
+                mCommVH.setText(R.id.date_tv, bean.getCreate_time());
             }
         });
+        mCommAdapter.setShowEmptyView(true);
         rcy.setAdapter(mCommAdapter);
     }
 
@@ -83,6 +84,7 @@ public class NoticeListAct extends MvpAct<INoticeListView, BaseModel, NoticeList
             finish();
             return;
         }
+        setMTitle("0".equals(type) ? R.string.notice_list_tx2 : R.string.notice_list_tx3);
         presenter.req.type = type;
         presenter.getDataList(true);
     }

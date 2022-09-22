@@ -7,4 +7,6 @@ import framework.mvp1.base.f.BaseView;
 
 public interface IOrderDetailView extends BaseView {
     void setInfo(OrderListBean orderDetailBean);
+
+    void cancleResult(boolean b);
 }

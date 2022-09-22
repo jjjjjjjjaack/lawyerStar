@@ -315,4 +315,13 @@ public class LawBusinessUtils {
         return true;
     }
 
+    //判断用户是否认证
+    public static boolean checkIsVip(Context context) {
+        FUserInfoBean userInfoBean = FCacheUtils.getUserInfo(context);
+        if (userInfoBean == null) {
+            return false;
+        }
+        return userInfoBean.isVip();
+    }
+
 }

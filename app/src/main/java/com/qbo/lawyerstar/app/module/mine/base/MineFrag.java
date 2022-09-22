@@ -204,10 +204,22 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
             @Override
             public void onClick(View v) {
                 try {
-                    FTokenUtils.getToken(getMContext(),false);
+                    FTokenUtils.getToken(getMContext(), false);
                     gotoActivity(NoticeTypeAct.class);
                 } catch (NeedLoginException e) {
                 }
+            }
+        });
+
+        user_not_vip_rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    FTokenUtils.getToken(getContext(), true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                gotoActivity(VipIntroAct.class);
             }
         });
     }
@@ -238,12 +250,6 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
         login_rl.setVisibility(View.VISIBLE);
         tologin_tv.setVisibility(View.GONE);
         right_ll.setVisibility(View.VISIBLE);
-        user_not_vip_rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gotoActivity(VipIntroAct.class);
-            }
-        });
 
         FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
             @Override
@@ -258,10 +264,10 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                     }
                 });
 
-                if(userInfoBean.isVip()){
+                if (userInfoBean.isVip()) {
                     user_not_vip_rl.setVisibility(View.GONE);
                     user_is_vip_rl.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     user_not_vip_rl.setVisibility(View.VISIBLE);
                     user_is_vip_rl.setVisibility(View.GONE);
                 }

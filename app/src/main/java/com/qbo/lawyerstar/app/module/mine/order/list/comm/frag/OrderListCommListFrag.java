@@ -9,12 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.contract.library.detail.ContractLibDetailAct;
 import com.qbo.lawyerstar.app.module.mine.order.bean.OrderListBean;
 import com.qbo.lawyerstar.app.module.mine.order.detail.OrderDetailAct;
+import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +56,7 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
 
     @Override
     public void baseInitialization() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -99,15 +105,15 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
                     if (bean.contractDetail != null) {
                         mCommVH.setText(R.id.name_tv, bean.contractDetail.title);
                         mCommVH.setText(R.id.status_tv, bean.getStatus_text());
-                        mCommVH.setText(R.id.lawyer_name_tv,"下载单号:"+bean.contractDetail.sn);
+                        mCommVH.setText(R.id.lawyer_name_tv, "下载单号:" + bean.getSn());
                         mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
-                        mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.contractDetail.create_time));
-                    }else{
+                        mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5, bean.contractDetail.create_time));
+                    } else {
                         mCommVH.setText(R.id.name_tv, bean.getTitle());
                         mCommVH.setText(R.id.status_tv, bean.getStatus_text());
-                        mCommVH.setText(R.id.lawyer_name_tv,"下载单号:"+bean.getSn());
+                        mCommVH.setText(R.id.lawyer_name_tv, "下载单号:" + bean.getSn());
                         mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
-                        mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5,bean.getCreate_time()));
+                        mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5, bean.getCreate_time()));
                     }
 //                    mCommVH.setText(R.id.name_tv, bean.getTitle());
 //                    mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
@@ -120,7 +126,7 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
                     mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            OrderDetailAct.openAct(context, bean.getId(), bean.getType());
+                            ContractLibDetailAct.openAct(context, bean.contractDetail);
                         }
                     });
                 }
@@ -169,6 +175,24 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCancleOrderEvent(CEventUtils.CancleOrderEvent event) {
+        try {
+            if (mCommAdapter == null) {
+                return;
+            }
+            for (int i = 0; i < mCommAdapter.getBeanList().size(); i++) {
+                OrderListBean orderListBean = (OrderListBean) mCommAdapter.getBeanList().get(i);
+                if (event.ordertype.equals(orderListBean.getType()) && event.orderid.equals(orderListBean.getId())) {
+                    mCommAdapter.getBeanList().remove(i);
+                    mCommAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+
     @Override
     public Context getMContext() {
         return getContext();
@@ -189,5 +213,11 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
                 mCommAdapter.addData(beans);
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

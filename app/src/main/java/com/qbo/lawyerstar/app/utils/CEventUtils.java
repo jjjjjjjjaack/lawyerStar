@@ -25,4 +25,15 @@ public class CEventUtils {
      */
     public static class H5QuitRefreshEvent {
     }
+
+
+    public static class CancleOrderEvent{
+        public String orderid;
+        public String ordertype;
+
+        public CancleOrderEvent(String orderid, String ordertype) {
+            this.orderid = orderid;
+            this.ordertype = ordertype;
+        }
+    }
 }

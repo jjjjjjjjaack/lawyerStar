@@ -128,38 +128,41 @@ public abstract class MBaseScrollTextView  extends MarqueeSwitcher
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (null != textViewWeakReference) {
-                MBaseScrollTextView autoScrollTextView = textViewWeakReference.get();
-                switch (msg.what) {
-                    case FLAG_START_AUTO_SCROLL:
-                        isStop = false;
-                        if (autoScrollTextView.textList.size() > 0) {
-                            autoScrollTextView.currentId++;
-                            autoScrollTextView.setText(autoScrollTextView.textList.get(
-                                    autoScrollTextView.currentId
-                                            % autoScrollTextView.textList.size()));
-                        }
-                        break;
-                    case FLAG_AUTO_SCROLL:
-                        if (isStop) {
-                            return;
-                        }
-                        if (autoScrollTextView.textList.size() > 0) {
-                            autoScrollTextView.currentId++;
-                            autoScrollTextView.setText(autoScrollTextView.textList.get(
-                                    autoScrollTextView.currentId
-                                            % autoScrollTextView.textList.size()));
-                        }
-                        break;
-                    case FLAG_STOP_AUTO_SCROLL:
-                        isStop = true;
-                        autoScrollTextView.handler.removeMessages(FLAG_START_AUTO_SCROLL);
-                        autoScrollTextView.handler.removeMessages(FLAG_AUTO_SCROLL);
+            try {
+                if (null != textViewWeakReference) {
+                    MBaseScrollTextView autoScrollTextView = textViewWeakReference.get();
+                    switch (msg.what) {
+                        case FLAG_START_AUTO_SCROLL:
+                            isStop = false;
+                            if (autoScrollTextView.textList.size() > 0) {
+                                autoScrollTextView.currentId++;
+                                autoScrollTextView.setText(autoScrollTextView.textList.get(
+                                        autoScrollTextView.currentId
+                                                % autoScrollTextView.textList.size()));
+                            }
+                            break;
+                        case FLAG_AUTO_SCROLL:
+                            if (isStop) {
+                                return;
+                            }
+                            if (autoScrollTextView.textList.size() > 0) {
+                                autoScrollTextView.currentId++;
+                                autoScrollTextView.setText(autoScrollTextView.textList.get(
+                                        autoScrollTextView.currentId
+                                                % autoScrollTextView.textList.size()));
+                            }
+                            break;
+                        case FLAG_STOP_AUTO_SCROLL:
+                            isStop = true;
+                            autoScrollTextView.handler.removeMessages(FLAG_START_AUTO_SCROLL);
+                            autoScrollTextView.handler.removeMessages(FLAG_AUTO_SCROLL);
 
-                        break;
-                    default:
-                        break;
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            }catch (Exception e){
             }
         }
     }
