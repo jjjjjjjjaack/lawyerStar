@@ -115,7 +115,7 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
                 public void onPageScrollStateChanged(int state) {
 
                 }
-            }).addBannerLifecycleObserver(this)//添加生命周期观察者
+            }).isAutoLoop(false).addBannerLifecycleObserver(this)//添加生命周期观察者
                     .setIndicator(new CircleIndicator(getMContext()));
             showItemInfo(beanList.get(0));
         }

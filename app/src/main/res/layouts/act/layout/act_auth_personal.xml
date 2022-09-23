@@ -79,6 +79,7 @@
             android:layout_marginLeft="@dimen/dp_30"
             android:layout_toRightOf="@id/tv2"
             android:background="@null"
+            android:gravity="right"
             android:hint="@string/user_auth_personal_tx3_1"
             android:maxLines="1"
             android:singleLine="true"
@@ -202,6 +203,7 @@
             android:hint="@string/user_auth_personal_tx5_1"
             android:maxLines="1"
             android:singleLine="true"
+            android:gravity="right"
             android:textColor="#ff666666"
             android:textSize="14sp" />
 

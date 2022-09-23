@@ -85,10 +85,10 @@ public class NoticeTypeAct extends MvpAct<INoticeTypeView, BaseModel, NoticeType
         refreshLayout.setEnableLoadMore(false);
 
         sysNumQv = new QBadgeView(this);
-        sysNumQv.bindTarget(sysnum_v);
+        sysNumQv.setShowShadow(false).bindTarget(sysnum_v);
         wtNumQv = new QBadgeView(this);
         wtNumQv.setBadgeGravity(Gravity.CENTER | Gravity.TOP);
-        wtNumQv.bindTarget(wtnum_v);
+        wtNumQv.setShowShadow(false).bindTarget(wtnum_v);
     }
 
     @Override

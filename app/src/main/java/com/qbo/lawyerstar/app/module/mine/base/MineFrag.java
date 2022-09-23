@@ -343,6 +343,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                      .bindTarget(message_rl)
                      .setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num))
                      .setBadgeGravity(Gravity.END | Gravity.BOTTOM)
+                     .setShowShadow(false)
                      .setGravityOffset(20,10,true);
          }
     }
