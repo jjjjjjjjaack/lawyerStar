@@ -113,7 +113,7 @@ public class REQ_Factory {
     /**
      * @param
      * @author jieja
-     * @description 获取用户信息
+     * @description 获取用户信息(缓存)
      * @return
      * @time 2022/8/29 10:52
      */
@@ -121,6 +121,19 @@ public class REQ_Factory {
     public static class GET_USERINFO_REQ extends BaseRequest {
 
     }
+
+    /**
+     * @param
+     * @author jieja
+     * @description 获取用户信息(数据库)
+     * @return
+     * @time 2022/9/23 10:38
+     */
+    @AnnBaseReq(API_METHOD = "user/getUserInfo")
+    public static class GET_USERINFO_BYDB_REQ extends BaseRequest {
+
+    }
+
 
     /**
      * @param
@@ -488,12 +501,12 @@ public class REQ_Factory {
         public String id;
         public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
     }
-    
+
     /**
-     * @description 取消订单
-     * @param 
-     * @return 
+     * @param
      * @author jieja
+     * @description 取消订单
+     * @return
      * @time 2022/9/22 8:56
      */
     @AnnBaseReq(API_METHOD = "order/cancel")
@@ -554,12 +567,24 @@ public class REQ_Factory {
         public String contract_id;
     }
 
+    /**
+     * @description 合同下载确认
+     * @param 
+     * @return 
+     * @author jieja
+     * @time 2022/9/23 11:25
+     */
+    @AnnBaseReq(API_METHOD = "contract/library/download")
+    public static class POST_CONFIRM_CONTRACT_DOWNLOAD_REQ extends BaseRequest {
+        public String id;
+    }
+
 
     /**
      * @param
+     * @author jiejack
      * @return
      * @description
-     * @author jiejack
      * @time 2022/9/21 9:08 下午
      */
     @AnnBaseReq(API_METHOD = "user/member/benefits/page")

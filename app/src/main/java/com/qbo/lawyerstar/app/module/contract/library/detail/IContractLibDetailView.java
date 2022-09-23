@@ -6,4 +6,6 @@ import framework.mvp1.base.f.BaseView;
 
 public interface IContractLibDetailView extends BaseView {
     void createSuccess(FOrderPayBean bean);
+
+    void confirmDownLoad();
 }

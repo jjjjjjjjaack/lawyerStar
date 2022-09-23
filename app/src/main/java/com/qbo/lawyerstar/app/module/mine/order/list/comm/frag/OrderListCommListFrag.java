@@ -115,6 +115,12 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
                         mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
                         mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5, bean.getCreate_time()));
                     }
+                    if ("2".equals(bean.getStatus())) {
+                        mCommVH.setTextColor(R.id.status_tv, 0xffff8d07);
+                    }else{
+                        mCommVH.setTextColor(R.id.status_tv, 0xff02c4c3);
+                    }
+
 //                    mCommVH.setText(R.id.name_tv, bean.getTitle());
 //                    mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
 //                    mCommVH.setText(R.id.status_tv, bean.getStatus_text());

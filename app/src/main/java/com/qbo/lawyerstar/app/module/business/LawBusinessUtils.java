@@ -2,19 +2,28 @@ package com.qbo.lawyerstar.app.module.business;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 
+import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.wap.BusinessWapAct;
 import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
+import com.qbo.lawyerstar.app.module.mine.about.bean.AboutUsBean;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.mine.order.list.all.AllOrderListAct;
 import com.qbo.lawyerstar.app.module.mine.order.list.comm.base.OrderListCommAct;
 import com.qbo.lawyerstar.app.module.mine.setting.SettingAct;
 import com.qbo.lawyerstar.app.module.mine.suggest.SuggestUploadAct;
+import com.qbo.lawyerstar.app.module.popup.PopupTipWithBtnView;
+import com.qbo.lawyerstar.app.net.REQ_Factory;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 
 import framework.mvp1.base.exception.NeedLoginException;
+import framework.mvp1.base.f.BasePresent;
+import framework.mvp1.base.net.BaseResponse;
 import framework.mvp1.base.util.FTokenUtils;
+import framework.mvp1.base.util.SpanManager;
+import framework.mvp1.base.util.T;
 import framework.mvp1.base.util.ToolUtils;
 
 public class LawBusinessUtils {
@@ -43,13 +52,13 @@ public class LawBusinessUtils {
     //工伤赔偿
     public final static int FUNCTION_11_GSPC = 10;
     //电子签章
-    public static int FUNCTION_12_DZQZ = 11;
+    public final static int FUNCTION_12_DZQZ = 11;
     //法务中心
     public final static int FUNCTION_13_FWZX = 12;
     //在线咨询
-    public static int FUNCTION_14_ZXZX = 13;
+    public final static int FUNCTION_14_ZXZX = 13;
     //AI法务
-    public static int FUNCTION_15_AIFW = 14;
+    public final static int FUNCTION_15_AIFW = 14;
     //合同下载
     public final static int FUNCTION_16_HTXZ = 15;
     //案件委托
@@ -182,6 +191,17 @@ public class LawBusinessUtils {
                 }
                 BusinessWapAct.openAct(context, "industry_payfor");
                 break;
+            case FUNCTION_12_DZQZ:
+                try {
+                    FTokenUtils.getToken(context, true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                if (!checkIsCompany(context)) {
+                    T.showShort(context, "企业认证成功后才能使用此功能");
+                    return;
+                }
+                break;
             case FUNCTION_13_FWZX:
                 try {
                     FTokenUtils.getToken(context, true);
@@ -189,6 +209,22 @@ public class LawBusinessUtils {
                     return;
                 }
                 BusinessWapAct.openAct(context, "legal_friends");
+                break;
+            case FUNCTION_14_ZXZX:
+                try {
+                    FTokenUtils.getToken(context, true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                BusinessWapAct.openAct(context, "service");
+                break;
+            case FUNCTION_15_AIFW:
+                try {
+                    FTokenUtils.getToken(context, true);
+                } catch (NeedLoginException e) {
+                    return;
+                }
+                BusinessWapAct.openAct(context, "ar_service");
                 break;
             case FUNCTION_16_HTXZ:
                 try {
@@ -324,6 +360,18 @@ public class LawBusinessUtils {
     }
 
     //判断用户是否认证
+    public static boolean checkIsCompany(Context context) {
+        FUserInfoBean userInfoBean = FCacheUtils.getUserInfo(context);
+        if (userInfoBean == null) {
+            return false;
+        }
+        if ("1".equals(userInfoBean.user_type)) {
+            return true;
+        }
+        return false;
+    }
+
+    //判断用户是否认证
     public static boolean checkIsVip(Context context) {
         FUserInfoBean userInfoBean = FCacheUtils.getUserInfo(context);
         if (userInfoBean == null) {
@@ -331,5 +379,57 @@ public class LawBusinessUtils {
         }
         return userInfoBean.isVip();
     }
+
+    public static void showVipTipView(Context context, View parent) {
+        REQ_Factory.GET_ABOUT_US_INFO_REQ req = new REQ_Factory.GET_ABOUT_US_INFO_REQ();
+        BasePresent.doStaticCommRequest(context, req, true, true, new BasePresent.DoCommRequestInterface<BaseResponse, AboutUsBean>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public AboutUsBean doMap(BaseResponse baseResponse) {
+                AboutUsBean usBean = AboutUsBean.fromJSONAuto(baseResponse.datas, AboutUsBean.class);
+                return usBean;
+            }
+
+            @Override
+            public void onSuccess(AboutUsBean bean) throws Exception {
+                String str = "如需购买会员,请联系我司业务人员\n请拨打\n";
+                int pos1 = str.length();
+                str += bean.getConsumer_hotline();
+                PopupTipWithBtnView.showPopTipView(context, "开通会员",
+                        SpanManager.getInstance(str)
+                                .setForegroundColorSpan(pos1, str.length(),
+                                        context.getResources().getColor(R.color.main_color)).toBuild(),
+                        new PopupTipWithBtnView.PopupTipWithBtnInterface() {
+                            @Override
+                            public void okClick() {
+                                ToolUtils.callPhone(context, bean.getConsumer_hotline());
+                            }
+
+                            @Override
+                            public void cancleClick() {
+
+                            }
+
+                            @Override
+                            public void onDisimss() {
+
+                            }
+                        }, parent);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+
+
+    }
+
 
 }

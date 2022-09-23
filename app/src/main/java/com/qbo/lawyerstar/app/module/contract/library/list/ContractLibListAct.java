@@ -16,11 +16,16 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.detail.ContractLibDetailAct;
 import com.qbo.lawyerstar.app.module.inpopview.InPopSelectIndexDictionaryView;
+import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +36,7 @@ import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.ResourceUtils;
+import framework.mvp1.base.util.ToolUtils;
 
 public class ContractLibListAct extends MvpAct<IContractLibListView, BaseModel,
         ContractLibListPresenter> implements IContractLibListView {
@@ -58,6 +64,7 @@ public class ContractLibListAct extends MvpAct<IContractLibListView, BaseModel,
 
     @Override
     public void baseInitialization() {
+        EventBus.getDefault().register(this);
         setStatusBarComm(true);
     }
 
@@ -213,9 +220,57 @@ public class ContractLibListAct extends MvpAct<IContractLibListView, BaseModel,
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onContractPaySuccessEvent(CEventUtils.ContractPaySuccessEvent event) {
+        try {
+            if (isDestroyed()) {
+                return;
+            }
+            if (event == null || ToolUtils.isNull(event.contractid)) {
+                return;
+            }
+            if (mCommAdapter == null || mCommAdapter.getBeanList().size() == 0) {
+                return;
+            }
+            for (ContractLibBean bean : (List<ContractLibBean>) mCommAdapter.getBeanList()) {
+                if (event.contractid.equals(bean.id)) {
+                    bean.is_pay = true;
+                    mCommAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onContractDownLoadSuccess(CEventUtils.ContractDownLoadSuccess event) {
+        try {
+            if (isDestroyed()) {
+                return;
+            }
+            if (event == null || ToolUtils.isNull(event.contractid)) {
+                return;
+            }
+            if (mCommAdapter == null || mCommAdapter.getBeanList().size() == 0) {
+                return;
+            }
+            for (ContractLibBean bean : (List<ContractLibBean>) mCommAdapter.getBeanList()) {
+                if (event.contractid.equals(bean.id)) {
+                    bean.download_num = event.nowDownLoadNum;
+                    mCommAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
     @Override
     public void doReleaseSomething() {
-
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

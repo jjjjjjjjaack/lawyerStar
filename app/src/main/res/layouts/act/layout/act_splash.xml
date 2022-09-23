@@ -6,129 +6,146 @@
     android:layout_height="match_parent"
     android:background="@color/c_ffffff">
 
+    <RelativeLayout
+        android:id="@+id/splash_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_logo1"
-        android:layout_width="@dimen/dp_120"
-        android:layout_height="@dimen/dp_120"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_100"
-        android:src="@mipmap/app_logo_11" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/bg_splash_11"
+            android:scaleType="centerInside"
+            ></ImageView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_logo1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_8"
-        android:text="@string/app_name"
-        android:textColor="#ff000000"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/countDown"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="35dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/shape_splash_countdownbg"
-        android:gravity="center"
-        android:textColor="@color/c_ffffff"
-        android:textSize="15sp" />
+        <TextView
+            android:id="@+id/countDown"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="35dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_splash_countdownbg"
+            android:gravity="center"
+            android:textColor="@color/c_ffffff"
+            android:textSize="15sp" />
 
 
-    <FrameLayout
-        android:id="@+id/guide_fl"
+        <FrameLayout
+            android:id="@+id/guide_fl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/guide_vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <framework.mvp1.views.other.IndicatorView
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/dp_60"
+                app:selectedColor="@color/c_ffffff"
+                android:visibility="gone"
+                app:unselectedColor="#ffC7C7C7" />
+
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/guide_vp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <framework.mvp1.views.other.IndicatorView
-            android:id="@+id/indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="@dimen/dp_60"
-            app:selectedColor="@color/c_ffffff"
-            app:unselectedColor="#ffC7C7C7" />
-
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:id="@+id/login_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_12"
-        android:layout_marginRight="@dimen/dp_12"
-        android:visibility="gone"
-        android:layout_marginBottom="@dimen/dp_141"
-        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/iv_logo1"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_120"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_100"
+            android:src="@mipmap/app_logo_11" />
 
         <TextView
-            android:id="@+id/accountlogin_tv"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_44"
-            android:background="@drawable/shape_02c4c3_r4"
-            android:gravity="center"
-            android:text="@string/splash_tx1"
-            android:textColor="#ffffffff"
-            android:textSize="16sp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_logo1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="@string/app_name"
+            android:textColor="#ff000000"
+            android:textSize="30sp" />
+
 
         <LinearLayout
-            android:id="@+id/wechatlogin_tv"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_44"
-            android:layout_marginTop="@dimen/dp_20"
-            android:background="@drawable/shape_07c160_r2"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="@dimen/dp_28"
-                android:layout_height="@dimen/dp_28"
-                android:src="@mipmap/ic_wechat_login" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_141"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/splash_tx2"
+                android:id="@+id/accountlogin_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:background="@drawable/shape_02c4c3_r4"
+                android:gravity="center"
+                android:text="@string/splash_tx1"
                 android:textColor="#ffffffff"
                 android:textSize="16sp" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/wechatlogin_tv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/shape_07c160_r2"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:src="@mipmap/ic_wechat_login" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/splash_tx2"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="@dimen/dp_30"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/pact_tv"
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:src="@drawable/selector_checkbox_style_1" />
-
-            <TextView
-                android:id="@+id/tv_pact_text"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_30"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/pact_tv"
+                    android:layout_width="@dimen/dp_24"
+                    android:layout_height="@dimen/dp_24"
+                    android:src="@drawable/selector_checkbox_style_1" />
+
+                <TextView
+                    android:id="@+id/tv_pact_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-
+    </RelativeLayout>
 </RelativeLayout>

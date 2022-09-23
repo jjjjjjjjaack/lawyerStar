@@ -70,7 +70,7 @@ public class PopupTipWithBtnView extends PopupBaseView {
         this.popupTipInterface = popupTipInterface;
     }
 
-    public void showCenter(View parent, String title, String content, String oktx, String cancletx, PopupTipWithBtnInterface popupTipInterface) {
+    public void showCenter(View parent, String title, CharSequence content, String oktx, String cancletx, PopupTipWithBtnInterface popupTipInterface) {
         title_tv.setText(title);
         content_tv.setText(content);
         ok_tv.setText(oktx);
@@ -89,13 +89,13 @@ public class PopupTipWithBtnView extends PopupBaseView {
         super.showCenter(parent);
     }
 
-    public static PopupTipWithBtnView showPopTipView(Context context, String title, String content, String oktx, String cancletx, PopupTipWithBtnInterface popupTipInterface, View v) {
+    public static PopupTipWithBtnView showPopTipView(Context context, String title, CharSequence content, String oktx, String cancletx, PopupTipWithBtnInterface popupTipInterface, View v) {
         PopupTipWithBtnView popupTipView = new PopupTipWithBtnView(context);
         popupTipView.showCenter(v, title, content, oktx, cancletx ,popupTipInterface);
         return popupTipView;
     }
 
-    public static PopupTipWithBtnView showPopTipView(Context context, String title, String content, PopupTipWithBtnInterface popupTipInterface, View v) {
+    public static PopupTipWithBtnView showPopTipView(Context context, String title, CharSequence content, PopupTipWithBtnInterface popupTipInterface, View v) {
         return PopupTipWithBtnView.showPopTipView(context, title, content, "确定", "取消", popupTipInterface, v);
     }
 }

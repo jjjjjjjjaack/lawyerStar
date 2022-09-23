@@ -31,11 +31,11 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.module.business.FazH5WebViewUtils;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
 import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
 import com.qbo.lawyerstar.app.utils.CEventUtils;
-import com.yalantis.ucrop.util.FileUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,6 +48,8 @@ import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.FileProviderUtil;
+import framework.mvp1.base.util.FileUtils;
+import framework.mvp1.base.util.GetFilePathFromUri;
 import framework.mvp1.base.util.LoadingUtils;
 import framework.mvp1.base.util.T;
 import framework.mvp1.base.util.ToolUtils;
@@ -214,7 +216,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                     }
                     return;
                 }
-                String path = FileUtils.getPath(this, result);
+                String path = GetFilePathFromUri.getFileAbsolutePath(this, result);
                 if (TextUtils.isEmpty(path)) {
                     if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
                         FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
@@ -368,7 +370,8 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                 }
                 break;
             case 12:
-                T.showShort(getMContext(), "请先开通vip");
+                LawBusinessUtils.showVipTipView(getMContext(),webview_fl);
+//                T.showShort(getMContext(), "请先开通vip");
                 break;
         }
 

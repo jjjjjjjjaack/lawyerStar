@@ -18,12 +18,16 @@ import com.qbo.lawyerstar.BuildConfig;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
 import com.qbo.lawyerstar.app.module.contract.library.list.IContractLibListView;
 import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
 import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
+import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.List;
@@ -103,7 +107,8 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
                             more_tv.setVisibility(View.GONE);
                             zz_view.setVisibility(View.GONE);
                         } else {
-                            T.showShort(getMContext(), "请先开通vip");
+//                            T.showShort(getMContext(), "请先开通vip");
+                            LawBusinessUtils.showVipTipView(getMContext(), more_tv);
                         }
                     }
 
@@ -198,6 +203,13 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
             finish();
             return;
         }
+        showInfo();
+    }
+
+    public void showInfo() {
+        if (presenter.bean == null) {
+            return;
+        }
         title_tv.setText(presenter.bean.title);
         content_tv.setText(presenter.bean.sub_title);
         topprice_tv.setText(presenter.bean.price + "元");
@@ -214,7 +226,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
             topay_tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    downloadContract();
+                    presenter.confirmDownload();
                 }
             });
         } else {
@@ -228,13 +240,18 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
         }
     }
 
+
     /**
      * 根据网址用浏览器打开
      */
-    public void downloadContract() {
+    @Override
+    public void confirmDownLoad() {
         if (presenter.bean == null) {
             return;
         }
+        download_tv.setText(getString(R.string.contract_lib_list_tx8, presenter.bean.download_num));
+        EventBus.getDefault().post(new CEventUtils.ContractDownLoadSuccess(presenter.bean.id, presenter.bean.download_num));
+
         final ProgressDialog dialog = new ProgressDialog(getMContext());
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setCanceledOnTouchOutside(false);
@@ -329,6 +346,12 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
 
                 @Override
                 public void paySuccess() {
+                    EventBus.getDefault().post(new CEventUtils.ContractPaySuccessEvent(presenter.bean.id));
+                    presenter.bean.is_pay = true;
+                    try {
+                        showInfo();
+                    } catch (Exception e) {
+                    }
                     gotoActivity(PaySuccessAct.class);
                 }
 

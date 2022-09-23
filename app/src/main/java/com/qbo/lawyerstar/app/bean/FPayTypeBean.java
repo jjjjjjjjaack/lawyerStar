@@ -6,6 +6,7 @@ public class FPayTypeBean extends BaseBean {
     public String id;
     public String name;
     public int iconRes;
+    public String balance="-";
 
     public FPayTypeBean() {
     }
@@ -38,5 +39,13 @@ public class FPayTypeBean extends BaseBean {
 
     public void setIconRes(int iconRes) {
         this.iconRes = iconRes;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -62,6 +63,8 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
     @BindView(R.id.pact_tv)
     View pact_tv;
+    @BindView(R.id.splash_rl)
+    View splash_rl;
     @BindView(R.id.login_ll)
     View login_ll;
     @BindView(R.id.accountlogin_tv)
@@ -84,8 +87,8 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
             } else {
                 String first = JnCache.getCache(SplashAct.this, "first_insert");
                 if (!"1".equals(first)) {
-                    intentMainAct();
-//                    showGuidePage();
+//                    intentMainAct();
+                    showGuidePage();
                 } else {
                     intentMainAct();
                 }
@@ -123,6 +126,8 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
                 gotoActivity(LoginAct.class);
             }
         });
+        splash_rl.setVisibility(View.VISIBLE);
+        login_ll.setVisibility(View.GONE);
     }
 
 
@@ -210,8 +215,9 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
      * @time 2022/8/27 10:21 上午
      */
     private void showLoginView() {
+        splash_rl.setVisibility(View.GONE);
         login_ll.setVisibility(View.VISIBLE);
-        initPactText(getMContext(),tv_pact_text);
+        initPactText(getMContext(), tv_pact_text);
         pact_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,7 +230,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
     /**
      * 初始化协议文本颜色
      */
-    public static void initPactText(Context context,TextView tv_pact_text) {
+    public static void initPactText(Context context, TextView tv_pact_text) {
         String pact0 = "《用户协议》";
         String pact1 = "《隐私协议》";
         StringBuffer buffer = new StringBuffer();
@@ -240,13 +246,13 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
         spanManager.setClickableSpan(pactStart0, pactEnd0, tv_pact_text, new SpanManager.OnTextClickedListener() {
             @Override
             public void onTextClicked(View view) {
-                ProtocolAct.openAct(context,"user");
+                ProtocolAct.openAct(context, "user");
             }
         }).setForegroundColorSpan(pactStart0, pactEnd0, context.getResources().getColor(R.color.c_02c4c3));
         spanManager.setClickableSpan(pactStart1, pactEnd1, tv_pact_text, new SpanManager.OnTextClickedListener() {
             @Override
             public void onTextClicked(View view) {
-                ProtocolAct.openAct(context,"privacy");
+                ProtocolAct.openAct(context, "privacy");
             }
         }).setForegroundColorSpan(pactStart1, pactEnd1, context.getResources().getColor(R.color.c_02c4c3));
         tv_pact_text.setText(spanManager.toBuild());
@@ -272,7 +278,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
         public Context context;
         public LayoutInflater mLayoutInflater;
-        public List<String> titletx = Arrays.asList(getString(R.string.guide_tx1), getString(R.string.guide_tx2), getString(R.string.guide_tx3), getString(R.string.guide_tx4));
+        public List<Integer> titletx = Arrays.asList(R.mipmap.bg_guide_0 , R.mipmap.bg_guide_0_1, R.mipmap.bg_guide_1);
 
         public ViewPagerAdapter(Context context) {
             this.mLayoutInflater = LayoutInflater.from(context);
@@ -295,22 +301,23 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView tv;
-            public TextView tv1;
+
+            public ImageView bg_iv;
+            public View click_v;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-                tv = itemView.findViewById(R.id.tv);
-                tv1 = itemView.findViewById(R.id.tv1);
+                bg_iv = itemView.findViewById(R.id.bg_iv);
+                click_v = itemView.findViewById(R.id.click_v);
             }
 
-            public void bindViews(String t1, int postiton) {
-                tv1.setText(t1);
+            public void bindViews(int res, int postiton) {
+                bg_iv.setImageResource(res);
                 if (postiton != titletx.size() - 1) {
-                    tv.setVisibility(View.GONE);
+                    click_v.setVisibility(View.GONE);
                 } else {
-                    tv.setVisibility(View.VISIBLE);
-                    tv.setOnClickListener(new View.OnClickListener() {
+                    click_v.setVisibility(View.VISIBLE);
+                    click_v.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             JnCache.saveCache(SplashAct.this, "first_insert", "1");

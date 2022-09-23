@@ -22,6 +22,7 @@ public class FUserInfoBean extends BaseBean {
     public String audis_status;
     public String rank_id;
     public String rank_date;
+    public String shop_balance;
     public RankInfo rank;
 
     @Override
@@ -164,6 +165,14 @@ public class FUserInfoBean extends BaseBean {
 
     public void setRank_date(String rank_date) {
         this.rank_date = rank_date;
+    }
+
+    public String getShop_balance() {
+        return shop_balance;
+    }
+
+    public void setShop_balance(String shop_balance) {
+        this.shop_balance = shop_balance;
     }
 
     public static class RankInfo extends BaseBean{

@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.bean.FPayTypeBean;
+import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.alipay.PayResult;
 import com.qbo.lawyerstar.app.net.REQ_Factory;
 import com.qbo.lawyerstar.app.net.RES_Factory;
@@ -94,7 +95,11 @@ public class PopupToPayView extends PopupBaseView {
             @Override
             public void bindData(Context context, MCommVH mCommVH, int position, FPayTypeBean bean) {
                 mCommVH.setImageResource(R.id.icon_iv, bean.iconRes);
-                mCommVH.setText(R.id.typename_tv, bean.name);
+                if ("balance".equals(bean.id)) {
+                    mCommVH.setText(R.id.typename_tv, bean.name + "(" + bean.balance + ")");
+                } else {
+                    mCommVH.setText(R.id.typename_tv, bean.name);
+                }
                 if (selectBean != null && selectBean.id.equals(bean.id)) {
                     mCommVH.setViewSelect(R.id.cb_iv, true);
                 } else {
@@ -149,7 +154,9 @@ public class PopupToPayView extends PopupBaseView {
                                 payTypeBeans.add(new FPayTypeBean("alipay", R.mipmap.ic_alipay_1, "支付宝支付"));
                             }
                             if (baseResponse.datas.contains("balance")) {
-                                payTypeBeans.add(new FPayTypeBean("balance", R.mipmap.ic_balance_1, "余额支付"));
+                                FPayTypeBean balanceBean = new FPayTypeBean("balance", R.mipmap.ic_balance_1, "余额支付");
+                                payTypeBeans.add(balanceBean);
+                                getBalance(balanceBean);
                             }
                         }
 
@@ -174,12 +181,43 @@ public class PopupToPayView extends PopupBaseView {
                     @Override
                     public void onError(Throwable e) {
                         status = 0;
-                        if(autoShow){
+                        if (autoShow) {
                             T.showShort(context, context.getString(R.string.popup_to_pay_tx4));
                         }
                     }
                 });
     }
+
+    public void getBalance(FPayTypeBean fPayTypeBean) {
+        REQ_Factory.GET_USERINFO_BYDB_REQ req = new REQ_Factory.GET_USERINFO_BYDB_REQ();
+        BasePresent.doStaticCommRequest(context, req, false, false,
+                new BasePresent.DoCommRequestInterface<BaseResponse, FUserInfoBean>() {
+                    @Override
+                    public void doStart() {
+
+                    }
+
+                    @Override
+                    public FUserInfoBean doMap(BaseResponse baseResponse) {
+                        FUserInfoBean userInfoBean = FUserInfoBean.fromJSONAuto(baseResponse.datas, FUserInfoBean.class);
+                        return userInfoBean;
+                    }
+
+                    @Override
+                    public void onSuccess(FUserInfoBean userInfoBean) throws Exception {
+                        if (fPayTypeBean != null && mCommAdapter != null) {
+                            fPayTypeBean.balance = userInfoBean.shop_balance;
+                            mCommAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
 
     private View parent;
 
