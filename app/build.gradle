@@ -8,8 +8,8 @@ android {
         applicationId "com.qbo.lawyerstar"
         minSdkVersion 23
         targetSdkVersion 26
-        versionCode 6
-        versionName "1.6"
+        versionCode 7
+        versionName "1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -33,12 +33,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010\""   //正式
+            buildConfigField "String", "API_URL", "\"http://www.fatianping.com\""   //正式
 //            buildConfigField "String", "API_URL", "\"http://jydxyy.natappfree.cc\""   //正式
         }
         debug {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "API_URL", "\"http://211.149.225.244:9010\""   //正式
+            buildConfigField "String", "API_URL", "\"http://www.fatianping.com\""   //正式
 //            buildConfigField "String", "API_URL", "\"http://jydxyy.natappfree.cc\""   //测试
         }
     }

@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -51,6 +52,7 @@ import framework.mvp1.base.util.FileProviderUtil;
 import framework.mvp1.base.util.FileUtils;
 import framework.mvp1.base.util.GetFilePathFromUri;
 import framework.mvp1.base.util.LoadingUtils;
+import framework.mvp1.base.util.LoginoutUtis;
 import framework.mvp1.base.util.T;
 import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.pics.GlideEngine;
@@ -302,6 +304,8 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 
     }
 
+    Boolean isLogut = false;
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleH5Event(CEventUtils.H5Event event) {
         if (!isFront) {
@@ -316,9 +320,22 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             case -5:
                 break;
             case -4://login
-                FazH5WebViewUtils.backPage("");
-                sendBrocastCloseTragetAct("FazH5WebAct");
-                gotoActivity(LoginAct.class);
+                synchronized (isLogut) {
+                    if (isLogut) {
+                        return;
+                    }
+                    isLogut = true;
+                    T.showShort(getMContext(), "登录过期，请重新登录");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            FazH5WebViewUtils.backPage("");
+                            sendBrocastCloseTragetAct("BusinessWapAct");
+                            LoginoutUtis.getInstance().doLogOut(getMContext());
+                        }
+                    }, 1000);
+                }
+//                gotoActivity(LoginAct.class);
                 break;
             case -3:// toast
                 try {
@@ -370,7 +387,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                 }
                 break;
             case 12:
-                LawBusinessUtils.showVipTipView(getMContext(),webview_fl);
+                LawBusinessUtils.showVipTipView(getMContext(), webview_fl);
 //                T.showShort(getMContext(), "请先开通vip");
                 break;
         }

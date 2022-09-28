@@ -1,191 +1,215 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smart.refresh.layout.SmartRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<com.scwang.smart.refresh.layout.SmartRefreshLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/refresh_layout"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@color/main_bg"-->
+<!--    android:orientation="vertical">-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
     android:orientation="vertical">
 
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--    <androidx.core.widget.NestedScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
 
-        <FrameLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/bg_home_top_1" />
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@mipmap/bg_home_top_1" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_52"
+                android:text="@string/law_business_frag_tx1"
+                android:textColor="#ffffffff"
+                android:textSize="20sp" />
 
-
-            <LinearLayout
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dp_52"
-                    android:text="@string/law_business_frag_tx1"
-                    android:textColor="#ffffffff"
-                    android:textSize="20sp" />
-
-
-                <RelativeLayout
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_74"
-                    android:layout_marginLeft="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_21"
-                    android:layout_marginRight="@dimen/dp_16"
-                    android:background="@mipmap/bg_userlevel_1">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:id="@+id/level_tx_ll"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_24"
-                        android:layout_marginTop="@dimen/dp_18"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_24"
-                            android:layout_height="@dimen/dp_24"
-                            android:src="@mipmap/ic_userlevel_1" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_21" />
 
-                        <TextView
-                            android:id="@+id/vipname_tv"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_74"
+                            android:layout_marginLeft="@dimen/dp_16"
+
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:background="@mipmap/bg_userlevel_1">
+
+                            <LinearLayout
+                                android:id="@+id/level_tx_ll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_24"
+                                android:layout_marginTop="@dimen/dp_18"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="@dimen/dp_24"
+                                    android:layout_height="@dimen/dp_24"
+                                    android:src="@mipmap/ic_userlevel_1" />
+
+                                <TextView
+                                    android:id="@+id/vipname_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#ffffffff"
+                                    android:textSize="14sp"
+                                    tools:text="至尊版VIP" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/vipdate_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/level_tx_ll"
+                                android:layout_alignLeft="@id/level_tx_ll"
+                                android:layout_marginLeft="@dimen/dp_8"
+                                android:textColor="#ccffffff"
+                                android:textSize="10sp"
+                                tools:text="有效期至2022-07-21" />
+
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="@dimen/dp_24"
+                                android:src="@mipmap/ic_userlevel_r_1" />
+
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            tools:text="至尊版VIP"
-                            android:textColor="#ffffffff"
-                            android:textSize="14sp" />
+                            android:layout_marginLeft="@dimen/dp_12"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginRight="@dimen/dp_12"
+                            android:background="@drawable/shape_ffffff_r8"
+                            android:orientation="vertical">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:text="@string/law_business_frag_tx2"
+                                android:textColor="#ff333333"
+                                android:textSize="14sp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/function_1_rcy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_12"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginRight="@dimen/dp_12"
+                            android:background="@drawable/shape_ffffff_r8"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:text="@string/law_business_frag_tx3"
+                                android:textColor="#ff333333"
+                                android:textSize="14sp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/function_2_rcy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_12"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:layout_marginRight="@dimen/dp_12"
+                            android:background="@drawable/shape_ffffff_r8"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_12"
+                                android:layout_marginTop="@dimen/dp_12"
+                                android:text="@string/law_business_frag_tx4"
+                                android:textColor="#ff333333"
+                                android:textSize="14sp" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/function_3_rcy"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40" />
                     </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
 
-                    <TextView
-                        android:id="@+id/vipdate_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/level_tx_ll"
-                        android:layout_alignLeft="@id/level_tx_ll"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        tools:text="有效期至2022-07-21"
-                        android:textColor="#ccffffff"
-                        android:textSize="10sp" />
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        </LinearLayout>
 
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/dp_24"
-                        android:src="@mipmap/ic_userlevel_r_1" />
-
-                </RelativeLayout>
+    </FrameLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:layout_marginRight="@dimen/dp_12"
-                    android:background="@drawable/shape_ffffff_r8"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:text="@string/law_business_frag_tx2"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/function_1_rcy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:layout_marginRight="@dimen/dp_12"
-                    android:background="@drawable/shape_ffffff_r8"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:text="@string/law_business_frag_tx3"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/function_2_rcy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                      />
-
-                </LinearLayout>
+    <!--    </androidx.core.widget.NestedScrollView>-->
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_12"
-                    android:layout_marginRight="@dimen/dp_12"
-                    android:background="@drawable/shape_ffffff_r8"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:text="@string/law_business_frag_tx4"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/function_3_rcy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                     />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_40" />
-
-            </LinearLayout>
-
-
-        </FrameLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-
-
-</com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</LinearLayout>

@@ -278,6 +278,7 @@ public class FazH5WebViewUtils {
             FToken token = FTokenUtils.getToken(context, false);
             cookieStrs.add(new CookieStr("Token", token.getToken()));
             cookieStrs.add(new CookieStr("k", token.getKey()));
+//            cookieStrs.add(new CookieStr("k", "-SAFG-"));
         } catch (Exception e) {
 //            return;
         }

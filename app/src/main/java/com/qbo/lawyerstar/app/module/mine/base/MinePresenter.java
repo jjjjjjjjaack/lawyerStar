@@ -12,7 +12,7 @@ public class MinePresenter extends BasePresent<IMineView, BaseModel> {
 
     public void getCount() {
         GET_NOTICE_MSGCOUNT_REQ req = new GET_NOTICE_MSGCOUNT_REQ();
-        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, NoticeTypeBean>() {
+        doCommRequest(req, true, false, new DoCommRequestInterface<BaseResponse, NoticeTypeBean>() {
             @Override
             public void doStart() {
 

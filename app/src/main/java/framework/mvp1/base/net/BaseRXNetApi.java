@@ -10,6 +10,8 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -21,6 +23,7 @@ import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.exception.NetException;
 import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.LanguageUtils;
+import framework.mvp1.base.util.StrZipUtil;
 import framework.mvp1.base.util.ToolUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -145,7 +148,7 @@ public class BaseRXNetApi {
             Map<String, Object> mapParams = baseRequest.bulitReqMap();
             if (mapParams != null) {
                 String value = JSONObject.toJSONString(mapParams, SerializerFeature.DisableCircularReferenceDetect);
-                paramsfinal = value;
+                paramsfinal = EncryptionValue(value, false);
                 Log.i(TAG, "发送请求，路径：" + API_METHOD + " ,参数: " + value);
             }
 //            paramsfinal = getMd5Value(getMd5Value(getApiStr2(mapParams)) + NETAPI);
@@ -368,7 +371,14 @@ public class BaseRXNetApi {
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
                             String bodyStr = response.body().string();
-//                            bodyStr = DecipheringValue(bodyStr, key);
+                            String key = "";
+                            try {
+                                FToken fToken = FTokenUtils.getToken(MyApplication.getApp(), false);
+                                key = fToken.getKey();
+                            } catch (NeedLoginException e) {
+                                key = ORGIN_KEY;
+                            }
+                            bodyStr = DecipheringValue(bodyStr, key);
 //                            Log.i(TAG, API_METHOD + ":" + bodyStr);
                             K baseResponse = null;
                             try {
@@ -496,6 +506,13 @@ public class BaseRXNetApi {
                         public void onResponse(Call call, Response response) throws IOException {
                             String bodyStr = response.body().string();
                             String key = "";
+                            try {
+                                FToken fToken = FTokenUtils.getToken(MyApplication.getApp(), false);
+                                key = fToken.getKey();
+                            } catch (NeedLoginException e) {
+                                key = ORGIN_KEY;
+                            }
+                            bodyStr = DecipheringValue(bodyStr, key);
                             Log.i(TAG, API_METHOD + ":" + bodyStr);
                             K baseResponse = null;
                             try {
@@ -648,6 +665,123 @@ public class BaseRXNetApi {
             return "";
         }
     }
+
+
+    // md5加密，获得32位小写字符串
+    public static String getMd5Value(String sSecret) {
+        try {
+            MessageDigest bmd5 = MessageDigest.getInstance("MD5");
+            bmd5.update(sSecret.getBytes());
+            int i;
+            StringBuffer buf = new StringBuffer();
+            byte[] b = bmd5.digest();
+            for (int offset = 0; offset < b.length; offset++) {
+                i = b[offset];
+                if (i < 0)
+                    i += 256;
+                if (i < 16)
+                    buf.append("0");
+                buf.append(Integer.toHexString(i));
+            }
+            return buf.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
+    /**
+     * 参数加密
+     *
+     * @param reqValue
+     * @return
+     */
+    public static String EncryptionValue(String reqValue, boolean useOrginKey) {
+//        if (NET_URL.getInstance().isDubug()) {
+//            return reqValue;
+//        }
+        String key = "";
+        if (!useOrginKey) {
+            try {
+                FToken fToken = FTokenUtils.getToken(MyApplication.getApp(), false);
+                key = fToken.getKey();
+            } catch (NeedLoginException e) {
+                key = ORGIN_KEY;
+            }
+        } else {
+            key = ORGIN_KEY;
+        }
+        String resultStr = reqValue;
+        try {
+            String fstr = StrZipUtil.zip(reqValue);
+            String secstr = "";
+            if (fstr.length() < key.length()) {
+                secstr = StrZipUtil.zip(fstr + key);
+            } else {
+                secstr = StrZipUtil.zip(fstr.substring(0, key.length()) + key + fstr.substring(key.length()));
+            }
+            int pos = key.length() > secstr.length() ? secstr.length() : key.length();
+//            resultStr = secstr;
+            resultStr = secstr.substring(pos - 2, secstr.length() - 2) + secstr.substring(0, pos - 2) + secstr.substring(secstr.length() - 2);
+//            Log.i(TAG, "请求加密，原文：[" + reqValue + "],密文：[" + resultStr + "],解密文：[" + DecipheringValue(resultStr) + "]");
+            Log.i(TAG, "请求加密，密文：[" + resultStr + "]");
+            DecipheringValue(resultStr, key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i(TAG, "请求加密失败，原因：[" + e.getMessage() + "]");
+            resultStr = reqValue;
+        }
+        return resultStr;
+    }
+
+
+    /**
+     * 密文解密
+     *
+     * @param secstr
+     * @return
+     */
+    public static String DecipheringValue(String secstr, String key) {
+//        secstr = "DAAANAvEhPNXlEyl2EsHsltGykL4+udM+H3ZPIktbUZe7sEcUQfbTAlYp3lVfVyQBjEdBLuhxBBjetd9ryqXs2wqK0b7Mi0RwiH/Ih4yqnYcNJJyRsMaFoGoa+d7weEJieJwFwdsKQDX";
+//        if (NET_URL.getInstance().isDubug()) {
+//            return secstr;
+//        }
+        String resultStr = secstr;
+        if (isBase64(secstr)) {
+            try {
+                Log.i(TAG, "开始解密：[" + secstr + "]");
+                int pos = key.length() > secstr.length() ? secstr.length() : key.length();
+                String os = secstr.substring(secstr.length() - pos, secstr.length() - 2) + secstr.substring(0, secstr.length() - pos) + secstr.substring(secstr.length() - 2);
+                String restored = StrZipUtil.unzip(os);
+                if (ToolUtils.isNull(restored)) {
+                    throw new Exception();
+                }
+                String fstr = restored.replace(key, "");
+                resultStr = StrZipUtil.unzip(fstr);
+                if (ToolUtils.isNull(resultStr)) {
+                    throw new Exception();
+                }
+                Log.i(TAG, "响应解密，解密后：[" + resultStr + "]");
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (!key.equals(ORGIN_KEY)) {
+                    Log.i(TAG, "解密失败，尝试用ORGIN_KEY解密");
+                    return DecipheringValue(secstr, ORGIN_KEY);
+                } else {
+                    Log.i(TAG, "ORGIN_KEY解密失败，强制重新登录");
+                    return "{code:401,msg:'登录失败,请重新登录'}";
+                }
+//                Log.i(TAG, "响应解密失败，原因：[" + e.getMessage() + "]");
+//                e.printStackTrace();
+//                resultStr = secstr;
+            }
+        } else {
+            Log.i(TAG, "非密文，不需要解密");
+        }
+        return resultStr;
+    }
+
 
     public static boolean isBase64(String str) {
         String base64Pattern = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$";
