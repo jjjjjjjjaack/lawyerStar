@@ -14,7 +14,6 @@ import android.os.Build;
 import android.provider.Settings;
 import android.view.View;
 
-
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
 import com.qbo.lawyerstar.app.net.REQ_Factory;
@@ -62,22 +61,15 @@ public class CheckVersionUtils {
      * 获取服务器版本信息
      */
     public void doVersionCheck(Context mContext, final View parentView, final PopupVersionSelectView.ISelectUpdate iSelectUpdate, boolean todayCheck) {
-        if (todayCheck) {//判断是否当天不再提醒
-            String nowDate = ToolUtils.timestamp2String(System.currentTimeMillis(), "yyyy-MM-dd");
-            String cacheDate = JnCache.getCache(mContext, PopupVersionSelectView.CHECK_VERSION_KEY);
-            if (nowDate.equals(cacheDate)) {
-                return;
-            }
-        }
         if (popupVersionSelectView != null) {
             popupVersionSelectView.dismiss();
             popupVersionSelectView = null;
         }
         popupVersionSelectView = new PopupVersionSelectView((Activity) mContext, iSelectUpdate);
-
-
+//        new REQ_Factory
+//                .POST_CHECK_APPVERSION_REQ("006e89a2918f337efd885e9a1ee672e9")
         BasePresent.doStaticCommRequest(mContext, new REQ_Factory
-                .POST_CHECK_APPVERSION_REQ("006e89a2918f337efd885e9a1ee672e9"), false, false, new BasePresent.DoCommRequestInterface<BaseResponse, VersionBean>() {
+                .GET_ABOUT_US_INFO_REQ(), false, false, new BasePresent.DoCommRequestInterface<BaseResponse, VersionBean>() {
             @Override
             public void doStart() {
 
@@ -85,15 +77,27 @@ public class CheckVersionUtils {
 
             @Override
             public VersionBean doMap(BaseResponse baseResponse) {
-                VersionBean bean = VersionBean.fromJSONAuto(baseResponse.orgin, VersionBean.class);
+                VersionBean bean = VersionBean.fromJSONAuto(baseResponse.datas, VersionBean.class);
                 return bean;
             }
 
             @Override
             public void onSuccess(VersionBean versionBean) throws Exception {
-                if (ToolUtils.isNull(versionBean.version)) {
+                if (ToolUtils.isNull(versionBean.android_version_no)) {
                     iSelectUpdate.erro();
                     return;
+                }
+                if ("0".equals(versionBean.android_update_check)) {//不需要检测更新
+                    iSelectUpdate.doNotUpdate();
+                    return;
+                }
+                if ("0".equals(versionBean.android_update) && todayCheck) {//不需要强制更新且判断是否当天不再提醒
+                    String nowDate = ToolUtils.timestamp2String(System.currentTimeMillis(), "yyyy-MM-dd");
+                    String cacheDate = JnCache.getCache(mContext, PopupVersionSelectView.CHECK_VERSION_KEY);
+                    if (nowDate.equals(cacheDate)) {
+                        iSelectUpdate.doNotUpdate();
+                        return;
+                    }
                 }
                 // 得到当前已安装的app版本信息
                 String currentVersionCode = "";
@@ -106,7 +110,7 @@ public class CheckVersionUtils {
                 } else {
                     currentVersionCode = (info.versionCode + "").trim();
                 }
-                if (currentVersionCode.equals(versionBean.version)) {
+                if (currentVersionCode.equals(versionBean.android_version_no)) {
                     iSelectUpdate.doNotUpdate();
                 } else {
 //                    popupVersionSelectView.setContentMsg(versionBean.changelog);
@@ -262,6 +266,109 @@ public class CheckVersionUtils {
 
 
     public static class VersionBean extends BaseBean {
+        /**
+         * upload_log : 优化
+         * android_logo : https://www.fatianping.com//static/upload/image/20220930/517d501e9aac19f5313272cb350ffff3.png
+         * android_name : 法天平
+         * download_url : https://www.fatianping.com/
+         * android_intro :
+         * android_update : 0
+         * android_version : v1.0
+         * android_version_no : 1.0
+         * android_update_check : 1
+         * consumer_hotline : 0769-864951852
+         */
+
+        public String upload_log;
+        public String android_logo;
+        public String android_name;
+        public String download_url;
+        public String android_intro;
+        public String android_update;
+        public String android_version;
+        public String android_version_no;
+        public String android_update_check;
+        public String consumer_hotline;
+
+        public String getUpload_log() {
+            return upload_log;
+        }
+
+        public void setUpload_log(String upload_log) {
+            this.upload_log = upload_log;
+        }
+
+        public String getAndroid_logo() {
+            return android_logo;
+        }
+
+        public void setAndroid_logo(String android_logo) {
+            this.android_logo = android_logo;
+        }
+
+        public String getAndroid_name() {
+            return android_name;
+        }
+
+        public void setAndroid_name(String android_name) {
+            this.android_name = android_name;
+        }
+
+        public String getDownload_url() {
+            return download_url;
+        }
+
+        public void setDownload_url(String download_url) {
+            this.download_url = download_url;
+        }
+
+        public String getAndroid_intro() {
+            return android_intro;
+        }
+
+        public void setAndroid_intro(String android_intro) {
+            this.android_intro = android_intro;
+        }
+
+        public String getAndroid_update() {
+            return android_update;
+        }
+
+        public void setAndroid_update(String android_update) {
+            this.android_update = android_update;
+        }
+
+        public String getAndroid_version() {
+            return android_version;
+        }
+
+        public void setAndroid_version(String android_version) {
+            this.android_version = android_version;
+        }
+
+        public String getAndroid_version_no() {
+            return android_version_no;
+        }
+
+        public void setAndroid_version_no(String android_version_no) {
+            this.android_version_no = android_version_no;
+        }
+
+        public String getAndroid_update_check() {
+            return android_update_check;
+        }
+
+        public void setAndroid_update_check(String android_update_check) {
+            this.android_update_check = android_update_check;
+        }
+
+        public String getConsumer_hotline() {
+            return consumer_hotline;
+        }
+
+        public void setConsumer_hotline(String consumer_hotline) {
+            this.consumer_hotline = consumer_hotline;
+        }
 
         /**
          * name :
@@ -277,121 +384,7 @@ public class CheckVersionUtils {
          * binary : {"fsize":66738502}
          */
 
-        public String name;
-        public String version;
-        public String changelog;
-        public int updated_at;
-        public String versionShort;
-        public String build;
-        public String installUrl;
-        public String install_url;
-        public String direct_install_url;
-        public String update_url;
-        public BinaryBean binary;
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getVersion() {
-            return version;
-        }
-
-        public void setVersion(String version) {
-            this.version = version;
-        }
-
-        public String getChangelog() {
-            return changelog;
-        }
-
-        public void setChangelog(String changelog) {
-            this.changelog = changelog;
-        }
-
-        public int getUpdated_at() {
-            return updated_at;
-        }
-
-        public void setUpdated_at(int updated_at) {
-            this.updated_at = updated_at;
-        }
-
-        public String getVersionShort() {
-            return versionShort;
-        }
-
-        public void setVersionShort(String versionShort) {
-            this.versionShort = versionShort;
-        }
-
-        public String getBuild() {
-            return build;
-        }
-
-        public void setBuild(String build) {
-            this.build = build;
-        }
-
-        public String getInstallUrl() {
-            return installUrl;
-        }
-
-        public void setInstallUrl(String installUrl) {
-            this.installUrl = installUrl;
-        }
-
-        public String getInstall_url() {
-            return install_url;
-        }
-
-        public void setInstall_url(String install_url) {
-            this.install_url = install_url;
-        }
-
-        public String getDirect_install_url() {
-            return direct_install_url;
-        }
-
-        public void setDirect_install_url(String direct_install_url) {
-            this.direct_install_url = direct_install_url;
-        }
-
-        public String getUpdate_url() {
-            return update_url;
-        }
-
-        public void setUpdate_url(String update_url) {
-            this.update_url = update_url;
-        }
-
-        public BinaryBean getBinary() {
-            return binary;
-        }
-
-        public void setBinary(BinaryBean binary) {
-            this.binary = binary;
-        }
-
-        public static class BinaryBean extends BaseBean {
-            /**
-             * fsize : 66738502
-             */
-
-            private int fsize;
-
-            public int getFsize() {
-                return fsize;
-            }
-
-            public void setFsize(int fsize) {
-                this.fsize = fsize;
-            }
-        }
     }
 }
 

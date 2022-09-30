@@ -50,6 +50,7 @@
             <com.scwang.smart.refresh.layout.SmartRefreshLayout
                 android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp_21"
                 android:layout_height="wrap_content">
 
                 <androidx.core.widget.NestedScrollView
@@ -61,9 +62,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_21" />
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="@dimen/dp_21" />-->
 
                         <RelativeLayout
                             android:layout_width="match_parent"

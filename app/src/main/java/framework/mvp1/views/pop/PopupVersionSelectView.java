@@ -170,21 +170,21 @@ public class PopupVersionSelectView {
     public void setVersionBean(CheckVersionUtils.VersionBean versionBean) {
         this.versionBean = versionBean;
         if (versionBean != null) {
-            this.msg.setText(versionBean.changelog);
-            this.version_tv.setText("V" + versionBean.versionShort);
-            this.downLoadUrl = versionBean.install_url;
+            this.msg.setText(versionBean.upload_log);
+            this.version_tv.setText(versionBean.android_version);
+            this.downLoadUrl = versionBean.download_url;
 //            this.time_tv.setText(versionBean.updateTime);
-//            if ("1".equals(versionBean.isForcedUpdate)) {//强制更新
-//                request_tv.setTextColor(0xffea4748);
-//                request_tv.setText("*当前版本不可用，请更新为最新版本");
-//                disagreeUpdate.setVisibility(View.GONE);
-//                line_1.setVisibility(View.GONE);
-//            } else {
-//                request_tv.setTextColor(0xff18a7ef);
-//                request_tv.setText(context.getString(R.string.versionupdate));
-//                disagreeUpdate.setVisibility(View.VISIBLE);
-//                line_1.setVisibility(View.VISIBLE);
-//            }
+            if ("1".equals(versionBean.android_update)) {//强制更新
+                request_tv.setTextColor(0xffea4748);
+                request_tv.setText("*当前版本不可用，请更新为最新版本");
+                disagreeUpdate.setVisibility(View.GONE);
+                line_1.setVisibility(View.GONE);
+            } else {
+                request_tv.setTextColor(0xff18a7ef);
+                request_tv.setText(context.getString(R.string.versionupdate));
+                disagreeUpdate.setVisibility(View.VISIBLE);
+                line_1.setVisibility(View.VISIBLE);
+            }
         }
     }
 
