@@ -30,6 +30,7 @@ import framework.mvp1.base.adapter.MCommAdapter;
 import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpFrag;
+import framework.mvp1.base.util.ToolUtils;
 
 public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseModel, OrderListCommListPresenter> implements IOrderListCommListView {
 
@@ -157,7 +158,12 @@ public class OrderListCommListFrag extends MvpFrag<IOrderListCommListView, BaseM
                     mCommVH.setTextCheckEmpty(R.id.tag_tv, bean.getType_text());
                     mCommVH.setText(R.id.status_tv, bean.getStatus_text());
                     mCommVH.setText(R.id.content_tv, bean.getContent());
-                    mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
+
+                    if(!ToolUtils.isNull(bean.getResponder())) {
+                        mCommVH.setText(R.id.lawyer_name_tv, getString(R.string.law_ask_comm_tx3, bean.getLawyerDetail().getReal_name()));
+                    }else{
+                        mCommVH.setText(R.id.lawyer_name_tv,"正在为您分配律师");
+                    }
                     mCommVH.setText(R.id.price_tv, getString(R.string.law_ask_comm_tx4, bean.getPrice()));
                     mCommVH.setText(R.id.time_tv, getString(R.string.law_ask_comm_tx5, bean.getCreate_time()));
 

@@ -51,6 +51,7 @@ public class OrderListBean extends BaseBean {
     private UserBean user;
     private String email;
     private String status;
+    private String responder;
     public ContractLibBean contractDetail;
 
     public String getCreate_time() {
@@ -219,6 +220,14 @@ public class OrderListBean extends BaseBean {
 
     public void setContractDetail(ContractLibBean contractDetail) {
         this.contractDetail = contractDetail;
+    }
+
+    public String getResponder() {
+        return responder;
+    }
+
+    public void setResponder(String responder) {
+        this.responder = responder;
     }
 
     public static class LawyerDetailBean extends BaseBean {

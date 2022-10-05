@@ -1,11 +1,13 @@
 package framework.mvp1.base.net;
 
 
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.qbo.lawyerstar.BuildConfig;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.MyApplication;
 
@@ -698,9 +700,9 @@ public class BaseRXNetApi {
      * @return
      */
     public static String EncryptionValue(String reqValue, boolean useOrginKey) {
-//        if (NET_URL.getInstance().isDubug()) {
-//            return reqValue;
-//        }
+        if (BuildConfig.DEBUG) {
+            return reqValue;
+        }
         String key = "";
         if (!useOrginKey) {
             try {
@@ -747,6 +749,9 @@ public class BaseRXNetApi {
 //        if (NET_URL.getInstance().isDubug()) {
 //            return secstr;
 //        }
+        if (BuildConfig.DEBUG) {
+            return secstr;
+        }
         String resultStr = secstr;
         if (isBase64(secstr)) {
             try {

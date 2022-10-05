@@ -40,6 +40,7 @@
         <entry key="app/src/main/res/layouts/act/layout/act_lawyer_detail.xml" value="0.25831298828125004" />
         <entry key="app/src/main/res/layouts/act/layout/act_lawyer_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_login.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/act/layout/act_order_detail.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layouts/act/layout/act_register.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_select_usertype.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_setting.xml" value="0.19182739257812495" />

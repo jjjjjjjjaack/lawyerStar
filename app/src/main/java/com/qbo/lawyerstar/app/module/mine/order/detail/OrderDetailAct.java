@@ -66,6 +66,10 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
     View tocancle_tv;
     @BindView(R.id.topay_tv)
     View topay_tv;
+    @BindView(R.id.noresponser_ll)
+    View noresponser_ll;
+    @BindView(R.id.responser_ll)
+    View responser_ll;
 
     PopupToPayView popupToPayView;
 
@@ -132,6 +136,14 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
         if (orderDetailBean != null) {
             presenter.orderDetailBean = orderDetailBean;
             try {
+                if(ToolUtils.isNull(orderDetailBean.getResponder())){
+                    noresponser_ll.setVisibility(View.VISIBLE);
+                    responser_ll.setVisibility(View.GONE);
+                }else{
+                    noresponser_ll.setVisibility(View.GONE);
+                    responser_ll.setVisibility(View.VISIBLE);
+                }
+
                 GlideUtils.loadImageUserLogoDefult(getMContext(), orderDetailBean.getLawyerDetail().getAvatar(), userlogo_civ);
                 name_tv.setText(orderDetailBean.getLawyerDetail().getReal_name());
                 tag_tv.setText(orderDetailBean.getLawyerDetail().expertiseString);

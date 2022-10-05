@@ -13,7 +13,7 @@ public class OrderDetailPresenter extends BasePresent<IOrderDetailView, BaseMode
     GET_ORDER_DETAIL_REQ req = new GET_ORDER_DETAIL_REQ();
 
     public void getInfo() {
-        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, OrderListBean>() {
+        doCommRequest(req, false, true, new DoCommRequestInterface<BaseResponse, OrderListBean>() {
             @Override
             public void doStart() {
 

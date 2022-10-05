@@ -137,7 +137,7 @@ public class PopupToPayView extends PopupBaseView {
     public void getData() {
         REQ_Factory.GET_PAYTYPE_LIST_REQ req = new REQ_Factory.GET_PAYTYPE_LIST_REQ();
         req.type = orderType;
-        BasePresent.doStaticCommRequest(context, req, true, true,
+        BasePresent.doStaticCommRequest(context, req, false, true,
                 new BasePresent.DoCommRequestInterface<BaseResponse,
                         List<FPayTypeBean>>() {
                     @Override
@@ -262,7 +262,7 @@ public class PopupToPayView extends PopupBaseView {
         req.pay_type = "balance";
         req.sn = payBean.sn;
         req.type = orderType;
-        BasePresent.doStaticCommRequest(context, req, true,
+        BasePresent.doStaticCommRequest(context, req, false,
                 true, new BasePresent.DoCommRequestInterface<BaseResponse, BaseResponse>() {
                     @Override
                     public void doStart() {

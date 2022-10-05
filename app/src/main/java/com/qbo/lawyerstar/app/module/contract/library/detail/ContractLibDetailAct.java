@@ -271,7 +271,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
                             public void run() {
                                 dialog.dismiss();
                                 String path = CachePathUtil.getCachePathFile("pdfdownload").getPath();
-                                T.showShort(getMContext(), "下载成功，文件保存在" + path);
+                                T.showLong(getMContext(), "下载成功，文件保存在" + path);
                                 File file = new File(path);
                                 if (null == file || !file.exists()) {
                                     return;
@@ -281,11 +281,11 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
 //                                intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, FileProviderUtil.getUri(getMContext(),file));
 //                               startActivity(intent);
 
-                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.setDataAndType(FileProviderUtil.getUri(getMContext(), file), "file/*");
-                                startActivity(intent);
+//                                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                                intent.addCategory(Intent.CATEGORY_DEFAULT);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                intent.setDataAndType(FileProviderUtil.getUri(getMContext(), file), "file/*");
+//                                startActivity(intent);
                             }
                         });
                     }
