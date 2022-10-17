@@ -66,7 +66,7 @@ public class FazH5WebViewUtils {
             android.webkit.WebView.enableSlowWholeDocumentDraw();
         }
         fazWebView = new WebView(context);
-        fazWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);      //设置 缓存模式
+        fazWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);      //设置 缓存模式
         fazWebView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
         fazWebView.getSettings().setJavaScriptEnabled(true);//
         fazWebView.getSettings().setBlockNetworkImage(true);//先阻塞加载图片

@@ -31,6 +31,8 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
     TextView getcode_tv;
     @BindView(R.id.tologin_tv)
     View tologin_tv;
+    @BindView(R.id.jump_tv)
+    View jump_tv;
     @BindView(R.id.phone_et)
     EditText phone_et;
     @BindView(R.id.code_et)
@@ -114,6 +116,12 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
                     return;
                 }
                 presenter.toLogin(phone_et.getText().toString().trim(), code_et.getText().toString().trim(), "0");
+            }
+        });
+        jump_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VpMainAct.openMainAct(getMContext());
             }
         });
         SplashAct.initPactText(getMContext(), tv_pact_text);

@@ -156,6 +156,7 @@ public class LawBusinessUtils {
                     return;
                 }
                 BusinessWapAct.openAct(context, "non_appeal");
+                break;
             case FUNCTION_8_ZCSS:
                 try {
                     FTokenUtils.getToken(context, true);
