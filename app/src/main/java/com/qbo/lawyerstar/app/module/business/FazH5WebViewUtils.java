@@ -273,6 +273,11 @@ public class FazH5WebViewUtils {
      */
     public static void initFAZH5Web(Context context, String url, boolean needInit) {
 //        String url = NET_URL.getInstance().getWapBaseUrl("?t=" + System.currentTimeMillis());
+        if (url.contains("?")) {
+            url += ("&t=" + System.currentTimeMillis());
+        }else{
+            url += ("?t=" + System.currentTimeMillis());
+        }
         List<CookieStr> cookieStrs = new ArrayList<>();
         try {
             FToken token = FTokenUtils.getToken(context, false);
@@ -470,8 +475,8 @@ public class FazH5WebViewUtils {
         }
     }
 
-    public static void finish(){
-        if(fazWebView!=null){
+    public static void finishWeb() {
+        if (fazWebView != null) {
             try {
 //                fazWebView.stopLoading();
 //                fazWebView.removeAllViews();
@@ -479,7 +484,7 @@ public class FazH5WebViewUtils {
                 if (fazWebView.getParent() != null) {
                     ((ViewGroup) fazWebView.getParent()).removeAllViews();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }

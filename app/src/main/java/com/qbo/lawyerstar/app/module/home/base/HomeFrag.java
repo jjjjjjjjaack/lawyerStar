@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,6 +86,12 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
 
     @BindView(R.id.version_tv)
     TextView version_tv;
+    @BindView(R.id.nestsv)
+    NestedScrollView nestsv;
+    @BindView(R.id.top_titleview_ll)
+    View top_titleview_ll;
+    @BindView(R.id.topbg_iv)
+    View topbg_iv;
     @BindView(R.id.find_lawyer_rl)
     View find_lawyer_rl;
     @BindView(R.id.lawyer_more_rl)
@@ -95,6 +102,9 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
     View ask_ai_ll;
     @BindView(R.id.onlineserver_rl)
     View onlineserver_rl;
+
+    float topViewMinY = 0;
+    float topViewMaxY = 0;
 
     @Override
     public HomePresenter initPresenter() {
@@ -273,6 +283,38 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                     return;
                 }
                 BusinessWapAct.openAct(getMContext(), "service");
+            }
+        });
+
+        top_titleview_ll.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    topViewMinY = top_titleview_ll.getY() + top_titleview_ll.getHeight() + ResourceUtils.dp2px(getContext(), 18);
+                } catch (Exception e) {
+                }
+            }
+        });
+
+        topbg_iv.post(new Runnable() {
+            @Override
+            public void run() {
+                topViewMaxY = topbg_iv.getY() + topbg_iv.getHeight();
+            }
+        });
+
+        nestsv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (topViewMaxY == 0 || topViewMinY == 0) {
+                    return;
+                }
+                float size = topViewMaxY - topViewMinY;
+                int scy = scrollY - oldScrollY;
+                float nowY = topbg_iv.getY() - scy;
+                if (Math.abs(nowY) <= size && nowY <= 0) {
+                    topbg_iv.setY(nowY);
+                }
             }
         });
     }

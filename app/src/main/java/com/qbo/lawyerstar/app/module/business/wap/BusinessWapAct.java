@@ -97,6 +97,8 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     private String title;
     private String rightbtn;
 
+    private int urltype;
+
     @Override
     public void baseInitialization() {
         setStatusBarComm(true);
@@ -111,13 +113,11 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     public void viewInitialization() {
 //        setBackPress();
 //        initWebView();
-
-
         findViewById(R.id.rl_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FazH5WebViewUtils.backPage("");
-                finish();
+                FazH5WebViewUtils.backPage("''");
+//                finish();
             }
         });
 
@@ -160,7 +160,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 //    }
     @Override
     public void doBusiness() {
-        int urltype = getIntent().getIntExtra("urltype", 0);
+        urltype = getIntent().getIntExtra("urltype", 0);
         if (urltype == 0) {
             String urlkey = getIntent().getStringExtra("urlkey");
             presenter.getWapUrl(urlkey);
@@ -309,8 +309,10 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FazH5WebViewUtils.backPage("");
-        FazH5WebViewUtils.finish();
+//        FazH5WebViewUtils.backPage("");
+//        if(urltype!=0) {
+//            FazH5WebViewUtils.finish();
+//        }
     }
 
     @Override
