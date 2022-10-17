@@ -67,7 +67,7 @@ import rx.schedulers.Schedulers;
 
 public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, BusinessWapPresenter> implements IBusinessWapView {
 
-    public static void openAct(Context context,String urlkey) {
+    public static void openAct(Context context, String urlkey) {
         Intent intent = new Intent(context, BusinessWapAct.class);
         intent.putExtra("urltype", 0);
         intent.putExtra("urlkey", urlkey);
@@ -97,8 +97,6 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     private String title;
     private String rightbtn;
 
-    private int urltype;
-
     @Override
     public void baseInitialization() {
         setStatusBarComm(true);
@@ -117,7 +115,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             @Override
             public void onClick(View v) {
                 FazH5WebViewUtils.backPage("''");
-//                finish();
+                finish();
             }
         });
 
@@ -158,6 +156,8 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 //        webview_fl.addView(fazWebView,
 //                new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 //    }
+    public int urltype;
+
     @Override
     public void doBusiness() {
         urltype = getIntent().getIntExtra("urltype", 0);
@@ -310,9 +310,9 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     protected void onDestroy() {
         super.onDestroy();
 //        FazH5WebViewUtils.backPage("");
-//        if(urltype!=0) {
-//            FazH5WebViewUtils.finish();
-//        }
+        if (urltype == 0) {
+            FazH5WebViewUtils.finishWeb();
+        }
     }
 
     @Override
