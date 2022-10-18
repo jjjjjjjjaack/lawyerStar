@@ -62,7 +62,8 @@ public class LawStudyFrag extends MvpFrag<ILawStudyView, BaseModel, LawStudyPres
         fragments.add(LawStudyListFrag.newInstance("6"));
         fragments.add(LawStudyListFrag.newInstance("7"));
 
-        viewpager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager(),BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        viewpager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager(),
+                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @NonNull
             @Override
             public Fragment getItem(int position) {
