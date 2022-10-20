@@ -8,4 +8,6 @@ public interface IContractLibDetailView extends BaseView {
     void createSuccess(FOrderPayBean bean);
 
     void confirmDownLoad();
+
+    void showVipTip();
 }

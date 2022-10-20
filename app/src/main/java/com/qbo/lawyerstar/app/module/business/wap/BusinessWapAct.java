@@ -3,6 +3,7 @@ package com.qbo.lawyerstar.app.module.business.wap;
 import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 import static com.luck.picture.lib.config.PictureConfig.CHOOSE_REQUEST;
 import static com.luck.picture.lib.config.PictureConfig.REQUEST_CAMERA;
+import static framework.mvp1.base.constant.BROConstant.CLOSE_EXTRAACT_ACTION;
 
 import android.app.Activity;
 import android.content.Context;
@@ -79,6 +80,15 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         intent.putExtra("urltype", urltype);
         H5URLBean h5URLBean = new H5URLBean(url, params);
         intent.putExtra("H5URLBean", h5URLBean);
+        context.startActivity(intent);
+    }
+
+    public static void openActForPay(Context context, String orderSn, String orderType) {
+        Intent intent = new Intent(context, BusinessWapAct.class);
+        intent.putExtra("urltype", 0);
+        intent.putExtra("urlkey", "payment");
+        intent.putExtra("orderSn", orderSn);
+        intent.putExtra("orderType", orderType);
         context.startActivity(intent);
     }
 
@@ -163,6 +173,8 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         urltype = getIntent().getIntExtra("urltype", 0);
         if (urltype == 0) {
             String urlkey = getIntent().getStringExtra("urlkey");
+            presenter.orderSn = getIntent().getStringExtra("orderSn");
+            presenter.orderType = getIntent().getStringExtra("orderType");
             presenter.getWapUrl(urlkey);
         } else {
             h5URLBean = (H5URLBean) getIntent().getSerializableExtra("H5URLBean");
@@ -485,6 +497,12 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             case 12:
                 LawBusinessUtils.showVipTipView(getMContext(), webview_fl);
 //                T.showShort(getMContext(), "请先开通vip");
+                break;
+            case 13:
+                Intent intent = new Intent(CLOSE_EXTRAACT_ACTION);
+                intent.putExtra("CLOSE_EXARTACT_KEY", "VpMainAct");
+                sendBroadcast(intent);
+                finish();
                 break;
         }
 

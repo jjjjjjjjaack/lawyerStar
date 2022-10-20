@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
+import com.qbo.lawyerstar.app.module.business.wap.BusinessWapAct;
 import com.qbo.lawyerstar.app.module.mine.order.bean.OrderListBean;
 import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
 import com.qbo.lawyerstar.app.module.popup.PopupTipWithBtnView;
@@ -185,17 +186,18 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
                         FOrderPayBean payBean = new FOrderPayBean();
                         payBean.sn = presenter.orderDetailBean.getSn();
                         payBean.price = presenter.orderDetailBean.getPrice();
-                        popupToPayView.show(v, payBean, new PopupToPayView.ToPayInterface() {
-                            @Override
-                            public void alipayRequest() {
-
-                            }
-
-                            @Override
-                            public void paySuccess() {
-                                gotoActivity(PaySuccessAct.class);
-                            }
-                        });
+                        BusinessWapAct.openActForPay(getMContext(),payBean.sn,presenter.orderDetailBean.getType());
+//                        popupToPayView.show(v, payBean, new PopupToPayView.ToPayInterface() {
+//                            @Override
+//                            public void alipayRequest() {
+//
+//                            }
+//
+//                            @Override
+//                            public void paySuccess() {
+//                                gotoActivity(PaySuccessAct.class);
+//                            }
+//                        });
                     }
                 });
 

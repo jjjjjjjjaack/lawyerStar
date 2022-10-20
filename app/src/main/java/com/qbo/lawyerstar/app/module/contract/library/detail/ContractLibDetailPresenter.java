@@ -4,6 +4,7 @@ import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.list.IContractLibListView;
 
+import framework.mvp1.base.exception.NetException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.BasePresent;
 import framework.mvp1.base.net.BaseResponse;
@@ -37,7 +38,12 @@ public class ContractLibDetailPresenter extends BasePresent<IContractLibDetailVi
 
             @Override
             public void onError(Throwable e) {
-
+                if(e instanceof NetException){
+                    NetException netException = (NetException) e;
+                    if(netException.netCode==406){
+                         view().showVipTip();
+                    }
+                }
             }
         });
     }

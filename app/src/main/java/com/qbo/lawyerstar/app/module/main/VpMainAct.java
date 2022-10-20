@@ -382,8 +382,8 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        Runtime.getRuntime().gc();
-        Process.killProcess(Process.myPid());
+//        Runtime.getRuntime().gc();
+//        Process.killProcess(Process.myPid());
     }
 
     /**

@@ -19,6 +19,7 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
+import com.qbo.lawyerstar.app.module.business.wap.BusinessWapAct;
 import com.qbo.lawyerstar.app.module.contract.library.bean.ContractLibBean;
 import com.qbo.lawyerstar.app.module.contract.library.list.ContractLibListAct;
 import com.qbo.lawyerstar.app.module.contract.library.list.IContractLibListView;
@@ -134,63 +135,63 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.setEnabled(false);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                String javascript = "javascript:function ResizeImages() {" +
-                        "var myimg,oldwidth;" +
-                        "var maxwidth = document.body.clientWidth;" +
-                        "for(i=0;i <document.images.length;i++){" +
-                        "myimg = document.images[i];" +
-                        "if(myimg.width > maxwidth){" +
-                        "oldwidth = myimg.width;" +
-                        "myimg.width = maxwidth;" +
-                        "}" +
-                        "}" +
-                        "}";
-                String width = String.valueOf(ResourceUtils.getWindowsWidth(ContractLibDetailAct.this));
-                view.loadUrl(javascript);
-                view.loadUrl("javascript:ResizeImages();");
-            }
-        });
 //        webView.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-////handler.cancel(); 默认的处理⽅式，WebView变成空⽩页
-//                handler.proceed();//接受证书
-////handleMessage(Message msg); 其他处理
-//            }
-//
 //            @Override
 //            public void onPageFinished(WebView view, String url) {
 //                super.onPageFinished(view, url);
-//
-//                String js = "";
-////                js+= "alert('123123');";
-//                js += " var oMeta = document.createElement('meta');";
-//                js += "oMeta.name = 'viewport';";
-//                js += "oMeta.content = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';";
-//                js += "document.getElementsByTagName('head')[0].appendChild(oMeta);";
-//                js += "var style = document.createElement(\"style\");";
-//                js += "style.type = \"text/css\";";
-//                js += "style.appendChild(document.createTextNode(\"body{max-width: 100%; width:100%; height:auto;word-wrap:break-word; font-family:Arial;padding:0px 5px 0px 5px;}\"));";
-//                js += "var style2 = document.createElement(\"style\");";
-//                js += "style2.type = \"text/css\";";
-//                js += "style2.appendChild(document.createTextNode(\"iframe{max-width: 100%; width:100%; height:auto;}\"));";
-//                js += "var head = document.getElementsByTagName(\"head\")[0];";
-//                js += "head.appendChild(style);";
-//                js += "head.appendChild(style2);";
-//                webView.loadUrl("javascript:" + js);
-////                new Handler().postDelayed(new Runnable() {
-////                    @Override
-////                    public void run() {
-////                        bodyJsInject();
-////                    }
-////                }, 3000);
-//
+//                String javascript = "javascript:function ResizeImages() {" +
+//                        "var myimg,oldwidth;" +
+//                        "var maxwidth = document.body.clientWidth;" +
+//                        "for(i=0;i <document.images.length;i++){" +
+//                        "myimg = document.images[i];" +
+//                        "if(myimg.width > maxwidth){" +
+//                        "oldwidth = myimg.width;" +
+//                        "myimg.width = maxwidth;" +
+//                        "}" +
+//                        "}" +
+//                        "}";
+//                String width = String.valueOf(ResourceUtils.getWindowsWidth(ContractLibDetailAct.this));
+//                view.loadUrl(javascript);
+//                view.loadUrl("javascript:ResizeImages();");
 //            }
 //        });
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//handler.cancel(); 默认的处理⽅式，WebView变成空⽩页
+                handler.proceed();//接受证书
+//handleMessage(Message msg); 其他处理
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                String js = "";
+//                js+= "alert('123123');";
+                js += " var oMeta = document.createElement('meta');";
+                js += "oMeta.name = 'viewport';";
+                js += "oMeta.content = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';";
+                js += "document.getElementsByTagName('head')[0].appendChild(oMeta);";
+                js += "var style = document.createElement(\"style\");";
+                js += "style.type = \"text/css\";";
+                js += "style.appendChild(document.createTextNode(\"body{word-wrap:break-word;font-family:Arial;;padding:0px 5px 0px 5px;}\"));";
+                js += "var style2 = document.createElement(\"style\");";
+                js += "style2.type = \"text/css\";";
+                js += "style2.appendChild(document.createTextNode(\"img{max-width: 100%; width:100%; height:auto;}\"));";
+                js += "var head = document.getElementsByTagName(\"head\")[0];";
+                js += "head.appendChild(style);";
+                js += "head.appendChild(style2);";
+                webView.loadUrl("javascript:" + js);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        bodyJsInject();
+//                    }
+//                }, 3000);
+
+            }
+        });
 
         webview_fl.addView(webView, 0, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
@@ -312,6 +313,13 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
     }
 
     @Override
+    public void showVipTip() {
+        if(webview_fl!=null) {
+            LawBusinessUtils.showVipTipView(getMContext(), webview_fl);
+        }
+    }
+
+    @Override
     public void doWakeUpBusiness() {
 
     }
@@ -338,24 +346,26 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
     @Override
     public void createSuccess(FOrderPayBean bean) {
         if (bean != null) {
-            popupToPayView.show(topay_tv, bean, new PopupToPayView.ToPayInterface() {
-                @Override
-                public void alipayRequest() {
+            BusinessWapAct.openActForPay(getMContext(),bean.sn,"contract_documents");
+//            popupToPayView.show(topay_tv, bean, new PopupToPayView.ToPayInterface() {
+//                @Override
+//                public void alipayRequest() {
+//
+//                }
+//
+//                @Override
+//                public void paySuccess() {
+//                    EventBus.getDefault().post(new CEventUtils.ContractPaySuccessEvent(presenter.bean.id));
+//                    presenter.bean.is_pay = true;
+//                    try {
+//                        showInfo();
+//                    } catch (Exception e) {
+//                    }
+//                    gotoActivity(PaySuccessAct.class);
+//                }
+//
+//            });
 
-                }
-
-                @Override
-                public void paySuccess() {
-                    EventBus.getDefault().post(new CEventUtils.ContractPaySuccessEvent(presenter.bean.id));
-                    presenter.bean.is_pay = true;
-                    try {
-                        showInfo();
-                    } catch (Exception e) {
-                    }
-                    gotoActivity(PaySuccessAct.class);
-                }
-
-            });
 //            gotoActivity(PaySuccessAct.class);
         }
     }

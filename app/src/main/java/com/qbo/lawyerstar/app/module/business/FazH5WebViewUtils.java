@@ -86,7 +86,6 @@ public class FazH5WebViewUtils {
                 return false;
             }
         });
-        Log.i(TAG, "aasdasdasd");
     }
 
 
@@ -157,22 +156,32 @@ public class FazH5WebViewUtils {
 
         @JavascriptInterface
         public void share(String o) {
+            Log.i(TAG, "share(" + o + ")");
             EventBus.getDefault().post(new CEventUtils.H5Event(-5, o));
         }
 
         @JavascriptInterface
         public void Back(String o) {
+            Log.i(TAG, "Back(" + o + ")");
             EventBus.getDefault().post(new CEventUtils.H5Event(-2, o));
         }
 
         @JavascriptInterface
         public void Pay(String o) {
+            Log.i(TAG, "Pay(" + o + ")");
             EventBus.getDefault().post(new CEventUtils.H5Event(11, o));
         }
 
         @JavascriptInterface
         public void IsVip(String o) {
+            Log.i(TAG, "IsVip(" + o + ")");
             EventBus.getDefault().post(new CEventUtils.H5Event(12, o));
+        }
+
+        @JavascriptInterface
+        public void toIndex(String o) {
+            Log.i(TAG, "toIndex(" + o + ")");
+            EventBus.getDefault().post(new CEventUtils.H5Event(13, o));
         }
         //页面加载完成
 //        @JavascriptInterface
@@ -274,9 +283,9 @@ public class FazH5WebViewUtils {
     public static void initFAZH5Web(Context context, String url, boolean needInit) {
 //        String url = NET_URL.getInstance().getWapBaseUrl("?t=" + System.currentTimeMillis());
         if (url.contains("?")) {
-            url += ("&t=" + System.currentTimeMillis());
-        }else{
-            url += ("?t=" + System.currentTimeMillis());
+            url += ("&tsec=" + System.currentTimeMillis());
+        } else {
+            url += ("?tsec=" + System.currentTimeMillis());
         }
         List<CookieStr> cookieStrs = new ArrayList<>();
         try {
@@ -375,7 +384,21 @@ public class FazH5WebViewUtils {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest webResourceRequest) {
-//                String url = webResourceRequest.getUrl().toString();
+                String url = webResourceRequest.getUrl().toString();
+                if (url.contains("alipays://")) {
+                    try {
+                        Uri uri = Uri.parse(url);
+                        Intent intent;
+                        intent = Intent.parseUri(url,
+                                Intent.URI_INTENT_SCHEME);
+                        intent.addCategory("android.intent.category.BROWSABLE");
+                        intent.setComponent(null);
+                        // intent.setSelector(null);
+                        context.startActivity(intent);
+                    } catch (Exception e) {
+                    }
+                    return true;
+                } else {
 //                int lastSlash = url.lastIndexOf("/");
 //                if (lastSlash != -1) {
 //                    String suffix = url.substring(lastSlash + 1);
@@ -387,7 +410,8 @@ public class FazH5WebViewUtils {
 ////                                .enqueue();
 //                    }
 //                }
-                return super.shouldOverrideUrlLoading(webView, webResourceRequest);
+                    return super.shouldOverrideUrlLoading(webView, webResourceRequest);
+                }
             }
         });
 
