@@ -18,6 +18,7 @@ import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.bean.FPayTypeBean;
 import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.alipay.PayResult;
+import com.qbo.lawyerstar.app.module.pay.bean.PayResultBean;
 import com.qbo.lawyerstar.app.net.REQ_Factory;
 import com.qbo.lawyerstar.app.net.RES_Factory;
 import com.alipay.sdk.app.PayTask;
@@ -50,9 +51,11 @@ public class PopupToPayView extends PopupBaseView {
     private boolean autoShow = false;
 
     public interface ToPayInterface {
-        void alipayRequest();
+//        void alipayRequest();
 
-        void paySuccess();
+//        void paySuccess();
+
+        void toPayFinish(FOrderPayBean fOrderPayBean);
     }
 
     // "type": "订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice"
@@ -124,7 +127,12 @@ public class PopupToPayView extends PopupBaseView {
                     return;
                 }
                 if ("alipay".equals(selectBean.id)) {
-                    toPayInterface.alipayRequest();
+//                    toPayInterface.alipayRequest();
+//                    if(payBean==null&&ToolUtils.isNull(payBean.alipayOrderInfo)){
+//                        return;
+//                    }
+                    payByAlipay();
+//                    payForAliay(payBean.alipayOrderInfo);
                 } else if ("balance".equals(selectBean.id)) {
                     payByBalance();
 //                    toPayInterface.balanceRequest();
@@ -276,7 +284,10 @@ public class PopupToPayView extends PopupBaseView {
 
                     @Override
                     public void onSuccess(BaseResponse baseResponse) throws Exception {
-                        toPayInterface.paySuccess();
+                        payBean.orderType = orderType;
+                        payBean.payType = "balance";
+                        toPayInterface.toPayFinish(payBean);
+                        dismiss();
                     }
 
                     @Override
@@ -287,9 +298,45 @@ public class PopupToPayView extends PopupBaseView {
     }
 
 
+    /**
+     * @param
+     * @return
+     * @description 余额支付
+     * @author jieja
+     * @time 2022/9/21 16:15
+     */
+    public void payByAlipay() {
+        REQ_Factory.POST_PAY_ORDER_REQ req = new REQ_Factory.POST_PAY_ORDER_REQ();
+        req.pay_type = "alipay";
+        req.sn = payBean.sn;
+        req.type = orderType;
+        BasePresent.doStaticCommRequest(context, req, false,
+                true, new BasePresent.DoCommRequestInterface<BaseResponse, BaseResponse>() {
+                    @Override
+                    public void doStart() {
+
+                    }
+
+                    @Override
+                    public BaseResponse doMap(BaseResponse baseResponse) {
+                        return baseResponse;
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) throws Exception {
+                        payForAliay(baseResponse.datas);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
     private static final int ALIPAY_SDK_PAY_FLAG = 1;
 
-    public void payForAliay(Activity activity, String orderStr) {
+    public void payForAliay(String orderStr) {
         if (ToolUtils.isNull(orderStr)) {
             T.showShort(context, "");
             return;
@@ -298,7 +345,7 @@ public class PopupToPayView extends PopupBaseView {
         Runnable payRunnable = new Runnable() {
             @Override
             public void run() {
-                PayTask alipay = new PayTask(activity);
+                PayTask alipay = new PayTask((Activity) context);
                 Map<String, String> result = alipay.payV2(orderInfo, true);
                 Message msg = new Message();
                 msg.what = ALIPAY_SDK_PAY_FLAG;
@@ -330,6 +377,10 @@ public class PopupToPayView extends PopupBaseView {
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                     }
+                    payBean.orderType = orderType;
+                    payBean.payType = "alipay";
+                    toPayInterface.toPayFinish(payBean);
+                    dismiss();
                     break;
                 }
                 default:
@@ -337,5 +388,34 @@ public class PopupToPayView extends PopupBaseView {
             }
         }
     };
+
+
+    public void checkOrderPayStatus(String payType){
+        REQ_Factory.GET_ORDER_PAY_STATUS_REQ req = new REQ_Factory.GET_ORDER_PAY_STATUS_REQ();
+        req.pay_type = payType;
+        req.sn = payBean.sn;
+        req.type = orderType;
+        BasePresent.doStaticCommRequest(context, req, true, true, new BasePresent.DoCommRequestInterface<BaseResponse, PayResultBean>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public PayResultBean doMap(BaseResponse baseResponse) {
+                return PayResultBean.fromJSONAuto(baseResponse.datas,PayResultBean.class);
+            }
+
+            @Override
+            public void onSuccess(PayResultBean bean) throws Exception {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
 
 }

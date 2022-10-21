@@ -481,13 +481,17 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                     popupToPayView = new PopupToPayView(getMContext(), json.getString("type"), webview_fl, payBean,
                             new PopupToPayView.ToPayInterface() {
                                 @Override
-                                public void alipayRequest() {
+                                public void toPayFinish(FOrderPayBean fOrderPayBean) {
+                                    PaySuccessAct.openAct(getMContext(),fOrderPayBean);
                                 }
-
-                                @Override
-                                public void paySuccess() {
-                                    gotoActivity(PaySuccessAct.class);
-                                }
+//                                @Override
+//                                public void alipayRequest() {
+//                                }
+//
+//                                @Override
+//                                public void paySuccess() {
+//                                    gotoActivity(PaySuccessAct.class);
+//                                }
                             });
 
                 } catch (Exception e) {

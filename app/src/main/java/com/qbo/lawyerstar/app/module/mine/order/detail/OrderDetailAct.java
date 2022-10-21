@@ -112,13 +112,13 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
             finish();
             return;
         }
-        presenter.getInfo();
+
     }
 
 
     @Override
     public void doWakeUpBusiness() {
-
+        presenter.getInfo();
     }
 
     @Override
@@ -186,8 +186,12 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
                         FOrderPayBean payBean = new FOrderPayBean();
                         payBean.sn = presenter.orderDetailBean.getSn();
                         payBean.price = presenter.orderDetailBean.getPrice();
-                        BusinessWapAct.openActForPay(getMContext(),payBean.sn,presenter.orderDetailBean.getType());
-//                        popupToPayView.show(v, payBean, new PopupToPayView.ToPayInterface() {
+//                        BusinessWapAct.openActForPay(getMContext(),payBean.sn,presenter.orderDetailBean.getType());
+                        popupToPayView.show(v, payBean, new PopupToPayView.ToPayInterface() {
+                            @Override
+                            public void toPayFinish(FOrderPayBean fOrderPayBean) {
+                                PaySuccessAct.openAct(getMContext(),fOrderPayBean);
+                            }
 //                            @Override
 //                            public void alipayRequest() {
 //
@@ -197,7 +201,7 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
 //                            public void paySuccess() {
 //                                gotoActivity(PaySuccessAct.class);
 //                            }
-//                        });
+                        });
                     }
                 });
 

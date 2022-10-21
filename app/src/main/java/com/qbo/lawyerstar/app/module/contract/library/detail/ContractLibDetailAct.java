@@ -314,7 +314,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
 
     @Override
     public void showVipTip() {
-        if(webview_fl!=null) {
+        if (webview_fl != null) {
             LawBusinessUtils.showVipTipView(getMContext(), webview_fl);
         }
     }
@@ -346,8 +346,12 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
     @Override
     public void createSuccess(FOrderPayBean bean) {
         if (bean != null) {
-            BusinessWapAct.openActForPay(getMContext(),bean.sn,"contract_documents");
-//            popupToPayView.show(topay_tv, bean, new PopupToPayView.ToPayInterface() {
+//            BusinessWapAct.openActForPay(getMContext(),bean.sn,"contract_documents");
+            popupToPayView.show(topay_tv, bean, new PopupToPayView.ToPayInterface() {
+                @Override
+                public void toPayFinish(FOrderPayBean orderPayBean) {
+                    PaySuccessAct.openAct(getMContext(),orderPayBean);
+                }
 //                @Override
 //                public void alipayRequest() {
 //
@@ -363,8 +367,8 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
 //                    }
 //                    gotoActivity(PaySuccessAct.class);
 //                }
-//
-//            });
+
+            });
 
 //            gotoActivity(PaySuccessAct.class);
         }

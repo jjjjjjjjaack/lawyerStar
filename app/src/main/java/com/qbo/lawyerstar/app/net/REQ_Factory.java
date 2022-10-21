@@ -542,6 +542,20 @@ public class REQ_Factory {
         public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
     }
 
+    /**
+     * @description
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/10/21 16:16
+     */
+    @AnnBaseReq(API_METHOD = "order/getPayStatus")
+    public static class GET_ORDER_PAY_STATUS_REQ extends BaseRequest {
+        public String sn;//
+        public String pay_type;//"支付方式 wechat alipay",
+        public String type;//订单类型 合同文库 contract_documents 代写文书 ghostwriting  律师函 lawyer_letter  法律咨询 legal_advice
+    }
+
 
     /**
      * @param
