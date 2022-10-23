@@ -21,7 +21,7 @@ public class PaySuccessPresenter extends BasePresent<IPaySuccessView, BaseModel>
         req.pay_type = orderPayBean.payType;
         req.sn = orderPayBean.sn;
         req.type = orderPayBean.orderType;
-        doCommRequest(req, true, true, new BasePresent.DoCommRequestInterface<BaseResponse, PayResultBean>() {
+        doCommRequest(req, false, true, new BasePresent.DoCommRequestInterface<BaseResponse, PayResultBean>() {
             @Override
             public void doStart() {
 

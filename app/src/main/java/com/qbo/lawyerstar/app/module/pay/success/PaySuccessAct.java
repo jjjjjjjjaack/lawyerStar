@@ -2,6 +2,8 @@ package com.qbo.lawyerstar.app.module.pay.success;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 
 import static framework.mvp1.base.constant.BROConstant.CLOSE_EXTRAACT_ACTION;
+
+import androidx.annotation.NonNull;
 
 public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccessPresenter> implements IPaySuccessView {
 
@@ -35,6 +39,43 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
     TextView content_tv;
 
     PopupToPayView popupToPayView;
+    Handler checkHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message) {
+            if (isDestroyed()) {
+                return true;
+            }
+            if (message.what == 102) {
+                presenter.checkOrderPayStatus();
+                checkHandler.sendEmptyMessageDelayed(102, 2000);
+            }
+            return true;
+        }
+    });
+    Handler waitTvHanhle = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message) {
+            if (isDestroyed() || content_tv == null) {
+                return true;
+            }
+            if (message.what == 1 || message.what == 2 || message.what == 3) {
+                String sp = "";
+                for (int i = 0; i < message.what; i++) {
+                    sp += (".");
+                }
+                try {
+                    content_tv.setText("正在支付，请稍等" + sp);
+                    int nextwhat = message.what + 1;
+                    if (message.what > 3) {
+                        nextwhat = 1;
+                    }
+                    waitTvHanhle.sendEmptyMessageDelayed(nextwhat, 200);
+                } catch (Exception e) {
+                }
+            }
+            return true;
+        }
+    });
 
     @Override
     public PaySuccessPresenter initPresenter() {
@@ -71,8 +112,10 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
         presenter.orderPayBean = (FOrderPayBean) getIntent().getSerializableExtra("orderPayBean");
         if (presenter.orderPayBean == null) {
             finish();
+            return;
         }
-        presenter.checkOrderPayStatus();
+//        presenter.checkOrderPayStatus();
+        setWaitPayView();
     }
 
     @Override
@@ -99,7 +142,11 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
         title_tv.setText(bean.status_text);
         content_tv.setText(bean.tips_text);
         if ("1".equals(bean.status)) {//支付成功
+            waitTvHanhle.removeMessages(1);
+            waitTvHanhle.removeMessages(2);
+            waitTvHanhle.removeMessages(3);
             pay_iv.setImageResource(R.mipmap.ic_commit_success_3);
+            backhome_tv.setVisibility(View.VISIBLE);
             backhome_tv.setText("返回首页");
             backhome_tv.setTextColor(0xff02c4c3);
             backhome_tv.setBackgroundResource(R.drawable.shape_storke_02c4c3_r2);
@@ -112,9 +159,13 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
                     finish();
                 }
             });
-        } else {//支付失败
+        } else if ("-1".equals(bean.status)) {//支付失败
+            waitTvHanhle.removeMessages(1);
+            waitTvHanhle.removeMessages(2);
+            waitTvHanhle.removeMessages(3);
             pay_iv.setImageResource(R.mipmap.ic_pay_fail_1);
             popupToPayView = new PopupToPayView(getMContext(), presenter.orderPayBean.getOrderType());
+            backhome_tv.setVisibility(View.VISIBLE);
             backhome_tv.setText("重新支付");
             backhome_tv.setTextColor(0xffF83131);
             backhome_tv.setBackgroundResource(R.drawable.shape_storke_f83131_r2);
@@ -139,10 +190,23 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
                     });
                 }
             });
-        }
-//        else {
+        } else {
 //            pay_iv.setImageResource(R.mipmap.ic_waitpay_1);
-//
-//        }
+//            backhome_tv.setVisibility(View.GONE);
+            setWaitPayView();
+        }
+    }
+
+    public void setWaitPayView() {
+        pay_iv.setImageResource(R.mipmap.ic_waitpay_1);
+        title_tv.setText("支付中");
+        waitTvHanhle.removeMessages(1);
+        waitTvHanhle.removeMessages(2);
+        waitTvHanhle.removeMessages(3);
+        waitTvHanhle.sendEmptyMessage(1);
+//        content_tv.setText("正在支付，请稍等...");
+        backhome_tv.setVisibility(View.GONE);
+        checkHandler.removeMessages(102);
+        checkHandler.sendEmptyMessageDelayed(102, 2000);
     }
 }
