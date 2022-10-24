@@ -5,14 +5,20 @@ import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 import android.content.Context;
 import android.os.Build;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
 import com.qbo.lawyerstar.app.module.mine.about.bean.AboutUsBean;
 import com.qbo.lawyerstar.app.module.mine.vip.bean.VipIntroBean;
+import com.qbo.lawyerstar.app.module.mine.vip.introv2.base.VipIntroV2Act;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
@@ -22,9 +28,12 @@ import com.youth.banner.listener.OnPageChangeListener;
 import java.util.List;
 
 import butterknife.BindView;
+import framework.mvp1.base.adapter.MCommAdapter;
+import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.GlideUtils;
+import framework.mvp1.base.util.ResourceUtils;
 import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.base.util.WebViewUtil;
 
@@ -32,12 +41,16 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
 
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.rcy)
+    RecyclerView rcy;
     @BindView(R.id.commit_tv)
     TextView commit_tv;
 
     private WebView webView;
     @BindView(R.id.webview_fl)
     FrameLayout webview_fl;
+
+    private MCommAdapter mCommAdapter;
 
     @Override
     public void baseInitialization() {
@@ -53,7 +66,39 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
     public void viewInitialization() {
         setBackPress();
         setMTitle(R.string.vip_intro_tx1);
+        int itemWidth = (ResourceUtils.getScreenWidth(getMContext()) - ResourceUtils.dp2px(getMContext(), 36)) / 2;
+        rcy.setLayoutManager(new LinearLayoutManager(getMContext(), LinearLayoutManager.HORIZONTAL, false));
+        mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<VipIntroBean>() {
+            @Override
+            public int setLayout() {
+                return R.layout.item_vip_title_banner_list;
+            }
 
+            @Override
+            public void initViews(Context context, MCommVH mCommVH, View itemView) {
+
+            }
+
+            @Override
+            public void bindData(Context context, MCommVH mCommVH, int position, VipIntroBean data) {
+                mCommVH.itemView.getLayoutParams().width = itemWidth;
+                if (position == mCommVH.adapter.getBeanList().size() - 1) {
+                    ((ViewGroup.MarginLayoutParams) mCommVH.itemView.getLayoutParams()).leftMargin = ResourceUtils.dip2px2(getMContext(), 12);
+                    ((ViewGroup.MarginLayoutParams) mCommVH.itemView.getLayoutParams()).rightMargin = ResourceUtils.dip2px2(getMContext(), 12);
+                } else {
+                    ((ViewGroup.MarginLayoutParams) mCommVH.itemView.getLayoutParams()).leftMargin = ResourceUtils.dip2px2(getMContext(), 12);
+                    ((ViewGroup.MarginLayoutParams) mCommVH.itemView.getLayoutParams()).rightMargin = 0;
+                }
+                GlideUtils.loadImageDefult(getMContext(), data.getPic(), (ImageView) mCommVH.getView(R.id.img_iv));
+                mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        VipIntroV2Act.openAct(context, position);
+                    }
+                });
+            }
+        });
+        rcy.setAdapter(mCommAdapter);
         initWebView();
     }
 
@@ -91,32 +136,35 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
     public void showInfo(List<VipIntroBean> beanList) {
         if (beanList.size() != 0) {
             presenter.vipIntroBeans = beanList;
-            banner.setAdapter(new BannerImageAdapter<VipIntroBean>(beanList) {
-                @Override
-                public void onBindView(BannerImageHolder holder, VipIntroBean data, int position, int size) {
-//                    //图片加载自己实现
-                    GlideUtils.loadImageDefult(getMContext(), data.getPic(), holder.imageView);
-                }
-            }).addOnPageChangeListener(new OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            mCommAdapter.setData(presenter.vipIntroBeans);
+//            banner.setAdapter(new BannerImageAdapter<VipIntroBean>(beanList) {
+//                @Override
+//                public void onBindView(BannerImageHolder holder, VipIntroBean data, int position, int size) {
+////                    //图片加载自己实现
+//                    GlideUtils.loadImageDefult(getMContext(), data.getPic(), holder.imageView);
+//                }
+//            }).addOnPageChangeListener(new OnPageChangeListener() {
+//                @Override
+//                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//                }
+//
+//                @Override
+//                public void onPageSelected(int position) {
+//                    try {
+//                        showItemInfo(presenter.vipIntroBeans.get(position));
+//                    } catch (Exception e) {
+//                    }
+//                }
+//
+//                @Override
+//                public void onPageScrollStateChanged(int state) {
+//
+//                }
+//            }).isAutoLoop(false).addBannerLifecycleObserver(this)//添加生命周期观察者
+//                    .setIndicator(new CircleIndicator(getMContext()));
 
-                }
 
-                @Override
-                public void onPageSelected(int position) {
-                    try {
-                        showItemInfo(presenter.vipIntroBeans.get(position));
-                    } catch (Exception e) {
-                    }
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            }).isAutoLoop(false).addBannerLifecycleObserver(this)//添加生命周期观察者
-                    .setIndicator(new CircleIndicator(getMContext()));
             showItemInfo(beanList.get(0));
         }
     }

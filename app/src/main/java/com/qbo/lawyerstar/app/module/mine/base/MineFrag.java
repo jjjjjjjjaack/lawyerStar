@@ -37,6 +37,7 @@ import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.mine.notice.type.NoticeTypeAct;
 import com.qbo.lawyerstar.app.module.mine.vip.intro.VipIntroAct;
+import com.qbo.lawyerstar.app.module.mine.vip.introv2.base.VipIntroV2Act;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;

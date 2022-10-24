@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_80"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/selector_vip_typeprice_bg_1"
+    >
+
+    <TextView
+        android:id="@+id/typename_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="开通一年"
+        android:textColor="#ff333333"
+        android:textSize="14sp"
+        android:singleLine="true"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        />
+
+
+    <TextView
+        android:id="@+id/price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="¥4980"
+        android:textColor="#ff333333"
+        android:layout_marginTop="@dimen/dp_6"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        />
+
+</LinearLayout>

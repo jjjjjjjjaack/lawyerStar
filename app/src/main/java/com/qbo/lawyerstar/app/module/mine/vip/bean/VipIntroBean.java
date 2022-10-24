@@ -8,6 +8,7 @@ public class VipIntroBean extends BaseBean {
     public String id;
     public String create_time;
     public String update_time;
+    public String service_icon;
     public String name;
     public String price;
     public String pic;
@@ -15,6 +16,8 @@ public class VipIntroBean extends BaseBean {
     public String is_valid;
     public String valid_date;
     public String intro;
+    public String btn_color;
+    public List<YearPriceBean> year_price;
 
 
     public static class DetailDTO extends BaseBean{
@@ -53,6 +56,52 @@ public class VipIntroBean extends BaseBean {
 
         public void setService_time(String service_time) {
             this.service_time = service_time;
+        }
+    }
+
+    public static class YearPriceBean extends BaseBean{
+        /**
+         * price : 4980
+         * memo : 开通一年
+         * id : 1
+         * years : 1
+         */
+
+        public String price;
+        public String memo;
+        public String id;
+        public String years;
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public String getMemo() {
+            return memo;
+        }
+
+        public void setMemo(String memo) {
+            this.memo = memo;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getYears() {
+            return years;
+        }
+
+        public void setYears(String years) {
+            this.years = years;
         }
     }
 
@@ -134,5 +183,29 @@ public class VipIntroBean extends BaseBean {
 
     public void setIntro(String intro) {
         this.intro = intro;
+    }
+
+    public String getService_icon() {
+        return service_icon;
+    }
+
+    public void setService_icon(String service_icon) {
+        this.service_icon = service_icon;
+    }
+
+    public String getBtn_color() {
+        return btn_color;
+    }
+
+    public void setBtn_color(String btn_color) {
+        this.btn_color = btn_color;
+    }
+
+    public List<YearPriceBean> getYear_price() {
+        return year_price;
+    }
+
+    public void setYear_price(List<YearPriceBean> year_price) {
+        this.year_price = year_price;
     }
 }

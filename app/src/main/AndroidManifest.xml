@@ -57,6 +57,7 @@
         <activity android:name=".app.module.pay.success.PaySuccessAct" />
         <activity android:name=".app.module.mine.order.list.all.AllOrderListAct" />
         <activity android:name=".app.module.mine.vip.intro.VipIntroAct" />
+        <activity android:name=".app.module.mine.vip.introv2.base.VipIntroV2Act" />
 
         <!--************************************************************************-->
         <provider

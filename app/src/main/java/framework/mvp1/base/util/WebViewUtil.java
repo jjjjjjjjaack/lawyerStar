@@ -15,4 +15,10 @@ public class WebViewUtil {
                 "    </head>\n" +
                 "    <body style=\"word-wrap:break-word; font-family:Arial;padding:0px 5px 0px 5px;\">" + (content == null ? "" : content.trim()) + " </body></html>";
     }
+
+
+    public static String setWebViewContent2(String content) {
+        return "<html>"
+                + (content == null ? "" : content.trim()) + " </html>";
+    }
 }
