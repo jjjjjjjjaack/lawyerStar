@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/selector_tab_main_1.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/selector_tab_text_color.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/selector_tab_text_color_2.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/selector_vip_typeprice_bg_1.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_02c4c3_r2.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_02c4c3_r4.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/shape_07c160_r4.xml" value="0.137" />
@@ -47,12 +48,14 @@
         <entry key="app/src/main/res/layouts/act/layout/act_splash.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_userinfo.xml" value="0.25" />
         <entry key="app/src/main/res/layouts/act/layout/act_vip_intro.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/act/layout/act_vip_intro_v2.xml" value="0.1" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_home.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_business.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_study.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_law_study_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_mine.xml" value="0.25" />
         <entry key="app/src/main/res/layouts/frag/layout/frag_order_list_commlist.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/frag/layout/frag_vipintro_content.xml" value="0.10625" />
         <entry key="app/src/main/res/layouts/other/layout/catloading_main.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/inpopup_select_city.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/item_contract_lib_list.xml" value="0.2359375" />
@@ -62,6 +65,7 @@
         <entry key="app/src/main/res/layouts/other/layout/item_lawyer_list.xml" value="0.34328358208955223" />
         <entry key="app/src/main/res/layouts/other/layout/item_mine_function_list.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/item_order_contract_list.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/item_vip_typeprice_list.xml" value="0.10625" />
         <entry key="app/src/main/res/layouts/other/layout/mine_pickerview_time.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/popup_one_wheel_view.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/popup_select_city.xml" value="0.2359375" />

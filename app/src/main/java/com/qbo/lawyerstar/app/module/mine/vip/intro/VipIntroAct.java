@@ -3,6 +3,7 @@ package com.qbo.lawyerstar.app.module.mine.vip.intro;
 import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
 import com.qbo.lawyerstar.app.module.mine.about.bean.AboutUsBean;
 import com.qbo.lawyerstar.app.module.mine.vip.bean.VipIntroBean;
@@ -177,15 +179,19 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
     }
 
     public void showItemInfo(VipIntroBean vipIntroBean) {
+        if (!ToolUtils.isNull(vipIntroBean.btn_color)) {
+            webView.setBackgroundColor(0xfff4f4f4);
+        }
         webView.loadDataWithBaseURL("",
                 WebViewUtil.setWebViewContent(vipIntroBean.intro),
                 "text/html", "UTF-8", "");
-        commit_tv.setText(vipIntroBean.getPrice() + "/年 联系客服开通");
+//        commit_tv.setText(vipIntroBean.getPrice() + "/年 联系客服开通");
         commit_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                ToolUtils.callPhone(getMContext(),);
-                presenter.getAppInfo();
+//                presenter.getAppInfo();
+                LawBusinessUtils.showVipTipView(getMContext(), view);
             }
         });
     }

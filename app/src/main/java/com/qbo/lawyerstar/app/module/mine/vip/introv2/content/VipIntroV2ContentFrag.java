@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.mine.order.list.comm.frag.OrderListCommListFrag;
 import com.qbo.lawyerstar.app.module.mine.vip.bean.VipIntroBean;
 
@@ -27,6 +29,7 @@ import framework.mvp1.base.f.MvpFrag;
 import framework.mvp1.base.util.ResourceUtils;
 import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.base.util.WebViewUtil;
+import framework.mvp1.views.other.BorderLinearLayout;
 
 import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 
@@ -86,16 +89,34 @@ public class VipIntroV2ContentFrag extends MvpFrag<IVipIntroV2ContentView, BaseM
 
             @Override
             public void bindData(Context context, MCommVH mCommVH, int position, VipIntroBean.YearPriceBean yearPriceBean) {
+
+
+//                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mCommVH.itemView.getLayoutParams();
+//                if(position%3==0){
+//                    lp.leftMargin = ResourceUtils.dip2px2(getContext(), 12);
+//                    lp.rightMargin = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                }else  if(position%3==0){
+//                    lp.leftMargin = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                    lp.rightMargin = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                }else{
+//                    lp.leftMargin = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                    lp.rightMargin = ResourceUtils.dip2px2(getContext(), 12);
+//                }
+
+                BorderLinearLayout borll = (BorderLinearLayout) mCommVH.getView(R.id.borll);
+                if (presenter.vipIntroBean != null) {
+                    borll.setBorderColor(Color.parseColor("#" + presenter.vipIntroBean.btn_color));
+                }
                 mCommVH.itemView.getLayoutParams().width = itemWidth;
                 mCommVH.setText(R.id.typename_tv, yearPriceBean.memo);
                 mCommVH.setText(R.id.price_tv, yearPriceBean.price);
-
                 if (selectPos == position) {
                     mCommVH.itemView.setSelected(true);
+                    borll.setBackgroundColor(Color.parseColor("#1a" + presenter.vipIntroBean.btn_color));
                 } else {
+                    borll.setBackgroundColor(0x00ffffff);
                     mCommVH.itemView.setSelected(false);
                 }
-
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -105,24 +126,30 @@ public class VipIntroV2ContentFrag extends MvpFrag<IVipIntroV2ContentView, BaseM
                 });
             }
         });
-        type_rcv.addItemDecoration(new RecyclerView.ItemDecoration() {
+//        type_rcv.addItemDecoration(new RecyclerView.ItemDecoration() {
+//            @Override
+//            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+//                int itemPosition = parent.getChildLayoutPosition(view);
+//                if (itemPosition % 3 == 0) {
+//                    outRect.left = ResourceUtils.dip2px2(getContext(), 12);
+//                    outRect.right = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                } else if (itemPosition % 3 == 1) {
+//                    outRect.left = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                    outRect.right = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                } else {
+//                    outRect.left = ResourceUtils.dip2px2(getContext(), 3.5f);
+//                    outRect.right = ResourceUtils.dip2px2(getContext(), 12);
+//                }
+//            }
+//        });
+        type_rcv.setAdapter(mCommAdapter);
+        commit_tv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int itemPosition = parent.getChildLayoutPosition(view);
-                if (itemPosition == 0) {
-                    outRect.left = ResourceUtils.dip2px2(getContext(), 12);
-                    outRect.right = ResourceUtils.dip2px2(getContext(), 3.5f);
-                } else if (itemPosition == 1) {
-                    outRect.left = ResourceUtils.dip2px2(getContext(), 3.5f);
-                    outRect.right = ResourceUtils.dip2px2(getContext(), 3.5f);
-                } else {
-                    outRect.left = ResourceUtils.dip2px2(getContext(), 3.5f);
-                    outRect.right = ResourceUtils.dip2px2(getContext(), 12);
-                }
+            public void onClick(View view) {
+                LawBusinessUtils.showVipTipView(getMContext(), view);
             }
         });
-        type_rcv.setAdapter(mCommAdapter);
         initWebView();
     }
 

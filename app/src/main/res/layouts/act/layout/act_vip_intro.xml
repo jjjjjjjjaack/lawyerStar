@@ -27,9 +27,9 @@
         android:id="@+id/title_ll_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_18"
         android:layout_below="@id/title_rl"
+        android:layout_marginTop="@dimen/dp_18"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
@@ -57,16 +57,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_ll_1"
-        android:layout_marginTop="@dimen/dp_20"
-        />
+        android:layout_marginTop="@dimen/dp_20" />
 
     <LinearLayout
         android:id="@+id/title_ll_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/dp_28"
         android:layout_below="@id/rcy"
+        android:layout_marginTop="@dimen/dp_28"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
@@ -95,22 +94,32 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/commit_tv"
         android:layout_below="@id/title_ll_2"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_20"
         android:layout_marginBottom="@dimen/dp_10"></FrameLayout>
 
-
-    <TextView
-        android:id="@+id/commit_tv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_12"
-        android:layout_marginRight="@dimen/dp_12"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:background="@drawable/shape_1b140c_r2"
-        android:gravity="center"
-        android:textColor="#fff4c88d"
-        android:textSize="16sp"
-        tools:text="4890元/年 联系客服开通" />
+        android:background="@color/c_ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/commit_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@drawable/shape_63a1eb_r4"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            android:text="联系客服开通"
+            tools:text="4890元/年 联系客服开通" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
