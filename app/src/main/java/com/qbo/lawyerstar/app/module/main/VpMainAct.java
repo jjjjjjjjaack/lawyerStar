@@ -324,6 +324,8 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
             case R.id.tab4:
                 if (mineFrag == null) {
                     mineFrag = new MineFrag();
+                }else{
+                    mineFrag.refresh();
                 }
                 doFragmentChange(mineFrag);
                 break;

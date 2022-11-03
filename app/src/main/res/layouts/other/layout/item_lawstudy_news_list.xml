@@ -45,13 +45,24 @@
         android:layout_alignParentBottom="true"
         >
 
+        <ImageView
+            android:id="@+id/read_iv"
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_12"
+            android:src="@mipmap/ic_news_read_1"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            />
+
         <TextView
             android:id="@+id/newsreadnum_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:textColor="#ffcccccc"
             android:textSize="12sp"
+            android:layout_toRightOf="@id/read_iv"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:layout_centerVertical="true"
             />
 
 
@@ -63,6 +74,7 @@
             android:layout_marginRight="@dimen/dp_45"
             android:textColor="#ffcccccc"
             android:textSize="12sp"
+            android:layout_centerVertical="true"
             />
 
     </RelativeLayout>

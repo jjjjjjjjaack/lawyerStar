@@ -64,9 +64,13 @@
         android:layout_width="@dimen/dp_128"
         android:layout_height="@dimen/dp_52"
         android:background="@drawable/shape_ffffff_bottom_r8"
-        android:gravity="center"
         android:textColor="#ff333333"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8"
         android:textSize="12sp"
+        android:lines="2"
+        android:ellipsize="end"
         />
 
 

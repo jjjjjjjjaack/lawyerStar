@@ -35,6 +35,7 @@ import framework.mvp1.base.constant.IETConstant;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.GlideUtils;
+import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.pics.GlideEngine;
 
 public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, PersonsalAuthPresenter> implements IPersonsalAuthView {
@@ -153,9 +154,9 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
     public void doBusiness() {
         type = getIntent().getIntExtra("type", 0);
         onlyRead = getIntent().getBooleanExtra("onlyRead", false);
-        if (type == 1) {
-            presenter.getInfoDetail();
-        }
+//        if (type == 1) {
+        presenter.getInfoDetail();
+//        }
         if (onlyRead) {
             logo_rl.setEnabled(false);
             name_et.setEnabled(false);
@@ -171,6 +172,10 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
         if (bean == null) {
             return;
         }
+        if (bean.getAvatar() != null && bean.getAvatar().size() > 0) {
+            GlideUtils.loadImageUserLogoDefult(getMContext(), bean.getAvatar().get(0).getUrl(), userlogo_civ);
+            presenter.logoNetPath = bean.getAvatar().get(0);
+        }
         name_et.setText(bean.getReal_name());
         if ("女".equals(bean.getSex_text())) {
             woman_ll.setSelected(true);
@@ -179,7 +184,14 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
             woman_ll.setSelected(false);
             man_ll.setSelected(true);
         }
-        addressinfo_tv.setText(bean.getAddress_info_text());
+
+        if (!ToolUtils.isNull(bean.getProvince_id()) && !ToolUtils.isNull(bean.getCity_id())) {
+            presenter.selectPrvoince = new FCityBean();
+            presenter.selectPrvoince.setId(bean.getProvince_id());
+            presenter.selectCity = new FCityBean();
+            presenter.selectCity.setId(bean.getCity_id());
+            addressinfo_tv.setText(bean.getAddress_info_text());
+        }
     }
 
     @Override
@@ -195,8 +207,9 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
                 try {
                     List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
                     presenter.logoFile = new File(selectList.get(0).getRealPath());
+                    presenter.logoNetPath = null;
                     GlideUtils.loadImageUserLogoDefult(getMContext(), "file://" + presenter.logoFile.getPath(), userlogo_civ);
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
         }
@@ -224,9 +237,9 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
     }
 
     /**
-     * @description 设置点击其他地方隐藏输入框
      * @param
      * @return
+     * @description 设置点击其他地方隐藏输入框
      * @author jieja
      * @time 2022/9/13 10:25
      */
@@ -234,10 +247,10 @@ public class PersonsalAuthAct extends MvpAct<IPersonsalAuthView, BaseModel, Pers
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if ( v instanceof EditText) {
+            if (v instanceof EditText) {
                 Rect outRect = new Rect();
                 v.getGlobalVisibleRect(outRect);
-                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
                     v.clearFocus();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);

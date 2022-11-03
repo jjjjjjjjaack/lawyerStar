@@ -95,6 +95,7 @@
                                 android:textSize="18sp" />
 
                             <ImageView
+                                android:id="@+id/vipicon_iv"
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
                                 android:layout_marginLeft="@dimen/dp_2"
@@ -134,14 +135,16 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/dp_10"
+                                android:layout_marginRight="@dimen/dp_2"
                                 android:text="@string/mine_tx1"
                                 android:textColor="#ff02c4c3"
                                 android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="@dimen/dp_20"
-                                android:layout_height="@dimen/dp_20" />
+                                android:layout_height="@dimen/dp_20"
+                                android:src="@mipmap/ic_arrow_right_mc1"
+                                />
 
                         </LinearLayout>
 

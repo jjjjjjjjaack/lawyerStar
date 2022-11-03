@@ -23,6 +23,7 @@ import framework.mvp1.base.util.ToolUtils;
 public class PersonsalAuthPresenter extends BasePresent<IPersonsalAuthView, BaseModel> {
 
     File logoFile;
+    ImagePathBean logoNetPath;
     FCityBean selectPrvoince, selectCity;
 
 
@@ -55,7 +56,7 @@ public class PersonsalAuthPresenter extends BasePresent<IPersonsalAuthView, Base
     /**
      * @param
      * @return
-     * @description 
+     * @description
      * @author jiejack
      * @time 2022/9/4 3:15 下午
      */
@@ -65,7 +66,7 @@ public class PersonsalAuthPresenter extends BasePresent<IPersonsalAuthView, Base
             return;
 
         }
-        if (logoFile == null) {
+        if (logoFile == null && logoNetPath == null) {
             T(R.string.user_info_tx2_1);
             return;
         }
@@ -74,52 +75,64 @@ public class PersonsalAuthPresenter extends BasePresent<IPersonsalAuthView, Base
             return;
         }
         try {
-            ToolUtils.uploadImages(context(), logoFile, new ToolUtils.UploadFileInterface() {
-                @Override
-                public void uploadSuccess(List<SPathBean> sPathBeans) {
-                    if (sPathBeans != null && sPathBeans.size() > 0) {
-                        POST_AUTH_PERSONAL_REQ req = new POST_AUTH_PERSONAL_REQ();
-                        req.real_name = name;
-                        req.avatar = Arrays.asList(new ImagePathBean(sPathBeans.get(0).path, sPathBeans.get(0).url));
-                        req.address_info = Arrays.asList(selectPrvoince.getId(), selectCity.getId());
-                        req.sex = sex;
-                        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
-                            @Override
-                            public void doStart() {
+            if (logoFile != null) {
+                ToolUtils.uploadImages(context(), logoFile, new ToolUtils.UploadFileInterface() {
+                    @Override
+                    public void uploadSuccess(List<SPathBean> sPathBeans) {
+                        if (sPathBeans != null && sPathBeans.size() > 0) {
+                            logoNetPath = new ImagePathBean(sPathBeans.get(0).path, sPathBeans.get(0).url);
+                            commit(name, sex);
+                        } else {
+                            T("图片上传失败");
+                        }
 
-                            }
-
-                            @Override
-                            public BaseResponse doMap(BaseResponse baseResponse) {
-                                return baseResponse;
-                            }
-
-                            @Override
-                            public void onSuccess(BaseResponse baseResponse) throws Exception {
-                                T(baseResponse.msg);
-                                view().authResult(true);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                view().authResult(false);
-                            }
-                        });
-
-                    } else {
-                        T("图片上传失败");
                     }
 
-                }
-                @Override
-                public void uploadFails() {
-                }
-            });
+                    @Override
+                    public void uploadFails() {
+                    }
+                });
+            } else {
+                commit(name, sex);
+            }
         } catch (ViewnullException e) {
 
         }
+    }
 
+    public void commit(String name, String sex) {
+        if (logoNetPath == null) {
+            T(R.string.user_info_tx2_1);
+            return;
+        }
+        POST_AUTH_PERSONAL_REQ req = new POST_AUTH_PERSONAL_REQ();
+        req.real_name = name;
+//        req.avatar = Arrays.asList(new ImagePathBean(sPathBeans.get(0).path, sPathBeans.get(0).url));
+        req.avatar = Arrays.asList(logoNetPath);
+        req.address_info = Arrays.asList(selectPrvoince.getId(), selectCity.getId());
+        req.sex = sex;
+        doCommRequest(req, true, true, new DoCommRequestInterface<BaseResponse, BaseResponse>() {
+            @Override
+            public void doStart() {
 
+            }
+
+            @Override
+            public BaseResponse doMap(BaseResponse baseResponse) {
+                return baseResponse;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse baseResponse) throws Exception {
+                T(baseResponse.msg);
+                view().authResult(true);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view().authResult(false);
+            }
+        });
     }
 
 }

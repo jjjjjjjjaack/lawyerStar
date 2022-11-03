@@ -55,7 +55,7 @@ public class VipIntroV2ContentFrag extends MvpFrag<IVipIntroV2ContentView, BaseM
 
     private MCommAdapter mCommAdapter;
 
-    public int selectPos = -1;
+    public int selectPos = 0;
 
     @Override
     public VipIntroV2ContentPresenter initPresenter() {
@@ -109,7 +109,7 @@ public class VipIntroV2ContentFrag extends MvpFrag<IVipIntroV2ContentView, BaseM
                 }
                 mCommVH.itemView.getLayoutParams().width = itemWidth;
                 mCommVH.setText(R.id.typename_tv, yearPriceBean.memo);
-                mCommVH.setText(R.id.price_tv, yearPriceBean.price);
+                mCommVH.setText(R.id.price_tv, "¥" + yearPriceBean.price);
                 if (selectPos == position) {
                     mCommVH.itemView.setSelected(true);
                     borll.setBackgroundColor(Color.parseColor("#1a" + presenter.vipIntroBean.btn_color));
@@ -185,6 +185,7 @@ public class VipIntroV2ContentFrag extends MvpFrag<IVipIntroV2ContentView, BaseM
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.setBackgroundColor(0x00ffffff);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webView.getSettings().setMixedContentMode(MIXED_CONTENT_ALWAYS_ALLOW);
         }

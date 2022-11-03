@@ -195,8 +195,8 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
         funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_4_LSH, getString(R.string.home_frag_function_tx4), R.mipmap.ic_h_function_4));
         funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_5_HTDZ, getString(R.string.home_frag_function_tx5), R.mipmap.ic_h_function_5));
         funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_6_HTSH, getString(R.string.home_frag_function_tx6), R.mipmap.ic_h_function_6));
-        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
-        function_1_Adapter.setData(funtion_1_Beans);
+//        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
+//        function_1_Adapter.setData(funtion_1_Beans);
 
         List<HomeFrag.FuntionBean> funtion_2_Beans = new ArrayList<>();
         funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_13_FWZX, getString(R.string.home_frag_function_tx13), R.mipmap.ic_h_function_13));

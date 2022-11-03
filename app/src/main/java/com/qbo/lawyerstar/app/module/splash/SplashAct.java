@@ -61,6 +61,8 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
     @BindView(R.id.indicator)
     IndicatorView indicator;
 
+    @BindView(R.id.tohome_iv)
+    View tohome_iv;
     @BindView(R.id.pact_tv)
     View pact_tv;
     @BindView(R.id.splash_rl)
@@ -222,6 +224,12 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
             @Override
             public void onClick(View view) {
                 pact_tv.setSelected(!pact_tv.isSelected());
+            }
+        });
+        tohome_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VpMainAct.openMainAct(getMContext());
             }
         });
     }

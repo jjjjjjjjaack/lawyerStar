@@ -162,7 +162,7 @@ public class HomeDataBean extends BaseBean {
                     expertiseString += (expertise.get(i));
                 } else {
                     if (i % 2 == 1) {
-                        expertiseString += (expertise.get(i) + "\n");
+                        expertiseString += (expertise.get(i) + ",");
                     } else {
                         expertiseString += (expertise.get(i) + ",");
                     }

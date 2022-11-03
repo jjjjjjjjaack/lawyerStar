@@ -4,15 +4,19 @@ import android.content.Context;
 import android.view.View;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
 import com.qbo.lawyerstar.app.module.mine.auth.company.CompanyAuthAct;
 import com.qbo.lawyerstar.app.module.mine.auth.lawyer.LawyerAuthAct;
 import com.qbo.lawyerstar.app.module.mine.auth.personal.PersonsalAuthAct;
 import com.qbo.lawyerstar.app.module.mine.auth.personal.PersonsalAuthPresenter;
+import com.qbo.lawyerstar.app.module.mine.info.base.UserInfoBaseAct;
+import com.qbo.lawyerstar.app.utils.FCacheUtils;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.util.GlideUtils;
 
 public class UserSelectTypeAct extends MvpAct<IUserSelectTypeView, BaseModel, UserSelectTypePresenter> implements IUserSelectTypeView {
 
@@ -84,6 +88,32 @@ public class UserSelectTypeAct extends MvpAct<IUserSelectTypeView, BaseModel, Us
                         gotoActivity(CompanyAuthAct.class);
                         break;
                 }
+            }
+        });
+        FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
+            @Override
+            public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
+                if(isDestroyed()){
+                    return;
+                }
+                if ("1".equals(userInfoBean.user_type)) {
+//                    userinfo_type_tx = "企业用户";
+                    type3_rl.performClick();
+                } else if ("2".equals(userInfoBean.user_type)) {
+//                    userinfo_type_tx = "律师用户";
+                    type2_rl.performClick();
+                } else {
+                    type1_rl.performClick();
+//                    userinfo_type_tx = "个人用户";
+                }
+            }
+
+            @Override
+            public void fail() {
+                if(isDestroyed()){
+                    return;
+                }
+                type1_rl.performClick();
             }
         });
 

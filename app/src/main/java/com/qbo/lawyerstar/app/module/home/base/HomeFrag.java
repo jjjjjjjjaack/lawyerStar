@@ -233,7 +233,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
         funtionBeans.add(new FuntionBean(FUNCTION_9_SSFJS, getString(R.string.home_frag_function_tx9), R.mipmap.ic_h_function_9));
         funtionBeans.add(new FuntionBean(FUNCTION_10_WYJJS, getString(R.string.home_frag_function_tx10), R.mipmap.ic_h_function_10));
         funtionBeans.add(new FuntionBean(FUNCTION_11_GSPC, getString(R.string.home_frag_function_tx11), R.mipmap.ic_h_function_11));
-        funtionBeans.add(new FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
+//        funtionBeans.add(new FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
 
         functionAdapter.setData(funtionBeans);
 

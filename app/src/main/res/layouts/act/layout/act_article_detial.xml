@@ -15,6 +15,7 @@
         android:layout_marginLeft="@dimen/dp_11"
         android:layout_marginTop="@dimen/dp_15"
         android:layout_marginRight="@dimen/dp_12"
+        android:visibility="gone"
         tools:text="转让商标成为资本ww宠儿?转让商标的优势有哪些？"
         android:textColor="#ff333333"
         android:textSize="18sp" />
@@ -25,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dp_12"
         android:gravity="right"
+        android:visibility="gone"
         tools:text="2022-7-13 18:30:06"
         android:textColor="#ffcccccc"
         android:textSize="16sp" />
@@ -33,10 +35,6 @@
         android:id="@+id/webview_fl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dp_64"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginLeft="@dimen/dp_12"
-        android:layout_marginRight="@dimen/dp_12"
         >
     </FrameLayout>
 

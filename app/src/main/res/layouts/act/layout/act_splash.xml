@@ -9,7 +9,9 @@
     <RelativeLayout
         android:id="@+id/splash_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        >
 
         <ImageView
             android:layout_width="match_parent"
@@ -61,24 +63,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
+        
+        <ImageView
+            android:id="@+id/tohome_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_tohome_1"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_54"
+            />
 
         <ImageView
             android:id="@+id/iv_logo1"
-            android:layout_width="@dimen/dp_120"
-            android:layout_height="@dimen/dp_120"
+            android:layout_width="@dimen/dp_138"
+            android:layout_height="@dimen/dp_138"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_100"
             android:src="@mipmap/app_logo_11" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="@dimen/dp_114"
+            android:layout_height="@dimen/dp_41"
             android:layout_below="@id/iv_logo1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_8"
-            android:text="@string/app_name"
-            android:textColor="#ff000000"
-            android:textSize="30sp" />
+            android:layout_marginTop="@dimen/dp_2"
+            android:src="@mipmap/ic_login_tx_1"
+            />
 
 
         <LinearLayout
@@ -95,7 +105,7 @@
                 android:id="@+id/accountlogin_tv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_44"
-                android:background="@drawable/shape_02c4c3_r4"
+                android:background="@drawable/shape_02c4c3_r2"
                 android:gravity="center"
                 android:text="@string/splash_tx1"
                 android:textColor="#ffffffff"
@@ -142,7 +152,9 @@
                 <TextView
                     android:id="@+id/tv_pact_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_12"
+                    />
 
             </LinearLayout>
 

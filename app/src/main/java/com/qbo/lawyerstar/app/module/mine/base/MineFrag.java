@@ -79,6 +79,8 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     View user_not_vip_rl;
     @BindView(R.id.user_is_vip_rl)
     View user_is_vip_rl;
+    @BindView(R.id.vipicon_iv)
+    View vipicon_iv;
 
     @BindView(R.id.function_1_rcy)
     RecyclerView function_1_rcy;
@@ -119,6 +121,13 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
     @Override
     public void viewInitialization() {
+        allNumQv = new QBadgeView(getMContext());
+        allNumQv.bindTarget(message_rl)
+                .setBadgeNumber(0)
+                .setBadgeGravity(Gravity.END | Gravity.BOTTOM)
+                .setShowShadow(false)
+                .setGravityOffset(20, 10, true);
+
         function_1_rcy.setLayoutManager(new GridLayoutManager(getMContext(), 4));
         function_1_Adapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<MineFrag.FuntionBean>() {
             @Override
@@ -155,7 +164,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
         });
         function_1_rcy.setAdapter(function_1_Adapter);
 
-        function_2_rcy.setLayoutManager(new GridLayoutManager(getMContext(), 4));
+        function_2_rcy.setLayoutManager(new GridLayoutManager(getMContext(), 3));
         function_2_Adapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<MineFrag.FuntionBean>() {
             @Override
             public int setLayout() {
@@ -204,7 +213,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
         List<MineFrag.FuntionBean> funtion_2_Beans = new ArrayList<>();
         funtion_2_Beans.add(new MineFrag.FuntionBean(FUNCTION_18_WDDD, getString(R.string.mine_function_tx8), R.mipmap.ic_mine_function_8));
-        funtion_2_Beans.add(new MineFrag.FuntionBean(FUNCTION_12_DZQZ, getString(R.string.mine_function_tx9), R.mipmap.ic_mine_function_9));
+//        funtion_2_Beans.add(new MineFrag.FuntionBean(FUNCTION_12_DZQZ, getString(R.string.mine_function_tx9), R.mipmap.ic_mine_function_9));
         funtion_2_Beans.add(new MineFrag.FuntionBean(FUNCTION_19_TSJY, getString(R.string.mine_function_tx10), R.mipmap.ic_mine_function_10));
         funtion_2_Beans.add(new MineFrag.FuntionBean(FUNCTION_20_SZ, getString(R.string.mine_function_tx11), R.mipmap.ic_mine_function_11));
         function_2_Adapter.setData(funtion_2_Beans);
@@ -292,6 +301,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 if (userInfoBean.isVip()) {
                     user_not_vip_rl.setVisibility(View.GONE);
                     user_is_vip_rl.setVisibility(View.VISIBLE);
+                    vipicon_iv.setVisibility(View.VISIBLE);
                     vipdate_tv.setText("有效期至" + userInfoBean.getRank_date());
                     if (userInfoBean.rank != null) {
                         vipname_tv.setText(userInfoBean.rank.getName());
@@ -299,6 +309,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 } else {
                     user_not_vip_rl.setVisibility(View.VISIBLE);
                     user_is_vip_rl.setVisibility(View.GONE);
+                    vipicon_iv.setVisibility(View.GONE);
                 }
             }
 
@@ -338,15 +349,15 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
     @Override
     public void getMsgNumResult(boolean b) {
-         if(presenter.typeBean!=null){
-//             allNumQv.setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num));
-             new QBadgeView(getMContext())
-                     .bindTarget(message_rl)
-                     .setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num))
-                     .setBadgeGravity(Gravity.END | Gravity.BOTTOM)
-                     .setShowShadow(false)
-                     .setGravityOffset(20,10,true);
-         }
+        if (presenter.typeBean != null) {
+             allNumQv.setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num));
+//            new QBadgeView(getMContext())
+//                    .bindTarget(message_rl)
+//                    .setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num))
+//                    .setBadgeGravity(Gravity.END | Gravity.BOTTOM)
+//                    .setShowShadow(false)
+//                    .setGravityOffset(20, 10, true);
+        }
     }
 
     public static class FuntionBean extends BaseBean {

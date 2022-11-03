@@ -53,7 +53,7 @@ public class ArticleDetailAct extends MvpAct<IArticleDetailView, BaseModel
     public void viewInitialization() {
         setBackPress();
         setMTitle(R.string.law_study_frag_tx5);
-        tv_back_right.setImageResource(R.mipmap.ic_top_share_1);
+//        tv_back_right.setImageResource(R.mipmap.ic_top_share_1);
 
         initWebView();
     }
