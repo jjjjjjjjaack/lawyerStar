@@ -111,6 +111,23 @@ public class REQ_Factory {
     }
 
     /**
+     * @description 绑定手机
+     * @param
+     * @return
+     * @author jieja
+     * @time 2022/11/7 16:38
+     */
+    @AnnBaseReq(API_METHOD = "index/bindMobileLogin")
+    public static class POST_BINDPHONE_REQ extends BaseRequest {
+        public String mobile;//
+        @AnnReqPara(isCheckNull = true, nullRTip = R.string.login_tx4)
+        public String code;//验证码
+        public String type;//类型 手机登录时:0；微信:1；苹果登录:2
+        public String wechatCode;
+        public String info;
+    }
+
+    /**
      * @param
      * @author jieja
      * @description 获取用户信息(缓存)

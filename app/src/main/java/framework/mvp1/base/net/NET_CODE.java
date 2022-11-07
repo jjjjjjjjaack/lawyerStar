@@ -31,4 +31,8 @@ public class NET_CODE {
 	 * 操作失败
 	 */
 	public final static int C_403 = 403;
+	/**
+	 * 绑定手机号
+	 */
+	public final static int C_405 = 405;
 }

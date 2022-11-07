@@ -1,41 +1,34 @@
-package com.qbo.lawyerstar.app.module.mine.login.base;
+package com.qbo.lawyerstar.app.module.mine.bindphone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qbo.lawyerstar.R;
-import com.qbo.lawyerstar.app.module.main.VpMainAct;
-import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
-import com.qbo.lawyerstar.app.module.splash.SplashAct;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.CountDownMsgUtils;
-import framework.mvp1.base.util.CountDownMsgUtils2;
 import framework.mvp1.base.util.T;
-import framework.mvp1.base.util.WeChatUtils;
+import framework.mvp1.base.util.ToolUtils;
 
-public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> implements ILoginView {
+public class BindPhoneAct extends MvpAct<IBindPhoneView, BaseModel, BindPhonePresenter> implements IBindPhoneView {
 
-    @BindView(R.id.pact_tv)
-    View pact_tv;
-    @BindView(R.id.tv_pact_text)
-    TextView tv_pact_text;
+    public static void openAct(Context context, String wxCode) {
+        Intent intent = new Intent(context, BindPhoneAct.class);
+        intent.putExtra("wxCode", wxCode);
+        context.startActivity(intent);
+    }
+
     @BindView(R.id.getcode_tv)
     TextView getcode_tv;
     @BindView(R.id.tologin_tv)
     View tologin_tv;
-    @BindView(R.id.jump_tv)
-    View jump_tv;
-    @BindView(R.id.wechatlogin_tv)
-    View wechatlogin_tv;
     @BindView(R.id.phone_et)
     EditText phone_et;
     @BindView(R.id.code_et)
@@ -44,13 +37,18 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
     CountDownMsgUtils countDownMsgUtils;
 
     @Override
+    public BindPhonePresenter initPresenter() {
+        return new BindPhonePresenter();
+    }
+
+    @Override
     public void baseInitialization() {
         setStatusBarComm(true);
     }
 
     @Override
     public int setR_Layout() {
-        return R.layout.act_login;
+        return R.layout.act_bind_phone;
     }
 
     @Override
@@ -104,48 +102,22 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
                 }
             }
         });
-        pact_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pact_tv.setSelected(!pact_tv.isSelected());
-            }
-        });
+
         tologin_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                CrashReport.testJavaCrash();
-                if (!pact_tv.isSelected()) {
-                    T.showShort(getMContext(), getString(R.string.login_tx7));
-                    return;
-                }
-                presenter.toLogin(phone_et.getText().toString().trim(), code_et.getText().toString().trim(), "0");
+                presenter.toBindPhone(phone_et.getText().toString().trim(),code_et.getText().toString().trim());
             }
         });
-        jump_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VpMainAct.openMainAct(getMContext());
-            }
-        });
-        SplashAct.initPactText(getMContext(), tv_pact_text);
-
-
-        wechatlogin_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!pact_tv.isSelected()) {
-                    T.showShort(getMContext(), getString(R.string.login_tx7));
-                    return;
-                }
-                WeChatUtils.getInstance().loginWx(0);
-            }
-        });
-
     }
 
     @Override
     public void doBusiness() {
-
+        presenter.wxCode = getIntent().getStringExtra("wxCode");
+        if (ToolUtils.isNull(presenter.wxCode)) {
+            finish();
+            return;
+        }
     }
 
     @Override
@@ -155,17 +127,7 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
 
     @Override
     public void doReleaseSomething() {
-        countDownMsgUtils.doRelease();
-    }
 
-    @Override
-    public LoginPresenter initPresenter() {
-        return new LoginPresenter();
-    }
-
-    @Override
-    public Context getMContext() {
-        return this;
     }
 
     @Override
@@ -179,12 +141,7 @@ public class LoginAct extends MvpAct<ILoginView, BaseModel, LoginPresenter> impl
     }
 
     @Override
-    public void loginResult(int type) {
-        if (type == 0) {
-            VpMainAct.openMainAct(getMContext());
-        } else if (type == 1) {//需要认证
-            VpMainAct.openMainAct(getMContext());
-//            gotoActivity(UserSelectTypeAct.class);
-        }
+    public Context getMContext() {
+        return this;
     }
 }
