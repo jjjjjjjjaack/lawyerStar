@@ -4,4 +4,6 @@ import framework.mvp1.base.f.BaseView;
 
 public interface IBindPhoneView extends BaseView {
     void getCodeResult(boolean b);
+
+    void bindResult(int i);
 }

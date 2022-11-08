@@ -37,6 +37,8 @@ import framework.mvp1.base.util.JnCache;
 import framework.mvp1.base.util.PermissionUtils;
 import framework.mvp1.base.util.SpanManager;
 import framework.mvp1.base.util.StatusBarUtils;
+import framework.mvp1.base.util.T;
+import framework.mvp1.base.util.WeChatUtils;
 import framework.mvp1.views.other.IndicatorView;
 
 /**
@@ -69,6 +71,8 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
     View splash_rl;
     @BindView(R.id.login_ll)
     View login_ll;
+    @BindView(R.id.wechatlogin_tv)
+    View wechatlogin_tv;
     @BindView(R.id.accountlogin_tv)
     View accountlogin_tv;
     @BindView(R.id.tv_pact_text)
@@ -230,6 +234,16 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
             @Override
             public void onClick(View v) {
                 VpMainAct.openMainAct(getMContext());
+            }
+        });
+        wechatlogin_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!pact_tv.isSelected()) {
+                    T.showShort(getMContext(), getString(R.string.login_tx7));
+                    return;
+                }
+                WeChatUtils.getInstance().loginWx(0);
             }
         });
     }

@@ -10,6 +10,7 @@ import com.qbo.lawyerstar.app.module.mine.order.bean.OrderTypeBean;
 import com.qbo.lawyerstar.app.module.study.bean.ArticleBean;
 import com.qbo.lawyerstar.app.utils.IndexDictionaryUtils;
 
+import framework.mvp1.base.net.BaseResponse;
 import framework.mvp1.base.net.MPageResponse;
 
 public class RES_Factory {
@@ -124,5 +125,44 @@ public class RES_Factory {
             return IndexDictionaryUtils.ValueBean.class;
         }
     }
+
+
+    public static class PostWechatLoginResponse extends BaseResponse {
+
+        public String wx_openid;
+        public String nickname;
+        public String headimgurl;
+
+        @Override
+        public void fromJSON(String content) {
+            super.fromJSON(content);
+            fromJSONAuto(datas);
+        }
+
+        public String getWx_openid() {
+            return wx_openid;
+        }
+
+        public void setWx_openid(String wx_openid) {
+            this.wx_openid = wx_openid;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public String getHeadimgurl() {
+            return headimgurl;
+        }
+
+        public void setHeadimgurl(String headimgurl) {
+            this.headimgurl = headimgurl;
+        }
+    }
+
 
 }

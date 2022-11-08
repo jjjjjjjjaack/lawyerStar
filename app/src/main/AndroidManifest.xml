@@ -51,7 +51,9 @@
         <activity android:name=".app.module.contract.library.list.ContractLibListAct" />
         <activity android:name=".app.module.contract.library.detail.ContractLibDetailAct" />
         <activity android:name=".app.module.article.detail.ArticleDetailAct" />
-        <activity android:name=".app.module.business.wap.BusinessWapAct" />
+        <activity android:name=".app.module.business.wap.BusinessWapAct"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+            />
         <activity android:name=".app.module.mine.order.list.comm.base.OrderListCommAct" />
         <activity android:name=".app.module.mine.order.detail.OrderDetailAct" />
         <activity android:name=".app.module.pay.success.PaySuccessAct" />
@@ -59,6 +61,13 @@
         <activity android:name=".app.module.mine.vip.intro.VipIntroAct" />
         <activity android:name=".app.module.mine.vip.introv2.base.VipIntroV2Act" />
         <activity android:name=".app.module.mine.bindphone.BindPhoneAct" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.qbo.lawyerstar"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
 
         <!--************************************************************************-->
         <provider

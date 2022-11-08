@@ -7,9 +7,11 @@ import com.qbo.lawyerstar.R;
 
 import org.greenrobot.eventbus.EventBus;
 
+import framework.mvp1.base.bean.FToken;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.BasePresent;
 import framework.mvp1.base.net.BaseResponse;
+import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.T;
 import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.base.util.WeChatUtils;
@@ -63,82 +65,30 @@ public class BindPhonePresenter extends BasePresent<IBindPhoneView, BaseModel> {
             T(R.string.login_tx4);
             return;
         }
-        WeChatUtils.GET_WX_BASE_REQ getWxBaseReq = new WeChatUtils.GET_WX_BASE_REQ();
-        getWxBaseReq.appid = WeChatUtils.APP_ID;
-        getWxBaseReq.secret = WeChatUtils.APP_SECRET;
-        getWxBaseReq.code = wxCode;
-        doCommRequest(getWxBaseReq, false, false, new BasePresent.DoCommRequestInterface<BaseResponse, String>() {
+        POST_BINDPHONE_REQ req = new POST_BINDPHONE_REQ();
+        req.mobile = mobile;
+        req.code = code;
+        req.type = "1";
+        req.wechatCode = wxCode;
+        doCommRequest(req, false, false, new BasePresent.DoCommRequestInterface<BaseResponse, FToken>() {
             @Override
             public void doStart() {
 
             }
 
             @Override
-            public String doMap(BaseResponse baseResponse) {
-                return baseResponse.orgin;
+            public FToken doMap(BaseResponse baseResponse) {
+                FToken token = FToken.fromJSONAuto(baseResponse.datas, FToken.class);
+                FTokenUtils.saveToken(token);
+                return token;
             }
 
             @Override
-            public void onSuccess(String s) throws Exception {
-                Log.i("WXEntryActivity", "wxlogin1:" + s);
-                JSONObject json = JSONObject.parseObject(s);
-                String access_token = json.getString("access_token");
-                String openid = json.getString("openid");
-                if (!ToolUtils.isNull(access_token) && !ToolUtils.isNull(openid)) {
-                    WeChatUtils.GET_WX_USERINFO_REQ getWxUserinfoReq = new WeChatUtils.GET_WX_USERINFO_REQ();
-                    getWxUserinfoReq.access_token = access_token;
-                    getWxUserinfoReq.openid = openid;
-                    doCommRequest(getWxUserinfoReq, false, false, new BasePresent.DoCommRequestInterface<BaseResponse, String>() {
-                        @Override
-                        public void doStart() {
-
-                        }
-
-                        @Override
-                        public String doMap(BaseResponse baseResponse) {
-                            return baseResponse.orgin;
-                        }
-
-                        @Override
-                        public void onSuccess(String s) throws Exception {
-                            Log.i("WXEntryActivity", "wxlogin2:" + s);
-                            POST_BINDPHONE_REQ req = new POST_BINDPHONE_REQ();
-                            req.info = s;
-                            req.mobile = mobile;
-                            req.code = code;
-                            req.type = "1";
-                            req.wechatCode = wxCode;
-                            doCommRequest(req, false, false, new BasePresent.DoCommRequestInterface<BaseResponse, String>() {
-                                @Override
-                                public void doStart() {
-
-                                }
-
-                                @Override
-                                public String doMap(BaseResponse baseResponse) {
-                                    return baseResponse.datas;
-                                }
-
-                                @Override
-                                public void onSuccess(String s) throws Exception {
-                                    Log.i("WXEntryActivity", "wxlogin3:" + s);
-                                    T("绑定成功");
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    T("绑定失败：" + e.getMessage());
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            T("绑定失败：" + e.getMessage());
-                        }
-                    });
+            public void onSuccess(FToken s) throws Exception {
+                if (s.isIs_rz()) {
+                    view().bindResult(0);
                 } else {
-                    T("绑定失败");
+                    view().bindResult(1);
                 }
             }
 
@@ -147,6 +97,91 @@ public class BindPhonePresenter extends BasePresent<IBindPhoneView, BaseModel> {
                 T("绑定失败：" + e.getMessage());
             }
         });
+
+//        WeChatUtils.GET_WX_BASE_REQ getWxBaseReq = new WeChatUtils.GET_WX_BASE_REQ();
+//        getWxBaseReq.appid = WeChatUtils.APP_ID;
+//        getWxBaseReq.secret = WeChatUtils.APP_SECRET;
+//        getWxBaseReq.code = wxCode;
+//        doCommRequest(getWxBaseReq, false, false, new BasePresent.DoCommRequestInterface<BaseResponse, String>() {
+//            @Override
+//            public void doStart() {
+//
+//            }
+//
+//            @Override
+//            public String doMap(BaseResponse baseResponse) {
+//                return baseResponse.orgin;
+//            }
+//
+//            @Override
+//            public void onSuccess(String s) throws Exception {
+//                Log.i("WXEntryActivity", "wxlogin1:" + s);
+//                JSONObject json = JSONObject.parseObject(s);
+//                String access_token = json.getString("access_token");
+//                String openid = json.getString("openid");
+//                if (!ToolUtils.isNull(access_token) && !ToolUtils.isNull(openid)) {
+//                    WeChatUtils.GET_WX_USERINFO_REQ getWxUserinfoReq = new WeChatUtils.GET_WX_USERINFO_REQ();
+//                    getWxUserinfoReq.access_token = access_token;
+//                    getWxUserinfoReq.openid = openid;
+//                    doCommRequest(getWxUserinfoReq, false, false, new BasePresent.DoCommRequestInterface<BaseResponse, String>() {
+//                        @Override
+//                        public void doStart() {
+//
+//                        }
+//
+//                        @Override
+//                        public String doMap(BaseResponse baseResponse) {
+//                            return baseResponse.orgin;
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(String s) throws Exception {
+//                            Log.i("WXEntryActivity", "wxlogin2:" + s);
+//                            POST_BINDPHONE_REQ req = new POST_BINDPHONE_REQ();
+//                            req.info = s;
+//                            req.mobile = mobile;
+//                            req.code = code;
+//                            req.type = "1";
+//                            req.wechatCode = wxCode;
+//                            doCommRequest(req, false, false, new BasePresent.DoCommRequestInterface<BaseResponse, String>() {
+//                                @Override
+//                                public void doStart() {
+//
+//                                }
+//
+//                                @Override
+//                                public String doMap(BaseResponse baseResponse) {
+//                                    return baseResponse.datas;
+//                                }
+//
+//                                @Override
+//                                public void onSuccess(String s) throws Exception {
+//                                    Log.i("WXEntryActivity", "wxlogin3:" + s);
+//                                    T("绑定成功");
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//                                    T("绑定失败：" + e.getMessage());
+//                                }
+//                            });
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            T("绑定失败：" + e.getMessage());
+//                        }
+//                    });
+//                } else {
+//                    T("绑定失败");
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                T("绑定失败：" + e.getMessage());
+//            }
+//        });
 
     }
 

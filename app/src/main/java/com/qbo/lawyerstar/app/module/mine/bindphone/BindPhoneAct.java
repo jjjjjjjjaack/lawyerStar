@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.module.main.VpMainAct;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
@@ -137,6 +138,16 @@ public class BindPhoneAct extends MvpAct<IBindPhoneView, BaseModel, BindPhonePre
         }
         if (b && countDownMsgUtils != null) {
             countDownMsgUtils.requestSuccess();
+        }
+    }
+
+    @Override
+    public void bindResult(int type) {
+        if (type == 0) {
+            VpMainAct.openMainAct(getMContext());
+        } else if (type == 1) {//需要认证
+            VpMainAct.openMainAct(getMContext());
+//            gotoActivity(UserSelectTypeAct.class);
         }
     }
 
