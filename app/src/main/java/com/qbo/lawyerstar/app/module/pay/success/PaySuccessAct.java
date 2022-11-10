@@ -12,6 +12,7 @@ import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
 import com.qbo.lawyerstar.app.module.pay.bean.PayResultBean;
 import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
+import com.qbo.lawyerstar.app.utils.CEventUtils;
 
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
@@ -20,6 +21,10 @@ import framework.mvp1.base.f.MvpAct;
 import static framework.mvp1.base.constant.BROConstant.CLOSE_EXTRAACT_ACTION;
 
 import androidx.annotation.NonNull;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccessPresenter> implements IPaySuccessView {
 
@@ -84,6 +89,7 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
 
     @Override
     public void baseInitialization() {
+        EventBus.getDefault().register(this);
         setStatusBarComm(true);
     }
 
@@ -125,12 +131,31 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
 
     @Override
     public void doReleaseSomething() {
-
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public Context getMContext() {
         return this;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onWechatPayEevent(CEventUtils.WechatPayEevent event) {
+        try {
+            if (event.code == -1 || event.code == -2) {
+                waitTvHanhle.removeMessages(1);
+                waitTvHanhle.removeMessages(2);
+                waitTvHanhle.removeMessages(3);
+                checkHandler.removeMessages(102);
+
+                PayResultBean bean = new PayResultBean();
+                bean.status = "-1";
+                bean.status_text = "支付失败";
+                bean.tips_text = (event.code == -1 ? "取消付款" : "支付参数错误");
+                showView(bean);
+            }
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -209,4 +234,6 @@ public class PaySuccessAct extends MvpAct<IPaySuccessView, BaseModel, PaySuccess
         checkHandler.removeMessages(102);
         checkHandler.sendEmptyMessageDelayed(102, 2000);
     }
+
+
 }

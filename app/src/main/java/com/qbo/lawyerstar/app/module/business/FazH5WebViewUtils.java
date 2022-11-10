@@ -358,11 +358,14 @@ public class FazH5WebViewUtils {
             @Override
             public void onPageFinished(WebView webView, String s) {
                 super.onPageFinished(webView, s);
-                webView.getSettings().setBlockNetworkImage(false);
-                //判断webview是否加载了，图片资源
-                if (!webView.getSettings().getLoadsImagesAutomatically()) {
-                    //设置wenView加载图片资源
-                    webView.getSettings().setLoadsImagesAutomatically(true);
+                try {
+                    webView.getSettings().setBlockNetworkImage(false);
+                    //判断webview是否加载了，图片资源
+                    if (!webView.getSettings().getLoadsImagesAutomatically()) {
+                        //设置wenView加载图片资源
+                        webView.getSettings().setLoadsImagesAutomatically(true);
+                    }
+                }catch (Exception e){
                 }
             }
 

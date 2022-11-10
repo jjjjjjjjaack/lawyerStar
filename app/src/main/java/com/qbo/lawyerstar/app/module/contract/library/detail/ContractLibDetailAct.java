@@ -166,23 +166,25 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
-                String js = "";
+                try {
+                    String js = "";
 //                js+= "alert('123123');";
-                js += " var oMeta = document.createElement('meta');";
-                js += "oMeta.name = 'viewport';";
-                js += "oMeta.content = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';";
-                js += "document.getElementsByTagName('head')[0].appendChild(oMeta);";
-                js += "var style = document.createElement(\"style\");";
-                js += "style.type = \"text/css\";";
-                js += "style.appendChild(document.createTextNode(\"body{word-wrap:break-word;font-family:Arial;;padding:0px 5px 0px 5px;}\"));";
-                js += "var style2 = document.createElement(\"style\");";
-                js += "style2.type = \"text/css\";";
-                js += "style2.appendChild(document.createTextNode(\"img{max-width: 100%; width:100%; height:auto;}\"));";
-                js += "var head = document.getElementsByTagName(\"head\")[0];";
-                js += "head.appendChild(style);";
-                js += "head.appendChild(style2);";
-                webView.loadUrl("javascript:" + js);
+                    js += " var oMeta = document.createElement('meta');";
+                    js += "oMeta.name = 'viewport';";
+                    js += "oMeta.content = 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0';";
+                    js += "document.getElementsByTagName('head')[0].appendChild(oMeta);";
+                    js += "var style = document.createElement(\"style\");";
+                    js += "style.type = \"text/css\";";
+                    js += "style.appendChild(document.createTextNode(\"body{word-wrap:break-word;font-family:Arial;;padding:0px 5px 0px 5px;}\"));";
+                    js += "var style2 = document.createElement(\"style\");";
+                    js += "style2.type = \"text/css\";";
+                    js += "style2.appendChild(document.createTextNode(\"img{max-width: 100%; width:100%; height:auto;}\"));";
+                    js += "var head = document.getElementsByTagName(\"head\")[0];";
+                    js += "head.appendChild(style);";
+                    js += "head.appendChild(style2);";
+                    webView.loadUrl("javascript:" + js);
+                } catch (Exception e) {
+                }
 //                new Handler().postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {
@@ -350,7 +352,7 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
             popupToPayView.show(topay_tv, bean, new PopupToPayView.ToPayInterface() {
                 @Override
                 public void toPayFinish(FOrderPayBean orderPayBean) {
-                    PaySuccessAct.openAct(getMContext(),orderPayBean);
+                    PaySuccessAct.openAct(getMContext(), orderPayBean);
                 }
 //                @Override
 //                public void alipayRequest() {

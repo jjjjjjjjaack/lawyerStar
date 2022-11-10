@@ -31,8 +31,10 @@ import framework.mvp1.base.adapter.MCommAdapter;
 import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.f.BasePresent;
 import framework.mvp1.base.net.BaseResponse;
+import framework.mvp1.base.util.LoadingUtils;
 import framework.mvp1.base.util.T;
 import framework.mvp1.base.util.ToolUtils;
+import framework.mvp1.base.util.WeChatUtils;
 import framework.mvp1.views.pop.PopupBaseView;
 
 public class PopupToPayView extends PopupBaseView {
@@ -76,6 +78,8 @@ public class PopupToPayView extends PopupBaseView {
     public int getLayoutID() {
         return R.layout.popup_to_pay_view;
     }
+
+    Boolean isPaying = false;
 
     @Override
     public void initPopupView() {
@@ -126,16 +130,25 @@ public class PopupToPayView extends PopupBaseView {
                     T.showShort(context, "请选择支付方式");
                     return;
                 }
-                if ("alipay".equals(selectBean.id)) {
-//                    toPayInterface.alipayRequest();
-//                    if(payBean==null&&ToolUtils.isNull(payBean.alipayOrderInfo)){
-//                        return;
-//                    }
-                    payByAlipay();
-//                    payForAliay(payBean.alipayOrderInfo);
-                } else if ("balance".equals(selectBean.id)) {
-                    payByBalance();
-//                    toPayInterface.balanceRequest();
+                synchronized (isPaying) {
+                    if (isPaying) {
+                        T.showShort(context, "正在发起支付，请稍后在尝试");
+                        return;
+                    }
+                    isPaying = true;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            isPaying = false;
+                        }
+                    }, 2000);
+                    if ("alipay".equals(selectBean.id)) {
+                        payByAlipay();
+                    } else if ("wechat".equals(selectBean.id)) {
+                        payByWechat();
+                    } else if ("balance".equals(selectBean.id)) {
+                        payByBalance();
+                    }
                 }
             }
         });
@@ -160,6 +173,9 @@ public class PopupToPayView extends PopupBaseView {
                         if (!ToolUtils.isNull(baseResponse.datas)) {
                             if (baseResponse.datas.contains("alipay")) {
                                 payTypeBeans.add(new FPayTypeBean("alipay", R.mipmap.ic_alipay_1, "支付宝支付"));
+                            }
+                            if (baseResponse.datas.contains("wechat")) {
+                                payTypeBeans.add(new FPayTypeBean("wechat", R.mipmap.ic_wechat_pay_1, "微信支付"));
                             }
                             if (baseResponse.datas.contains("balance")) {
                                 FPayTypeBean balanceBean = new FPayTypeBean("balance", R.mipmap.ic_balance_1, "余额支付");
@@ -310,7 +326,7 @@ public class PopupToPayView extends PopupBaseView {
         req.pay_type = "alipay";
         req.sn = payBean.sn;
         req.type = orderType;
-        BasePresent.doStaticCommRequest(context, req, false,
+        BasePresent.doStaticCommRequest(context, req, true,
                 true, new BasePresent.DoCommRequestInterface<BaseResponse, BaseResponse>() {
                     @Override
                     public void doStart() {
@@ -329,7 +345,6 @@ public class PopupToPayView extends PopupBaseView {
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
                 });
     }
@@ -338,7 +353,7 @@ public class PopupToPayView extends PopupBaseView {
 
     public void payForAliay(String orderStr) {
         if (ToolUtils.isNull(orderStr)) {
-            T.showShort(context, "");
+            T.showShort(context, "支付失败");
             return;
         }
         final String orderInfo = orderStr;   // 订单信息
@@ -390,7 +405,55 @@ public class PopupToPayView extends PopupBaseView {
     };
 
 
-    public void checkOrderPayStatus(String payType){
+    public void payByWechat() {
+        REQ_Factory.POST_PAY_ORDER_REQ req = new REQ_Factory.POST_PAY_ORDER_REQ();
+        req.pay_type = "wechat";
+        req.sn = payBean.sn;
+        req.type = orderType;
+        BasePresent.doStaticCommRequest(context, req, true,
+                true, new BasePresent.DoCommRequestInterface<BaseResponse, BaseResponse>() {
+                    @Override
+                    public void doStart() {
+
+                    }
+
+                    @Override
+                    public BaseResponse doMap(BaseResponse baseResponse) {
+                        return baseResponse;
+                    }
+
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) throws Exception {
+                        if (ToolUtils.isNull(baseResponse.datas)) {
+                            T.showShort(context, "支付失败");
+                            return;
+                        }
+                        payBean.orderType = orderType;
+                        payBean.payType = "wechat";
+                        toPayInterface.toPayFinish(payBean);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                WeChatUtils.getInstance().payForWechat(context, baseResponse.datas, new WeChatUtils.PayForWechatInyerface() {
+                                    @Override
+                                    public void reqResult(int code) {
+                                        if (code == 0) {
+                                        }
+                                    }
+                                });
+                            }
+                        }, 500);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+
+    public void checkOrderPayStatus(String payType) {
         REQ_Factory.GET_ORDER_PAY_STATUS_REQ req = new REQ_Factory.GET_ORDER_PAY_STATUS_REQ();
         req.pay_type = payType;
         req.sn = payBean.sn;
@@ -403,7 +466,7 @@ public class PopupToPayView extends PopupBaseView {
 
             @Override
             public PayResultBean doMap(BaseResponse baseResponse) {
-                return PayResultBean.fromJSONAuto(baseResponse.datas,PayResultBean.class);
+                return PayResultBean.fromJSONAuto(baseResponse.datas, PayResultBean.class);
             }
 
             @Override

@@ -75,4 +75,13 @@ public class CEventUtils {
             this.ordertype = ordertype;
         }
     }
+
+    public static class WechatPayEevent{
+        public int code;
+
+        public WechatPayEevent(int code) {
+            this.code = code;
+        }
+    }
+
 }

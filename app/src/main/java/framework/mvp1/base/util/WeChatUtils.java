@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -105,6 +106,35 @@ public class WeChatUtils {
 //        req.extData = jsonObject.toJSONString();
         req.transaction = jsonObject.toJSONString();
         api.sendReq(req);
+    }
+
+
+    public interface PayForWechatInyerface {
+        void reqResult(int code);
+    }
+
+    public void payForWechat(Context context, String orderStr, PayForWechatInyerface payForWechatInyerface) {
+        if (ToolUtils.isNull(orderStr)) {
+            T.showShort(context, "支付失败");
+            return;
+        }
+        try {
+            JSONObject json = JSONObject.parseObject(orderStr);
+            PayReq request = new PayReq();
+            request.appId = json.getString("appId");
+            request.partnerId = json.getString("partnerId");
+            request.prepayId = json.getString("prepay_id");
+            request.packageValue = json.getString("package");
+            request.nonceStr = json.getString("nonceStr");
+            request.timeStamp = json.getString("timeStamp");
+            request.sign = json.getString("paySign");
+            boolean flag = api.sendReq(request);
+            if (payForWechatInyerface != null) {
+                payForWechatInyerface.reqResult(flag ? 0 : -1);
+            }
+        } catch (Exception e) {
+            T.showShort(context, "支付失败-数据异常");
+        }
     }
 
 }
