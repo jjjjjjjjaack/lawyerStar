@@ -11,7 +11,7 @@ import framework.mvp1.base.f.BasePresent;
 
 public class LawyerListPresenter extends BasePresent<ILawyerListView, BaseModel> {
 
-    GET_LAWYER_LIST_REQ req = new GET_LAWYER_LIST_REQ();
+    public GET_LAWYER_LIST_REQ req = new GET_LAWYER_LIST_REQ();
     public void getData(boolean isRefresh){
         if (isRefresh) {
             req.pageNo = 1;

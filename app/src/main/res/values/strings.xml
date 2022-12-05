@@ -39,9 +39,10 @@
     <string name="wifitip">更新下载将会使用流量,确认在wifi环境或者足够流量下执行此操作!</string>
     <!--MainAct-->
     <string name="one_tab">首页</string>
-    <string name="two_tab">学法</string>
-    <string name="three_tab">法务</string>
+    <string name="two_tab">普法</string>
+    <string name="three_tab">法务部</string>
     <string name="four_tab">我的</string>
+    <string name="five_tab">大状圈</string>
 
     <string name="home_frag_tx1">欢迎来到&appname;</string>
     <string name="home_frag_tx2">AI智能咨询</string>
@@ -61,8 +62,8 @@
     <string name="home_frag_function_tx4">律师函</string>
     <string name="home_frag_function_tx5">合同定制</string>
     <string name="home_frag_function_tx6">合同审核</string>
-    <string name="home_frag_function_tx7">非诉/催告</string>
-    <string name="home_frag_function_tx8">仲裁/诉讼</string>
+    <string name="home_frag_function_tx7">专项服务</string>
+    <string name="home_frag_function_tx8">案件服务</string>
     <string name="home_frag_function_tx9">诉讼费计算</string>
     <string name="home_frag_function_tx10">违约金计算</string>
     <string name="home_frag_function_tx11">工伤赔偿</string>

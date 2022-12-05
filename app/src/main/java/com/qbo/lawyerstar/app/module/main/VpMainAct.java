@@ -21,6 +21,7 @@ import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.business.base.LawBusinessFrag;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
+import com.qbo.lawyerstar.app.module.lawyer.frag.LawyerListFrag;
 import com.qbo.lawyerstar.app.module.mine.base.MineFrag;
 import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.study.base.LawStudyFrag;
@@ -68,7 +69,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
             Manifest.permission.ACCESS_COARSE_LOCATION,
     };
 
-    @BindViews({R.id.tab1, R.id.tab2, R.id.tab3, R.id.tab4})
+    @BindViews({R.id.tab1, R.id.tab2, R.id.tab5, R.id.tab3,R.id.tab4})
     List<View> tabs;
     @BindView(R.id.fragment_container)
     View fragment_container;
@@ -78,6 +79,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
     private LawStudyFrag studyFrag;
     private LawBusinessFrag businessFrag;
     private MineFrag mineFrag;
+    private LawyerListFrag lawyerListFrag;
 
     private List<BaseFrag> fragMap = new ArrayList();
     private Long exitTime = 0L;
@@ -181,8 +183,9 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
     private void initBottomTabView() {
         setBottomTabImageAndTx(tabs.get(0), R.drawable.selector_tab_main_1, R.string.one_tab);
         setBottomTabImageAndTx(tabs.get(1), R.drawable.selector_tab_main_2, R.string.two_tab);
-        setBottomTabImageAndTx(tabs.get(2), R.drawable.selector_tab_main_3, R.string.three_tab);
-        setBottomTabImageAndTx(tabs.get(3), R.drawable.selector_tab_main_4, R.string.four_tab);
+        setBottomTabImageAndTx(tabs.get(2), R.drawable.selector_tab_main_5, R.string.five_tab);
+        setBottomTabImageAndTx(tabs.get(3), R.drawable.selector_tab_main_3, R.string.three_tab);
+        setBottomTabImageAndTx(tabs.get(4), R.drawable.selector_tab_main_4, R.string.four_tab);
         tabs.get(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -197,7 +200,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                 onFragmentChangeSelected(R.id.tab2);
             }
         });
-        tabs.get(2).setOnClickListener(new View.OnClickListener() {
+        tabs.get(3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!checkLogin()) {
@@ -215,11 +218,18 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                 onFragmentChangeSelected(R.id.tab3);
             }
         });
-        tabs.get(3).setOnClickListener(new View.OnClickListener() {
+        tabs.get(4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickBootomTabView(view);
                 onFragmentChangeSelected(R.id.tab4);
+            }
+        });
+        tabs.get(2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickBootomTabView(view);
+                onFragmentChangeSelected(R.id.tab5);
             }
         });
 
@@ -328,6 +338,14 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                     mineFrag.refresh();
                 }
                 doFragmentChange(mineFrag);
+                break;
+            case R.id.tab5:
+                if (lawyerListFrag == null) {
+                    lawyerListFrag = new LawyerListFrag();
+                }else{
+//                    mineFrag.refresh();
+                }
+                doFragmentChange(lawyerListFrag);
                 break;
         }
     }
