@@ -15,8 +15,8 @@ public class NET_URL {
     public static NET_URL getInstance() {
         return u;
     }
-    public final String API = "/20220822dgl/PHP/public/index.php?s=front/";
-//    public final String API = "/front/";
+//    public final String API = "/20220822dgl/PHP/public/index.php?s=front/";
+    public final String API = "/front/";
 
     /**
      * @param
