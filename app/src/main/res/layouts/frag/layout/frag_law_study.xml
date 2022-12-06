@@ -24,7 +24,9 @@
         app:tl_tab_space_equal="true"
         app:tl_textSelectColor="@color/main_color"
         app:tl_textUnselectColor="@color/c_999999"
-        app:tl_textsize="18sp" />
+        android:layout_marginLeft="@dimen/dp_50"
+        android:layout_marginRight="@dimen/dp_50"
+        app:tl_textsize="16sp" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

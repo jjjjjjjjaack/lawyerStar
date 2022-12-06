@@ -68,15 +68,15 @@
     <string name="home_frag_function_tx10">违约金计算</string>
     <string name="home_frag_function_tx11">工伤赔偿</string>
     <string name="home_frag_function_tx12">电子签章</string>
-    <string name="home_frag_function_tx13">法务中心</string>
+    <string name="home_frag_function_tx13">法务群组</string>
     <string name="home_frag_function_tx14">在线咨询</string>
     <string name="home_frag_function_tx15">法律咨询</string>
     <string name="home_frag_function_tx16">AI法务</string>
 
-    <string name="law_study_frag_tx1">&#8194;&#8194;推荐&#8194;&#8194;</string>
-    <string name="law_study_frag_tx2">法律头条</string>
-    <string name="law_study_frag_tx3">经典案例</string>
-    <string name="law_study_frag_tx4">法律释疑</string>
+    <string name="law_study_frag_tx1">推荐</string>
+    <string name="law_study_frag_tx2">普法</string>
+    <string name="law_study_frag_tx3">案例</string>
+    <string name="law_study_frag_tx4">解读</string>
     <string name="law_study_frag_tx5">文章详情</string>
 
     <string name="law_business_frag_tx1">我的法务部</string>
@@ -97,8 +97,8 @@
     <string name="mine_function_tx5">合同定制</string>
     <string name="mine_function_tx6">合同审核</string>
     <string name="mine_function_tx7">案件委托</string>
-    <string name="mine_function_tx7_1">非诉/催告</string>
-    <string name="mine_function_tx7_2">仲裁/诉讼</string>
+    <string name="mine_function_tx7_1">专项服务</string>
+    <string name="mine_function_tx7_2">案件服务</string>
     <string name="mine_function_tx8">我的订单</string>
     <string name="mine_function_tx9">电子签章</string>
     <string name="mine_function_tx10">投诉建议</string>

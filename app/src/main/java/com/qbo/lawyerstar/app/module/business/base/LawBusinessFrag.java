@@ -29,6 +29,7 @@ import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.mine.info.base.UserInfoBaseAct;
+import com.qbo.lawyerstar.app.module.mine.vip.intro.VipIntroAct;
 import com.qbo.lawyerstar.app.module.study.base.ILawStudyView;
 import com.qbo.lawyerstar.app.module.study.base.LawStudyPresenter;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
@@ -40,8 +41,10 @@ import java.util.List;
 import butterknife.BindView;
 import framework.mvp1.base.adapter.MCommAdapter;
 import framework.mvp1.base.adapter.MCommVH;
+import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpFrag;
+import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
 
@@ -62,10 +65,13 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
     RecyclerView function_3_rcy;
     private MCommAdapter function_3_Adapter;
 
-    @BindView(R.id.vipname_tv)
-    TextView vipname_tv;
-    @BindView(R.id.vipdate_tv)
-    TextView vipdate_tv;
+//    @BindView(R.id.vipname_tv)
+//    TextView vipname_tv;
+//    @BindView(R.id.vipdate_tv)
+//    TextView vipdate_tv;
+
+    @BindView(R.id.vipbg_iv)
+    ImageView vipbg_iv;
 
     @Override
     public LawBusinessPresenter initPresenter() {
@@ -195,16 +201,16 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
         funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_4_LSH, getString(R.string.home_frag_function_tx4), R.mipmap.ic_h_function_4));
         funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_5_HTDZ, getString(R.string.home_frag_function_tx5), R.mipmap.ic_h_function_5));
         funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_6_HTSH, getString(R.string.home_frag_function_tx6), R.mipmap.ic_h_function_6));
-//        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
-//        function_1_Adapter.setData(funtion_1_Beans);
+        funtion_1_Beans.add(new HomeFrag.FuntionBean(FUNCTION_12_DZQZ, getString(R.string.home_frag_function_tx12), R.mipmap.ic_h_function_12));
+        function_1_Adapter.setData(funtion_1_Beans);
 
         List<HomeFrag.FuntionBean> funtion_2_Beans = new ArrayList<>();
         funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_13_FWZX, getString(R.string.home_frag_function_tx13), R.mipmap.ic_h_function_13));
         funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_14_ZXZX, getString(R.string.home_frag_function_tx14), R.mipmap.ic_h_function_14));
         funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_3_FLZX, getString(R.string.home_frag_function_tx15), R.mipmap.ic_h_function_15));
         funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_15_AIFW, getString(R.string.home_frag_function_tx16), R.mipmap.ic_h_function_16));
-        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_7_FSCG, getString(R.string.home_frag_function_tx7), R.mipmap.ic_h_function_7));
         funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_8_ZCSS, getString(R.string.home_frag_function_tx8), R.mipmap.ic_h_function_8));
+        funtion_2_Beans.add(new HomeFrag.FuntionBean(FUNCTION_7_FSCG, getString(R.string.home_frag_function_tx7), R.mipmap.ic_h_function_7));
         function_2_Adapter.setData(funtion_2_Beans);
 
         List<HomeFrag.FuntionBean> funtion_3_Beans = new ArrayList<>();
@@ -226,11 +232,38 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
         FCacheUtils.getUserInfo(getMContext(), false, new FCacheUtils.GetUserInfoInterface() {
             @Override
             public void reslut(boolean isNet, FUserInfoBean userInfoBean) {
-                if (userInfoBean.isVip()) {
-                    vipdate_tv.setText("有效期至" + userInfoBean.getRank_date());
-                    if (userInfoBean.rank != null) {
-                        vipname_tv.setText(userInfoBean.rank.getName());
+                try {
+                    if (userInfoBean.isVip()) {
+//                    vipdate_tv.setText("有效期至" + userInfoBean.getRank_date());
+//                    if (userInfoBean.rank != null) {
+//                        vipname_tv.setText(userInfoBean.rank.getName());
+//                    }
+                        vipbg_iv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    FTokenUtils.getToken(getContext(), true);
+                                } catch (NeedLoginException e) {
+                                    return;
+                                }
+                                gotoActivity(VipIntroAct.class);
+                            }
+                        });
+                    }else{
+                        vipbg_iv.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    FTokenUtils.getToken(getContext(), true);
+                                } catch (NeedLoginException e) {
+                                    return;
+                                }
+                                gotoActivity(VipIntroAct.class);
+                            }
+                        });
                     }
+                    GlideUtils.loadImageDefult(getMContext(), userInfoBean.rank_img, vipbg_iv);
+                }catch (Exception e){
                 }
             }
 

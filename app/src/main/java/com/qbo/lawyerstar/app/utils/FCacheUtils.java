@@ -87,7 +87,7 @@ public class FCacheUtils {
 
             @Override
             public void onSuccess(FUserInfoBean fUserInfoBean) throws Exception {
-                if (fUserInfoBean == null) {
+                if (fUserInfoBean == null||ToolUtils.isNull(fUserInfoBean.userid)||"0".equals(fUserInfoBean.userid)) {
                     if (getUserInfoInterface != null) {
                         getUserInfoInterface.fail();
                     }

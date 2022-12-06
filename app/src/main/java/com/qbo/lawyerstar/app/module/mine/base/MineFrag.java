@@ -19,6 +19,7 @@ import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_4
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_5_HTDZ;
 import static com.qbo.lawyerstar.app.module.business.LawBusinessUtils.FUNCTION_6_HTSH;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
@@ -38,6 +39,7 @@ import com.qbo.lawyerstar.app.module.mine.login.selecttype.UserSelectTypeAct;
 import com.qbo.lawyerstar.app.module.mine.notice.type.NoticeTypeAct;
 import com.qbo.lawyerstar.app.module.mine.vip.intro.VipIntroAct;
 import com.qbo.lawyerstar.app.module.mine.vip.introv2.base.VipIntroV2Act;
+import com.qbo.lawyerstar.app.net.REQ_Factory;
 import com.qbo.lawyerstar.app.utils.FCacheUtils;
 import com.qbo.lawyerstar.app.view.ChangeGasStationImageView2;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -52,7 +54,9 @@ import framework.mvp1.base.bean.BaseBean;
 import framework.mvp1.base.bean.FToken;
 import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
+import framework.mvp1.base.f.BasePresent;
 import framework.mvp1.base.f.MvpFrag;
+import framework.mvp1.base.net.BaseResponse;
 import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
@@ -75,12 +79,16 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     View message_rl;
     @BindView(R.id.message_iv)
     View message_iv;
-    @BindView(R.id.user_not_vip_rl)
-    View user_not_vip_rl;
-    @BindView(R.id.user_is_vip_rl)
-    View user_is_vip_rl;
+    //    @BindView(R.id.user_not_vip_rl)
+//    View user_not_vip_rl;
+//    @BindView(R.id.user_is_vip_rl)
+//    View user_is_vip_rl;
     @BindView(R.id.vipicon_iv)
     View vipicon_iv;
+    @BindView(R.id.user_vip_bgrl)
+    View user_vip_bgrl;
+    @BindView(R.id.usevip_bgiv)
+    ImageView usevip_bgiv;
 
     @BindView(R.id.function_1_rcy)
     RecyclerView function_1_rcy;
@@ -97,10 +105,10 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     @BindView(R.id.userlogo_civ)
     ChangeGasStationImageView2 userlogo_civ;
 
-    @BindView(R.id.vipname_tv)
-    TextView vipname_tv;
-    @BindView(R.id.vipdate_tv)
-    TextView vipdate_tv;
+//    @BindView(R.id.vipname_tv)
+//    TextView vipname_tv;
+//    @BindView(R.id.vipdate_tv)
+//    TextView vipdate_tv;
 
     QBadgeView allNumQv;
 
@@ -200,14 +208,15 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
 
 
         List<MineFrag.FuntionBean> funtion_1_Beans = new ArrayList<>();
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_16_HTXZ, getString(R.string.mine_function_tx1), R.mipmap.ic_mine_function_1));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_20_DXWS_ORDER, getString(R.string.mine_function_tx2), R.mipmap.ic_mine_function_2));
         funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_21_FLZX_ORDER, getString(R.string.mine_function_tx3), R.mipmap.ic_mine_function_3));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_22_LSH_ORDER, getString(R.string.mine_function_tx4), R.mipmap.ic_mine_function_4));
         funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_23_HTDZ_ORDER, getString(R.string.mine_function_tx5), R.mipmap.ic_mine_function_5));
         funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_24_HTSH_ORDER, getString(R.string.mine_function_tx6), R.mipmap.ic_mine_function_6));
-        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_25_FSCG_ORDER, getString(R.string.mine_function_tx7_1), R.mipmap.ic_mine_function_7));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_22_LSH_ORDER, getString(R.string.mine_function_tx4), R.mipmap.ic_mine_function_4));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_20_DXWS_ORDER, getString(R.string.mine_function_tx2), R.mipmap.ic_mine_function_2));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_16_HTXZ, getString(R.string.mine_function_tx1), R.mipmap.ic_mine_function_1));
         funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_26_ZCSS_ORDER, getString(R.string.mine_function_tx7_2), R.mipmap.ic_mine_function_7_2));
+        funtion_1_Beans.add(new MineFrag.FuntionBean(FUNCTION_25_FSCG_ORDER, getString(R.string.mine_function_tx7_1), R.mipmap.ic_mine_function_7));
+
         function_1_Adapter.setData(funtion_1_Beans);
 
 
@@ -232,29 +241,29 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
             }
         });
 
-        user_not_vip_rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    FTokenUtils.getToken(getContext(), true);
-                } catch (NeedLoginException e) {
-                    return;
-                }
-                gotoActivity(VipIntroAct.class);
-            }
-        });
+//        user_not_vip_rl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    FTokenUtils.getToken(getContext(), true);
+//                } catch (NeedLoginException e) {
+//                    return;
+//                }
+//                gotoActivity(VipIntroAct.class);
+//            }
+//        });
 
-        user_is_vip_rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    FTokenUtils.getToken(getContext(), true);
-                } catch (NeedLoginException e) {
-                    return;
-                }
-                gotoActivity(VipIntroAct.class);
-            }
-        });
+//        user_is_vip_rl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    FTokenUtils.getToken(getContext(), true);
+//                } catch (NeedLoginException e) {
+//                    return;
+//                }
+//                gotoActivity(VipIntroAct.class);
+//            }
+//        });
 
     }
 
@@ -299,17 +308,50 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 });
 
                 if (userInfoBean.isVip()) {
-                    user_not_vip_rl.setVisibility(View.GONE);
-                    user_is_vip_rl.setVisibility(View.VISIBLE);
+//                    user_not_vip_rl.setVisibility(View.GONE);
+//                    user_is_vip_rl.setVisibility(View.VISIBLE);
                     vipicon_iv.setVisibility(View.VISIBLE);
-                    vipdate_tv.setText("有效期至" + userInfoBean.getRank_date());
-                    if (userInfoBean.rank != null) {
-                        vipname_tv.setText(userInfoBean.rank.getName());
-                    }
+//                    vipdate_tv.setText("有效期至" + userInfoBean.getRank_date());
+//                    if (userInfoBean.rank != null) {
+//                        vipname_tv.setText(userInfoBean.rank.getName());
+//                    }
+
+                    usevip_bgiv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                FTokenUtils.getToken(getContext(), true);
+                            } catch (NeedLoginException e) {
+                                return;
+                            }
+                            gotoActivity(VipIntroAct.class);
+                        }
+                    });
+
                 } else {
-                    user_not_vip_rl.setVisibility(View.VISIBLE);
-                    user_is_vip_rl.setVisibility(View.GONE);
+//                    user_not_vip_rl.setVisibility(View.VISIBLE);
+//                    user_is_vip_rl.setVisibility(View.GONE);
                     vipicon_iv.setVisibility(View.GONE);
+
+                    usevip_bgiv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                FTokenUtils.getToken(getContext(), true);
+                            } catch (NeedLoginException e) {
+                                return;
+                            }
+                            gotoActivity(VipIntroAct.class);
+                        }
+                    });
+
+                }
+
+                try {
+                    if (user_vip_bgrl != null) {
+                        GlideUtils.loadImageDefult(getMContext(), userInfoBean.rank_img, usevip_bgiv);
+                    }
+                } catch (Exception e) {
                 }
             }
 
@@ -340,6 +382,46 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                 gotoActivity(LoginAct.class);
             }
         });
+
+        REQ_Factory.GET_USERINFO_REQ req = new REQ_Factory.GET_USERINFO_REQ();
+        BasePresent.doStaticCommRequest(getMContext(), req, false, true, new BasePresent.DoCommRequestInterface<BaseResponse, FUserInfoBean>() {
+            @Override
+            public void doStart() {
+
+            }
+
+            @Override
+            public FUserInfoBean doMap(BaseResponse baseResponse) {
+                return FUserInfoBean.fromJSONAuto(baseResponse.datas, FUserInfoBean.class);
+            }
+
+            @Override
+            public void onSuccess(FUserInfoBean fUserInfoBean) throws Exception {
+                try {
+                    GlideUtils.loadImageDefult(getMContext(), fUserInfoBean.rank_img, usevip_bgiv);
+                    usevip_bgiv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                FTokenUtils.getToken(getContext(), true);
+                            } catch (NeedLoginException e) {
+                                return;
+                            }
+                            gotoActivity(VipIntroAct.class);
+                        }
+                    });
+
+
+                } catch (Exception e) {
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+        });
+
+
     }
 
     @Override
@@ -350,7 +432,7 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
     @Override
     public void getMsgNumResult(boolean b) {
         if (presenter.typeBean != null) {
-             allNumQv.setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num));
+            allNumQv.setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num));
 //            new QBadgeView(getMContext())
 //                    .bindTarget(message_rl)
 //                    .setBadgeNumber(ToolUtils.String2Int(presenter.typeBean.all_num))

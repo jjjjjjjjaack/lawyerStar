@@ -72,51 +72,58 @@
                             android:layout_marginLeft="@dimen/dp_16"
 
                             android:layout_marginRight="@dimen/dp_16"
-                            android:background="@mipmap/bg_userlevel_1">
-
-                            <LinearLayout
-                                android:id="@+id/level_tx_ll"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_24"
-                                android:layout_marginTop="@dimen/dp_18"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="@dimen/dp_24"
-                                    android:layout_height="@dimen/dp_24"
-                                    android:src="@mipmap/ic_userlevel_1" />
-
-                                <TextView
-                                    android:id="@+id/vipname_tv"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="#ffffffff"
-                                    android:textSize="14sp"
-                                    tools:text="至尊版VIP" />
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/vipdate_tv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/level_tx_ll"
-                                android:layout_alignLeft="@id/level_tx_ll"
-                                android:layout_marginLeft="@dimen/dp_8"
-                                android:textColor="#ccffffff"
-                                android:textSize="10sp"
-                                tools:text="有效期至2022-07-21" />
-
+                         >
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="@dimen/dp_24"
-                                android:src="@mipmap/ic_userlevel_r_1" />
+                                android:id="@+id/vipbg_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                />
+
+<!--                            <LinearLayout-->
+<!--                                android:id="@+id/level_tx_ll"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="@dimen/dp_24"-->
+<!--                                android:layout_marginTop="@dimen/dp_18"-->
+<!--                                android:gravity="center_vertical"-->
+<!--                                android:orientation="horizontal">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="@dimen/dp_24"-->
+<!--                                    android:layout_height="@dimen/dp_24"-->
+<!--                                    android:src="@mipmap/ic_userlevel_1" />-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/vipname_tv"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:textColor="#ffffffff"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    tools:text="至尊版VIP" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/vipdate_tv"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_below="@id/level_tx_ll"-->
+<!--                                android:layout_alignLeft="@id/level_tx_ll"-->
+<!--                                android:layout_marginLeft="@dimen/dp_8"-->
+<!--                                android:textColor="#ccffffff"-->
+<!--                                android:textSize="10sp"-->
+<!--                                tools:text="有效期至2022-07-21" />-->
+
+
+<!--                            <ImageView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_alignParentRight="true"-->
+<!--                                android:layout_centerVertical="true"-->
+<!--                                android:layout_marginRight="@dimen/dp_24"-->
+<!--                                android:src="@mipmap/ic_userlevel_r_1" />-->
 
                         </RelativeLayout>
 

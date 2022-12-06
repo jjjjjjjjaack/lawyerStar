@@ -24,6 +24,8 @@ public class FUserInfoBean extends BaseBean {
     public String rank_date;
     public String shop_balance;
     public RankInfo rank;
+    public String userid;
+    public String rank_img;
 
     @Override
     public void fromJSONAuto(JSONObject json) {
@@ -45,6 +47,22 @@ public class FUserInfoBean extends BaseBean {
 //
 //        }
 
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public String getRank_img() {
+        return rank_img;
+    }
+
+    public void setRank_img(String rank_img) {
+        this.rank_img = rank_img;
     }
 
     public String getAvatar() {
@@ -292,6 +310,8 @@ public class FUserInfoBean extends BaseBean {
         public void setDetail(List<DetailBean> detail) {
             this.detail = detail;
         }
+
+
 
         public static class PicBean extends BaseBean {
             /**

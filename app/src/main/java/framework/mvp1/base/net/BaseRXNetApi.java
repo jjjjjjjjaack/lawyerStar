@@ -700,9 +700,9 @@ public class BaseRXNetApi {
      * @return
      */
     public static String EncryptionValue(String reqValue, boolean useOrginKey) {
-//        if (BuildConfig.DEBUG) {
-//            return reqValue;
-//        }
+        if (true) {
+            return reqValue;
+        }
         String key = "";
         if (!useOrginKey) {
             try {
@@ -749,9 +749,9 @@ public class BaseRXNetApi {
 //        if (NET_URL.getInstance().isDubug()) {
 //            return secstr;
 //        }
-//        if (BuildConfig.DEBUG) {
-//            return secstr;
-//        }
+        if (true) {
+            return secstr;
+        }
         String resultStr = secstr;
         if (isBase64(secstr)) {
             try {
