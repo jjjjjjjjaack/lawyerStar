@@ -62,6 +62,7 @@ public class HomeDataBean extends BaseBean {
         private String success;
         private String file_name;
         private String url;
+        private String link;//0首页 1大状圈 2会员中心 3文章列表 4个人中心 5合同文库
 
         public String getExt() {
             return ext;
@@ -117,6 +118,14 @@ public class HomeDataBean extends BaseBean {
 
         public void setUrl(String url) {
             this.url = url;
+        }
+
+        public String getLink() {
+            return link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
         }
     }
 

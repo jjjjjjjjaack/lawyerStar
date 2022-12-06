@@ -319,11 +319,11 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                     usevip_bgiv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            try {
-                                FTokenUtils.getToken(getContext(), true);
-                            } catch (NeedLoginException e) {
-                                return;
-                            }
+//                            try {
+//                                FTokenUtils.getToken(getContext(), true);
+//                            } catch (NeedLoginException e) {
+//                                return;
+//                            }
                             gotoActivity(VipIntroAct.class);
                         }
                     });
@@ -336,11 +336,11 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                     usevip_bgiv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            try {
-                                FTokenUtils.getToken(getContext(), true);
-                            } catch (NeedLoginException e) {
-                                return;
-                            }
+//                            try {
+//                                FTokenUtils.getToken(getContext(), true);
+//                            } catch (NeedLoginException e) {
+//                                return;
+//                            }
                             gotoActivity(VipIntroAct.class);
                         }
                     });
@@ -402,11 +402,11 @@ public class MineFrag extends MvpFrag<IMineView, BaseModel, MinePresenter> imple
                     usevip_bgiv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            try {
-                                FTokenUtils.getToken(getContext(), true);
-                            } catch (NeedLoginException e) {
-                                return;
-                            }
+//                            try {
+//                                FTokenUtils.getToken(getContext(), true);
+//                            } catch (NeedLoginException e) {
+//                                return;
+//                            }
                             gotoActivity(VipIntroAct.class);
                         }
                     });

@@ -76,6 +76,7 @@
             android:launchMode="singleTask"
             android:taskAffinity="com.qbo.lawyerstar"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity android:name=".app.module.study.base.LawStudyAct" />
         <!--************************************************************************-->
         <provider
             android:name="androidx.core.content.FileProvider"

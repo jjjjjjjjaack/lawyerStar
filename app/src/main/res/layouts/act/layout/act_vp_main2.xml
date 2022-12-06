@@ -40,12 +40,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <include
-                android:id="@+id/tab5"
-                layout="@layout/view_main_bottom_tab"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
 
             <include
                 android:id="@+id/tab3"
@@ -54,9 +48,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-
             <include
                 android:id="@+id/tab4"
+                layout="@layout/view_main_bottom_tab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/tab5"
                 layout="@layout/view_main_bottom_tab"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

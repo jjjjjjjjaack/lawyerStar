@@ -37,6 +37,8 @@ import com.qbo.lawyerstar.app.module.home.bean.HomeDataBean;
 import com.qbo.lawyerstar.app.module.lawyer.detail.LawyerDetailAct;
 import com.qbo.lawyerstar.app.module.lawyer.list.LawyerListAct;
 import com.qbo.lawyerstar.app.module.mine.order.list.comm.base.OrderListCommAct;
+import com.qbo.lawyerstar.app.module.mine.vip.intro.VipIntroAct;
+import com.qbo.lawyerstar.app.module.study.base.LawStudyAct;
 import com.qbo.lawyerstar.app.utils.CEventUtils;
 import com.qbo.lawyerstar.app.view.scrolltextview.MAutoScrollTextView;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
@@ -102,6 +104,8 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
     View ask_ai_ll;
     @BindView(R.id.onlineserver_rl)
     View onlineserver_rl;
+    @BindView(R.id.tcfw_iv)
+    View tcfw_iv;
 
     float topViewMinY = 0;
     float topViewMaxY = 0;
@@ -249,7 +253,8 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
         find_lawyer_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoActivity(LawyerListAct.class);
+//                gotoActivity(LawyerListAct.class);
+                BusinessWapAct.openAct(getMContext(), "lawyer_service");
             }
         });
         lawyer_more_rl.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +266,8 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
         article_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new CEventUtils.MainTabChangePositionEvent(1));
+//                EventBus.getDefault().post(new CEventUtils.MainTabChangePositionEvent(1));
+                gotoActivity(LawStudyAct.class);
             }
         });
         ask_ai_ll.setOnClickListener(new View.OnClickListener() {
@@ -284,6 +290,12 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                     return;
                 }
                 BusinessWapAct.openAct(getMContext(), "service");
+            }
+        });
+        tcfw_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivity(VipIntroAct.class);
             }
         });
 
@@ -376,6 +388,25 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
 //                            .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
 //                            .into(holder.imageView);
                     GlideUtils.loadImageDefult(getMContext(), data.getUrl(), holder.imageView);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if ("0".equals(data.getLink())) {//链接
+
+                            } else if ("1".equals(data.getLink())) {//打桩圈
+                                EventBus.getDefault().post(new CEventUtils.MainTabChangePositionEvent(1));
+                            } else if ("2".equals(data.getLink())) {//会员中心
+                                gotoActivity(VipIntroAct.class);
+                            } else if ("3".equals(data.getLink())) {//文章列表
+//                                EventBus.getDefault().post(new CEventUtils.MainTabChangePositionEvent(1));
+                                gotoActivity(LawStudyAct.class);
+                            } else if ("4".equals(data.getLink())) {//个人中心
+                                EventBus.getDefault().post(new CEventUtils.MainTabChangePositionEvent(4));
+                            } else if ("5".equals(data.getLink())) {//合同文库
+                                LawBusinessUtils.jumpAction(getMContext(), FUNCTION_1_HTWK, "");
+                            }
+                        }
+                    });
                 }
             }).addBannerLifecycleObserver(this)//添加生命周期观察者
                     .setIndicator(new CircleIndicator(getMContext()));

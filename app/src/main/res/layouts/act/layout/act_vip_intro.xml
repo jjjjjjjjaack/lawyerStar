@@ -91,16 +91,17 @@
     <FrameLayout
         android:id="@+id/webview_fl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@id/commit_tv"
         android:layout_below="@id/title_ll_2"
         android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_10"></FrameLayout>
+      ></FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
         android:background="@color/c_ffffff"
         android:orientation="vertical">
 

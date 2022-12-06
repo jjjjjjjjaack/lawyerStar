@@ -32,8 +32,10 @@ import java.util.List;
 import butterknife.BindView;
 import framework.mvp1.base.adapter.MCommAdapter;
 import framework.mvp1.base.adapter.MCommVH;
+import framework.mvp1.base.exception.NeedLoginException;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.GlideUtils;
 import framework.mvp1.base.util.ResourceUtils;
 import framework.mvp1.base.util.ToolUtils;
@@ -53,6 +55,7 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
     FrameLayout webview_fl;
 
     private MCommAdapter mCommAdapter;
+    private int itemWidth;
 
     @Override
     public void baseInitialization() {
@@ -68,7 +71,8 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
     public void viewInitialization() {
         setBackPress();
         setMTitle(R.string.vip_intro_tx1);
-        int itemWidth = (ResourceUtils.getScreenWidth(getMContext()) - ResourceUtils.dp2px(getMContext(), 36)) / 2;
+
+//        int itemWidth = (ResourceUtils.getScreenWidth(getMContext()) - ResourceUtils.dp2px(getMContext(), 36)) / 2;
         rcy.setLayoutManager(new LinearLayoutManager(getMContext(), LinearLayoutManager.HORIZONTAL, false));
         mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<VipIntroBean>() {
             @Override
@@ -95,7 +99,8 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        VipIntroV2Act.openAct(context, position);
+//                        VipIntroV2Act.openAct(context, position);
+                        LawBusinessUtils.showVipTipView(getMContext(), v);
                     }
                 });
             }
@@ -138,6 +143,12 @@ public class VipIntroAct extends MvpAct<IVipIntroView, BaseModel, VipIntroPresen
     public void showInfo(List<VipIntroBean> beanList) {
         if (beanList.size() != 0) {
             presenter.vipIntroBeans = beanList;
+
+            if (presenter.vipIntroBeans.size() != 0) {
+                itemWidth = (ResourceUtils.getScreenWidth(getMContext()) - ResourceUtils.dp2px(getMContext(), 36)) / presenter.vipIntroBeans.size();
+            }else{
+                itemWidth = (ResourceUtils.getScreenWidth(getMContext()) - ResourceUtils.dp2px(getMContext(), 36));
+            }
             mCommAdapter.setData(presenter.vipIntroBeans);
 //            banner.setAdapter(new BannerImageAdapter<VipIntroBean>(beanList) {
 //                @Override
