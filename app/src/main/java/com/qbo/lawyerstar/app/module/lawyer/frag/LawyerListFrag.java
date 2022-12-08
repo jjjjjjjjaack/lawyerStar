@@ -100,9 +100,9 @@ public class LawyerListFrag extends MvpFrag<ILawyerListView, BaseModel, LawyerLi
 
     @Override
     public void viewInitialization() {
-        statusiv.getLayoutParams().height = StatusBarUtils.getStatusBarHeight(getMContext());
+//        statusiv.getLayoutParams().height = StatusBarUtils.getStatusBarHeight(getMContext());
 //        setBackPress();
-        tv_back_right.setImageResource(R.mipmap.ic_search_1);
+        tv_back_right.setImageResource(R.mipmap.ic_top_seatch_white);
         rl_back_tv.setText("");
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
