@@ -20,6 +20,17 @@ public class CEventUtils {
         }
     }
 
+    public static class H5ForFragEvent {
+        public int what;// -3 Toast -2 quit ,-1 onpageload , 0 onNavigationBarButtonTap,1 setNavbar ，2 navigateTo
+        public String object;
+
+        public H5ForFragEvent(int what, String object) {
+            this.what = what;
+            this.object = object;
+        }
+    }
+
+
     /**
      * H5刷新
      */

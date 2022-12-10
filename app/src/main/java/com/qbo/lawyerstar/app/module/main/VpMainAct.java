@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,6 +22,7 @@ import com.qbo.lawyerstar.app.bean.FUserInfoBean;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.business.base.LawBusinessFrag;
 import com.qbo.lawyerstar.app.module.business.wap.BusinessWapAct;
+import com.qbo.lawyerstar.app.module.business.wap.BusinessWapFrag;
 import com.qbo.lawyerstar.app.module.home.base.HomeFrag;
 import com.qbo.lawyerstar.app.module.lawyer.frag.LawyerListFrag;
 import com.qbo.lawyerstar.app.module.mine.base.MineFrag;
@@ -71,7 +73,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
             Manifest.permission.ACCESS_COARSE_LOCATION,
     };
 
-    @BindViews({R.id.tab1, R.id.tab2, R.id.tab3,R.id.tab4,R.id.tab5})
+    @BindViews({R.id.tab1, R.id.tab2, R.id.tab3, R.id.tab4, R.id.tab5})
     List<View> tabs;
     @BindView(R.id.fragment_container)
     View fragment_container;
@@ -82,6 +84,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
     private LawBusinessFrag businessFrag;
     private MineFrag mineFrag;
     private LawyerListFrag lawyerListFrag;
+    private BusinessWapFrag businessWapFrag;
 
     private List<BaseFrag> fragMap = new ArrayList();
     private Long exitTime = 0L;
@@ -115,6 +118,14 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
     public void baseInitialization() {
         StatusBarUtils.setImmersiveStatusBar(true, Color.BLACK, this);
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (businessWapFrag != null) {
+            businessWapFrag.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -213,7 +224,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                 }
                 if (!LawBusinessUtils.checkIsVip(getMContext())) {
 //                    T.showShort(getMContext(), "请先开通VIP");
-                    LawBusinessUtils.showVipTipView(getMContext(),fragment_container);
+                    LawBusinessUtils.showVipTipView(getMContext(), fragment_container);
                     return;
                 }
                 clickBootomTabView(view);
@@ -223,6 +234,13 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
         tabs.get(3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!checkLogin()) {
+                    return;
+                }
+                if (!LawBusinessUtils.checkIsCompany(getMContext())) {
+                    T.showShort(getMContext(), "只有企业用户才能查看");
+                    return;
+                }
                 clickBootomTabView(view);
                 onFragmentChangeSelected(R.id.tab4);
             }
@@ -327,7 +345,7 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
 
                 if (lawyerListFrag == null) {
                     lawyerListFrag = new LawyerListFrag();
-                }else{
+                } else {
 //                    mineFrag.refresh();
                 }
                 doFragmentChange(lawyerListFrag);
@@ -342,12 +360,17 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                 doFragmentChange(businessFrag);
                 break;
             case R.id.tab4:
-                BusinessWapAct.openAct(this,"company_index");
+                if (businessWapFrag == null) {
+                    businessWapFrag = new BusinessWapFrag();
+                } else {
+                }
+                doFragmentChange(businessWapFrag);
+//                BusinessWapAct.openAct(this,"company_index");
                 break;
             case R.id.tab5:
                 if (mineFrag == null) {
                     mineFrag = new MineFrag();
-                }else{
+                } else {
                     mineFrag.refresh();
                 }
                 doFragmentChange(mineFrag);

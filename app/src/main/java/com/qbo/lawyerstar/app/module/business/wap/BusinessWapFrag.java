@@ -1,27 +1,13 @@
 package com.qbo.lawyerstar.app.module.business.wap;
 
-import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
-import static com.luck.picture.lib.config.PictureConfig.CHOOSE_REQUEST;
-import static com.luck.picture.lib.config.PictureConfig.REQUEST_CAMERA;
-import static framework.mvp1.base.constant.BROConstant.CLOSE_EXTRAACT_ACTION;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -29,15 +15,12 @@ import androidx.annotation.Nullable;
 
 import com.alibaba.fastjson.JSONObject;
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.bean.FOrderPayBean;
-import com.qbo.lawyerstar.app.module.business.FazH5WebViewUtils;
+import com.qbo.lawyerstar.app.module.business.FazH5WebViewForFragUtils;
 import com.qbo.lawyerstar.app.module.business.LawBusinessUtils;
 import com.qbo.lawyerstar.app.module.business.bean.H5URLBean;
-import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 import com.qbo.lawyerstar.app.module.pay.success.PaySuccessAct;
 import com.qbo.lawyerstar.app.module.popup.PopupToPayView;
 import com.qbo.lawyerstar.app.utils.CEventUtils;
@@ -52,98 +35,45 @@ import java.util.List;
 import butterknife.BindView;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
+import framework.mvp1.base.f.MvpFrag;
 import framework.mvp1.base.util.FileProviderUtil;
-import framework.mvp1.base.util.FileUtils;
 import framework.mvp1.base.util.GetFilePathFromUri;
 import framework.mvp1.base.util.LoadingUtils;
 import framework.mvp1.base.util.LoginoutUtis;
+import framework.mvp1.base.util.StatusBarUtils;
 import framework.mvp1.base.util.T;
 import framework.mvp1.base.util.ToolUtils;
-import framework.mvp1.pics.GlideEngine;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
-public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, BusinessWapPresenter> implements IBusinessWapView {
+import static android.app.Activity.RESULT_OK;
+import static com.luck.picture.lib.config.PictureConfig.CHOOSE_REQUEST;
+import static com.luck.picture.lib.config.PictureConfig.REQUEST_CAMERA;
+import static framework.mvp1.base.constant.BROConstant.CLOSE_EXTRAACT_ACTION;
 
-    public static void openAct(Context context, String urlkey) {
-        Intent intent = new Intent(context, BusinessWapAct.class);
-        intent.putExtra("urltype", 0);
-        intent.putExtra("urlkey", urlkey);
-        context.startActivity(intent);
-    }
-
-    public static void openAct(Context context, int urltype, String url, String params) {
-        Intent intent = new Intent(context, BusinessWapAct.class);
-        intent.putExtra("urltype", urltype);
-        H5URLBean h5URLBean = new H5URLBean(url, params);
-        intent.putExtra("H5URLBean", h5URLBean);
-        context.startActivity(intent);
-    }
-
-    public static void openAct(Context context, int urltype, String url, String params,boolean hideTitle) {
-        Intent intent = new Intent(context, BusinessWapAct.class);
-        intent.putExtra("urltype", urltype);
-        H5URLBean h5URLBean = new H5URLBean(url, params);
-        intent.putExtra("H5URLBean", h5URLBean);
-        intent.putExtra("hideTitle", hideTitle);
-        context.startActivity(intent);
-    }
-
-    public static void openActForPay(Context context, String orderSn, String orderType) {
-        Intent intent = new Intent(context, BusinessWapAct.class);
-        intent.putExtra("urltype", 0);
-        intent.putExtra("urlkey", "payment");
-        intent.putExtra("orderSn", orderSn);
-        intent.putExtra("orderType", orderType);
-        context.startActivity(intent);
-    }
+public class BusinessWapFrag extends MvpFrag<IBusinessWapView, BaseModel, BusinessWapPresenter> implements IBusinessWapView {
 
 //    WebView fazWebView;
 
+    @BindView(R.id.statusiv)
+    View statusiv;
     @BindView(R.id.webview_fl)
     FrameLayout webview_fl;
-    @BindView(R.id.tv_back_right)
-    TextView tv_back_right;
-    @BindView(R.id.title_rl)
-    View title_rl;
 
     PopupToPayView popupToPayView;
 
-    private H5URLBean h5URLBean;
-    private boolean isNavigateTo = false;
-    private boolean isFront = false;
-    private String title;
-    private String rightbtn;
+//    private boolean isFront = false;
 
     @Override
     public void baseInitialization() {
-        setStatusBarComm(true);
     }
 
     @Override
     public int setR_Layout() {
-        return R.layout.act_business_wap;
+        return R.layout.frag_business_wap;
     }
 
     @Override
     public void viewInitialization() {
-//        setBackPress();
-//        initWebView();
-        boolean hideTitle = getIntent().getBooleanExtra("hideTitle",false);
-        if(hideTitle){
-            title_rl.setVisibility(View.GONE);
-        }
-        findViewById(R.id.rl_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FazH5WebViewUtils.backPage("''");
-                finish();
-            }
-        });
-
+        statusiv.getLayoutParams().height = StatusBarUtils.getStatusBarHeight(getMContext());
     }
 
     /**
@@ -185,39 +115,13 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 
     @Override
     public void doBusiness() {
-        urltype = getIntent().getIntExtra("urltype", 0);
-        if (urltype == 0) {
-            String urlkey = getIntent().getStringExtra("urlkey");
-            presenter.orderSn = getIntent().getStringExtra("orderSn");
-            presenter.orderType = getIntent().getStringExtra("orderType");
-            presenter.getWapUrl(urlkey);
-        } else {
-            h5URLBean = (H5URLBean) getIntent().getSerializableExtra("H5URLBean");
-            if (h5URLBean != null) {
-                if (!ToolUtils.isNull(h5URLBean.toString())) {
-                    if (!ToolUtils.isNull(h5URLBean.url) && h5URLBean.url.contains("http")) {
-                        FazH5WebViewUtils.initFAZH5Web(this, h5URLBean.url, false);
-                    } else {
-                        FazH5WebViewUtils.loadPage(this, "", h5URLBean.toString());
-                    }
-                }
-                FazH5WebViewUtils.addWebView(this, webview_fl);
-            }
-        }
+        EventBus.getDefault().register(this);
+        presenter.getWapUrl("company_index");
     }
 
     @Override
-    public void doWakeUpBusiness() {
+    public void onWakeBussiness() {
 
-    }
-
-    @Override
-    public void doReleaseSomething() {
-//        if (fazWebView != null) {
-//            fazWebView.stopLoading();
-//            fazWebView.removeAllViews();
-//            fazWebView = null;
-//        }
     }
 
     @Override
@@ -227,23 +131,21 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 
     @Override
     public Context getMContext() {
-        return this;
+        return getContext();
     }
 
     @Override
     public void setWap(WapUrlBean bean) {
         if (bean != null) {
-            setMTitle(bean.label);
 //            fazWebView.loadUrl(bean.page);
-            FazH5WebViewUtils.initFAZH5Web(this, bean.page, false);
-            FazH5WebViewUtils.addWebView(this, webview_fl);
+            FazH5WebViewForFragUtils.initFAZH5Web(getMContext(), bean.page, false);
+            FazH5WebViewForFragUtils.addWebView(getMContext(), webview_fl);
         }
     }
 
     private boolean isSelect = false;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSE_REQUEST || requestCode == REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
@@ -262,17 +164,17 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                 }
 //                Uri uri = Uri.parse(path);
 //                Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", new File(path));
-                Uri uri = FileProviderUtil.getUri(this, new File(path));
+                Uri uri = FileProviderUtil.getUri(getMContext(), new File(path));
                 Uri[] imgTaskUris = {uri};
-                if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
-                    FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(imgTaskUris);
-                    FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                if (FazH5WebViewForFragUtils.mUploadCallbackAboveL != null) {
+                    FazH5WebViewForFragUtils.mUploadCallbackAboveL.onReceiveValue(imgTaskUris);
+                    FazH5WebViewForFragUtils.mUploadCallbackAboveL = null;
                     isSelect = false;
                 }
             } else {
-                if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
-                    FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
-                    FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                if (FazH5WebViewForFragUtils.mUploadCallbackAboveL != null) {
+                    FazH5WebViewForFragUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                    FazH5WebViewForFragUtils.mUploadCallbackAboveL = null;
                     isSelect = false;
                 }
             }
@@ -281,77 +183,60 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             if (resultCode == RESULT_OK) {
                 Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
                 if (result == null) {
-                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
-                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
-                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                    if (FazH5WebViewForFragUtils.mUploadCallbackAboveL != null) {
+                        FazH5WebViewForFragUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                        FazH5WebViewForFragUtils.mUploadCallbackAboveL = null;
                         isSelect = false;
                     }
                     return;
                 }
-                String path = GetFilePathFromUri.getFileAbsolutePath(this, result);
+                String path = GetFilePathFromUri.getFileAbsolutePath(getMContext(), result);
                 if (TextUtils.isEmpty(path)) {
-                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
-                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
-                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                    if (FazH5WebViewForFragUtils.mUploadCallbackAboveL != null) {
+                        FazH5WebViewForFragUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                        FazH5WebViewForFragUtils.mUploadCallbackAboveL = null;
                         isSelect = false;
                     }
                     return;
                 }
-                Uri uri = FileProviderUtil.getUri(this, new File(path));
+                Uri uri = FileProviderUtil.getUri(getMContext(), new File(path));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     Uri[] imgTaskUris = {uri};
-                    if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
-                        FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(imgTaskUris);
-                        FazH5WebViewUtils.mUploadCallbackAboveL = null;
+                    if (FazH5WebViewForFragUtils.mUploadCallbackAboveL != null) {
+                        FazH5WebViewForFragUtils.mUploadCallbackAboveL.onReceiveValue(imgTaskUris);
+                        FazH5WebViewForFragUtils.mUploadCallbackAboveL = null;
                         isSelect = false;
                     }
                     return;
                 }
             }
-            if (FazH5WebViewUtils.mUploadCallbackAboveL != null) {
-                FazH5WebViewUtils.mUploadCallbackAboveL.onReceiveValue(null);
-                FazH5WebViewUtils.mUploadCallbackAboveL = null;
+            if (FazH5WebViewForFragUtils.mUploadCallbackAboveL != null) {
+                FazH5WebViewForFragUtils.mUploadCallbackAboveL.onReceiveValue(null);
+                FazH5WebViewForFragUtils.mUploadCallbackAboveL = null;
                 isSelect = false;
             }
         }
 //        if (requestCode == 8768 && resultCode == RESULT_OK) {
 //            try {
 //                String params = data.getStringExtra("params");
-//                FazH5WebViewUtils.invoke("NewHouse", params);
+//                FazH5WebViewForFragUtils.invoke("NewHouse", params);
 //            } catch (Exception e) {
 //            }
 //        }
     }
 
 
-    @Override
-    protected void onResume() {
-//        if (preAgentWeb != null)
-//            preAgentWeb.get().getWebLifeCycle().onResume();
-        super.onResume();
-        isFront = true;
-        EventBus.getDefault().register(this);
-        if (isNavigateTo) {
-            FazH5WebViewUtils.addWebView(this, webview_fl);
-            isNavigateTo = false;
-        }
-    }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-//        FazH5WebViewUtils.backPage("");
+        EventBus.getDefault().unregister(this);
+//        FazH5WebViewForFragUtils.backPage("");
         if (urltype == 0) {
-            FazH5WebViewUtils.finishWeb();
+            FazH5WebViewForFragUtils.finishWeb();
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isFront = false;
-        EventBus.getDefault().unregister(this);
-    }
 
     public final static int FILECHOOSER_RESULTCODE = 1124;
 
@@ -383,10 +268,10 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     Boolean isLogut = false;
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handleH5Event(CEventUtils.H5Event event) {
-        if (!isFront) {
-            return;
-        }
+    public void handleH5Event(CEventUtils.H5ForFragEvent event) {
+//        if (!isFront) {
+//            return;
+//        }
         switch (event.what) {
             case -8://编辑文章，选择房源
                 break;
@@ -405,8 +290,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            FazH5WebViewUtils.backPage("");
-                            sendBrocastCloseTragetAct("BusinessWapAct");
+//                            FazH5WebViewForFragUtils.backPage("");
                             LoginoutUtis.getInstance().doLogOut(getMContext());
                         }
                     }, 1000);
@@ -419,61 +303,42 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                     JSONObject jsonObject = JSONObject.parseObject(str);
                     String title = jsonObject.getString("title");
                     if (!ToolUtils.isNull(title)) {
-                        T.showShort(this, title);
+                        T.showShort(getMContext(), title);
                     }
                 } catch (Exception e) {
                 }
                 break;
             case -2:// quit
-                FazH5WebViewUtils.backPage(event.object);
-                finish();
+//                FazH5WebViewForFragUtils.backPage(event.object);
+//                finish();
                 break;
             case -1:
                 break;
             case 0:
-                if (tv_back_right != null) {
-                    final String ObjectStr = event.object;
-                    tv_back_right.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            FazH5WebViewUtils.invoke(ObjectStr, "");
-                        }
-                    });
-                }
+//                if (tv_back_right != null) {
+//                    final String ObjectStr = event.object;
+//                    tv_back_right.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            FazH5WebViewForFragUtils.invoke(ObjectStr, "");
+//                        }
+//                    });
+//                }
                 break;
             case 1:
-                LoadingUtils.getLoadingUtils().hideLoadingView(this);
-                try {
-                    String str = event.object;
-                    JSONObject jsonObject = JSONObject.parseObject(str);
-                    String title = jsonObject.getString("title");
-                    rightbtn = jsonObject.getString("rightText");
-//                    path = jsonObject.getString("path");
-                    if (!ToolUtils.isNull(title)) {
-                        this.title = title;
-                        setMTitle(title);
-                    }
-                    if (!ToolUtils.isNull(rightbtn)) {
-                        if ("chatSetting".equals(rightbtn)) {
-                            tv_back_right.setText("");
-                            // 使用代码设置drawableleft
-                            Drawable drawable = getResources().getDrawable(
-                                    R.mipmap.ic_rigttop_dian_1);
-                            // 这一步必须要做，否则不会显示。
-                            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
-                                    drawable.getMinimumHeight());
-                            tv_back_right.setCompoundDrawables(null, null, drawable, null);
-                        } else {
-                            tv_back_right.setText(rightbtn);
-                            tv_back_right.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-                        tv_back_right.setText(rightbtn);
-                        tv_back_right.setVisibility(View.GONE);
-                    }
-                } catch (Exception e) {
-
-                }
+                LoadingUtils.getLoadingUtils().hideLoadingView(getMContext());
+//                try {
+//                    String str = event.object;
+//                    JSONObject jsonObject = JSONObject.parseObject(str);
+//                    String title = jsonObject.getString("title");
+//                    rightbtn = jsonObject.getString("rightText");
+////                    path = jsonObject.getString("path");
+//                    if (!ToolUtils.isNull(title)) {
+//                        this.title = title;
+//                    }
+//                } catch (Exception e) {
+//
+//                }
                 break;
             case 2:
                 try {
@@ -482,11 +347,8 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                     String url = jsonObject.getString("url");
                     String params = jsonObject.getString("params");
                     boolean hideHeader = jsonObject.getBoolean("hideHeader");
-                    BusinessWapAct.openAct(this, 1, url, params);
-                    isNavigateTo = true;
-//                    if (hideHeader) {
-//                        title_rl.setVisibility(View.VISIBLE);
-//                    }
+                    BusinessWapAct.openAct(getMContext(), 1, url, params,hideHeader);
+//                    isNavigateTo = true;
                 } catch (Exception e) {
 
                 }
@@ -528,17 +390,10 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             case 13:
                 Intent intent = new Intent(CLOSE_EXTRAACT_ACTION);
                 intent.putExtra("CLOSE_EXARTACT_KEY", "VpMainAct");
-                sendBroadcast(intent);
-                finish();
+                getMContext().sendBroadcast(intent);
                 break;
         }
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        FazH5WebViewUtils.backPage("");
     }
 
 

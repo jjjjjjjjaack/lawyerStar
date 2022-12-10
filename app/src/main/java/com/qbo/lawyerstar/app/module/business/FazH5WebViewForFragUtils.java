@@ -23,7 +23,6 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.RequiresApi;
 
-
 import com.qbo.lawyerstar.app.utils.CEventUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,7 +42,7 @@ import framework.mvp1.base.util.ToolUtils;
 
 import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 
-public class FazH5WebViewUtils {
+public class FazH5WebViewForFragUtils {
 
 
     public static WebView fazWebView;
@@ -63,7 +62,7 @@ public class FazH5WebViewUtils {
      */
     private static void initWebView(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            android.webkit.WebView.enableSlowWholeDocumentDraw();
+            WebView.enableSlowWholeDocumentDraw();
         }
         fazWebView = new WebView(context);
         fazWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);      //设置 缓存模式
@@ -105,14 +104,14 @@ public class FazH5WebViewUtils {
         @JavascriptInterface
         public void pageOnLoad(String o) {
             Log.i(TAG, "pageOnLoad(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(-1, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(-1, o));
         }
 
         //右上方按钮点击
         @JavascriptInterface
         public void onNavigationBarButtonTap(String o) {
             Log.i(TAG, "onNavigationBarButtonTap(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(0, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(0, o));
         }
 
 
@@ -120,14 +119,14 @@ public class FazH5WebViewUtils {
         @JavascriptInterface
         public void setNavbar(String o) {
             Log.i(TAG, "setNavbar(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(1, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(1, o));
         }
 
         //触发finish act
         @JavascriptInterface
         public void quit(String o) {
             Log.i(TAG, "quit(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(-2, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(-2, o));
             if (o.contains("\"refresh\":true")) {
                 EventBus.getDefault().post(new CEventUtils.H5QuitRefreshEvent());
             }
@@ -137,51 +136,51 @@ public class FazH5WebViewUtils {
         @JavascriptInterface
         public void navigateTo(String o) {
             Log.i(TAG, "navigateTo(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(2, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(2, o));
         }
 
         //跳转
         @JavascriptInterface
         public void showToast(String o) {
             Log.i(TAG, "showToast(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(-3, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(-3, o));
         }
 
         //跳转
         @JavascriptInterface
         public void login(String o) {
             Log.i(TAG, "login(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(-4, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(-4, o));
         }
 
         @JavascriptInterface
         public void share(String o) {
             Log.i(TAG, "share(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(-5, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(-5, o));
         }
 
         @JavascriptInterface
         public void Back(String o) {
             Log.i(TAG, "Back(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(-2, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(-2, o));
         }
 
         @JavascriptInterface
         public void Pay(String o) {
             Log.i(TAG, "Pay(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(11, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(11, o));
         }
 
         @JavascriptInterface
         public void IsVip(String o) {
             Log.i(TAG, "IsVip(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(12, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(12, o));
         }
 
         @JavascriptInterface
         public void toIndex(String o) {
             Log.i(TAG, "toIndex(" + o + ")");
-            EventBus.getDefault().post(new CEventUtils.H5Event(13, o));
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(13, o));
         }
         //页面加载完成
 //        @JavascriptInterface
@@ -336,7 +335,7 @@ public class FazH5WebViewUtils {
                         && fileChooserParams.getAcceptTypes().length > 0) {
                     acceptTypes = (fileChooserParams.getAcceptTypes()[0]);
                 }
-                EventBus.getDefault().post(new CEventUtils.H5Event(-7, acceptTypes));
+                EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(-7, acceptTypes));
                 return true;
             }
 
@@ -459,16 +458,16 @@ public class FazH5WebViewUtils {
      * @param params
      */
     public static void loadPage(Context context, String url, String params) {
-//        if (fazWebView == null || !isReady) {
-//            initFAZH5Web(context, url, false);
-//            new Handler().postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    loadPage(context, url, params);
-//                }
-//            }, 3000);
-//            return;
-//        }
+        if (fazWebView == null || !isReady) {
+            initFAZH5Web(context, url, false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    loadPage(context, url, params);
+                }
+            }, 3000);
+            return;
+        }
         if (fazWebView != null) {
 //            fazWebView.loadUrl("javascript:receiveAppMessages('route','" + params + "'");
             // 只需要将第一种方法的loadUrl()换成下面该方法即可
@@ -484,23 +483,23 @@ public class FazH5WebViewUtils {
     }
 
 
-    /**
-     * 跳转界面
-     */
-    public static void backPage(String params) {
-        if (fazWebView != null) {
-            // 只需要将第一种方法的loadUrl()换成下面该方法即可
-            Log.i(TAG, "javascript:receiveAppMessages('back'," + params + ")");
-            fazWebView.loadUrl("javascript:receiveAppMessages('back'," + params + ")");
-//            fazWebView.evaluateJavascript("javascript:receiveAppMessages('back')", new ValueCallback<String>() {
-//                @Override
-//                public void onReceiveValue(String value) {
-//                    //此处为 js 返回的结果
-//                    Log.i(TAG, value);
-//                }
-//            });
-        }
-    }
+//    /**
+//     * 跳转界面
+//     */
+//    public static void backPage(String params) {
+//        if (fazWebView != null) {
+//            // 只需要将第一种方法的loadUrl()换成下面该方法即可
+//            Log.i(TAG, "javascript:receiveAppMessages('back'," + params + ")");
+//            fazWebView.loadUrl("javascript:receiveAppMessages('back'," + params + ")");
+////            fazWebView.evaluateJavascript("javascript:receiveAppMessages('back')", new ValueCallback<String>() {
+////                @Override
+////                public void onReceiveValue(String value) {
+////                    //此处为 js 返回的结果
+////                    Log.i(TAG, value);
+////                }
+////            });
+//        }
+//    }
 
     public static void finishWeb() {
         if (fazWebView != null) {
