@@ -83,7 +83,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         context.startActivity(intent);
     }
 
-    public static void openAct(Context context, int urltype, String url, String params,boolean hideTitle) {
+    public static void openAct(Context context, int urltype, String url, String params, boolean hideTitle) {
         Intent intent = new Intent(context, BusinessWapAct.class);
         intent.putExtra("urltype", urltype);
         H5URLBean h5URLBean = new H5URLBean(url, params);
@@ -103,6 +103,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 
 //    WebView fazWebView;
 
+    WebView fazWebView;
     @BindView(R.id.webview_fl)
     FrameLayout webview_fl;
     @BindView(R.id.tv_back_right)
@@ -132,18 +133,20 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     public void viewInitialization() {
 //        setBackPress();
 //        initWebView();
-        boolean hideTitle = getIntent().getBooleanExtra("hideTitle",false);
-        if(hideTitle){
+
+        boolean hideTitle = getIntent().getBooleanExtra("hideTitle", false);
+        if (hideTitle) {
             title_rl.setVisibility(View.GONE);
         }
         findViewById(R.id.rl_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FazH5WebViewUtils.backPage("''");
+                FazH5WebViewUtils.backPage(fazWebView, "''");
                 finish();
             }
         });
-
+//        fazWebView = FazH5WebViewUtils.initFAZH5Web(getMContext(),"https://www.baidu.com",true);
+//        FazH5WebViewUtils.addWebView(this,fazWebView, webview_fl);
     }
 
     /**
@@ -196,12 +199,15 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
             if (h5URLBean != null) {
                 if (!ToolUtils.isNull(h5URLBean.toString())) {
                     if (!ToolUtils.isNull(h5URLBean.url) && h5URLBean.url.contains("http")) {
-                        FazH5WebViewUtils.initFAZH5Web(this, h5URLBean.url, false);
+                        fazWebView = FazH5WebViewUtils.initFAZH5Web(this, h5URLBean.url, false);
+                        FazH5WebViewUtils.addWebView(this, fazWebView, webview_fl);
+//                        fazWebView.loadUrl(h5URLBean.url);
                     } else {
-                        FazH5WebViewUtils.loadPage(this, "", h5URLBean.toString());
+                        fazWebView = FazH5WebViewUtils.initFAZH5Web(this, "https://www.fatianping.com/front/#/pages/", false);
+                        FazH5WebViewUtils.loadPage(this, fazWebView, "", h5URLBean.toString());
+                        FazH5WebViewUtils.addWebView(this, fazWebView, webview_fl);
                     }
                 }
-                FazH5WebViewUtils.addWebView(this, webview_fl);
             }
         }
     }
@@ -234,9 +240,12 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     public void setWap(WapUrlBean bean) {
         if (bean != null) {
             setMTitle(bean.label);
+            fazWebView = FazH5WebViewUtils.initFAZH5Web(this, bean.page, false);
+            webview_fl.addView(fazWebView,new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
+//            FazH5WebViewUtils.addWebView(this, fazWebView, webview_fl);
 //            fazWebView.loadUrl(bean.page);
-            FazH5WebViewUtils.initFAZH5Web(this, bean.page, false);
-            FazH5WebViewUtils.addWebView(this, webview_fl);
+//            FazH5WebViewUtils.initFAZH5Web(this, bean.page, false);
+//            FazH5WebViewUtils.addWebView(this,w webview_fl);
         }
     }
 
@@ -331,19 +340,25 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         super.onResume();
         isFront = true;
         EventBus.getDefault().register(this);
-        if (isNavigateTo) {
-            FazH5WebViewUtils.addWebView(this, webview_fl);
-            isNavigateTo = false;
-        }
+//        if (isNavigateTo) {
+//            FazH5WebViewUtils.addWebView(this, webview_fl);
+//            isNavigateTo = false;
+//        }
     }
 
     @Override
     protected void onDestroy() {
+        if (fazWebView != null) {
+            fazWebView.stopLoading();
+            webview_fl.removeAllViews();
+            fazWebView = null;
+        }
         super.onDestroy();
 //        FazH5WebViewUtils.backPage("");
-        if (urltype == 0) {
-            FazH5WebViewUtils.finishWeb();
-        }
+//        if (urltype == 0) {
+//            FazH5WebViewUtils.finishWeb();
+//        }
+
     }
 
     @Override
@@ -405,7 +420,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            FazH5WebViewUtils.backPage("");
+//                            FazH5WebViewUtils.backPage("");
                             sendBrocastCloseTragetAct("BusinessWapAct");
                             LoginoutUtis.getInstance().doLogOut(getMContext());
                         }
@@ -425,7 +440,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                 }
                 break;
             case -2:// quit
-                FazH5WebViewUtils.backPage(event.object);
+//                FazH5WebViewUtils.backPage(event.object);
                 finish();
                 break;
             case -1:
@@ -436,7 +451,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                     tv_back_right.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            FazH5WebViewUtils.invoke(ObjectStr, "");
+                            FazH5WebViewUtils.invoke(fazWebView, ObjectStr, "");
                         }
                     });
                 }
@@ -538,7 +553,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        FazH5WebViewUtils.backPage("");
+//        FazH5WebViewUtils.backPage("");
     }
 
 

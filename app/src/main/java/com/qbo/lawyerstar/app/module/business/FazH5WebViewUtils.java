@@ -46,7 +46,7 @@ import static android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW;
 public class FazH5WebViewUtils {
 
 
-    public static WebView fazWebView;
+    //    public static WebView fazWebView;
     public static boolean isReady;
     public static final String H5CachePath = (File.separator + "lawyerH5");
     public static final String TAG = "lawyerH5";
@@ -61,11 +61,11 @@ public class FazH5WebViewUtils {
      *
      * @param context
      */
-    private static void initWebView(Context context) {
+    private static WebView initWebView(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             android.webkit.WebView.enableSlowWholeDocumentDraw();
         }
-        fazWebView = new WebView(context);
+        WebView fazWebView = new WebView(context);
         fazWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);      //设置 缓存模式
         fazWebView.getSettings().setDomStorageEnabled(true);// 开启 DOM storage API 功能
         fazWebView.getSettings().setJavaScriptEnabled(true);//
@@ -86,6 +86,7 @@ public class FazH5WebViewUtils {
                 return false;
             }
         });
+        return fazWebView;
     }
 
 
@@ -280,7 +281,7 @@ public class FazH5WebViewUtils {
     /**
      * @param context
      */
-    public static void initFAZH5Web(Context context, String url, boolean needInit) {
+    public static WebView initFAZH5Web(Context context,String url, boolean needInit) {
 //        String url = NET_URL.getInstance().getWapBaseUrl("?t=" + System.currentTimeMillis());
         if (url.contains("?")) {
             url += ("&tsec=" + System.currentTimeMillis());
@@ -301,9 +302,9 @@ public class FazH5WebViewUtils {
 
         syncCookie(context, url, cookieStrs);
 //        LoadingUtils.getLoadingUtils().showLoadingView(context);
-        if (needInit || fazWebView == null) {
-            initWebView(context);
-        }
+//        if (needInit || fazWebView == null) {
+        WebView   fazWebView =   initWebView(context);
+//        }
         fazWebView.loadUrl(url);
         fazWebView.setWebChromeClient(new WebChromeClient() {
             @Override
@@ -365,7 +366,7 @@ public class FazH5WebViewUtils {
                         //设置wenView加载图片资源
                         webView.getSettings().setLoadsImagesAutomatically(true);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
 
@@ -417,7 +418,7 @@ public class FazH5WebViewUtils {
                 }
             }
         });
-
+        return fazWebView;
 //        LoadingUtils.getLoadingUtils().hideLoadingView(context);
     }
 
@@ -426,7 +427,7 @@ public class FazH5WebViewUtils {
      * @param context
      * @param parentView
      */
-    public static void addWebView(Context context, ViewGroup parentView) {
+    public static void addWebView(Context context, WebView fazWebView, ViewGroup parentView) {
         if (fazWebView == null) {
 //            initWebView(context);
             return;
@@ -458,7 +459,7 @@ public class FazH5WebViewUtils {
      *
      * @param params
      */
-    public static void loadPage(Context context, String url, String params) {
+    public static void loadPage(Context context, WebView fazWebView, String url, String params) {
 //        if (fazWebView == null || !isReady) {
 //            initFAZH5Web(context, url, false);
 //            new Handler().postDelayed(new Runnable() {
@@ -487,7 +488,7 @@ public class FazH5WebViewUtils {
     /**
      * 跳转界面
      */
-    public static void backPage(String params) {
+    public static void backPage(WebView fazWebView, String params) {
         if (fazWebView != null) {
             // 只需要将第一种方法的loadUrl()换成下面该方法即可
             Log.i(TAG, "javascript:receiveAppMessages('back'," + params + ")");
@@ -502,15 +503,15 @@ public class FazH5WebViewUtils {
         }
     }
 
-    public static void finishWeb() {
+    public static void finishWeb(WebView fazWebView) {
         if (fazWebView != null) {
             try {
 //                fazWebView.stopLoading();
 //                fazWebView.removeAllViews();
                 fazWebView.loadUrl("");
-                if (fazWebView.getParent() != null) {
-                    ((ViewGroup) fazWebView.getParent()).removeAllViews();
-                }
+//                if (fazWebView.getParent() != null) {
+//                    ((ViewGroup) fazWebView.getParent()).removeAllViews();
+//                }
             } catch (Exception e) {
             }
         }
@@ -522,7 +523,7 @@ public class FazH5WebViewUtils {
      *
      * @param params
      */
-    public static void invoke(String method, String params) {
+    public static void invoke(WebView fazWebView, String method, String params) {
         if (fazWebView != null) {
             String methodName = "javascript:FAZApp_" + method + "(" + params + ")";
             Log.i(TAG, methodName);
