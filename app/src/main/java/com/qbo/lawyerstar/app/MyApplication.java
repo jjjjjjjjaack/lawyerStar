@@ -62,8 +62,7 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        getVersionInfo();
-        init();
+//        init();
     }
 
     private void getVersionInfo() {
@@ -97,7 +96,8 @@ public class MyApplication extends MultiDexApplication {
         });
     }
 
-    private void init() {
+    public void init() {
+        getVersionInfo();
         //1、可以通过关闭全局的默认循环引用检测
 //        JSON.DEFAULT_PARSER_FEATURE = Feature.DisableCircularReferenceDetect.getMask();
         Thread.setDefaultUncaughtExceptionHandler(CrashExpection.getInstance(this, CachePathUtil.getCachePathFile(File.separator + "crash").getAbsolutePath()));

@@ -44,7 +44,7 @@
     <string name="four_tab">我的</string>
     <string name="five_tab">大状圈</string>
 
-    <string name="home_frag_tx1">欢迎来到&appname;</string>
+    <string name="home_frag_tx1">欢迎您来到&appname;</string>
     <string name="home_frag_tx2">AI智能咨询</string>
     <string name="home_frag_tx2_2">智能客服为您答疑</string>
     <string name="home_frag_tx2_3">去使用</string>

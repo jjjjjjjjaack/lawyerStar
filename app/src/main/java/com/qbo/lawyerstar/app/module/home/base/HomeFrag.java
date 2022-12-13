@@ -110,6 +110,11 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
     float topViewMinY = 0;
     float topViewMaxY = 0;
 
+    @BindView(R.id.func1_ll)
+    View func1_ll;
+    @BindView(R.id.func2_ll)
+    View func2_ll;
+
     @Override
     public HomePresenter initPresenter() {
         return new HomePresenter();
@@ -127,8 +132,7 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
 
     @Override
     public void viewInitialization() {
-
-        version_tv.setText("v" + MyApplication.getApp().currentVersionName);
+//        version_tv.setText("v" + MyApplication.getApp().currentVersionName);
         function_rcy.setLayoutManager(new GridLayoutManager(getMContext(), 4));
         functionAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<FuntionBean>() {
             @Override
@@ -330,6 +334,11 @@ public class HomeFrag extends MvpFrag<IHomeView, BaseModel, HomePresenter> imple
                 }
             }
         });
+
+        int functionwidth = (ResourceUtils.getWindowsWidth(getActivity()) - ResourceUtils.dp2px(getMContext(), 33)) / 2;
+        int functionHeight = (int)(((double)184 / (double) 342) *  (double)functionwidth);
+        func1_ll.getLayoutParams().height = functionHeight;
+        func2_ll.getLayoutParams().height = functionHeight;
     }
 
     @Override

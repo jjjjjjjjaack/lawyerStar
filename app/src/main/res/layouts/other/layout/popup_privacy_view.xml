@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_ffffff_r8"
+    android:gravity="center"
+
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24"
+        android:text="服务条款和隐私保护协议"
+        android:textColor="#ff333333"
+        android:textSize="16sp" />
+
+
+    <TextView
+        android:id="@+id/connect_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        tools:text="欢迎使用法天平\n
+在使用我们的产品和服务之前，请您先阅读并了解《用户协议》和《隐私协议》
+我们将严格按照上述协议为您提供服务，保护您的信息安全，点击“同意”即表示您已阅读并同意全部条款，可以继续使用我们的产品和服务。"
+        android:textColor="#ff333333"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/agree_tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:text="同意"
+        android:textColor="#ffffffff"
+        android:textSize="13sp"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:background="@drawable/shape_02c4c3_r4"
+        android:layout_marginTop="@dimen/dp_28"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/dp_24"
+        />
+
+
+</LinearLayout>

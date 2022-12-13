@@ -21,9 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.qbo.lawyerstar.R;
+import com.qbo.lawyerstar.app.MyApplication;
 import com.qbo.lawyerstar.app.module.main.VpMainAct;
 import com.qbo.lawyerstar.app.module.mine.login.base.LoginAct;
 import com.qbo.lawyerstar.app.module.mine.protocol.ProtocolAct;
+import com.qbo.lawyerstar.app.module.popup.PopupPrivacyView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +40,7 @@ import framework.mvp1.base.util.PermissionUtils;
 import framework.mvp1.base.util.SpanManager;
 import framework.mvp1.base.util.StatusBarUtils;
 import framework.mvp1.base.util.T;
+import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.base.util.WeChatUtils;
 import framework.mvp1.views.other.IndicatorView;
 
@@ -87,6 +90,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
             if (countDownTime >= 1) {
                 if (countDown == null)
                     return false;
+                countDown.setVisibility(View.VISIBLE);
                 countDown.setText(countDownTime + "");
                 countDownTime--;
                 countDownHandler.sendEmptyMessageDelayed(0, 1000);
@@ -188,7 +192,32 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
                 return;
             }
         }
-        if (PermissionUtils.lacksPermissions(this, PERMISSIONS)) {//要求所有权限
+        checkAgree();
+    }
+
+    public void checkAgree() {
+        String agree_privacy = JnCache.getCache(getMContext(), "agree_privacy");
+        if (ToolUtils.isNull(agree_privacy) || !"1".equals(agree_privacy)) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PopupPrivacyView popupPrivacyView = new PopupPrivacyView(getMContext(), new PopupPrivacyView.PopupPrivacyInterface() {
+                        @Override
+                        public void agree() {
+                            checkAgreeAfter();
+                        }
+                    });
+                    popupPrivacyView.showCenter(guide_vp);
+                }
+            },1000);
+        } else {
+            checkAgreeAfter();
+        }
+    }
+
+    public void checkAgreeAfter() {
+        MyApplication.getApp().init();
+        if (PermissionUtils.lacksPermissions(SplashAct.this, PERMISSIONS)) {//要求所有权限
             ActivityCompat.requestPermissions(SplashAct.this, PERMISSIONS, 1);
         } else {
             SplashAct.this.doNotUpdate();
@@ -300,7 +329,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
         public Context context;
         public LayoutInflater mLayoutInflater;
-        public List<Integer> titletx = Arrays.asList(R.mipmap.bg_guide_0 , R.mipmap.bg_guide_0_1, R.mipmap.bg_guide_1);
+        public List<Integer> titletx = Arrays.asList(R.mipmap.bg_guide_0, R.mipmap.bg_guide_0_1, R.mipmap.bg_guide_1);
 
         public ViewPagerAdapter(Context context) {
             this.mLayoutInflater = LayoutInflater.from(context);

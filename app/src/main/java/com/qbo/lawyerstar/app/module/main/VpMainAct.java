@@ -234,13 +234,13 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
         tabs.get(3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!checkLogin()) {
-                    return;
-                }
-                if (!LawBusinessUtils.checkIsCompany(getMContext())) {
-                    T.showShort(getMContext(), "只有企业用户才能查看");
-                    return;
-                }
+//                if (!checkLogin()) {
+//                    return;
+//                }
+//                if (!LawBusinessUtils.checkIsCompany(getMContext())) {
+//                    T.showShort(getMContext(), "只有企业用户才能查看");
+//                    return;
+//                }
                 clickBootomTabView(view);
                 onFragmentChangeSelected(R.id.tab4);
             }

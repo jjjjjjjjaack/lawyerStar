@@ -124,7 +124,7 @@ public class BaseRXNetApi {
                 .addHeader(SYS_INFO_KEY, SYS_INFO_VALUE)
                 .addHeader("Appt", Appt)
                 .addHeader("Language", language)
-                .addHeader("Nowversion", MyApplication.getApp().currentVersionName).build();
+                .addHeader("Nowversion", MyApplication.getApp().currentVersionName==null?"":MyApplication.getApp().currentVersionName).build();
         return request;
     }
 
@@ -173,7 +173,7 @@ public class BaseRXNetApi {
                 .addHeader(SYS_INFO_KEY, SYS_INFO_VALUE)
                 .addHeader("Appt", Appt)
                 .addHeader("Language", language)
-                .addHeader("Nowversion", MyApplication.getApp().currentVersionName);
+                .addHeader("Nowversion", MyApplication.getApp().currentVersionName==null?"":MyApplication.getApp().currentVersionName);
         Request request = requestBuilder.build();
         Log.i(TAG, "post->" + url + ":{" + params_str + "}");
         return request;
@@ -235,7 +235,7 @@ public class BaseRXNetApi {
                 .addHeader("Accept", "application/json")
                 .addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt)
                 .addHeader("Language", language)
-                .addHeader("Nowversion", MyApplication.getApp().currentVersionName).build();
+                .addHeader("Nowversion", MyApplication.getApp().currentVersionName==null?"":MyApplication.getApp().currentVersionName).build();
         return request;
     }
 
@@ -281,7 +281,8 @@ public class BaseRXNetApi {
         }
         String language = LanguageUtils.getAppLanguage(MyApplication.getApp());
         Request request = requestBuilder.addHeader("Appverion", Isapp).addHeader("Token", userToken).addHeader("Accept", "application/json").
-                addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt).addHeader("Language", language).addHeader("Nowversion", MyApplication.getApp().currentVersionName).build();
+                addHeader(SYS_INFO_KEY, SYS_INFO_VALUE).addHeader("Appt", Appt).addHeader("Language", language)
+                .addHeader("Nowversion", MyApplication.getApp().currentVersionName==null?"":MyApplication.getApp().currentVersionName).build();
         return request;
     }
 

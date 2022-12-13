@@ -83,11 +83,11 @@ public class LawBusinessUtils {
         Intent intent = null;
         switch (functionType) {
             case FUNCTION_1_HTWK:
-                try {
-                    FTokenUtils.getToken(context, true);
-                } catch (NeedLoginException e) {
-                    return;
-                }
+//                try {
+//                    FTokenUtils.getToken(context, true);
+//                } catch (NeedLoginException e) {
+//                    return;
+//                }
                 intent = new Intent(context, ContractLibListAct.class);
                 context.startActivity(intent);
                 break;
