@@ -53,6 +53,7 @@ public class OrderListBean extends BaseBean {
     private String status;
     private String responder;
     public ContractLibBean contractDetail;
+    public List<ReplayBean> replayList;
 
     public String getCreate_time() {
         return create_time;
@@ -230,6 +231,14 @@ public class OrderListBean extends BaseBean {
         this.responder = responder;
     }
 
+    public List<ReplayBean> getReplayList() {
+        return replayList;
+    }
+
+    public void setReplayList(List<ReplayBean> replayList) {
+        this.replayList = replayList;
+    }
+
     public static class LawyerDetailBean extends BaseBean {
         /**
          * score_star : 0
@@ -323,6 +332,43 @@ public class OrderListBean extends BaseBean {
 
         public void setId(String id) {
             this.id = id;
+        }
+    }
+
+    public static class ReplayBean extends BaseBean{
+
+        /**
+         * responder : 1004
+         * response_time : 2022-12-13 11:47:57
+         * reply : 您好，请您简单描述一下案情，我们会根据案情与材料进行起草。
+         */
+
+        private String responder;
+        private String response_time;
+        private String reply;
+
+        public String getResponder() {
+            return responder;
+        }
+
+        public void setResponder(String responder) {
+            this.responder = responder;
+        }
+
+        public String getResponse_time() {
+            return response_time;
+        }
+
+        public void setResponse_time(String response_time) {
+            this.response_time = response_time;
+        }
+
+        public String getReply() {
+            return reply;
+        }
+
+        public void setReply(String reply) {
+            this.reply = reply;
         }
     }
 

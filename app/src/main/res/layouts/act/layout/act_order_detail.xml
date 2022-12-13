@@ -187,6 +187,15 @@
                         tools:text="¥120" />
 
                 </RelativeLayout>
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="@color/c_f4f4f4"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginRight="@dimen/dp_12"
+                    />
 
                 <TextView
                     android:id="@+id/content_detail_tv"
@@ -194,6 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_12"
                     android:layout_marginRight="@dimen/dp_13"
+                    android:layout_marginTop="@dimen/dp_12"
                     android:textColor="#ff333333"
                     android:textSize="14sp"
                     tools:text="我想知道微信截屏的聊天记录和转账记录是否可以作为证明他婚内出轨的证据，如果要离婚需要搜集哪些资料信息，可以分的财产和一定的家产和孩子抚养权。" />

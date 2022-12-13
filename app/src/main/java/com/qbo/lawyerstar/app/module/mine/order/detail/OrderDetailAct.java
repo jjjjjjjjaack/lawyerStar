@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.qbo.lawyerstar.R;
@@ -25,6 +26,8 @@ import com.willy.ratingbar.ScaleRatingBar;
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
+import framework.mvp1.base.adapter.MCommAdapter;
+import framework.mvp1.base.adapter.MCommVH;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.GlideUtils;
@@ -74,6 +77,8 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
 
     PopupToPayView popupToPayView;
 
+    public MCommAdapter mCommAdapter;
+
     @Override
     public OrderDetailPresenter initPresenter() {
         return new OrderDetailPresenter();
@@ -102,6 +107,25 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
             }
         });
 
+        reply_rcy.setLayoutManager(new LinearLayoutManager(getMContext()));
+        mCommAdapter = new MCommAdapter(getMContext(), new MCommVH.MCommVHInterface<OrderListBean.ReplayBean>() {
+            @Override
+            public int setLayout() {
+                return R.layout.item_orderdetail_replay_list;
+            }
+
+            @Override
+            public void initViews(Context context, MCommVH mCommVH, View itemView) {
+
+            }
+
+            @Override
+            public void bindData(Context context, MCommVH mCommVH, int position, OrderListBean.ReplayBean replayBean) {
+                mCommVH.setText(R.id.time_tv, replayBean.getResponse_time());
+                mCommVH.setText(R.id.replaycontent_tv, replayBean.getReply());
+            }
+        });
+        reply_rcy.setAdapter(mCommAdapter);
     }
 
     @Override
@@ -137,10 +161,10 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
         if (orderDetailBean != null) {
             presenter.orderDetailBean = orderDetailBean;
             try {
-                if(ToolUtils.isNull(orderDetailBean.getResponder())){
+                if (ToolUtils.isNull(orderDetailBean.getResponder())) {
                     noresponser_ll.setVisibility(View.VISIBLE);
                     responser_ll.setVisibility(View.GONE);
-                }else{
+                } else {
                     noresponser_ll.setVisibility(View.GONE);
                     responser_ll.setVisibility(View.VISIBLE);
                 }
@@ -149,14 +173,16 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
                 name_tv.setText(orderDetailBean.getLawyerDetail().getReal_name());
                 tag_tv.setText(orderDetailBean.getLawyerDetail().expertiseString);
                 status_tv.setText(orderDetailBean.getStatus_text());
-                content_title_tv.setText(orderDetailBean.getTitle());
+                content_title_tv.setText(orderDetailBean.getType_text());
                 content_detail_tv.setText(orderDetailBean.getContent());
                 if ("0".equals(orderDetailBean.getStatus())) {
                     bottom_ll.setVisibility(View.VISIBLE);
                 } else {
                     bottom_ll.setVisibility(View.GONE);
                 }
-                popupToPayView = new PopupToPayView(getMContext(),presenter.orderDetailBean.getType());
+                popupToPayView = new PopupToPayView(getMContext(), presenter.orderDetailBean.getType());
+
+                mCommAdapter.setData(orderDetailBean.replayList);
 
                 tocancle_tv.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -190,7 +216,7 @@ public class OrderDetailAct extends MvpAct<IOrderDetailView, BaseModel, OrderDet
                         popupToPayView.show(v, payBean, new PopupToPayView.ToPayInterface() {
                             @Override
                             public void toPayFinish(FOrderPayBean fOrderPayBean) {
-                                PaySuccessAct.openAct(getMContext(),fOrderPayBean);
+                                PaySuccessAct.openAct(getMContext(), fOrderPayBean);
                             }
 //                            @Override
 //                            public void alipayRequest() {

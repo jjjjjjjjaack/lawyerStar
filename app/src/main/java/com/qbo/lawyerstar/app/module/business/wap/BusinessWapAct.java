@@ -119,6 +119,9 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
     private String title;
     private String rightbtn;
 
+
+    boolean needLoadP;
+
     @Override
     public void baseInitialization() {
         setStatusBarComm(true);
@@ -203,8 +206,9 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                         FazH5WebViewUtils.addWebView(this, fazWebView, webview_fl);
 //                        fazWebView.loadUrl(h5URLBean.url);
                     } else {
-                        fazWebView = FazH5WebViewUtils.initFAZH5Web(this, "https://www.fatianping.com/front/#/pages/", false);
-                        FazH5WebViewUtils.loadPage(this, fazWebView, "", h5URLBean.toString());
+                        fazWebView = FazH5WebViewUtils.initFAZH5Web(this, "https://www.fatianping.com/front/#/", false);
+//                        FazH5WebViewUtils.loadPage(this, fazWebView, "", h5URLBean.toString());
+                        needLoadP = true;
                         FazH5WebViewUtils.addWebView(this, fazWebView, webview_fl);
                     }
                 }
@@ -241,7 +245,7 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
         if (bean != null) {
             setMTitle(bean.label);
             fazWebView = FazH5WebViewUtils.initFAZH5Web(this, bean.page, false);
-            webview_fl.addView(fazWebView,new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT));
+            webview_fl.addView(fazWebView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 //            FazH5WebViewUtils.addWebView(this, fazWebView, webview_fl);
 //            fazWebView.loadUrl(bean.page);
 //            FazH5WebViewUtils.initFAZH5Web(this, bean.page, false);
@@ -443,7 +447,11 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 //                FazH5WebViewUtils.backPage(event.object);
                 finish();
                 break;
-            case -1:
+            case -1://加载完成
+                if (h5URLBean != null && needLoadP) {
+                    needLoadP = false;
+                    FazH5WebViewUtils.loadPage(this, fazWebView, "", h5URLBean.toString());
+                }
                 break;
             case 0:
                 if (tv_back_right != null) {
