@@ -376,27 +376,36 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
 
     public void choosePhoto(String acceptTypes) {
         isSelect = true;
-//        PictureSelector.create((Activity) getMContext())
-//                .openGallery(PictureMimeType.ofImage())
-//                .selectionMode(PictureConfig.SINGLE)// 多选 or 单选
-//                .isCamera(true)// 是否显示拍照按钮
-//                .isGif(false)// 是否显示gif图片
-//                .isPreviewImage(true)// 是否可预览图片
-//                .loadImageEngine(GlideEngine.createGlideEngine()) // Please refer to the Demo GlideEngine.java
-//                .isEnableCrop(false)// 是否裁剪
-//                .isCompress(true)// 是否压缩
-//                .freeStyleCropEnabled(false)// 裁剪框是否可拖拽
-//                .circleDimmedLayer(false)// 是否圆形裁剪
-//                .withAspectRatio(1, 1)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-//                .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
-//                .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
-//                .forResult(CHOOSE_REQUEST);
-
-        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-        i.addCategory(Intent.CATEGORY_OPENABLE);
-        i.setType(acceptTypes);
-        startActivityForResult(Intent.createChooser(i, "选择文件"), FILECHOOSER_RESULTCODE);
-
+        if (acceptTypes == null) {
+            acceptTypes = "*/*";
+        }
+        if (acceptTypes.contains("image")) {
+            PictureSelector.create((Activity) getMContext())
+                    .openGallery(PictureMimeType.ofImage())
+                    .selectionMode(PictureConfig.SINGLE)// 多选 or 单选
+                    .isCamera(true)// 是否显示拍照按钮
+                    .isGif(false)// 是否显示gif图片
+                    .isPreviewImage(true)// 是否可预览图片
+                    .loadImageEngine(GlideEngine.createGlideEngine()) // Please refer to the Demo GlideEngine.java
+                    .isEnableCrop(false)// 是否裁剪
+                    .isCompress(true)// 是否压缩
+                    .freeStyleCropEnabled(false)// 裁剪框是否可拖拽
+                    .circleDimmedLayer(false)// 是否圆形裁剪
+                    .withAspectRatio(1, 1)// 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
+                    .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
+                    .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
+                    .forResult(CHOOSE_REQUEST);
+        } else if (acceptTypes.contains("video")) {
+            PictureSelector.create((Activity) getMContext()).openGallery(PictureMimeType.ofVideo())
+                    .selectionMode(PictureConfig.SINGLE)// 多选 or 单选
+                    .isCamera(true)
+                    .forResult(CHOOSE_REQUEST);
+        } else {
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+            i.setType(acceptTypes);
+            startActivityForResult(Intent.createChooser(i, "选择文件"), FILECHOOSER_RESULTCODE);
+        }
     }
 
     Boolean isLogut = false;
