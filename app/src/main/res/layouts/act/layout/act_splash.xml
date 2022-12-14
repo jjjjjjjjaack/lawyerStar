@@ -4,21 +4,22 @@
     android:id="@+id/splash_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c_ffffff">
+    android:background="@color/c_ffffff"
+   >
 
     <RelativeLayout
         android:id="@+id/splash_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
+        android:background="#ff00AEEF"
         >
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/bg_splash_11"
             android:scaleType="centerInside"
-            ></ImageView>
+            android:src="@mipmap/bg_splash_22"></ImageView>
 
         <TextView
             android:id="@+id/countDown"

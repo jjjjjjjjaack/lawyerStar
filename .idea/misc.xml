@@ -73,6 +73,7 @@
         <entry key="app/src/main/res/layouts/other/layout/view_refreshlayout_recycleview.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/view_title_comm_2.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/view_title_comm_3.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/view_welcome_guide.xml" value="0.23697916666666666" />
       </map>
     </option>
   </component>

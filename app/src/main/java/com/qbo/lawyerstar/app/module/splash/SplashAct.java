@@ -329,7 +329,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
         public Context context;
         public LayoutInflater mLayoutInflater;
-        public List<Integer> titletx = Arrays.asList(R.mipmap.bg_guide_0, R.mipmap.bg_guide_0_1, R.mipmap.bg_guide_1);
+        public List<Integer> titletx = Arrays.asList(R.mipmap.bg_guide_22_1, R.mipmap.bg_guide_22_2, R.mipmap.bg_guide_22_3);
 
         public ViewPagerAdapter(Context context) {
             this.mLayoutInflater = LayoutInflater.from(context);
@@ -366,9 +366,10 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
                 bg_iv.setImageResource(res);
                 if (postiton != titletx.size() - 1) {
                     click_v.setVisibility(View.GONE);
+                    itemView.setOnClickListener(null);
                 } else {
-                    click_v.setVisibility(View.VISIBLE);
-                    click_v.setOnClickListener(new View.OnClickListener() {
+//                    click_v.setVisibility(View.VISIBLE);
+                    itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             JnCache.saveCache(SplashAct.this, "first_insert", "1");
