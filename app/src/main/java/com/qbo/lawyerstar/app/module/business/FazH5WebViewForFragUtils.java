@@ -184,6 +184,14 @@ public class FazH5WebViewForFragUtils {
             Log.i(TAG, "toIndex(" + o + ")");
             EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(13, o));
         }
+
+
+        @JavascriptInterface
+        public void previewImg(String o) {
+            Log.i(TAG, "previewImg(" + o + ")");
+            EventBus.getDefault().post(new CEventUtils.H5ForFragEvent(14, o));
+        }
+
         //页面加载完成
 //        @JavascriptInterface
 //        public void receiveAppMessages(String method, String params) {

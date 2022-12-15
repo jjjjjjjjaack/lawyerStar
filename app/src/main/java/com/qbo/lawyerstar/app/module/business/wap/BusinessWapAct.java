@@ -50,6 +50,7 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
+import cc.shinichi.library.ImagePreview;
 import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.FileProviderUtil;
@@ -562,6 +563,30 @@ public class BusinessWapAct extends MvpAct<IBusinessWapView, BaseModel, Business
                 intent.putExtra("CLOSE_EXARTACT_KEY", "VpMainAct");
                 sendBroadcast(intent);
                 finish();
+                break;
+            case 14:
+                try {
+                    JSONObject jsonObject = JSONObject.parseObject(event.object);
+                    List<String> images = JSONObject.parseArray(jsonObject.getString("urls"), String.class);
+                    int curIndex = ToolUtils.String2Int(jsonObject.getString("curIndex"));
+                    String curUrl = jsonObject.getString("curUrl");
+                    if (images != null && images.size() > 0) {
+                        ImagePreview
+                                .getInstance()
+                                .setContext(getMContext())
+                                .setImageList(images)
+                                .setIndex(curIndex)
+//                            .setImage(url)
+                                .start();
+                    } else {
+                        ImagePreview
+                                .getInstance()
+                                .setContext(getMContext())
+                                .setImage(curUrl)
+                                .start();
+                    }
+                } catch (Exception e) {
+                }
                 break;
         }
 
