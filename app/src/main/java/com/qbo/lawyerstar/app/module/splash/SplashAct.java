@@ -329,7 +329,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
         public Context context;
         public LayoutInflater mLayoutInflater;
-        public List<Integer> titletx = Arrays.asList(R.mipmap.bg_guide_22_1, R.mipmap.bg_guide_22_2, R.mipmap.bg_guide_22_3);
+        public List<Integer> titletx = Arrays.asList(R.mipmap.bg_guide_22_1, R.mipmap.bg_guide_22_2, R.mipmap.bg_guide_33_3);
 
         public ViewPagerAdapter(Context context) {
             this.mLayoutInflater = LayoutInflater.from(context);

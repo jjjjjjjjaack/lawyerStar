@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:src="@mipmap/bg_splash_22"></ImageView>
+            android:src="@mipmap/bg_splash_33"></ImageView>
 
         <TextView
             android:id="@+id/countDown"
