@@ -7,15 +7,18 @@ import android.widget.TextView;
 import com.qbo.lawyerstar.R;
 import com.qbo.lawyerstar.app.module.mine.protocol.ProtocolAct;
 
+import framework.mvp1.base.util.ActivityStackUtils;
 import framework.mvp1.base.util.JnCache;
 import framework.mvp1.base.util.ResourceUtils;
 import framework.mvp1.base.util.SpanManager;
+import framework.mvp1.base.util.ToolUtils;
 import framework.mvp1.views.pop.PopupBaseView;
 
 public class PopupPrivacyView extends PopupBaseView {
 
     TextView connect_tv;
     View agree_tv;
+    View disagree_tv;
 
     private PopupPrivacyInterface popupPrivacyInterface;
 
@@ -62,6 +65,16 @@ public class PopupPrivacyView extends PopupBaseView {
             }
         }).setForegroundColorSpan(pos3, pos4, context.getResources().getColor(R.color.c_02c4c3));
         connect_tv.setText(spanManager.toBuild());
+        disagree_tv = popView.findViewById(R.id.disagree_tv);
+        disagree_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ActivityStackUtils.getInstance().clearAllActivity();
+                // 退出程序
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(0);
+            }
+        });
         agree_tv = popView.findViewById(R.id.agree_tv);
         agree_tv.setOnClickListener(new View.OnClickListener() {
             @Override

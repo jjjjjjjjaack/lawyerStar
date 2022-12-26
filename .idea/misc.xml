@@ -45,7 +45,7 @@
         <entry key="app/src/main/res/layouts/act/layout/act_register.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_select_usertype.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_setting.xml" value="0.19182739257812495" />
-        <entry key="app/src/main/res/layouts/act/layout/act_splash.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/act/layout/act_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layouts/act/layout/act_userinfo.xml" value="0.25" />
         <entry key="app/src/main/res/layouts/act/layout/act_vip_intro.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/act/layout/act_vip_intro_v2.xml" value="0.1" />
@@ -68,6 +68,7 @@
         <entry key="app/src/main/res/layouts/other/layout/item_vip_typeprice_list.xml" value="0.10625" />
         <entry key="app/src/main/res/layouts/other/layout/mine_pickerview_time.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/popup_one_wheel_view.xml" value="0.2359375" />
+        <entry key="app/src/main/res/layouts/other/layout/popup_privacy_view.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layouts/other/layout/popup_select_city.xml" value="0.2359375" />
         <entry key="app/src/main/res/layouts/other/layout/popup_tip_view_withbtn.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layouts/other/layout/view_refreshlayout_recycleview.xml" value="0.2359375" />

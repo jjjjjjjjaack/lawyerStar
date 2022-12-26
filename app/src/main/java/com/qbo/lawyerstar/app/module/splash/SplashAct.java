@@ -36,7 +36,8 @@ import framework.mvp1.base.f.BaseModel;
 import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.FTokenUtils;
 import framework.mvp1.base.util.JnCache;
-import framework.mvp1.base.util.PermissionUtils;
+//import framework.mvp1.base.util.PermissionUtils;
+import framework.mvp1.base.util.PermissionsManager;
 import framework.mvp1.base.util.SpanManager;
 import framework.mvp1.base.util.StatusBarUtils;
 import framework.mvp1.base.util.T;
@@ -145,7 +146,7 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case 1:
+            case PermissionsManager.mRequestCode:
                 SplashAct.this.doNotUpdate();
                 break;
         }
@@ -217,11 +218,22 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
     public void checkAgreeAfter() {
         MyApplication.getApp().init();
-        if (PermissionUtils.lacksPermissions(SplashAct.this, PERMISSIONS)) {//要求所有权限
-            ActivityCompat.requestPermissions(SplashAct.this, PERMISSIONS, 1);
-        } else {
-            SplashAct.this.doNotUpdate();
-        }
+        PermissionsManager.getInstance().checkPermissions(SplashAct.this, PERMISSIONS, new PermissionsManager.IPermissionsResult() {
+            @Override
+            public void passPermissions() {
+                SplashAct.this.doNotUpdate();
+            }
+
+            @Override
+            public void rejectPermissions() {
+
+            }
+        });
+//        if (PermissionUtils.lacksPermissions(SplashAct.this, PERMISSIONS)) {//要求所有权限
+//            ActivityCompat.requestPermissions(SplashAct.this, PERMISSIONS, 1);
+//        } else {
+//            SplashAct.this.doNotUpdate();
+//        }
     }
 
     @Override
@@ -233,13 +245,12 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
      * 进入主界面
      */
     private void intentMainAct() {
-
-        try {
-            FTokenUtils.getToken(this, false);
+//        try {
+//            FTokenUtils.getToken(this, false);
             VpMainAct.openMainAct(getMContext());
-        } catch (NeedLoginException e) {
-            showLoginView();
-        }
+//        } catch (NeedLoginException e) {
+//            showLoginView();
+//        }
     }
 
     /**

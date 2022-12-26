@@ -397,7 +397,7 @@ public class LawBusinessUtils {
 
             @Override
             public void onSuccess(AboutUsBean bean) throws Exception {
-                String str = "如需购买会员,请联系我司业务人员\n请拨打\n";
+                String str = "如需购买会员,请联系我司客服人员\n请拨打\n";
                 int pos1 = str.length();
                 str += bean.getConsumer_hotline();
                 PopupTipWithBtnView.showPopTipView(context, "开通会员",
