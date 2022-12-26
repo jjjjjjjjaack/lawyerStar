@@ -218,17 +218,18 @@ public class SplashAct extends MvpAct<ISplashView, BaseModel, SplashPresenter> i
 
     public void checkAgreeAfter() {
         MyApplication.getApp().init();
-        PermissionsManager.getInstance().checkPermissions(SplashAct.this, PERMISSIONS, new PermissionsManager.IPermissionsResult() {
-            @Override
-            public void passPermissions() {
-                SplashAct.this.doNotUpdate();
-            }
-
-            @Override
-            public void rejectPermissions() {
-
-            }
-        });
+        SplashAct.this.doNotUpdate();
+//        PermissionsManager.getInstance().checkPermissions(SplashAct.this, PERMISSIONS, new PermissionsManager.IPermissionsResult() {
+//            @Override
+//            public void passPermissions() {
+//                SplashAct.this.doNotUpdate();
+//            }
+//
+//            @Override
+//            public void rejectPermissions() {
+//
+//            }
+//        });
 //        if (PermissionUtils.lacksPermissions(SplashAct.this, PERMISSIONS)) {//要求所有权限
 //            ActivityCompat.requestPermissions(SplashAct.this, PERMISSIONS, 1);
 //        } else {

@@ -1,5 +1,6 @@
 package com.qbo.lawyerstar.app.module.contract.library.detail;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -39,11 +40,18 @@ import framework.mvp1.base.f.MvpAct;
 import framework.mvp1.base.util.CachePathUtil;
 import framework.mvp1.base.util.DownloadUtil;
 import framework.mvp1.base.util.FileProviderUtil;
+import framework.mvp1.base.util.PermissionsManager;
 import framework.mvp1.base.util.ResourceUtils;
 import framework.mvp1.base.util.T;
 
 public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseModel
         , ContractLibDetailPresenter> implements IContractLibDetailView {
+
+    // 所需的全部权限
+    public String[] PERMISSIONS = new String[]{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+    };
 
     public static void openAct(Context context, ContractLibBean bean) {
         Intent intent = new Intent(context, ContractLibDetailAct.class);
@@ -229,7 +237,17 @@ public class ContractLibDetailAct extends MvpAct<IContractLibDetailView, BaseMod
             topay_tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.confirmDownload();
+                    PermissionsManager.getInstance().checkPermissions(ContractLibDetailAct.this, PERMISSIONS, new PermissionsManager.IPermissionsResult() {
+                        @Override
+                        public void passPermissions() {
+                            presenter.confirmDownload();
+                        }
+
+                        @Override
+                        public void rejectPermissions() {
+                         T.showShort(getMContext(),"请先前往设置授权相关权限");
+                        }
+                    });
                 }
             });
         } else {
