@@ -222,11 +222,11 @@ public class VpMainAct extends MvpAct<IMainView, BaseModel, MainPresenter> imple
                 if (!LawBusinessUtils.checkIsRz(getMContext(), true)) {
                     return;
                 }
-                if (!LawBusinessUtils.checkIsVip(getMContext())) {
-//                    T.showShort(getMContext(), "请先开通VIP");
-                    LawBusinessUtils.showVipTipView(getMContext(), fragment_container);
-//                    return;
-                }
+//                if (!LawBusinessUtils.checkIsVip(getMContext())) {
+////                    T.showShort(getMContext(), "请先开通VIP");
+//                    LawBusinessUtils.showVipTipView(getMContext(), fragment_container);
+////                    return;
+//                }
                 clickBootomTabView(view);
                 onFragmentChangeSelected(R.id.tab3);
             }

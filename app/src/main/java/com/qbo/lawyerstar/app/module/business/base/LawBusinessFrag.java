@@ -119,6 +119,11 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (!LawBusinessUtils.checkIsVip(getMContext())) {
+//                    T.showShort(getMContext(), "请先开通VIP");
+                            LawBusinessUtils.showVipTipView(getMContext(), view);
+                            return;
+                        }
                         LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
                     }
                 });
@@ -155,6 +160,11 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (!LawBusinessUtils.checkIsVip(getMContext())) {
+//                    T.showShort(getMContext(), "请先开通VIP");
+                            LawBusinessUtils.showVipTipView(getMContext(), view);
+                            return;
+                        }
                         LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
                     }
                 });
@@ -187,6 +197,11 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                 mCommVH.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (!LawBusinessUtils.checkIsVip(getMContext())) {
+//                    T.showShort(getMContext(), "请先开通VIP");
+                            LawBusinessUtils.showVipTipView(getMContext(), view);
+                            return;
+                        }
                         LawBusinessUtils.jumpAction(getMContext(), bean.functionid, "");
                     }
                 });
@@ -249,7 +264,7 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                                 gotoActivity(VipIntroAct.class);
                             }
                         });
-                    }else{
+                    } else {
                         vipbg_iv.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -263,7 +278,7 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
                         });
                     }
                     GlideUtils.loadImageDefult(getMContext(), userInfoBean.rank_img, vipbg_iv);
-                }catch (Exception e){
+                } catch (Exception e) {
                 }
             }
 
@@ -275,7 +290,7 @@ public class LawBusinessFrag extends MvpFrag<ILawBusinessView, BaseModel, LawBus
 
     }
 
-    public void refresh(){
+    public void refresh() {
         showData();
     }
 
